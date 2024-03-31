@@ -1,7 +1,7 @@
 import {motion, useScroll} from 'framer-motion';
 import {useRef} from 'react';
 
-import useMediaQuery from '@/hooks/useMediaQuery';
+import useMediaQuery from '../../hooks/useMediaQuery';
 
 export default function Line() {
     const ref = useRef(null);

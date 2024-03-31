@@ -4,7 +4,7 @@ import type {FormEvent, MouseEvent} from 'react';
 import {useState} from 'react';
 import {BsInputCursorText} from 'react-icons/bs';
 
-import Axios from '@/functions/axios';
+import Axios from '../../../functions/axios';
 
 type Status = 'success' | 'error' | 'warning';
 

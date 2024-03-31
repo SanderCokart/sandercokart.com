@@ -1,86 +1,59 @@
-const colors = require('tailwindcss/colors');
-const {fontFamily, screens} = require('tailwindcss/defaultTheme');
-const plugin = require('tailwindcss/plugin');
+import typography from "@tailwindcss/typography";
+
+const tailwindPlugins = [typography];
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content:  [
-        './app/**/*.{js,ts,jsx,tsx}',
-        './pages/**/*.{js,ts,jsx,tsx}',
-        './lib/**/*.{js,ts,jsx,tsx}'],
-    darkMode: ['class'],
-    theme:    {
+    content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
+    darkMode: "class",
+    theme: {
+        container: {
+            center: true,
+            padding: "2rem",
+            screens: {
+                "2xl": "1400px",
+            },
+        },
         extend: {
-            animation:      {
-                'ring-pulse-primary':   'ring-pulse-primary 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                'ring-pulse-secondary': 'ring-pulse-secondary 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+            fontFamily: {
+                sans: ['var(--font-geist-sans)'],
+                mono: ['var(--font-geist-mono)'],
+                digital: ["var(--font-digital)"],
             },
-            keyframes:      {
-                'ring-pulse-primary':   {
-                    '0%':   {boxShadow: `0 0 0 0 ${colors.violet[700]}AA`},
-                    '100%': {boxShadow: `0 0 0 6px ${colors.violet[700]}00`}
-                },
-                'ring-pulse-secondary': {
-                    '0%':   {boxShadow: `0 0 0 0 ${colors.green[400]}AA`},
-                    '100%': {boxShadow: `0 0 0 6px ${colors.green[400]}00`}
-                }
+            borderRadius: {
+                DEFAULT: "var(--radius)",
+                lg: "var(--radius)",
+                md: "calc(var(--radius) - 2px)",
+                sm: "calc(var(--radius) - 4px)",
             },
-            fontFamily:     {
-                sans:      [...fontFamily.sans],
-                'digital': 'var(--fontLetsGoDigital)'
-            }, colors:      {
-                primary:        colors.violet[700],
-                primaryLight:   colors.violet[500],
-                primaryDark:    colors.violet[900],
-                secondary:      colors.green[700],
-                secondaryLight: colors.green[400],
-                secondaryDark:  colors.green[900],
-                react:          '#61dafb',
-                laravel:        '#ff2d20',
-                vue:            '#42b883'
-            }, screens:     {
-                'sm':  '640px',
-                'md':  '768px',
-                'lg':  '1024px',
-                'xl':  '1280px',
-                '2xl': '1536px',
-                '3xl': '1920px',
-                '4xl': '2048px',
-                '5xl': '2560px',
-                '6xl': '3840px'
-            }, dropShadow:  ({theme}) => ({
-                'light':     `0 0px 10px rgba(0, 0, 0, 0.5)`,
-                'dark':      `0 0px 10px ${theme('colors.primary')}`,
-                'react':     `0 0px 10px ${theme('colors.react')}`,
-                'laravel':   `0 0px 10px ${theme('colors.laravel')}`,
-                'vue':       `0 0px 10px ${theme('colors.vue')}`,
-                'next':      `0 0px 10px #fff`,
-                'primary':   `0 0px 10px ${theme('colors.primary')}`,
-                'secondary': `0 0px 10px ${theme('colors.secondaryLight')}`
-            }), textShadow: ({theme}) => ({
-                'react':   `0 0 50px ${theme('colors.react')}`,
-                'laravel': `0 0px 50px ${theme('colors.laravel')}`,
-                'vue':     `0 0px 50px ${theme('colors.vue')}`,
-                'next':    `0 0px 50px #fff`,
-                'none':    'none'
-            }),
-            minWidth:       {...screens}, maxWidth: {...screens}, width: {...screens},
-            minHeight:      {
-                'desktop': 'calc(100vh - 68px)',
-                'between': 'calc(100vh - 68px - 44px)',
-                'mobile':  'calc(100vh - 56px - 44px)'
-            }
-        }
+            colors: {
+                background: "hsl(var(--background))",
+                foreground: "hsl(var(--foreground))",
+
+                muted: "hsl(var(--muted))",
+                "muted-foreground": "hsl(var(--muted-foreground))",
+
+                border: "hsl(var(--border))",
+                input: "hsl(var(--input))",
+                ring: "hsl(var(--ring))",
+
+                primary: "hsl(var(--primary))",
+                "primary-foreground": "hsl(var(--primary-foreground))",
+
+                secondary: "hsl(var(--secondary))",
+                "secondary-foreground": "hsl(var(--secondary-foreground))",
+
+                accent: "hsl(var(--accent))",
+                "accent-foreground": "hsl(var(--accent-foreground))",
+
+                destructive: "hsl(var(--destructive))",
+                "destructive-foreground": "hsl(var(--destructive-foreground))",
+
+                react: "hsl(193 95% 68%)",
+                laravel: "hsl(3 100% 56%)",
+                vue: "hsl(153 47% 49%)",
+            },
+        },
     },
-    plugins:  [
-        require('@tailwindcss/typography'),
-        require('@tailwindcss/forms'),
-        plugin(function ({matchUtilities, theme}) {
-            matchUtilities({
-                'text-shadow': (value) => ({
-                    textShadow: value
-                })
-            }, {values: theme('textShadow')});
-        })
-    ]
+    plugins: tailwindPlugins,
 };
