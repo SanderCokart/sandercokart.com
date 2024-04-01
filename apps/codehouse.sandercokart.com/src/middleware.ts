@@ -1,18 +1,14 @@
-// middleware.ts
-import { createI18nMiddleware } from 'next-international/middleware';
+import createMiddleware from 'next-intl/middleware';
 
-import { NextRequest } from 'next/server';
-
-const I18nMiddleware = createI18nMiddleware({
+export default createMiddleware({
+  // A list of all locales that are supported
   locales: ['en', 'nl'],
+
+  // Used when no locale matches
   defaultLocale: 'en',
-  urlMappingStrategy: 'rewriteDefault',
 });
 
-export function middleware(request: NextRequest) {
-  return I18nMiddleware(request);
-}
-
 export const config = {
-  matcher: ['/((?!api|static|.*\\..*|_next|favicon.ico|robots.txt).*)'],
+  // Match only internationalized pathnames
+  matcher: ['/', '/(en|nl)/:path*'],
 };

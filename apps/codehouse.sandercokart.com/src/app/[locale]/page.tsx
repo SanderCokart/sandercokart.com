@@ -1,13 +1,19 @@
+import { unstable_setRequestLocale } from 'next-intl/server';
+
 import { Hero } from './components/hero';
 
-export default async function LandingPage({ params: { locale } }: { params: { locale: string } }) {
-  return (
-    <>
-      <Hero />
-    </>
-  );
+export default async function LandingPage({
+  params: { locale },
+}: {
+  params: {
+    locale: 'en' | 'nl';
+  };
+}) {
+  unstable_setRequestLocale(locale);
+
+  return <Hero />;
 }
 
-export const generateStaticParams = async () => {
-  return [{ params: { locale: 'nl' } }, { params: { locale: 'en' } }];
-};
+export function generateStaticParams() {
+  return ['en', 'nl'].map(locale => ({ locale }));
+}

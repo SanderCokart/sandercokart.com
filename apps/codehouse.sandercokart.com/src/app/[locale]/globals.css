@@ -11,6 +11,15 @@
     }
   }
 
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+
   :root {
     --background: 0 0% 98%;
     --foreground: 222.2 84% 4.9%;
@@ -66,3 +75,26 @@
     --ring: 240 4.9% 83.9%;
   }
 }
+
+
+/*::-webkit-scrollbar {*/
+/*    @apply w-1.5 h-1.5 md:w-3 md:h-3*/
+/*  }*/
+
+/*  !* Track *!*/
+/*::-webkit-scrollbar-track {*/
+/*  @apply bg-primaryLight dark:bg-primaryDark*/
+/*}*/
+
+/*!* Handle *!*/
+/*::-webkit-scrollbar-thumb {*/
+/*  @apply bg-secondaryLight dark:bg-secondaryLight*/
+/*}*/
+
+/*!* Handle on hover *!*/
+/*::-webkit-scrollbar-thumb:hover {*/
+/*  @apply bg-secondary dark:bg-secondary*/
+/*}*/
+/*swiper-pagination-bullet {*/
+/*  @apply w-2 md:w-3 h-2 md:h-3 bg-secondaryLight ring-1 ring-primaryLight;*/
+/*}*/

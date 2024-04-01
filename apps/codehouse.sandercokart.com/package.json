@@ -22,6 +22,7 @@
     "next-i18n-router": "^5.4.0",
     "next-i18next": "^15.2.0",
     "next-international": "^1.2.4",
+    "next-intl": "^3.10.0",
     "next-themes": "^0.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -36,7 +37,6 @@
     "typescript": "5.4.3"
   },
   "devDependencies": {
-    "@sandercokart/eslint-config": "^1.0.1",
     "@sandercokart/prettier-config": "^2.0.2",
     "@types/node": "20.12.2",
     "@types/react": "18.2.73",
