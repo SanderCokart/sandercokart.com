@@ -1,12 +1,11 @@
-import { getTranslations } from 'next-intl/server';
-
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 import { links } from '@/lib/nav-links';
+import { Link } from '@/lib/navigation';
 import { cn } from '@/lib/utils';
 
-export async function Links({ className }: { className?: string }) {
-  const t = await getTranslations('nav');
+export function Links({ className }: { className?: string }) {
+  const t = useTranslations('nav');
 
   return (
     <div className={cn('flex-wrap justify-center gap-x-8 gap-y-1 justify-self-center text-2xl', className)}>

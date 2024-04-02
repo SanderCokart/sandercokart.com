@@ -12,13 +12,31 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background font-sans text-foreground overflow-y-scroll;
   }
 
   * {
     @apply border-border;
   }
 
+  ::-webkit-scrollbar {
+    @apply h-1.5 w-1.5 md:h-3 md:w-3;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    @apply bg-primary;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    @apply bg-accent/90;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-accent;
+  }
 
   :root {
     --background: 0 0% 98%;
@@ -52,7 +70,7 @@
   }
 
   .dark {
-    --background: 0 0% 9;
+    --background: 240 6% 10%;
     --foreground: 0 0% 100%;
 
     --muted: 240 3.7% 15.9%;
@@ -76,25 +94,6 @@
   }
 }
 
-
-/*::-webkit-scrollbar {*/
-/*    @apply w-1.5 h-1.5 md:w-3 md:h-3*/
-/*  }*/
-
-/*  !* Track *!*/
-/*::-webkit-scrollbar-track {*/
-/*  @apply bg-primaryLight dark:bg-primaryDark*/
-/*}*/
-
-/*!* Handle *!*/
-/*::-webkit-scrollbar-thumb {*/
-/*  @apply bg-secondaryLight dark:bg-secondaryLight*/
-/*}*/
-
-/*!* Handle on hover *!*/
-/*::-webkit-scrollbar-thumb:hover {*/
-/*  @apply bg-secondary dark:bg-secondary*/
-/*}*/
 /*swiper-pagination-bullet {*/
 /*  @apply w-2 md:w-3 h-2 md:h-3 bg-secondaryLight ring-1 ring-primaryLight;*/
 /*}*/

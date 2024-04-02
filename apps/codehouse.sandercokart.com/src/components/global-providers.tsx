@@ -1,10 +1,10 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { ThemeProvider } from './theme-provider';
 
 export function GlobalProviders({ children }: { children: ReactNode }) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+    <ThemeProvider disableTransitionOnChange enableSystem attribute="class" defaultTheme="system">
       {children}
     </ThemeProvider>
   );

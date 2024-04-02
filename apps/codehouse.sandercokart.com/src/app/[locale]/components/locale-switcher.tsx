@@ -23,7 +23,7 @@ export function LocaleSwitcher() {
       className={cn(
         'pointer-events-none flex min-w-[94px] justify-center gap-2 [&:hover_svg:hover]:opacity-100 [&:hover_svg]:opacity-50 [&_svg]:pointer-events-auto',
       )}>
-      <Link href="/" hrefLang="en" locale="en" rel="alternate" scroll={false}>
+      <Link href={`/${pathname}`} hrefLang="en" locale="en" rel="alternate" scroll={false}>
         <GBFlag
           className={cn('h-5 cursor-pointer transition-opacity md:h-7', {
             'opacity-50': active_locale !== 'en',
@@ -32,8 +32,8 @@ export function LocaleSwitcher() {
           onClick={() => setLocale('en')}
         />
       </Link>
-      <div className="h-5 border-r-2 !opacity-100 md:h-7" />
-      <Link href="/" hrefLang="nl" locale="nl" rel="alternate" scroll={false}>
+      <div className="h-5 border-r-2 border-white !opacity-100 md:h-7" />
+      <Link href={`/${pathname}`} hrefLang="nl" locale="nl" rel="alternate" scroll={false}>
         <NLFlag
           className={cn('h-5 cursor-pointer transition-opacity md:h-7', {
             'opacity-50': active_locale !== 'nl',

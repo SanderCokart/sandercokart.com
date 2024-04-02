@@ -11,7 +11,12 @@ export default async function LandingPage({
 }) {
   unstable_setRequestLocale(locale);
 
-  return <Hero />;
+  return (
+    <main>
+      <Hero />
+      <div className="h-96" />
+    </main>
+  );
 }
 
 export function generateStaticParams() {

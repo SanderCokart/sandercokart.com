@@ -1,8 +1,8 @@
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 
 export function NamedLogo() {
   return (
-    <Link href="/apps/codehouse.sandercokart.com/public">
+    <Link href="/">
       <h1 className="group flex w-min flex-col whitespace-nowrap font-digital">
         <span className="text-base !leading-none transition-colors  group-hover:text-accent sm:text-3xl">
           Sander's CodeHouse

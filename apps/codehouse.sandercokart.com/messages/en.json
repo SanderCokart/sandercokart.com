@@ -57,5 +57,9 @@
     "testimonials": {
       "adequaat": "Sander is an ambitious programmer at the beginning of his career. Sander is technically very good and can quickly switch. We would definitely hire Sander again."
     }
+  },
+  "not-found-page": {
+    "message": "This page does not exist.",
+    "back-to-front": "Go back to the front page"
   }
 }
