@@ -1,6 +1,9 @@
 import { unstable_setRequestLocale } from 'next-intl/server';
 
-import { Hero } from './components/hero';
+import { Portfolio } from '@/app/[locale]/sections/Portfolio';
+
+import { Line } from './components/line';
+import { Hero } from './sections/hero';
 
 export default async function LandingPage({
   params: { locale },
@@ -14,7 +17,10 @@ export default async function LandingPage({
   return (
     <main>
       <Hero />
-      <div className="h-96" />
+      <div className="container max-w-screen-lg">
+        <Line />
+        <Portfolio />
+      </div>
     </main>
   );
 }
