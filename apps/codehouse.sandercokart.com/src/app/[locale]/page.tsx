@@ -1,9 +1,10 @@
 import { unstable_setRequestLocale } from 'next-intl/server';
 
-import { Portfolio } from '@/app/[locale]/sections/Portfolio';
-
 import { Line } from './components/line';
 import { Hero } from './sections/hero';
+import { Portfolio } from './sections/portfolio';
+import { TechStack } from './sections/tech-stack';
+import { Testimonials } from './sections/testimonials';
 
 export default async function LandingPage({
   params: { locale },
@@ -20,6 +21,11 @@ export default async function LandingPage({
       <div className="container max-w-screen-lg">
         <Line />
         <Portfolio />
+        <Line />
+        <TechStack />
+        <Line />
+        <Testimonials />
+        <Line />
       </div>
     </main>
   );
