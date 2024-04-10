@@ -30,7 +30,7 @@ export function ThemeToggle() {
 
   return (
     <div className={'relative grid h-full place-items-center overflow-hidden text-2xl'}>
-      <AnimatePresence mode="wait">
+      <AnimatePresence initial={false} mode="wait">
         {(theme === 'dark' || (theme === 'system' && systemTheme === 'dark')) && (
           <motion.div key="light" {...ascensionAnimation}>
             <FaSun className="h-6 w-6 cursor-pointer" onClick={() => setTheme('light')} />
