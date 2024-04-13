@@ -5,7 +5,7 @@
   "footer": {
     "BTW": "BTW",
     "KvK": "KvK nummer",
-    "copyright": "© Sander's CodeHouse {{date}} Alle rechten voorbehouden.",
+    "copyright": "© Sander's CodeHouse {date} Alle rechten voorbehouden.",
     "phone": "Telefoon",
     "request-address": "Vraag om een adres via mail",
     "request-phone": "Vraag om een telefoonnummer via mail"

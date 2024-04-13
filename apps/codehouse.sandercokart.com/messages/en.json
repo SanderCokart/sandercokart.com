@@ -5,7 +5,7 @@
   "footer": {
     "BTW": "VAT",
     "KvK": "Chamber of Commerce number",
-    "copyright": "© Sander's CodeHouse {{date}} All rights reserved.",
+    "copyright": "© Sander's CodeHouse {date} All rights reserved.",
     "phone": "Phone",
     "request-address": "Request adres via mail",
     "request-phone": "Request phone number via mail"
