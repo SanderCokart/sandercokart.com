@@ -23,7 +23,7 @@ export function Portfolio() {
             <CarouselItem>
               <figure className="relative">
                 <Image alt="NaWijzer Questionnaire" src={NaWijzerQuestionnaire} />
-                <figcaption className="absolute bottom-0 left-1/2 -translate-x-1/2 rounded-t-full bg-primary/80 bg-red-500 px-8 pb-1 pt-2  font-bold text-primary-foreground">
+                <figcaption className="absolute bottom-0 left-0 right-0 mx-auto rounded-t-full bg-primary/80 px-4 py-1 text-center text-xs font-bold text-primary-foreground md:w-min md:whitespace-nowrap md:px-8 md:py-2 md:text-base">
                   {t('nawijzer.caption-1')}
                 </figcaption>
               </figure>
@@ -31,7 +31,7 @@ export function Portfolio() {
             <CarouselItem>
               <figure className="relative">
                 <Image alt="NaWijzer Admin" src={NaWijzerAdmin} />
-                <figcaption className="absolute bottom-0 left-1/2 -translate-x-1/2 rounded-t-full bg-primary/80 bg-red-500 px-8 pb-1 pt-2  font-bold text-primary-foreground">
+                <figcaption className="absolute bottom-0 left-0 right-0 mx-auto rounded-t-full bg-primary/80 px-4 py-1 text-center text-xs font-bold text-primary-foreground md:w-min md:whitespace-nowrap md:px-8 md:py-2 md:text-base">
                   {t('nawijzer.caption-2')}
                 </figcaption>
               </figure>
