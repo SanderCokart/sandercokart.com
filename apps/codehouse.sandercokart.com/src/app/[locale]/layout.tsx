@@ -12,6 +12,7 @@ import { GlobalProviders } from '@/components/global-providers';
 
 import { cn } from '@/lib/utils';
 
+import { Footer } from './components/footer';
 import { Header } from './components/header';
 
 const LetsGoDigital = localFont({
@@ -37,13 +38,12 @@ export default function RootLayout({
         <meta content="dPDNIWNVFj_4vuPMESyYIF--2WitrHLfPQe2CTcz-Ok" name="google-site-verification" />
         <title>Sander's CodeHouse</title>
       </head>
-      <body className={cn(GeistSans.variable, GeistMono.variable, LetsGoDigital.variable)}>
-        <div>
-          <GlobalProviders>
-            <Header />
-            {children}
-          </GlobalProviders>
-        </div>
+      <body className={cn(GeistSans.variable, GeistMono.variable, LetsGoDigital.variable, 'flex min-h-dvh flex-col')}>
+        <GlobalProviders>
+          <Header />
+          {children}
+          <Footer />
+        </GlobalProviders>
       </body>
     </html>
   );

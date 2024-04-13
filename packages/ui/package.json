@@ -8,7 +8,8 @@
     "./button": "./src/components/ui/button.tsx",
     "./carousel": "./src/components/ui/carousel.tsx",
     "./card": "./src/components/ui/card.tsx",
-    "./tooltip": "./src/components/ui/tooltip.tsx"
+    "./tooltip": "./src/components/ui/tooltip.tsx",
+    "./tailwind.config.mjs": "./tailwind.config.mjs"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
