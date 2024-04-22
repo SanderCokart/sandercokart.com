@@ -11,6 +11,11 @@ module.exports = {
                 mono: ['var(--font-geist-mono)'],
                 digital: ["var(--font-digital)"],
             },
+            colors:{
+                react: "hsl(193 95% 68%)",
+                laravel: "hsl(3 100% 56%)",
+                vue: "hsl(153 47% 49%)",
+            }
         }
     }
 };
