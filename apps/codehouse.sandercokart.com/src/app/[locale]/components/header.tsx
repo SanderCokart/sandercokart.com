@@ -12,7 +12,7 @@ export function Header() {
 
         <Links className="hidden md:flex" />
 
-        <div className="flex h-full items-center gap-8">
+        <div className="flex h-full items-center gap-2">
           <LocaleSwitcher />
 
           <ThemeToggle />
