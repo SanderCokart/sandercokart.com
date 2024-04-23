@@ -16,7 +16,7 @@ export default async function LandingPage({
   unstable_setRequestLocale(locale);
 
   return (
-    <main>
+    <main className="grow">
       <Hero />
       <div className="container max-w-screen-lg">
         <Line />

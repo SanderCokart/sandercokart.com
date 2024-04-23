@@ -1,6 +1,6 @@
-import { Links } from './links';
 import { LocaleSwitcher } from './locale-switcher';
 import { NamedLogo } from './named-logo';
+import { Navigation } from './navigation';
 import { ScrollProgressIndicator } from './scroll-progress-indicator';
 import { ThemeToggle } from './theme-toggle';
 
@@ -10,7 +10,7 @@ export function Header() {
       <div className="container flex h-full grow items-center justify-between">
         <NamedLogo />
 
-        <Links className="hidden md:flex" />
+        <Navigation />
 
         <div className="flex h-full items-center gap-2">
           <LocaleSwitcher />

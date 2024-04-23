@@ -12,7 +12,7 @@ export function Line() {
   });
 
   return (
-    <div ref={ref} className="relative mx-auto my-16 w-2/3 max-w-4xl lg:w-full">
+    <div ref={ref} className="relative z-0 mx-auto my-16 w-2/3 max-w-4xl lg:w-full">
       <hr className="z-0 w-full border-2 border-black dark:border-white" />
       <motion.hr
         className="absolute top-0 z-10 w-full border-2 border-accent"

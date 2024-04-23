@@ -2,6 +2,7 @@ import './globals.css';
 
 import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
+import { NextIntlClientProvider, useMessages } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 
 import localFont from 'next/font/local';
@@ -32,6 +33,8 @@ export default function RootLayout({
 }) {
   unstable_setRequestLocale(locale);
 
+  const messages = useMessages();
+
   return (
     <html suppressHydrationWarning lang={locale}>
       <head>
@@ -39,11 +42,13 @@ export default function RootLayout({
         <title>Sander's CodeHouse</title>
       </head>
       <body className={cn(GeistSans.variable, GeistMono.variable, LetsGoDigital.variable, 'flex min-h-dvh flex-col')}>
-        <GlobalProviders>
-          <Header />
-          {children}
-          <Footer />
-        </GlobalProviders>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <GlobalProviders>
+            <Header />
+            {children}
+            <Footer />
+          </GlobalProviders>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

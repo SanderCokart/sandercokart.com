@@ -7,11 +7,11 @@ export async function TechStack() {
 
   return (
     <section className="section" id="techstack">
-      <article className="min-w-full">
+      <article>
         <h1 className="mb-4 text-center text-5xl font-bold" id="portfolio">
           {t('title')}
         </h1>
-        <div className="grid gap-8 p-6 md:grid-cols-2">
+        <div className="grid gap-8 md:grid-cols-2">
           <div className="flex flex-col gap-8">
             <div className="flex flex-col items-center gap-4 rounded bg-react/10 p-4">
               <FaReact className="h-32 w-32 text-react" />
