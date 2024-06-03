@@ -10,10 +10,8 @@ export function Portfolio() {
   const t = useTranslations('home.portfolio');
 
   return (
-    <div className="flex flex-col">
-      <h1 className="mb-4 text-center text-5xl font-bold" id="portfolio">
-        {t('title')}
-      </h1>
+    <section className="flex flex-col" id="portfolio">
+      <h1 className="mb-4 text-center text-5xl font-bold">{t('title')}</h1>
 
       <div className="space-y-4">
         <h1 className="text-2xl font-bold md:text-4xl">NaWijzer.nl</h1>
@@ -44,6 +42,6 @@ export function Portfolio() {
           <CarouselNext className="bottom-16 right-0 top-16 h-auto transform-none rounded-r-none" variant="default" />
         </Carousel>
       </div>
-    </div>
+    </section>
   );
 }

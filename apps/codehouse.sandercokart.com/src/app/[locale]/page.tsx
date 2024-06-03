@@ -1,6 +1,7 @@
 import { unstable_setRequestLocale } from 'next-intl/server';
 
 import { Line } from './components/line';
+import { ContactForm } from './sections/contact-form';
 import { Hero } from './sections/hero';
 import { Portfolio } from './sections/portfolio';
 import { TechStack } from './sections/tech-stack';
@@ -18,7 +19,7 @@ export default async function LandingPage({
   return (
     <main className="grow">
       <Hero />
-      <div className="container max-w-screen-lg">
+      <div className="container mb-16 max-w-screen-lg">
         <Line />
         <Portfolio />
         <Line />
@@ -26,6 +27,7 @@ export default async function LandingPage({
         <Line />
         <Testimonials />
         <Line />
+        <ContactForm />
       </div>
     </main>
   );
