@@ -9,6 +9,10 @@
     "./carousel": "./src/components/ui/carousel.tsx",
     "./card": "./src/components/ui/card.tsx",
     "./tooltip": "./src/components/ui/tooltip.tsx",
+    "./form": "./src/components/ui/form.tsx",
+    "./input": "./src/components/ui/input.tsx",
+    "./label": "./src/components/ui/label.tsx",
+    "./textarea": "./src/components/ui/textarea.tsx",
     "./tailwind.config.mjs": "./tailwind.config.mjs"
   },
   "scripts": {
@@ -20,7 +24,7 @@
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@sandercokart/eslint-config": "^1.0.1",
-    "@sandercokart/prettier-config": "^2.0.2",
+    "@sandercokart/prettier-config": "^2.0.3",
     "@turbo/gen": "^1.13.2",
     "@types/eslint": "^8.56.7",
     "@types/node": "^20.12.3",
@@ -35,6 +39,8 @@
     "typescript": "^5.4.3"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.4.2",
+    "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tooltip": "^1.0.7",
     "@tailwindcss/typography": "^0.5.12",
@@ -42,7 +48,9 @@
     "clsx": "^2.1.0",
     "embla-carousel-react": "^8.0.0",
     "lucide-react": "^0.364.0",
+    "react-hook-form": "^7.51.5",
     "tailwind-merge": "^2.2.2",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.23.8"
   }
 }
