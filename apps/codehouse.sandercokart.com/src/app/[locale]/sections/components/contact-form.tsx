@@ -14,9 +14,9 @@ import { en, nl } from 'yup-locales';
 
 import { useState } from 'react';
 
-import type { Locales } from '@/types/common';
+import type { AnimationType, Locales } from '@/types/common';
 
-import { MotionDiv } from '@/lib/motion';
+import { AnimatePresence, MotionDiv } from '@/lib/motion';
 
 const createFormSchema = () => {
   const locales = { nl, en };
@@ -29,6 +29,17 @@ const createFormSchema = () => {
     subject: Yup.string().required(),
     message: Yup.string().required(),
   });
+};
+
+const animation: AnimationType = {
+  exit: 'exit',
+  initial: 'initial',
+  animate: 'animate',
+  variants: {
+    initial: { height: 0, transition: { duration: 1 } },
+    animate: { height: 'auto', transition: { duration: 1 } },
+    exit: { height: 0, transition: { duration: 1 } },
+  },
 };
 
 export function ContactForm() {
@@ -121,16 +132,18 @@ export function ContactForm() {
 
         <Button type="submit">{form.formState.isSubmitting ? t('submitting') : t('submit')}</Button>
 
-        <MotionDiv
-          animate={form.formState.isSubmitted ? 'visible' : 'hidden'}
-          className="overflow-hidden"
-          variants={{
-            hidden: { height: 0 },
-            visible: { height: 'auto' },
-          }}>
-          {form.formState.isSubmitSuccessful && <SuccessAlert />}
-          {hasError && <ErrorAlert />}
-        </MotionDiv>
+        <AnimatePresence>
+          {form.formState.isSubmitSuccessful && (
+            <MotionDiv key="success" {...animation}>
+              <SuccessAlert />
+            </MotionDiv>
+          )}
+          {hasError && (
+            <MotionDiv key="error" {...animation}>
+              <ErrorAlert />
+            </MotionDiv>
+          )}
+        </AnimatePresence>
       </form>
     </Form>
   );
