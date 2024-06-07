@@ -6,7 +6,7 @@ import Image from 'next/image';
 import NaWijzerAdmin from '@/public/static/images/portfolio/nawijzer-admin.png';
 import NaWijzerQuestionnaire from '@/public/static/images/portfolio/nawijzer-questionnaire.png';
 
-export function Portfolio() {
+export function PortfolioSection() {
   const t = useTranslations('home.portfolio');
 
   return (

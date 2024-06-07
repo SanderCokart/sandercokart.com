@@ -5,14 +5,15 @@
   "exports": {
     "./themes/default": "./src/themes/default.css",
     "./themes/codehouse.sandercokart.com": "./src/themes/codehouse.sandercokart.com.css",
+    "./alert": "./src/components/ui/alert.tsx",
     "./button": "./src/components/ui/button.tsx",
-    "./carousel": "./src/components/ui/carousel.tsx",
     "./card": "./src/components/ui/card.tsx",
-    "./tooltip": "./src/components/ui/tooltip.tsx",
+    "./carousel": "./src/components/ui/carousel.tsx",
     "./form": "./src/components/ui/form.tsx",
     "./input": "./src/components/ui/input.tsx",
     "./label": "./src/components/ui/label.tsx",
     "./textarea": "./src/components/ui/textarea.tsx",
+    "./tooltip": "./src/components/ui/tooltip.tsx",
     "./tailwind.config.mjs": "./tailwind.config.mjs"
   },
   "scripts": {

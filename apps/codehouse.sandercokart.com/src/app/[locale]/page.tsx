@@ -1,11 +1,11 @@
 import { unstable_setRequestLocale } from 'next-intl/server';
 
 import { Line } from './components/line';
-import { ContactForm } from './sections/contact-form';
-import { Hero } from './sections/hero';
-import { Portfolio } from './sections/portfolio';
-import { TechStack } from './sections/tech-stack';
-import { Testimonials } from './sections/testimonials';
+import { ContactFormSection } from './sections/contact-form-section';
+import { HeroSection } from './sections/hero-section';
+import { PortfolioSection } from './sections/portfolio-section';
+import { TechStackSection } from './sections/tech-stack-section';
+import { TestimonialsSection } from './sections/testimonials-section';
 
 export default async function LandingPage({
   params: { locale },
@@ -18,16 +18,16 @@ export default async function LandingPage({
 
   return (
     <main className="grow">
-      <Hero />
+      <HeroSection />
       <div className="container mb-16 max-w-screen-lg">
         <Line />
-        <Portfolio />
+        <PortfolioSection />
         <Line />
-        <TechStack />
+        <TechStackSection />
         <Line />
-        <Testimonials />
+        <TestimonialsSection />
         <Line />
-        <ContactForm />
+        <ContactFormSection />
       </div>
     </main>
   );

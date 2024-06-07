@@ -1,8 +1,9 @@
 'use client';
 
 import { GB as GBFlag, NL as NLFlag } from 'country-flag-icons/react/3x2';
+import { useLocale } from 'next-intl';
 
-import { useParams } from 'next/navigation';
+import type { Locales } from '@/types/common';
 
 import { Link, usePathname, useRouter } from '@/lib/navigation';
 import { cn } from '@/lib/utils';
@@ -10,11 +11,9 @@ import { cn } from '@/lib/utils';
 export function LocaleSwitcher() {
   const pathname = usePathname();
   const router = useRouter();
-  const { locale: active_locale } = useParams<{
-    locale: 'en' | 'nl';
-  }>();
+  const active_locale = useLocale() as Locales;
 
-  const setLocale = (locale: 'en' | 'nl') => {
+  const setAppLocale = async (locale: Locales) => {
     router.replace(pathname, { locale });
   };
 
@@ -29,7 +28,7 @@ export function LocaleSwitcher() {
             'opacity-50': active_locale !== 'en',
             'cursor-not-allowed': active_locale === 'en',
           })}
-          onClick={() => setLocale('en')}
+          onClick={() => setAppLocale('en')}
         />
       </Link>
       <div className="h-5 border-r-2 border-white !opacity-100 md:h-7" />
@@ -39,7 +38,7 @@ export function LocaleSwitcher() {
             'opacity-50': active_locale !== 'nl',
             'cursor-not-allowed': active_locale === 'nl',
           })}
-          onClick={() => setLocale('nl')}
+          onClick={() => setAppLocale('nl')}
         />
       </Link>
     </div>

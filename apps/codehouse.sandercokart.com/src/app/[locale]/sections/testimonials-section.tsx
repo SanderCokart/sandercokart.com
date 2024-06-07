@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 
 import { Quote } from './components/quote';
 
-export function Testimonials() {
+export function TestimonialsSection() {
   const t = useTranslations('home.testimonials');
 
   return (

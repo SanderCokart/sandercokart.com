@@ -75,7 +75,15 @@
         "name": "Name",
         "subject": "Subject",
         "submit": "Send",
-        "submitting": "Sending..."
+        "submitting": "Sending...",
+        "error":{
+          "title":  "Could not send message. Please try again later.",
+          "description": "Please try again later or send an e-mail to business.sandercokart.com."
+        },
+        "alert": {
+          "title": "Thank you for your message!",
+          "description": "We will get back to you as soon as possible."
+        }
       }
     }
   },

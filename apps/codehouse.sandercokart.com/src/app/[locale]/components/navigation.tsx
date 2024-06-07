@@ -32,6 +32,7 @@ export function Navigation({ className }: { className?: string }) {
         )}>
         {links.map(link => (
           <Link
+            key={link.href}
             className={cn(
               'flex flex-col items-center gap-1 font-digital leading-none transition-colors hover:text-accent',
             )}

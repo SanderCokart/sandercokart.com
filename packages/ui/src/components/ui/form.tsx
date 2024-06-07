@@ -1,6 +1,7 @@
 'use client';
 
 import { Slot } from '@radix-ui/react-slot';
+import { cva } from 'class-variance-authority';
 import { Controller, FormProvider, useFormContext } from 'react-hook-form';
 
 import * as React from 'react';
@@ -71,7 +72,7 @@ const FormItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
 
     return (
       <FormItemContext.Provider value={{ id }}>
-        <div ref={ref} className={cn('space-y-2', className)} {...props} />
+        <div ref={ref} className={cn('group/form-item space-y-2', className)} {...props} />
       </FormItemContext.Provider>
     );
   },
@@ -81,10 +82,15 @@ FormItem.displayName = 'FormItem';
 const FormLabel = React.forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
->(({ className, ...props }, ref) => {
+>(({ className, children, ...props }, ref) => {
   const { error, formItemId } = useFormField();
 
-  return <Label ref={ref} className={cn(error && 'text-destructive', className)} htmlFor={formItemId} {...props} />;
+  return (
+    <Label ref={ref} className={cn(error && 'text-destructive', 'relative', className)} htmlFor={formItemId} {...props}>
+      {children}
+      <span className="hidden select-none text-lg text-accent group-has-[:required]/form-item:inline"> *</span>
+    </Label>
+  );
 });
 FormLabel.displayName = 'FormLabel';
 
@@ -114,6 +120,8 @@ const FormDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttribu
 );
 FormDescription.displayName = 'FormDescription';
 
+export const formMessageVariant = cva('min-h-5 text-sm font-medium text-destructive');
+
 const FormMessage = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
   ({ className, children, ...props }, ref) => {
     const { error, formMessageId } = useFormField();
@@ -124,7 +132,11 @@ const FormMessage = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<
     }
 
     return (
-      <p ref={ref} className={cn('text-sm font-medium text-destructive', className)} id={formMessageId} {...props}>
+      <p
+        ref={ref}
+        className={cn(formMessageVariant(), 'first-letter:uppercase', className)}
+        id={formMessageId}
+        {...props}>
         {body}
       </p>
     );

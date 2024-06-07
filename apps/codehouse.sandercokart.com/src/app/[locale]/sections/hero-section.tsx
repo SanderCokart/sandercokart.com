@@ -8,7 +8,7 @@ import Logo from '@/public/static/images/logo/Logo.png';
 import { Link } from '@/lib/navigation';
 import { cn } from '@/lib/utils';
 
-export function Hero() {
+export function HeroSection() {
   const t = useTranslations('home.hero');
 
   return (

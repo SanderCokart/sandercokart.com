@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { FaLaravel, FaReact, FaVuejs } from 'react-icons/fa6';
 import { TbBrandNextjs } from 'react-icons/tb';
 
-export async function TechStack() {
+export async function TechStackSection() {
   const t = await getTranslations('home.tech-stack');
 
   return (

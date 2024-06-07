@@ -54,7 +54,7 @@
     },
     "contact-form": {
       "title": "Maak een afspraak",
-      "validation":  {
+      "validation": {
         "validation": {
           "email": {
             "required": "Email is verplicht"
@@ -76,7 +76,15 @@
         "name": "Naam",
         "subject": "Onderwerp",
         "submit": "Verzenden",
-        "submitting": "Verzenden..."
+        "submitting": "Verzenden...",
+        "error": {
+          "title": "We konden uw bericht niet verzenden",
+          "description": "Probeer het later opnieuw of stuur een e-mail naar business.sandercokart.com."
+        },
+        "alert": {
+          "title": "Bedankt voor uw bericht!",
+          "description": "We zullen zo snel mogelijk contact met u opnemen."
+        }
       }
     }
   },

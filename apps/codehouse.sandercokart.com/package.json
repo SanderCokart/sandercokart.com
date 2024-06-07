@@ -10,6 +10,7 @@
   },
   "prettier": "@sandercokart/prettier-config",
   "dependencies": {
+    "@hookform/resolvers": "^3.6.0",
     "@mantine/hooks": "^7.8.0",
     "@repo/ui": "workspace:*",
     "class-variance-authority": "^0.7.0",
@@ -23,6 +24,8 @@
     "postcss-import": "^16.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-error-boundary": "^4.0.13",
+    "react-hook-form": "^7.51.5",
     "react-icons": "^5.0.1",
     "react-remove-scroll": "^2.5.9",
     "react-simple-modal-provider": "^1.9.0",
