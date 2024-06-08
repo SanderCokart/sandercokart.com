@@ -1,0 +1,41 @@
+{
+  "name": "admin.sandercokart.com",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^3.6.0",
+    "@repo/ui": "workspace:*",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "framer-motion": "^11.0.28",
+    "next": "14.2.3",
+    "next-themes": "^0.3.0",
+    "postcss-import": "^16.1.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-error-boundary": "^4.0.13",
+    "react-hook-form": "^7.51.5",
+    "react-icons": "^5.0.1",
+    "sharp": "^0.33.3",
+    "tailwind-merge": "^2.2.2",
+    "yup": "^1.4.0"
+  },
+  "devDependencies": {
+    "@sandercokart/eslint-config": "^1.0.1",
+    "@sandercokart/prettier-config": "^2.0.3",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.3",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}
