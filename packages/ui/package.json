@@ -20,12 +20,10 @@
     "lint": "eslint . --max-warnings 0",
     "generate:component": "turbo gen react-component"
   },
-  "prettier": "@sandercokart/prettier-config",
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@sandercokart/eslint-config": "^1.0.1",
-    "@sandercokart/prettier-config": "^2.0.3",
     "@turbo/gen": "^1.13.2",
     "@types/eslint": "^8.56.7",
     "@types/node": "^20.12.3",

@@ -8,7 +8,6 @@
     "start": "next start",
     "lint": "eslint . --max-warnings=0"
   },
-  "prettier": "@sandercokart/prettier-config",
   "dependencies": {
     "@hookform/resolvers": "^3.6.0",
     "@mantine/hooks": "^7.8.0",
@@ -38,7 +37,6 @@
     "yup-locales": "^1.2.24"
   },
   "devDependencies": {
-    "@sandercokart/prettier-config": "^2.0.3",
     "@types/node": "20.12.2",
     "@types/react": "18.2.73",
     "@types/react-dom": "18.2.23",

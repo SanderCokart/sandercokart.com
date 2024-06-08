@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "prettier": "@repo/prettier-config",
   "dependencies": {
     "@hookform/resolvers": "^3.6.0",
     "@repo/ui": "workspace:*",
@@ -27,8 +28,8 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
-    "@sandercokart/eslint-config": "^1.0.1",
-    "@sandercokart/prettier-config": "^2.0.3",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
