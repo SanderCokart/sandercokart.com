@@ -36,12 +36,19 @@ export default function RootLayout({
   const messages = useMessages();
 
   return (
-    <html suppressHydrationWarning lang={locale}>
+    <html suppressHydrationWarning className="scroll-smooth" lang={locale}>
       <head>
         <meta content="dPDNIWNVFj_4vuPMESyYIF--2WitrHLfPQe2CTcz-Ok" name="google-site-verification" />
         <title>Sander's CodeHouse</title>
       </head>
-      <body className={cn(GeistSans.variable, GeistMono.variable, LetsGoDigital.variable, 'flex min-h-dvh flex-col')}>
+      <body
+        className={cn(
+          GeistSans.variable,
+          GeistMono.variable,
+          LetsGoDigital.variable,
+          'flex min-h-dvh flex-col',
+          'mb-14 md:mb-0', //this is to account for mobile navigation @see <Navigation />
+        )}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <GlobalProviders>
             <Header />

@@ -1,7 +1,7 @@
 import { unstable_setRequestLocale } from 'next-intl/server';
 
 import { Line } from './components/line';
-import { ContactFormSection } from './sections/contact-form-section';
+import { ContactSection } from './sections/contact-section';
 import { HeroSection } from './sections/hero-section';
 import { PortfolioSection } from './sections/portfolio-section';
 import { TechStackSection } from './sections/tech-stack-section';
@@ -27,7 +27,7 @@ export default async function LandingPage({
         <Line />
         <TestimonialsSection />
         <Line />
-        <ContactFormSection />
+        <ContactSection />
       </div>
     </main>
   );

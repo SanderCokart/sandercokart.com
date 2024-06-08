@@ -10,7 +10,7 @@ export function PortfolioSection() {
   const t = useTranslations('home.portfolio');
 
   return (
-    <section className="flex flex-col" id="portfolio">
+    <section className="flex scroll-mt-16 flex-col sm:scroll-mt-16" id="portfolio">
       <h1 className="mb-4 text-center text-5xl font-bold">{t('title')}</h1>
 
       <div className="space-y-4">

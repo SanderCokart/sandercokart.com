@@ -1,4 +1,4 @@
-import codeHouse from '@repo/ui/tailwind.config'
+import codeHouse from '@repo/ui/tailwind.config';
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {

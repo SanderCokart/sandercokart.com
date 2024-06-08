@@ -34,7 +34,7 @@ export const links = [
     t: 'testimonials',
   },
   {
-    href: '/#contact',
+    href: '/#contact-form',
     icon: <FaEnvelope />,
     t: 'contact',
   },

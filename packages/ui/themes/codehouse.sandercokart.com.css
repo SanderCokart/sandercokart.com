@@ -82,11 +82,6 @@
   html {
     /* removes the tap highlight color on mobile */
     -webkit-tap-highlight-color: transparent;
-
-    /* smooth scrolling for everything but mobile */
-    @screen sm {
-      scroll-behavior: smooth !important;
-    }
   }
 
   body {
