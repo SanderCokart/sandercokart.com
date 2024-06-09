@@ -7,6 +7,8 @@ import { Input } from '@repo/ui/input';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 
+import { useAuth } from '@/lib/auth.ts';
+
 export function LoginForm() {
   const form = useForm({
     resolver: yupResolver(
@@ -21,8 +23,10 @@ export function LoginForm() {
     },
   });
 
+  const { signIn } = useAuth();
   const onSubmit = form.handleSubmit(async data => {
     console.log(data);
+    signIn();
   });
 
   return (
