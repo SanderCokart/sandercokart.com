@@ -1,18 +1,13 @@
 'use client';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Alert, AlertDescription, AlertTitle } from '@repo/ui/alert';
 import { Button } from '@repo/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@repo/ui/form';
 import { Input } from '@repo/ui/input';
-import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
-import { LuAlertCircle } from 'react-icons/lu';
 import * as Yup from 'yup';
 
-import { useSearchParams } from 'next/navigation';
-
-export function LoginForm({ csrfToken }: { csrfToken: string | undefined }) {
+export function LoginForm() {
   const form = useForm({
     resolver: yupResolver(
       Yup.object({
@@ -27,17 +22,15 @@ export function LoginForm({ csrfToken }: { csrfToken: string | undefined }) {
   });
 
   const onSubmit = form.handleSubmit(async data => {
-    const response = signIn('credentials', {
-      ...data,
-      callbackUrl: '/',
-    });
+    console.log(data);
   });
 
   return (
     <Form {...form}>
-      <form onSubmit={onSubmit} noValidate className="flex flex-col gap-4">
+      <form noValidate className="flex flex-col gap-4" onSubmit={onSubmit}>
         <FormField
-          render={({ field, fieldState, formState }) => (
+          name="email"
+          render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
@@ -46,11 +39,11 @@ export function LoginForm({ csrfToken }: { csrfToken: string | undefined }) {
               <FormMessage />
             </FormItem>
           )}
-          name="email"
         />
 
         <FormField
-          render={({ field, fieldState, formState }) => (
+          name="password"
+          render={({ field }) => (
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
@@ -59,30 +52,10 @@ export function LoginForm({ csrfToken }: { csrfToken: string | undefined }) {
               <FormMessage />
             </FormItem>
           )}
-          name="password"
         />
 
         <Button type="submit">Sign in</Button>
-
-        <LoginAlert />
       </form>
     </Form>
   );
-}
-
-function LoginAlert() {
-  const searchParams = useSearchParams();
-  const error = searchParams.get('error');
-
-  if (error === 'CredentialsSignin') {
-    return (
-      <Alert variant="destructive">
-        <LuAlertCircle className="h-4 w-4" />
-        <AlertTitle>Invalid credentials</AlertTitle>
-        <AlertDescription>The email or password you entered is incorrect.</AlertDescription>
-      </Alert>
-    );
-  }
-
-  return null;
 }
