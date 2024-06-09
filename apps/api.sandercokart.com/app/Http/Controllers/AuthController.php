@@ -14,19 +14,12 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
-        if (!auth()->attempt($validatedData)) {
+        if (!auth()->login($validatedData)) {
             return response()->json([
                 'message' => 'Invalid credentials'
             ], 401);
-
         }
 
-        $user = auth()->user();
-        $accessToken = $user->createToken('authToken')->plainTextToken;
-
-        return response()->json([
-            'user'         => $user,
-            'access_token' => $accessToken
-        ]);
+        return response()->json([]);
     }
 }
