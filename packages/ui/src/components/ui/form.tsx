@@ -88,7 +88,7 @@ const FormLabel = React.forwardRef<
   return (
     <Label ref={ref} className={cn(error && 'text-destructive', 'relative', className)} htmlFor={formItemId} {...props}>
       {children}
-      <span className="hidden select-none text-lg text-accent group-has-[:required]/form-item:inline"> *</span>
+      <span className="text-accent hidden select-none text-lg group-has-[:required]/form-item:inline"> *</span>
     </Label>
   );
 });
@@ -115,26 +115,22 @@ const FormDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttribu
   ({ className, ...props }, ref) => {
     const { formDescriptionId } = useFormField();
 
-    return <p ref={ref} className={cn('text-sm text-muted-foreground', className)} id={formDescriptionId} {...props} />;
+    return <p ref={ref} className={cn('text-muted-foreground text-sm', className)} id={formDescriptionId} {...props} />;
   },
 );
 FormDescription.displayName = 'FormDescription';
 
-export const formMessageVariant = cva('min-h-5 text-sm font-medium text-destructive');
+export const formMessageVariant = cva('text-destructive min-h-5 text-sm font-medium');
 
 const FormMessage = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
   ({ className, children, ...props }, ref) => {
     const { error, formMessageId } = useFormField();
     const body = error ? String(error?.message) : children;
 
-    if (!body) {
-      return null;
-    }
-
     return (
       <p
         ref={ref}
-        className={cn(formMessageVariant(), 'first-letter:uppercase', className)}
+        className={cn(formMessageVariant(), 'block min-h-5 first-letter:uppercase', className)}
         id={formMessageId}
         {...props}>
         {body}
