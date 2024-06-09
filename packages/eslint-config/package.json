@@ -5,7 +5,8 @@
   "files": [
     "library.js",
     "next.js",
-    "react-internal.js"
+    "react-internal.js",
+    "react.js"
   ],
   "devDependencies": {
     "@sandercokart/eslint-config": "^1.0.1",
