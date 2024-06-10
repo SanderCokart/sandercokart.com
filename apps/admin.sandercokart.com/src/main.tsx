@@ -8,6 +8,9 @@ import { GlobalProviders } from '@/components/global-providers.tsx';
 import { useAuth } from '@/lib/auth.tsx';
 import { router } from '@/router.tsx';
 
+import 'unfonts.css';
+import './App.css';
+
 function InnerApp() {
   const auth = useAuth();
 
