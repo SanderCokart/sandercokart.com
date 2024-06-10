@@ -8,7 +8,7 @@ type RouterContext = {
 };
 
 export const Route = createRootRouteWithContext<RouterContext>()({
-  errorComponent: props => <pre>{JSON.stringify(props.error, null, 2)}</pre>,
+  // errorComponent: props => <pre>{JSON.stringify(props.error, null, 2)}</pre>,
   component: () => (
     <>
       <Outlet />

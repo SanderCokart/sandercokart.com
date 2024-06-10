@@ -13,20 +13,21 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as GuestImport } from './routes/_guest'
 import { Route as AuthenticatedImport } from './routes/_authenticated'
 import { Route as AuthenticatedDashboardImport } from './routes/_authenticated/dashboard'
 
 // Create Virtual Routes
 
-const LoginLazyImport = createFileRoute('/login')()
 const IndexLazyImport = createFileRoute('/')()
+const GuestLoginLazyImport = createFileRoute('/_guest/login')()
 
 // Create/Update Routes
 
-const LoginLazyRoute = LoginLazyImport.update({
-  path: '/login',
+const GuestRoute = GuestImport.update({
+  id: '/_guest',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/login.lazy').then((d) => d.Route))
+} as any)
 
 const AuthenticatedRoute = AuthenticatedImport.update({
   id: '/_authenticated',
@@ -37,6 +38,11 @@ const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const GuestLoginLazyRoute = GuestLoginLazyImport.update({
+  path: '/login',
+  getParentRoute: () => GuestRoute,
+} as any).lazy(() => import('./routes/_guest/login.lazy').then((d) => d.Route))
 
 const AuthenticatedDashboardRoute = AuthenticatedDashboardImport.update({
   path: '/dashboard',
@@ -61,11 +67,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedImport
       parentRoute: typeof rootRoute
     }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginLazyImport
+    '/_guest': {
+      id: '/_guest'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof GuestImport
       parentRoute: typeof rootRoute
     }
     '/_authenticated/dashboard': {
@@ -74,6 +80,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard'
       preLoaderRoute: typeof AuthenticatedDashboardImport
       parentRoute: typeof AuthenticatedImport
+    }
+    '/_guest/login': {
+      id: '/_guest/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof GuestLoginLazyImport
+      parentRoute: typeof GuestImport
     }
   }
 }
@@ -85,7 +98,7 @@ export const routeTree = rootRoute.addChildren({
   AuthenticatedRoute: AuthenticatedRoute.addChildren({
     AuthenticatedDashboardRoute,
   }),
-  LoginLazyRoute,
+  GuestRoute: GuestRoute.addChildren({ GuestLoginLazyRoute }),
 })
 
 /* prettier-ignore-end */
@@ -98,7 +111,7 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/",
         "/_authenticated",
-        "/login"
+        "/_guest"
       ]
     },
     "/": {
@@ -110,12 +123,19 @@ export const routeTree = rootRoute.addChildren({
         "/_authenticated/dashboard"
       ]
     },
-    "/login": {
-      "filePath": "login.lazy.tsx"
+    "/_guest": {
+      "filePath": "_guest.tsx",
+      "children": [
+        "/_guest/login"
+      ]
     },
     "/_authenticated/dashboard": {
       "filePath": "_authenticated/dashboard.tsx",
       "parent": "/_authenticated"
+    },
+    "/_guest/login": {
+      "filePath": "_guest/login.lazy.tsx",
+      "parent": "/_guest"
     }
   }
 }

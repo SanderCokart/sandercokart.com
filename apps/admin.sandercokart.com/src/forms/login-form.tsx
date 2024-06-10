@@ -24,7 +24,7 @@ export function LoginForm() {
     },
   });
 
-  const { signIn, isLogged } = useAuth();
+  const { signIn } = useAuth();
   const navigate = useNavigate();
   const onSubmit = form.handleSubmit(async data => {
     const validationErrors = await signIn(data);
@@ -45,7 +45,6 @@ export function LoginForm() {
   return (
     <Form {...form}>
       <form noValidate className="flex flex-col gap-4" onSubmit={onSubmit}>
-        {isLogged() && 'yes'}
         <FormField
           name="email"
           render={({ field }) => (

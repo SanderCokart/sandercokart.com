@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 
-import { createContext, useState } from 'react';
+import { createContext } from 'react';
 
 import type { ReactNode } from 'react';
 import type { User } from '@/types/models.ts';

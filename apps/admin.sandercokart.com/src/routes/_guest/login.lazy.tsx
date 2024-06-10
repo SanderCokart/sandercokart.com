@@ -3,7 +3,7 @@ import { createFileRoute } from '@tanstack/react-router';
 
 import { LoginForm } from '@/forms/login-form.tsx';
 
-export const Route = createFileRoute('/login')({
+export const Route = createFileRoute('/_guest/login')({
   component: () => (
     <main className="grid h-dvh place-items-center">
       <Card className="w-full max-w-sm">
