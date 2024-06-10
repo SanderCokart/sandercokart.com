@@ -4,6 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Button } from '@repo/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@repo/ui/form';
 import { Input } from '@repo/ui/input';
+import { useNavigate } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 
@@ -23,15 +24,28 @@ export function LoginForm() {
     },
   });
 
-  const { signIn } = useAuth();
+  const { signIn, isLogged } = useAuth();
+  const navigate = useNavigate();
   const onSubmit = form.handleSubmit(async data => {
-    console.log(data);
-    signIn();
+    const validationErrors = await signIn(data);
+    if (validationErrors) {
+      form.setError('email', {
+        type: 'manual',
+        message: validationErrors.email,
+      });
+      form.setError('password', {
+        type: 'manual',
+        message: validationErrors.password,
+      });
+    } else {
+      void navigate({ to: '/dashboard' });
+    }
   });
 
   return (
     <Form {...form}>
       <form noValidate className="flex flex-col gap-4" onSubmit={onSubmit}>
+        {isLogged() && 'yes'}
         <FormField
           name="email"
           render={({ field }) => (

@@ -1,23 +1,13 @@
-import { useNavigate } from '@tanstack/react-router';
+import { useContext } from 'react';
+
+import { AuthContext } from '@/components/auth-provider.tsx';
 
 export const useAuth = () => {
-  const navigate = useNavigate();
+  const context = useContext(AuthContext);
 
-  const signIn = () => {
-    localStorage.setItem('isAuthenticated', 'true');
-    void navigate({ to: '/dashboard' });
-  };
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
 
-  const signOut = () => {
-    localStorage.removeItem('isAuthenticated');
-    void navigate({ to: '/login' });
-  };
-
-  const isLogged = (): boolean => {
-    return localStorage.getItem('isAuthenticated') === 'true';
-  };
-
-  return { signIn, signOut, isLogged };
+  return context;
 };
-
-export type AuthContext = ReturnType<typeof useAuth>;

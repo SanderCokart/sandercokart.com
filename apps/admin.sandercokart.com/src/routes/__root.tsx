@@ -1,19 +1,18 @@
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 
-import type { AuthContext } from '@/lib/auth.ts';
-
-import { GlobalProviders } from '@/components/global-providers.tsx';
+import type { AuthContextType } from '@/components/auth-provider.tsx';
 
 type RouterContext = {
-  authentication: AuthContext;
+  authentication: AuthContextType;
 };
 
 export const Route = createRootRouteWithContext<RouterContext>()({
+  errorComponent: props => <pre>{JSON.stringify(props.error, null, 2)}</pre>,
   component: () => (
-    <GlobalProviders>
+    <>
       <Outlet />
       <TanStackRouterDevtools />
-    </GlobalProviders>
+    </>
   ),
 });
