@@ -8,7 +8,7 @@ import { useNavigate } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 
-import { useAuth } from '@/lib/auth.tsx';
+import { CredentialsError, useAuth } from '@/lib/auth.tsx';
 
 export function LoginForm() {
   const form = useForm({
@@ -27,19 +27,24 @@ export function LoginForm() {
   const { signIn } = useAuth();
   const navigate = useNavigate();
   const onSubmit = form.handleSubmit(async data => {
-    const validationErrors = await signIn(data);
-    if (validationErrors) {
-      form.setError('email', {
-        type: 'manual',
-        message: validationErrors.email,
+    await signIn(data)
+      .then(() => {
+        void navigate({ to: '/' });
+      })
+      .catch(error => {
+        if (error instanceof CredentialsError) {
+          form.setError('email', {
+            type: 'manual',
+            message: error.errors.email,
+          });
+          form.setError('password', {
+            type: 'manual',
+            message: error.errors.password,
+          });
+        } else {
+          throw error;
+        }
       });
-      form.setError('password', {
-        type: 'manual',
-        message: validationErrors.password,
-      });
-    } else {
-      void navigate({ to: '/dashboard' });
-    }
   });
 
   return (
