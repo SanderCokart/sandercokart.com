@@ -1,19 +1,34 @@
+import { RouterProvider } from '@tanstack/react-router';
 import ReactDOM from 'react-dom/client';
 
-import { StrictMode } from 'react';
+import React from 'react';
 
-import './App.css';
-import 'unfonts.css';
+import { GlobalProviders } from '@/components/global-providers.tsx';
 
-import { App } from '@/app.tsx';
+import { useAuth } from '@/lib/auth.tsx';
+import { router } from '@/router.tsx';
 
-// Render the app
+function InnerApp() {
+  const auth = useAuth();
+
+  return <RouterProvider context={{ auth }} router={router} />;
+}
+
+function App() {
+  return (
+    <GlobalProviders>
+      <InnerApp />
+    </GlobalProviders>
+  );
+}
+
 const rootElement = document.getElementById('app')!;
+
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
-    <StrictMode>
+    <React.StrictMode>
       <App />
-    </StrictMode>,
+    </React.StrictMode>,
   );
 }

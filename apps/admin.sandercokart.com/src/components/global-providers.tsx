@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react';
 
-import { AuthProvider } from '@/components/auth-provider.tsx';
 import { ThemeProvider } from '@/components/theme-provider.tsx';
+
+import { AuthProvider } from '@/lib/auth.tsx';
 
 export function GlobalProviders({ children }: { children: ReactNode }) {
   return (

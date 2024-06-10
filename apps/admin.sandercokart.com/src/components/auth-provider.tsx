@@ -26,7 +26,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     data: user,
     mutate,
     error,
-  } = useSWR<User>('/user', async () => await api.get<User>('/user').then(res => res.data));
+  } = useSWR<User>('/user', async (args: any) => await api.get<User>(args).then(res => res.data));
   if (error) console.error('/user', error);
 
   const csrf = () => api.get('/sanctum/csrf-cookie');

@@ -2,18 +2,16 @@ import { createRouter } from '@tanstack/react-router';
 
 import { routeTree } from './routeTree.gen';
 
+// Set up a Router instance
 export const router = createRouter({
   routeTree,
+  defaultPreload: 'intent',
   context: {
-    // auth will initially be undefined
-    // We'll be passing down the auth state from within a React component
-    authentication: undefined!,
+    auth: undefined!, // This will be set after we wrap the app in an AuthProvider
   },
 });
 
-// Create a new router instance
-
-// Register the router instance for type safety
+// Register things for typesafety
 declare module '@tanstack/react-router' {
   interface Register {
     router: typeof router;

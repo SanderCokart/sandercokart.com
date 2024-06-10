@@ -8,7 +8,7 @@ import { useNavigate } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 
-import { useAuth } from '@/lib/auth.ts';
+import { useAuth } from '@/lib/auth.tsx';
 
 export function LoginForm() {
   const form = useForm({
