@@ -16,6 +16,7 @@ import { Route as GuestImport } from './routes/_guest'
 import { Route as AuthImport } from './routes/_auth'
 import { Route as AuthIndexImport } from './routes/_auth.index'
 import { Route as AuthArticlesImport } from './routes/_auth.articles'
+import { Route as AuthArticlesArticleSlugEditImport } from './routes/_auth.articles_.$articleSlug.edit'
 
 // Create/Update Routes
 
@@ -43,6 +44,12 @@ const AuthArticlesRoute = AuthArticlesImport.update({
   path: '/articles',
   getParentRoute: () => AuthRoute,
 } as any)
+
+const AuthArticlesArticleSlugEditRoute =
+  AuthArticlesArticleSlugEditImport.update({
+    path: '/articles/$articleSlug/edit',
+    getParentRoute: () => AuthRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -83,13 +90,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthIndexImport
       parentRoute: typeof AuthImport
     }
+    '/_auth/articles/$articleSlug/edit': {
+      id: '/_auth/articles/$articleSlug/edit'
+      path: '/articles/$articleSlug/edit'
+      fullPath: '/articles/$articleSlug/edit'
+      preLoaderRoute: typeof AuthArticlesArticleSlugEditImport
+      parentRoute: typeof AuthImport
+    }
   }
 }
 
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren({
-  AuthRoute: AuthRoute.addChildren({ AuthArticlesRoute, AuthIndexRoute }),
+  AuthRoute: AuthRoute.addChildren({
+    AuthArticlesRoute,
+    AuthIndexRoute,
+    AuthArticlesArticleSlugEditRoute,
+  }),
   LoginRoute,
 })
 
@@ -110,7 +128,8 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_auth.tsx",
       "children": [
         "/_auth/articles",
-        "/_auth/"
+        "/_auth/",
+        "/_auth/articles/$articleSlug/edit"
       ]
     },
     "/_guest": {
@@ -125,6 +144,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_auth/": {
       "filePath": "_auth.index.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/articles/$articleSlug/edit": {
+      "filePath": "_auth.articles_.$articleSlug.edit.tsx",
       "parent": "/_auth"
     }
   }
