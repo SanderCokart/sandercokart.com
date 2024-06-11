@@ -15,6 +15,7 @@
     "./input": "./src/components/ui/input.tsx",
     "./label": "./src/components/ui/label.tsx",
     "./sheet": "./src/components/ui/sheet.tsx",
+    "./table": "./src/components/ui/table.tsx",
     "./textarea": "./src/components/ui/textarea.tsx",
     "./tooltip": "./src/components/ui/tooltip.tsx",
     "./theme-provider": "./src/components/ui/theme-provider.tsx",
