@@ -13,7 +13,6 @@ import { Input } from '@repo/ui/input';
 import { Sheet, SheetContent, SheetTrigger } from '@repo/ui/sheet';
 import { createFileRoute, Link, Outlet, redirect, useRouter } from '@tanstack/react-router';
 import {
-  LuBell,
   LuHome,
   LuLineChart,
   LuLock,
