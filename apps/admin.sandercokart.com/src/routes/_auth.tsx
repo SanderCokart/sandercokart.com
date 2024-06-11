@@ -13,6 +13,7 @@ import { Input } from '@repo/ui/input';
 import { Sheet, SheetContent, SheetTrigger } from '@repo/ui/sheet';
 import { createFileRoute, Link, Outlet, redirect, useRouter } from '@tanstack/react-router';
 import {
+  LuBell,
   LuHome,
   LuLineChart,
   LuLock,
@@ -23,6 +24,8 @@ import {
   LuUserCircle,
   LuUsers,
 } from 'react-icons/lu';
+
+import { ThemeToggle } from '@/components/theme-toggle.tsx';
 
 import { useAuth } from '@/lib/auth.tsx';
 
@@ -62,6 +65,7 @@ function AuthLayout() {
               <LuLock className="h-6 w-6" />
               <span className="">Admin</span>
             </Link>
+            <ThemeToggle className="ml-auto h-8 w-8" />
           </div>
           <div className="flex-1">
             <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
