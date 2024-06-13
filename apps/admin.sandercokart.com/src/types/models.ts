@@ -7,14 +7,17 @@ export interface User {
   updated_at: string;
 }
 
-export interface Article {
+export interface ArticleIndex {
   id: number;
   title: string;
   slug: string;
-  content?: string;
   description: string;
   created_at: string;
   updated_at: string;
-  deleted_at?: string | null;
-  published_at?: string | null;
+  deleted_at: string | null;
+  published_at: string | null;
+}
+
+export interface ArticleShow extends ArticleIndex {
+  content: string;
 }
