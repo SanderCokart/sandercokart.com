@@ -1,38 +1,48 @@
 import { Button } from '@repo/ui/button';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@repo/ui/hover-card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@repo/ui/table';
 import { Link, useLoaderData } from '@tanstack/react-router';
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import { format, formatDistanceToNow } from 'date-fns';
 import { LuPen, LuTrash } from 'react-icons/lu';
 
-import type { Article } from '@/types/models.ts';
+import type { ArticleIndex } from '@/types/models.ts';
 
-const columnHelper = createColumnHelper<Article>();
+const columnHelper = createColumnHelper<ArticleIndex>();
+
+const formatDate = (date: string | null) =>
+  date ? (
+    <HoverCard>
+      <HoverCardTrigger>{formatDistanceToNow(date, { addSuffix: true })}</HoverCardTrigger>
+      <HoverCardContent>{format(date, 'd-M-y | PPPPp')}</HoverCardContent>
+    </HoverCard>
+  ) : undefined;
 
 const defaultColumns = [
   columnHelper.accessor('id', {
     id: 'id',
-    header: () => <span>ID</span>,
-    cell: props => <div>{props.getValue()}</div>,
+    header: 'ID',
+    cell: props => props.renderValue(),
   }),
   columnHelper.accessor('title', {
     id: 'title',
-    header: () => <span>Title</span>,
-    cell: props => <div>{props.getValue()}</div>,
+    header: 'Title',
+    cell: props => props.renderValue(),
   }),
   columnHelper.accessor('published_at', {
     id: 'publishedAt',
-    header: () => <span>Published At</span>,
-    cell: props => <div>{props.getValue()}</div>,
+    header: 'Published At',
+    cell: props => formatDate(props.getValue()),
   }),
   columnHelper.accessor('created_at', {
     id: 'createdAt',
-    header: () => <span>Created At</span>,
-    cell: props => <div>{props.getValue()}</div>,
+    header: 'Created At',
+    cell: props => formatDate(props.getValue()),
   }),
   columnHelper.accessor('updated_at', {
     id: 'updatedAt',
-    header: () => <span>Updated At</span>,
-    cell: props => <div>{props.getValue()}</div>,
+    header: 'Updated At',
+    cell: props => formatDate(props.getValue()),
   }),
   columnHelper.display({
     id: 'actions',
@@ -63,6 +73,7 @@ export function ArticlesTable() {
   const table = useReactTable({
     columns: defaultColumns,
     data: articles,
+    renderFallbackValue: 'N/A',
     getCoreRowModel: getCoreRowModel(),
   });
 
