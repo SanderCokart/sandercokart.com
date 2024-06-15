@@ -12,14 +12,23 @@ class ArticleFactory extends Factory
 
     public function definition(): array
     {
+        $now = Carbon::now();
+
+        //we need a date in the past and set it as created at, we then need to set the updated at to a date after the created at date
+        // and finally we need to set the published at date to a date after the created at date
+
+        $createdAt = $this->faker->dateTimeBetween($now->copy()->subDays(30), $now);
+        $updatedAt = $this->faker->dateTimeBetween($createdAt, $now);
+        $publishedAt = $this->faker->dateTimeBetween($createdAt, $now);
+
         return [
-            'created_at'   => Carbon::now(),
-            'updated_at'   => Carbon::now(),
-            'content'      => $this->faker->word(),
-            'title'        => $this->faker->word(),
-            'published_at' => Carbon::now(),
-            'slug'         => $this->faker->slug(),
-            'description'  => $this->faker->text(),
+            'created_at'   => $createdAt,
+            'updated_at'   => $updatedAt,
+            'content'      => $this->faker->realTextBetween(1000, 3000),
+            'title'        => $this->faker->sentence(),
+            'published_at' => $publishedAt,
+            //'slug'         => $this->faker->slug(),
+            'description'  => $this->faker->realTextBetween(100,200),
         ];
     }
 }

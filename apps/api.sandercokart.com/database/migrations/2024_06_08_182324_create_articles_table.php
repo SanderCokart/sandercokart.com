@@ -10,8 +10,8 @@ return new class extends Migration {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
-            $table->string('content');
+            $table->string('description', 500);
+            $table->longText('content');
             $table->string('slug')->unique()->index();
 
             $table->softDeletes();
