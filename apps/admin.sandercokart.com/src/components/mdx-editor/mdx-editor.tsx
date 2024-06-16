@@ -29,12 +29,12 @@ import {
   UndoRedo,
 } from '@mdxeditor/editor';
 
-import type { ImageUploadHandler, MDXEditorMethods, MDXEditorProps } from '@mdxeditor/editor';
+import type { ImageUploadHandler, MDXEditorProps } from '@mdxeditor/editor';
 
 import '@mdxeditor/editor/style.css';
 import './mdx-editor.overrides.css';
 
-import { forwardRef, useMemo, useRef } from 'react';
+import { forwardRef, useMemo } from 'react';
 
 import type { ElementRef } from 'react';
 
