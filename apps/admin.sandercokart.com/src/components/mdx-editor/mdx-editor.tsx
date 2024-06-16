@@ -1,5 +1,4 @@
 import {
-  AdmonitionDirectiveDescriptor,
   BlockTypeSelect,
   BoldItalicUnderlineToggles,
   ChangeCodeMirrorLanguage,
@@ -8,13 +7,16 @@ import {
   CodeToggle,
   ConditionalContents,
   CreateLink,
-  directivesPlugin,
+  diffSourcePlugin,
+  DiffSourceToggleWrapper,
   headingsPlugin,
-  InsertAdmonition,
+  imagePlugin,
   InsertCodeBlock,
   InsertImage,
   InsertTable,
   InsertThematicBreak,
+  linkDialogPlugin,
+  linkPlugin,
   listsPlugin,
   ListsToggle,
   markdownShortcutPlugin,
@@ -27,64 +29,79 @@ import {
   UndoRedo,
 } from '@mdxeditor/editor';
 
+import type { ImageUploadHandler, MDXEditorMethods, MDXEditorProps } from '@mdxeditor/editor';
+
 import '@mdxeditor/editor/style.css';
 import './mdx-editor.overrides.css';
 
-import { forwardRef } from 'react';
+import { forwardRef, useMemo, useRef } from 'react';
 
 import type { ElementRef } from 'react';
-import type { MDXEditorProps } from '@mdxeditor/editor';
 
+import { api } from '@/lib/api.ts';
 import { cn } from '@/lib/utils.ts';
 
 function Divider() {
-  return <div className="h-6 border-r border-white" />;
+  return <div className="h-6 border-r border-white/25" />;
 }
 
 function ToolbarContents() {
   return (
     <>
-      <UndoRedo />
+      <DiffSourceToggleWrapper>
+        <UndoRedo />
+        <Divider />
+        <BoldItalicUnderlineToggles />
+        <CodeToggle />
+        <Divider />
+        <StrikeThroughSupSubToggles />
+        <Divider />
+        <ListsToggle />
+        <Divider />
+        <BlockTypeSelect />
+        <Divider />
+        <CreateLink />
+        <InsertImage />
+        <Divider />
+        <InsertTable />
+        <InsertThematicBreak />
+        <Divider />
+        <ConditionalContents
+          options={[
+            { when: editor => editor?.editorType === 'codeblock', contents: () => <ChangeCodeMirrorLanguage /> },
+            // { when: editor => editor?.editorType === 'sandpack', contents: () => <ShowSandpackInfo /> },
+            {
+              fallback: () => <InsertCodeBlock />,
+            },
+          ]}
+        />
+        {/*<Divider />*/}
+        {/*<InsertAdmonition />*/}
+      </DiffSourceToggleWrapper>
       <Divider />
-      <BoldItalicUnderlineToggles />
-      <CodeToggle />
-      <Divider />
-      <StrikeThroughSupSubToggles />
-      <Divider />
-      <ListsToggle />
-      <Divider />
-      <BlockTypeSelect />
-      <Divider />
-      <CreateLink />
-      <InsertImage />
-      <Divider />
-      <InsertTable />
-      <InsertThematicBreak />
-      <Divider />
-      <ConditionalContents
-        options={[
-          { when: editor => editor?.editorType === 'codeblock', contents: () => <ChangeCodeMirrorLanguage /> },
-          // { when: editor => editor?.editorType === 'sandpack', contents: () => <ShowSandpackInfo /> },
-          {
-            fallback: () => <InsertCodeBlock />,
-          },
-        ]}
-      />
-      <Divider />
-      <InsertAdmonition />
     </>
   );
 }
 
+const imageUploadHandler: ImageUploadHandler = async image => {
+  const { data } = await api.uploadFile<{ url: string }>('/articles/upload', image);
+
+  return data.url;
+};
+
 export const MDXEditor = forwardRef<ElementRef<typeof MDXEditorComponent>, Omit<MDXEditorProps, 'plugins'>>(
   function MDXEditor({ contentEditableClassName, className, ...restOfProps }, ref) {
+    const initialContent = useMemo(() => {
+      return restOfProps.markdown;
+    }, []);
+
     return (
       <div>
         <MDXEditorComponent
           ref={ref}
           className={cn('editor', className)}
           contentEditableClassName={cn(
-            'text-foreground bg-background dark:prose-invert max-w-none',
+            'text-foreground bg-background prose dark:prose-invert max-w-none',
             contentEditableClassName,
           )}
           {...restOfProps}
@@ -94,13 +111,20 @@ export const MDXEditor = forwardRef<ElementRef<typeof MDXEditorComponent>, Omit<
             }),
             codeBlockPlugin({ defaultCodeBlockLanguage: 'ts' }),
             codeMirrorPlugin({ codeBlockLanguages: { ts: 'Typescript', css: 'CSS' } }),
-
+            diffSourcePlugin({ diffMarkdown: initialContent, viewMode: 'rich-text' }),
             headingsPlugin(),
+            linkPlugin(),
+            linkDialogPlugin(),
             listsPlugin(),
-            directivesPlugin({ directiveDescriptors: [AdmonitionDirectiveDescriptor] }),
+            // directivesPlugin({ directiveDescriptors: [AdmonitionDirectiveDescriptor] }),
             markdownShortcutPlugin(),
             markdownShortcutPlugin(),
             quotePlugin(),
+            imagePlugin({
+              disableImageResize: true,
+              imageUploadHandler,
+              imageAutocompleteSuggestions: ['https://picsum.photos/200/300', 'https://picsum.photos/200'],
+            }),
             tablePlugin(),
             thematicBreakPlugin(),
           ]}

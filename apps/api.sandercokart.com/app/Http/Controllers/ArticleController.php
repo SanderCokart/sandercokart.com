@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
@@ -49,5 +51,18 @@ class ArticleController extends Controller
         $article->delete();
 
         return response()->noContent();
+    }
+
+    public function upload(Request $request): JsonResponse
+    {
+        $request->validate([
+            'file' => ['required', 'file'],
+        ]);
+
+        $path = Storage::disk('media')->putFile('uploads', $request->file('file'));
+
+        return response()->json([
+            'url' => Storage::disk('media')->url($path),
+        ]);
     }
 }

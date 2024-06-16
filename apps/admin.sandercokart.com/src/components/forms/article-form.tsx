@@ -32,49 +32,51 @@ export const ArticleForm = ({ onSubmit, defaultValues }: ArticleFormProps) => {
             {form.formState.isSubmitting ? <FaSpinner className="animate-spin" /> : <FaSave />}
           </Button>
         </header>
-        <div className="@3xl:grid-cols-2 grid gap-8">
-          <FormField
-            name="title"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Title</FormLabel>
-                <FormControl>
-                  <Input required {...field} placeholder="Some cool article title" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        <div className="p-4">
+          <div className="@3xl:grid-cols-2 grid gap-8">
+            <FormField
+              name="title"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Title</FormLabel>
+                  <FormControl>
+                    <Input required {...field} placeholder="Some cool article title" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea {...field} placeholder="Some description" />
+                  </FormControl>
+                  <FormDescription>
+                    It should be a short paragraph that describes what the article is about. It is shown to the user
+                    before they click on the article.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
 
           <FormField
-            name="description"
-            render={({ field }) => (
+            name="content"
+            render={({ field: { value, ...restOfField } }) => (
               <FormItem>
-                <FormLabel>Description</FormLabel>
+                <FormLabel>Content</FormLabel>
                 <FormControl>
-                  <Textarea {...field} placeholder="Some description" />
+                  <MDXEditor markdown={value} {...restOfField} />
                 </FormControl>
-                <FormDescription>
-                  It should be a short paragraph that describes what the article is about. It is shown to the user
-                  before they click on the article.
-                </FormDescription>
-                <FormMessage />
               </FormItem>
             )}
           />
         </div>
-
-        <FormField
-          name="content"
-          render={({ field: { value, ...restOfField } }) => (
-            <FormItem>
-              <FormLabel>Content</FormLabel>
-              <FormControl>
-                <MDXEditor markdown={value} {...restOfField} />
-              </FormControl>
-            </FormItem>
-          )}
-        />
       </form>
     </Form>
   );

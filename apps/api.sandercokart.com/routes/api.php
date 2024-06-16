@@ -9,4 +9,5 @@ Route::get('/user', [\App\Http\Controllers\AuthController::class, 'user']);
 Route::post('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
 
 
-Route::apiResource('articles', ArticleController::class);
+Route::post('/articles/upload', [ArticleController::class, 'upload']);
+Route::apiResource('/articles', ArticleController::class);
