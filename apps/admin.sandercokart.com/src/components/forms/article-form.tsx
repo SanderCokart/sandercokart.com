@@ -27,7 +27,7 @@ export const ArticleForm = ({ onSubmit, defaultValues }: ArticleFormProps) => {
   return (
     <Form {...form}>
       <form noValidate className="@container h-full" onSubmit={handleSubmit}>
-        <header className="sticky top-0 flex h-12 items-center rounded-b border px-10">
+        <header className="bg-accent text-accent-foreground sticky top-0 z-10 flex h-12 items-center rounded-b border px-10">
           <Button disabled={form.formState.isSubmitting} size="icon" type="submit" variant="ghost">
             {form.formState.isSubmitting ? <FaSpinner className="animate-spin" /> : <FaSave />}
           </Button>

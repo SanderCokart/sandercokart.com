@@ -1,4 +1,5 @@
 import {
+  AdmonitionDirectiveDescriptor,
   BlockTypeSelect,
   BoldItalicUnderlineToggles,
   ChangeCodeMirrorLanguage,
@@ -7,11 +8,11 @@ import {
   CodeToggle,
   ConditionalContents,
   CreateLink,
+  directivesPlugin,
   headingsPlugin,
   InsertAdmonition,
   InsertCodeBlock,
   InsertImage,
-  InsertSandpack,
   InsertTable,
   InsertThematicBreak,
   listsPlugin,
@@ -19,7 +20,6 @@ import {
   markdownShortcutPlugin,
   MDXEditor as MDXEditorComponent,
   quotePlugin,
-  ShowSandpackInfo,
   StrikeThroughSupSubToggles,
   tablePlugin,
   thematicBreakPlugin,
@@ -64,14 +64,9 @@ function ToolbarContents() {
       <ConditionalContents
         options={[
           { when: editor => editor?.editorType === 'codeblock', contents: () => <ChangeCodeMirrorLanguage /> },
-          { when: editor => editor?.editorType === 'sandpack', contents: () => <ShowSandpackInfo /> },
+          // { when: editor => editor?.editorType === 'sandpack', contents: () => <ShowSandpackInfo /> },
           {
-            fallback: () => (
-              <>
-                <InsertCodeBlock />
-                <InsertSandpack />
-              </>
-            ),
+            fallback: () => <InsertCodeBlock />,
           },
         ]}
       />
@@ -102,8 +97,8 @@ export const MDXEditor = forwardRef<ElementRef<typeof MDXEditorComponent>, Omit<
 
             headingsPlugin(),
             listsPlugin(),
+            directivesPlugin({ directiveDescriptors: [AdmonitionDirectiveDescriptor] }),
             markdownShortcutPlugin(),
-
             markdownShortcutPlugin(),
             quotePlugin(),
             tablePlugin(),

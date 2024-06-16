@@ -7,11 +7,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@repo/ui/dropdown-menu';
-import { Input } from '@repo/ui/input';
 import { Sheet, SheetContent, SheetTrigger } from '@repo/ui/sheet';
 import { createFileRoute, Link, Outlet, redirect, useRouter } from '@tanstack/react-router';
 import { FaNewspaper } from 'react-icons/fa6';
-import { LuHome, LuLock, LuMenu, LuSearch, LuUserCircle } from 'react-icons/lu';
+import { LuHome, LuLock, LuMenu, LuUserCircle } from 'react-icons/lu';
 
 import { ThemeToggle } from '@/components/theme-toggle.tsx';
 
@@ -107,21 +106,10 @@ function AuthLayout() {
               </nav>
             </SheetContent>
           </Sheet>
-          <div className="w-full flex-1">
-            <form>
-              <div className="relative">
-                <LuSearch className="text-muted-foreground absolute left-2.5 top-2.5 h-4 w-4" />
-                <Input
-                  className="bg-background w-full appearance-none pl-8 shadow-none md:w-2/3 lg:w-1/3"
-                  placeholder="Search products..."
-                  type="search"
-                />
-              </div>
-            </form>
-          </div>
+
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button className="rounded-full" size="icon" variant="secondary">
+              <Button className="ml-auto rounded-full" size="icon" variant="secondary">
                 <LuUserCircle className="h-5 w-5" />
                 <span className="sr-only">Toggle user menu</span>
               </Button>
