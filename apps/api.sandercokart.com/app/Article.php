@@ -5,12 +5,14 @@ namespace App;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Article extends Model
+class Article extends Model implements HasMedia
 {
-    use SoftDeletes, HasFactory, HasSlug;
+    use SoftDeletes, HasFactory, HasSlug, InteractsWithMedia;
 
     protected $fillable = [
         'content',
@@ -37,6 +39,12 @@ class Article extends Model
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('banner')
+            ->singleFile();
     }
 
 

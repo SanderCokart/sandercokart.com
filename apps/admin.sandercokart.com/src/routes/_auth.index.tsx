@@ -5,5 +5,11 @@ export const Route = createFileRoute('/_auth/')({
 });
 
 function HomeComponent() {
-  return <div>dashboard</div>;
+  return (
+    <main className="grid grow place-items-center">
+      <h1 className="text-center text-3xl sm:text-5xl lg:text-7xl 2xl:text-9xl">
+        sandercokart.com <small className="cap block">Admin Panel</small>
+      </h1>
+    </main>
+  );
 }
