@@ -1,3 +1,5 @@
+'use client';
+
 import { ThemeProvider } from '@repo/ui/theme-provider';
 
 import type { ReactNode } from 'react';
