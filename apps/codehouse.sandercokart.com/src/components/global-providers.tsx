@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react';
+import { ThemeProvider } from '@repo/ui/theme-provider';
 
-import { ThemeProvider } from './theme-provider';
+import type { ReactNode } from 'react';
 
 export function GlobalProviders({ children }: { children: ReactNode }) {
   return <ThemeProvider>{children}</ThemeProvider>;

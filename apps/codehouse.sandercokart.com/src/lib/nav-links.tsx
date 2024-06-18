@@ -4,13 +4,6 @@ import { FaComment, FaSuitcase } from 'react-icons/fa6';
 
 import type { ReactNode } from 'react';
 
-{
-  /*Icon={FaSuitcase}
-Icon={BsFillLightningFill}
-Icon={FaComment}
-Icon={FaEnvelope}*/
-}
-
 export type LinkType = {
   href: string;
   icon: ReactNode;
