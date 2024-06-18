@@ -15,8 +15,6 @@ import { Route as LoginImport } from './routes/login'
 import { Route as GuestImport } from './routes/_guest'
 import { Route as AuthImport } from './routes/_auth'
 import { Route as AuthIndexImport } from './routes/_auth.index'
-import { Route as AuthArticlesImport } from './routes/_auth.articles'
-import { Route as AuthArticlesArticleSlugEditImport } from './routes/_auth.articles_.$articleSlug.edit'
 
 // Create/Update Routes
 
@@ -39,17 +37,6 @@ const AuthIndexRoute = AuthIndexImport.update({
   path: '/',
   getParentRoute: () => AuthRoute,
 } as any)
-
-const AuthArticlesRoute = AuthArticlesImport.update({
-  path: '/articles',
-  getParentRoute: () => AuthRoute,
-} as any)
-
-const AuthArticlesArticleSlugEditRoute =
-  AuthArticlesArticleSlugEditImport.update({
-    path: '/articles/$articleSlug/edit',
-    getParentRoute: () => AuthRoute,
-  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -76,25 +63,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
     }
-    '/_auth/articles': {
-      id: '/_auth/articles'
-      path: '/articles'
-      fullPath: '/articles'
-      preLoaderRoute: typeof AuthArticlesImport
-      parentRoute: typeof AuthImport
-    }
     '/_auth/': {
       id: '/_auth/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof AuthIndexImport
-      parentRoute: typeof AuthImport
-    }
-    '/_auth/articles/$articleSlug/edit': {
-      id: '/_auth/articles/$articleSlug/edit'
-      path: '/articles/$articleSlug/edit'
-      fullPath: '/articles/$articleSlug/edit'
-      preLoaderRoute: typeof AuthArticlesArticleSlugEditImport
       parentRoute: typeof AuthImport
     }
   }
@@ -103,11 +76,7 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren({
-  AuthRoute: AuthRoute.addChildren({
-    AuthArticlesRoute,
-    AuthIndexRoute,
-    AuthArticlesArticleSlugEditRoute,
-  }),
+  AuthRoute: AuthRoute.addChildren({ AuthIndexRoute }),
   LoginRoute,
 })
 
@@ -127,9 +96,7 @@ export const routeTree = rootRoute.addChildren({
     "/_auth": {
       "filePath": "_auth.tsx",
       "children": [
-        "/_auth/articles",
-        "/_auth/",
-        "/_auth/articles/$articleSlug/edit"
+        "/_auth/"
       ]
     },
     "/_guest": {
@@ -138,16 +105,8 @@ export const routeTree = rootRoute.addChildren({
     "/login": {
       "filePath": "login.tsx"
     },
-    "/_auth/articles": {
-      "filePath": "_auth.articles.tsx",
-      "parent": "/_auth"
-    },
     "/_auth/": {
       "filePath": "_auth.index.tsx",
-      "parent": "/_auth"
-    },
-    "/_auth/articles/$articleSlug/edit": {
-      "filePath": "_auth.articles_.$articleSlug.edit.tsx",
       "parent": "/_auth"
     }
   }
