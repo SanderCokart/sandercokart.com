@@ -18,8 +18,8 @@ export async function Articles() {
         <CarouselContent className="px-8">
           {generalArticles.map(article => (
             <CarouselItem key={article.attributes.slug} className="basis-1/3">
-              <Link href={`/articles/${article.attributes.slug}`}>
-                <figure className="relative aspect-video max-h-96 grow">
+              <figure className="relative aspect-video max-h-96 grow">
+                <Link href={`/articles/${article.attributes.slug}`}>
                   <Image
                     fill
                     alt={article.attributes.title}
@@ -29,8 +29,8 @@ export async function Articles() {
                   <figcaption className="bg-muted/75 absolute inset-x-0 bottom-0 h-20 px-2">
                     <span className="line-clamp-3">{article.attributes.summary}</span>
                   </figcaption>
-                </figure>
-              </Link>
+                </Link>
+              </figure>
             </CarouselItem>
           ))}
         </CarouselContent>
@@ -42,8 +42,8 @@ export async function Articles() {
         <CarouselContent className="px-8">
           {tipsArticles.map(article => (
             <CarouselItem key={article.attributes.slug} className="basis-1/3">
-              <Link href={`/articles/${article.attributes.slug}`}>
-                <figure className="relative aspect-video max-h-96 grow">
+              <figure className="relative aspect-video max-h-96 grow">
+                <Link href={`/articles/${article.attributes.slug}`}>
                   {article.attributes && (
                     <Image
                       fill
@@ -55,8 +55,8 @@ export async function Articles() {
                   <figcaption className="bg-muted/75 absolute inset-x-0 bottom-0 h-20 px-2">
                     <span className="line-clamp-3">{article.attributes.summary}</span>
                   </figcaption>
-                </figure>
-              </Link>
+                </Link>
+              </figure>
             </CarouselItem>
           ))}
         </CarouselContent>

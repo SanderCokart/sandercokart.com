@@ -7,6 +7,8 @@ import remarkGfm from 'remark-gfm';
 
 import type { Page } from '@/types/common';
 
+import { cn } from '@/lib/utils';
+
 import components from './components';
 
 type PARAMS = { slug: string };
@@ -35,7 +37,12 @@ export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS
   const articles = await getArticle(params);
 
   return (
-    <article className="prose lg:prose-2xl prose-md sm:prose-lg md:prose-xl dark:prose-invert container py-32">
+    <article
+      className={cn(
+        'prose dark:prose-invert container py-32',
+        'prose-h2:bg-accent prose-h2:text-accent-foreground prose-h2:px-2 prose-h2:py-1',
+        'prose-h3:border-l-8 prose-h3:border-accent prose-h3:px-2 prose-h3:py-1',
+      )}>
       <MDXRemote
         components={components}
         options={{ mdxOptions: { remarkPlugins, rehypePlugins } }}

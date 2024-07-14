@@ -1,6 +1,7 @@
 'use server';
 
 import fs from 'fs';
+import * as process from 'node:process';
 import path from 'path';
 
 import fg from 'fast-glob';
@@ -15,6 +16,17 @@ type ArticleAttributes = {
   authors: string[];
   summary: string;
 };
+
+const getBannerPath = async (slug: string) => {
+  const files = await fs.promises.readdir('public/banners');
+
+  const pathname = files.find(file => file.startsWith(slug)) as string;
+
+  const filePath = `/banners/${pathname}`;
+
+  return filePath;
+};
+
 const getArticlesByType = async (type: 'general' | 'tips') => {
   const articlePaths = await fg(`src/app/articles/${type}/*.mdx`);
 
@@ -25,17 +37,6 @@ const getArticlesByType = async (type: 'general' | 'tips') => {
    * return public path to it
    * @param slug
    */
-  const resolveBanner = async (slug: string): Promise<string | null> | never => {
-    const banners = (await fg(`public/banners/${slug}.*`, { onlyFiles: true })) as [string];
-
-    if (banners.length !== 1) {
-      return null;
-    }
-
-    let relativePath = path.relative('public', banners[0]);
-
-    return `/${relativePath}`;
-  };
 
   const articles = await Promise.all(
     articlePaths.map(async articlePath => {
@@ -45,7 +46,7 @@ const getArticlesByType = async (type: 'general' | 'tips') => {
       //resolve slug
       const slug = path.basename(articlePath).replace(/\.mdx$/, '');
       //resolve banner, banner is placed in /banners/[slug].{jpg|png,webp,svg,gif}
-      const banner = await resolveBanner(slug);
+      const banner = await getBannerPath(slug);
 
       Object.assign(matter.attributes, {
         slug,
