@@ -4,8 +4,10 @@
   "private": true,
   "exports": {
     "./themes/default.css": "./src/themes/default.css",
-    "./themes/codehouse.sandercokart.com": "./src/themes/codehouse.sandercokart.com.css",
+    "./themes/codehouse.sandercokart.com.css": "./src/themes/codehouse.sandercokart.com.css",
+    "./themes/sandercokart.com.css": "./src/themes/sandercokart.com.css",
     "./alert": "./src/components/ui/alert.tsx",
+    "./aspect-ratio": "./src/components/ui/aspect-ratio.tsx",
     "./badge": "./src/components/ui/badge.tsx",
     "./button": "./src/components/ui/button.tsx",
     "./card": "./src/components/ui/card.tsx",
@@ -49,6 +51,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.4.2",
+    "@radix-ui/react-aspect-ratio": "^1.1.0",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-dropdown-menu": "^2.0.6",
     "@radix-ui/react-hover-card": "^1.0.7",
@@ -59,8 +62,10 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "embla-carousel-react": "^8.0.0",
+    "framer-motion": "^11.3.2",
     "lucide-react": "^0.364.0",
     "react-hook-form": "^7.51.5",
+    "react-icons": "^5.2.1",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"
