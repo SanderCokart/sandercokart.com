@@ -33,13 +33,23 @@ export function ThemeToggle() {
       <AnimatePresence initial={false} mode="wait">
         {(theme === 'dark' || (theme === 'system' && systemTheme === 'dark')) && (
           <motion.div key="light" {...ascensionAnimation}>
-            <FaSun className="h-6 w-6 cursor-pointer" onClick={() => setTheme('light')} />
+            <FaSun
+              className="hover:text-accent h-6 w-6 cursor-pointer transition-colors"
+              title="Switch to light mode"
+              onClick={() => setTheme('light')}
+            />
+            <span className="sr-only">Switch to light mode</span>
           </motion.div>
         )}
 
         {(theme === 'light' || (theme === 'system' && systemTheme === 'light')) && (
           <motion.div key="dark" {...ascensionAnimation}>
-            <FaMoon className="h-6 w-6 cursor-pointer" onClick={() => setTheme('dark')} />
+            <FaMoon
+              className="hover:text-accent h-6 w-6 cursor-pointer transition-colors"
+              title="Switch to dark mode"
+              onClick={() => setTheme('dark')}
+            />
+            <span className="sr-only">Switch to dark mode</span>
           </motion.div>
         )}
       </AnimatePresence>
