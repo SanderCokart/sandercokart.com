@@ -1,21 +1,10 @@
-'use server';
-
 import fs from 'fs';
 import path from 'path';
 
 import fg from 'fast-glob';
 import frontMatter from 'front-matter';
 
-type AppendedArticleAttributes = { slug: string; banner: string | null };
-type ArticleAttributes = {
-  createdAt: string;
-  updatedAt: string;
-  title: string;
-  publishedAt: string;
-  authors: string[];
-  summary: string;
-  videoId: string;
-};
+import type { AppendedArticleAttributes, ArticleAttributes, ArticleModel } from '@/types/model-types';
 
 const getBannerPath = async (slug: string) => {
   const files = await fs.promises.readdir('public/banners');
@@ -53,7 +42,7 @@ const getArticlesByType = async (type: 'general' | 'tips') => {
         banner,
       });
 
-      return matter as typeof matter & { attributes: ArticleAttributes & AppendedArticleAttributes };
+      return matter as typeof matter & ArticleModel;
     }),
   );
 
@@ -77,7 +66,7 @@ const getArticleBySlug = async ({ slug }: { slug: string }) => {
     slug,
   });
 
-  return matter as typeof matter & { attributes: ArticleAttributes & Pick<AppendedArticleAttributes, 'slug'> };
+  return matter as typeof matter & { attributes: ArticleModel };
 };
 
 export { getArticlesByType, getArticleBySlug };

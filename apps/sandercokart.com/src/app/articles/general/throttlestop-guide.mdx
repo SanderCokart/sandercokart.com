@@ -1,0 +1,60 @@
+---
+createdAt: 2024-06-18T22:34:22.877Z
+updatedAt: 2024-06-18T22:34:22.877Z
+title: "Optimizing Laptop Performance with ThrottleStop: A Comprehensive Guide"
+publishedAt:
+authors: ["Sander Cokart"]
+summary: "Learn how to optimize your laptop's performance and power consumption using ThrottleStop. This comprehensive guide covers everything from initial setup to undervolting and automating ThrottleStop with Task Scheduler."
+videoId: "V_2b5M0J8SM"
+---
+
+**Optimizing Laptop Performance with ThrottleStop: A Comprehensive Guide**
+
+Hello everyone, my name is Santa Coal Cart, and welcome back to another video! I hope you all are doing well. I'm feeling fantastic, although I've had to reshoot this video multiple times due to constant blue screens of death, caused by a terrible undervolt. Anyhow, today we're revisiting ThrottleStop because my previous video contained a lot of misinformation. Thanks to your comments, I now have a better understanding and want to provide a more accurate and helpful tutorial.
+
+### Downloading and Installing ThrottleStop
+
+First, download ThrottleStop from its official website. Simply Google it, and usually, the top result will direct you to the download page. Select the appropriate download link for your region, install the software, and launch it.
+
+### Initial Setup
+
+Upon launching ThrottleStop, you'll see four presets: Performance, Game, Internet, and Battery. These can be renamed and customized to suit your needs. I recommend enabling "Minimize on Close" and "Start Minimized" so that ThrottleStop runs quietly in the background without cluttering your taskbar.
+
+### Power Profiles and Clock Modulation
+
+You can set ThrottleStop to automatically switch profiles based on whether your laptop is plugged in or running on battery. For instance, my battery profile is optimized for efficiency, while my performance profile maximizes CPU power for gaming.
+
+**Clock Modulation** allows you to reduce your CPU's maximum base clock speed. For example, if your CPU's base clock is 3.2 GHz, setting clock modulation to 50% would lower it to 1.6 GHz. This can be useful for conserving power, but be cautious as it will significantly slow down your system.
+
+### Set Multiplier and Speed Shift
+
+The **Set Multiplier** option is recommended only for unlocked processors. **Speed Shift** is a newer Intel technology that dynamically adjusts CPU performance based on workload and temperature. Speed Shift settings range from 0 (maximum performance) to 255 (minimum performance). Adjusting these settings can help optimize your system for different usage scenarios.
+
+### Turbo Power Limits and Speed Shift
+
+Under the Turbo Power Limits (TPL) settings, you can enable Speed Shift and set its range. I typically use a Speed Shift value of 128 for my battery profile, balancing performance and power consumption. Setting it to 255 can drastically reduce power usage but also significantly slow down your system.
+
+### Disabling Turbo and FIVR
+
+Disabling Turbo mode can prevent short bursts of high power consumption and thermal spikes. This is especially useful if you want to maintain a consistent and lower power usage.
+
+The **FIVR (Fully Integrated Voltage Regulator)** menu is crucial for undervolting. Only processors from Intel's fourth generation or newer support FIVR. When undervolting, make sure to adjust both the CPU core and cache voltages. I recommend starting with small adjustments (increments of 10 mV) and testing stability. My stable configuration is a -80.1 mV offset for both the CPU core and cache.
+
+### Testing Stability
+
+ThrottleStop includes a built-in stress test, TS Bench, which you can use to ensure your undervolt is stable. Run this test after making changes to verify that your system remains stable under load.
+
+### Automating ThrottleStop with Task Scheduler
+
+To ensure ThrottleStop starts automatically with Windows:
+
+1. Open Task Scheduler and create a new basic task named "ThrottleStop".
+2. Set the trigger to "When I log on".
+3. Choose "Start a program" and browse to the ThrottleStop executable.
+4. Complete the task setup.
+
+This setup ensures ThrottleStop runs every time you log into Windows.
+
+### Conclusion
+
+By following this guide, you should be able to optimize your laptop's performance and power consumption effectively. If you have further questions or encounter issues, feel free to reach out to me on Discord. I hope this tutorial has been informative and helpful. Thank you for watching, and I'll catch you in the next video. Peace!
