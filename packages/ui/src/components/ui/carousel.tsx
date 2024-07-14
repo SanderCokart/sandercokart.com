@@ -17,23 +17,23 @@ type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
 type CarouselOptions = UseCarouselParameters[0];
 type CarouselPlugin = UseCarouselParameters[1];
 
-type CarouselProps = {
+type EmblaCarouselProps = {
   opts?: CarouselOptions;
   plugins?: CarouselPlugin;
   orientation?: 'horizontal' | 'vertical';
   setApi?: (api: CarouselApi) => void;
 };
 
-type CarouselContextProps = {
+type EmblaCarouselContextProps = {
   carouselRef: ReturnType<typeof useEmblaCarousel>[0];
   api: ReturnType<typeof useEmblaCarousel>[1];
   scrollPrev: () => void;
   scrollNext: () => void;
   canScrollPrev: boolean;
   canScrollNext: boolean;
-} & CarouselProps;
+} & EmblaCarouselProps;
 
-const CarouselContext = createContext<CarouselContextProps | null>(null);
+const CarouselContext = createContext<EmblaCarouselContextProps | null>(null);
 
 function useCarousel() {
   const context = useContext(CarouselContext);
@@ -45,7 +45,8 @@ function useCarousel() {
   return context;
 }
 
-const Carousel = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement> & CarouselProps>(
+type CarouselProps = HTMLAttributes<HTMLDivElement> & EmblaCarouselProps;
+const Carousel = forwardRef<HTMLDivElement, CarouselProps>(
   ({ orientation = 'horizontal', opts, setApi, plugins, className, children, ...props }, ref) => {
     const [carouselRef, api] = useEmblaCarousel(
       {
@@ -136,7 +137,8 @@ const Carousel = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement> & Car
 );
 Carousel.displayName = 'Carousel';
 
-const CarouselContent = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => {
+type CarouselContentProps = HTMLAttributes<HTMLDivElement>;
+const CarouselContent = forwardRef<HTMLDivElement, CarouselContentProps>(({ className, ...props }, ref) => {
   const { carouselRef, orientation } = useCarousel();
 
   return (
@@ -151,7 +153,8 @@ const CarouselContent = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement
 });
 CarouselContent.displayName = 'CarouselContent';
 
-const CarouselItem = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => {
+type CarouselItemProps = HTMLAttributes<HTMLDivElement>;
+const CarouselItem = forwardRef<HTMLDivElement, CarouselItemProps>(({ className, ...props }, ref) => {
   const { orientation } = useCarousel();
 
   return (
@@ -166,7 +169,8 @@ const CarouselItem = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
 });
 CarouselItem.displayName = 'CarouselItem';
 
-const CarouselPrevious = forwardRef<HTMLButtonElement, ComponentProps<typeof Button>>(
+type CarouselPreviousProps = ComponentProps<typeof Button>;
+const CarouselPrevious = forwardRef<HTMLButtonElement, CarouselPreviousProps>(
   ({ className, variant = 'outline', size = 'icon', ...props }, ref) => {
     const { orientation, scrollPrev, canScrollPrev } = useCarousel();
 
@@ -193,7 +197,8 @@ const CarouselPrevious = forwardRef<HTMLButtonElement, ComponentProps<typeof But
 );
 CarouselPrevious.displayName = 'CarouselPrevious';
 
-const CarouselNext = forwardRef<HTMLButtonElement, ComponentProps<typeof Button>>(
+type CarouselNextProps = ComponentProps<typeof Button>;
+const CarouselNext = forwardRef<HTMLButtonElement, CarouselNextProps>(
   ({ className, variant = 'outline', size = 'icon', ...props }, ref) => {
     const { orientation, scrollNext, canScrollNext } = useCarousel();
 
@@ -221,3 +226,5 @@ const CarouselNext = forwardRef<HTMLButtonElement, ComponentProps<typeof Button>
 CarouselNext.displayName = 'CarouselNext';
 
 export { type CarouselApi, Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext };
+
+export type { CarouselProps, CarouselItemProps, CarouselContentProps, CarouselPreviousProps, CarouselNextProps };
