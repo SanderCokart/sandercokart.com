@@ -1,7 +1,6 @@
 'use server';
 
 import fs from 'fs';
-import * as process from 'node:process';
 import path from 'path';
 
 import fg from 'fast-glob';
@@ -15,6 +14,7 @@ type ArticleAttributes = {
   publishedAt: string;
   authors: string[];
   summary: string;
+  videoId: string;
 };
 
 const getBannerPath = async (slug: string) => {
@@ -60,4 +60,24 @@ const getArticlesByType = async (type: 'general' | 'tips') => {
   return articles;
 };
 
-export { getArticlesByType };
+const getArticleBySlug = async ({ slug }: { slug: string }) => {
+  const paths = (await fg(`src/app/articles/**/${slug}.mdx`)) as [string];
+
+  if (!paths.length) {
+    throw new Error('Article not found');
+  }
+
+  const firstResult = paths[0];
+
+  const content = await fs.promises.readFile(firstResult, 'utf-8');
+
+  const matter = frontMatter<ArticleAttributes>(content);
+
+  Object.assign(matter.attributes, {
+    slug,
+  });
+
+  return matter as typeof matter & { attributes: ArticleAttributes & Pick<AppendedArticleAttributes, 'slug'> };
+};
+
+export { getArticlesByType, getArticleBySlug };

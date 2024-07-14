@@ -35,7 +35,7 @@ export async function Articles() {
           ))}
         </CarouselContent>
         <CarouselPrevious className="absolute inset-y-0 left-0 h-full transform-none rounded-none" />
-        <CarouselNext className="absolute inset-y-0 right-0 h-full transform-none rounded-none" variant="ghost" />
+        <CarouselNext className="absolute inset-y-0 right-0 h-full transform-none rounded-none" />
       </Carousel>
       <h1 className="font-digital bg-accent text-accent-foreground w-full text-center text-3xl uppercase">Tips</h1>
       <Carousel className="bg-muted w-full">
@@ -61,7 +61,7 @@ export async function Articles() {
           ))}
         </CarouselContent>
         <CarouselPrevious className="absolute inset-y-0 left-0 h-full transform-none rounded-none" />
-        <CarouselNext className="absolute inset-y-0 right-0 h-full transform-none rounded-none" variant="ghost" />
+        <CarouselNext className="absolute inset-y-0 right-0 h-full transform-none rounded-none" />
       </Carousel>
     </>
   );
