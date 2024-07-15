@@ -1,11 +1,15 @@
-import codeHouse from '@repo/ui/tailwind.config';
+import preset from '@repo/ui/tailwind.config';
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: ["./src/**/*.{js,ts,jsx,tsx,mdx}", "../../packages/**/src/**/*.{js,ts,jsx,tsx,mdx}"],
-    presets: [codeHouse],
+    presets: [preset],
     theme:{
         extend: {
+            screens: {
+                '3xl': '2176px',
+                '4xl': '3056px',
+            },
             fontFamily: {
                 sans: ['var(--font-geist-sans)'],
                 mono: ['var(--font-geist-mono)'],
