@@ -14,7 +14,9 @@ export async function Articles() {
 
   return (
     <>
-      <h1 className="font-digital bg-accent text-accent-foreground w-full text-center text-3xl uppercase">General</h1>
+      <h1 className="font-digital bg-accent text-accent-foreground 4xl:text-5xl w-full text-center text-3xl uppercase 2xl:text-4xl">
+        General
+      </h1>
       <ArticleCarousel>
         <ArticleCarouselContent>
           {generalArticles.map(article => (
@@ -26,7 +28,9 @@ export async function Articles() {
         <ArticleCarouselPrevious />
         <ArticleCarouselNext />
       </ArticleCarousel>
-      <h1 className="font-digital bg-accent text-accent-foreground w-full text-center text-3xl uppercase">Tips</h1>
+      <h1 className="font-digital bg-accent text-accent-foreground 4xl:text-5xl w-full text-center text-3xl uppercase 2xl:text-4xl">
+        Tips
+      </h1>
       <ArticleCarousel>
         <ArticleCarouselContent>
           {tipsArticles.map(article => (

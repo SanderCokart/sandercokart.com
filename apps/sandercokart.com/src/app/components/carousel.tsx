@@ -30,7 +30,10 @@ const ArticleCarouselItem = forwardRef<HTMLDivElement, CarouselItemProps>(({ cla
   return (
     <CarouselItem
       ref={ref}
-      className={cn('3xl:basis-1/4 4xl:basis-1/5 m-0 p-0 md:basis-1/2 2xl:basis-1/3', className)}
+      className={cn(
+        '3xl:basis-1/4 4xl:basis-1/5 border-accent m-0 p-0 first:border-l-0 last:border-r-0 md:basis-1/2 md:border-x-8 2xl:basis-1/3',
+        className,
+      )}
       {...props}
     />
   );
@@ -40,7 +43,10 @@ const ArticleCarouselPrevious = forwardRef<HTMLButtonElement, CarouselPreviousPr
   return (
     <CarouselPrevious
       ref={ref}
-      className={cn('absolute inset-y-0 left-0 h-full transform-none rounded-none border-none', className)}
+      className={cn(
+        'bg-primary text-primary-foreground disabled:text-primary disabled:hover:bg-primary absolute inset-y-0 left-0 h-full transform-none rounded-none border-none disabled:opacity-100',
+        className,
+      )}
       {...props}
     />
   );
@@ -50,7 +56,10 @@ const ArticleCarouselNext = forwardRef<HTMLButtonElement, CarouselNextProps>(({ 
   return (
     <CarouselNext
       ref={ref}
-      className={cn('absolute inset-y-0 right-0 h-full transform-none rounded-none border-none', className)}
+      className={cn(
+        'bg-primary text-primary-foreground disabled:text-primary disabled:hover:bg-primary absolute inset-y-0 right-0 h-full transform-none rounded-none border-none disabled:opacity-100',
+        className,
+      )}
       {...props}
     />
   );
@@ -69,7 +78,7 @@ function ArticleFigure({ article }: { article: ArticleModel }) {
         <figcaption
           className="absolute inset-0 flex flex-col justify-between font-semibold"
           title={article.attributes.title}>
-          <h1 className="bg-primary/75 text-primary-foreground line-clamp-2 px-2 py-1 text-center text-xs capitalize sm:text-lg">
+          <h1 className="bg-primary/75 text-primary-foreground line-clamp-2 text-balance px-2 py-1 text-center text-xs capitalize sm:text-lg">
             {article.attributes.title}
           </h1>
           <p
