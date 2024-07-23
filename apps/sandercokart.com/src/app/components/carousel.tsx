@@ -1,5 +1,4 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@repo/ui/carousel';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@repo/ui/tooltip';
 import { format, formatDistanceToNow } from 'date-fns';
 
 import { forwardRef } from 'react';
@@ -82,7 +81,7 @@ function ArticleFigure({ article }: { article: ArticleModel }) {
             {article.attributes.title}
           </h1>
           <p
-            className="bg-accent w-fit rounded-tr px-2 text-xs sm:text-base"
+            className="bg-accent w-fit rounded-tr px-2 pb-1 text-xs sm:text-base"
             title={format(article.attributes.createdAt, 'PPPPpp')}>
             {formatDistanceToNow(article.attributes.createdAt, { addSuffix: true })}
           </p>
