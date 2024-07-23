@@ -3,6 +3,9 @@ import path from 'path';
 
 import fg from 'fast-glob';
 import frontMatter from 'front-matter';
+import { bundleMDX } from 'mdx-bundler';
+import rehypeMdxCodeProps from 'rehype-mdx-code-props';
+import remarkGfm from 'remark-gfm';
 
 import type { AppendedArticleAttributes, ArticleAttributes, ArticleModel } from '@/types/model-types';
 
@@ -49,6 +52,9 @@ const getArticlesByType = async (type: 'general' | 'tips') => {
   return articles;
 };
 
+const remarkPlugins: any[] = [remarkGfm];
+const rehypePlugins: any[] = [rehypeMdxCodeProps];
+
 const getArticleBySlug = async ({ slug }: { slug: string }) => {
   const paths = (await fg(`src/app/articles/**/${slug}.mdx`)) as [string];
 
@@ -58,15 +64,16 @@ const getArticleBySlug = async ({ slug }: { slug: string }) => {
 
   const firstResult = paths[0];
 
-  const content = await fs.promises.readFile(firstResult, 'utf-8');
+  return await bundleMDX<ArticleAttributes>({
+    file: path.relative(process.cwd(), firstResult),
+    cwd: process.cwd(),
+    mdxOptions: (options, frontmatter) => {
+      options.rehypePlugins = [...(options.rehypePlugins || []), ...rehypePlugins];
+      options.remarkPlugins = [...(options.remarkPlugins || []), ...remarkPlugins];
 
-  const matter = frontMatter<ArticleAttributes>(content);
-
-  Object.assign(matter.attributes, {
-    slug,
+      return options;
+    },
   });
-
-  return matter as typeof matter & { attributes: ArticleModel };
 };
 
 export { getArticlesByType, getArticleBySlug };
