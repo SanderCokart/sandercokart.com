@@ -1,12 +1,57 @@
 @import '@repo/ui/themes/sandercokart.com.css';
 
-
 html.dark .shiki,
 html.dark .shiki span {
-    color: var(--shiki-dark) !important;
-    background-color: var(--shiki-dark-bg) !important;
-    /* Optional, if you also want font styles */
-    font-style: var(--shiki-dark-font-style) !important;
-    font-weight: var(--shiki-dark-font-weight) !important;
-    text-decoration: var(--shiki-dark-text-decoration) !important;
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+  /* Optional, if you also want font styles */
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
+}
+
+/*Outputs: <span class="line focused">
+The outer <pre> tag is modified: <pre class="has-focused">*/
+
+/*.has-focused-lines .line:not(.has-focus) {*/
+/*    filter: blur(0);*/
+/*    opacity: 1*/
+/*}*/
+
+/*.vp-doc [class*=language-]:hover .has-focused-lines .line:not(.has-focus) {
+    filter: blur(0);
+    opacity: 1
+}*/
+
+pre {
+  &:hover .has-focused .line:not(.focused) {
+    filter: blur(0);
+    opacity: 1;
+  }
+
+  &.has-focused {
+    .line:not(.focused) {
+      @apply opacity-40 blur-[2px];
+      &.focused {
+        @apply blur-none;
+      }
+    }
+  }
+
+  code {
+    .line {
+      @apply transition-[opacity,filter];
+      counter-increment: line;
+    }
+
+    .line:not(:last-of-type)::before {
+      content: counter(line);
+      opacity: 0.4;
+      padding-inline: 0.5em;
+    }
+
+    .highlighted {
+      @apply bg-accent;
+    }
+  }
 }
