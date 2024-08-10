@@ -75,7 +75,7 @@ function ArticleFigure({ article }: { article: ArticleModel }) {
           src={article.attributes.banner || placeholder}
         />
         <figcaption
-          className="absolute inset-0 flex flex-col justify-between font-semibold"
+          className="absolute inset-0 flex flex-col-reverse justify-between font-semibold"
           title={article.attributes.title}>
           <h1 className="bg-primary/75 text-primary-foreground line-clamp-2 text-balance px-2 py-1 text-center text-xs capitalize sm:text-lg">
             {article.attributes.title}
