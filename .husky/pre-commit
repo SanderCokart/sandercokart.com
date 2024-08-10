@@ -1,0 +1,5 @@
+# run eslint and prettier on staged files
+npx lint-staged
+
+# Uncomment the line below to preform a dry run of the git hooks without submitting the commit.
+# exit 1
