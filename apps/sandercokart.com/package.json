@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "eslint . --max-warnings=0",
     "article:create": "node src/scripts/create-article.js",
-    "article:publish": "node src/scripts/publish-article.js"
+    "article:publish": "node src/scripts/publish-article.js",
+    "script": "node src/scripts/main.js"
   },
   "dependencies": {
     "@next/third-parties": "^14.2.5",
@@ -45,6 +46,7 @@
     "@types/node": "20.12.2",
     "@types/react": "18.2.73",
     "@types/react-dom": "18.2.23",
+    "@types/terminal-kit": "^2.5.6",
     "@typescript-eslint/eslint-plugin": "^7.6.0",
     "@typescript-eslint/parser": "^7.6.0",
     "autoprefixer": "^10.4.19",
@@ -53,6 +55,7 @@
     "postcss": "^8.4.38",
     "postcss-import": "^16.1.0",
     "tailwindcss": "3.4.3",
+    "terminal-kit": "^3.1.1",
     "typescript": "^5"
   }
 }
