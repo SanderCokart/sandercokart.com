@@ -1,5 +1,5 @@
 import { YouTubeEmbed } from '@next/third-parties/google';
-import { format, formatDistanceToNow } from 'date-fns';
+import { format } from 'date-fns';
 import { getMDXComponent } from 'mdx-bundler/client';
 
 import type { Page } from '@/types/common';
@@ -9,7 +9,7 @@ import { getArticleBySlug } from '@/lib/actions/articles';
 import { cn } from '@/lib/utils';
 
 type PARAMS = { slug: string };
-type SEARCH_PARAMS = {};
+type SEARCH_PARAMS = null;
 
 export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS>) {
   const { frontmatter, code } = await getArticleBySlug(params);

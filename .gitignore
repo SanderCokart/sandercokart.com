@@ -38,5 +38,5 @@ yarn-error.log*
 *.pem
 
 #ide
-/.idea
-/.vscode
+.idea
+.vscode

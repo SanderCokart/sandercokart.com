@@ -1,32 +1,44 @@
-const { resolve } = require('node:path');
+/*
+ * This is a custom ESLint configuration
+ * It is meant to override react rules
+ */
 
-const project = resolve(process.cwd(), 'tsconfig.json');
-
-/** @type {import("eslint").Linter.Config} */
 module.exports = {
-  env: { browser: true, es2020: true },
-  extends: [
-    'eslint:recommended',
-    '@sandercokart/eslint-config',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react-hooks/recommended',
-  ],
-  globals: {
-    React: true,
-    JSX: true,
-  },
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
-  parser: '@typescript-eslint/parser',
-  overrides: [{ files: ['*.js?(x)', '*.ts?(x)'] }],
-  plugins: ['react-refresh', 'only-warn'],
+  plugins: ['react'],
   rules: {
-    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
-  },
-  settings: {
-    'import/resolver': {
-      typescript: {
-        project,
+    'react/jsx-sort-props': [
+      'warn',
+      {
+        callbacksLast: true,
+        ignoreCase: true,
+        noSortAlphabetically: false,
+        reservedFirst: true,
+        shorthandFirst: true,
+        shorthandLast: false,
       },
-    },
+    ],
+    'react/self-closing-comp': [
+      'warn',
+      {
+        component: true,
+        html: true,
+      },
+    ],
+    'react/jsx-props-no-multi-spaces': 'warn',
+    'react/jsx-no-useless-fragment': 'warn',
+    'react/jsx-pascal-case': 'warn',
+    'react/jsx-wrap-multilines': [
+      'warn',
+      {
+        arrow: 'parens',
+        assignment: 'parens',
+        condition: 'ignore',
+        declaration: 'parens',
+        logical: 'ignore',
+        prop: 'ignore',
+        return: 'parens',
+      },
+    ],
+    'react-hooks/exhaustive-deps': 'off',
   },
 };

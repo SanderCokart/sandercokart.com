@@ -1,13 +1,14 @@
 import fs from 'fs';
 import path from 'path';
 
+import { Options } from '@mdx-js/loader';
 import fg from 'fast-glob';
 import frontMatter from 'front-matter';
 import { bundleMDX } from 'mdx-bundler';
 import rehypeMdxCodeProps from 'rehype-mdx-code-props';
 import remarkGfm from 'remark-gfm';
 
-import type { AppendedArticleAttributes, ArticleAttributes, ArticleModel } from '@/types/model-types';
+import type { ArticleAttributes, ArticleModel } from '@/types/model-types';
 
 const getBannerPath = async (slug: string) => {
   const files = await fs.promises.readdir('public/banners');
@@ -52,8 +53,8 @@ const getArticlesByType = async (type: 'general' | 'tips') => {
   return articles;
 };
 
-const remarkPlugins: any[] = [remarkGfm];
-const rehypePlugins: any[] = [rehypeMdxCodeProps];
+const remarkPlugins: Options['remarkPlugins'] = [remarkGfm];
+const rehypePlugins: Options['rehypePlugins'] = [rehypeMdxCodeProps];
 
 const getArticleBySlug = async ({ slug }: { slug: string }) => {
   const paths = (await fg(`src/app/articles/**/${slug}.mdx`)) as [string];
@@ -67,7 +68,7 @@ const getArticleBySlug = async ({ slug }: { slug: string }) => {
   return await bundleMDX<ArticleAttributes>({
     file: path.relative(process.cwd(), firstResult),
     cwd: process.cwd(),
-    mdxOptions: (options, frontmatter) => {
+    mdxOptions: options => {
       options.rehypePlugins = [...(options.rehypePlugins || []), ...rehypePlugins];
       options.remarkPlugins = [...(options.remarkPlugins || []), ...remarkPlugins];
 

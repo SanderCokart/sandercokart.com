@@ -1,9 +1,9 @@
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
   root: true,
-  extends: ['@repo/eslint-config/react.js'],
+  extends: [],
   parser: '@typescript-eslint/parser',
-  ignorePatterns: ['postcss.config.*', 'tailwind.config.*', '*.d.ts', 'vite.config.*'],
+  ignorePatterns: ['.*.js', '.*.cjs', 'routeTree.gen.ts', '*.d.ts', 'vite.config.*'],
   parserOptions: {
     project: true,
   },

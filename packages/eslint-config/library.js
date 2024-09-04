@@ -1,11 +1,25 @@
-const { resolve } = require("node:path");
+const { resolve } = require('node:path');
 
-const project = resolve(process.cwd(), "tsconfig.json");
+const project = resolve(process.cwd(), 'tsconfig.json');
+
+/*
+ * This is a custom ESLint configuration for use with
+ * Library packages.
+ */
 
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
-  extends: ["eslint:recommended", "prettier", "eslint-config-turbo"],
-  plugins: ["only-warn"],
+  extends: [
+    // Base
+    'eslint:recommended',
+    // Custom
+    './typescript',
+    './react',
+    // Prettier and turbo should be last
+    'prettier',
+    'turbo',
+  ],
+  plugins: ['only-warn'],
   globals: {
     React: true,
     JSX: true,
@@ -14,21 +28,16 @@ module.exports = {
     node: true,
   },
   settings: {
-    "import/resolver": {
+    'import/resolver': {
       typescript: {
         project,
       },
     },
   },
-  ignorePatterns: [
-    // Ignore dotfiles
-    ".*.js",
-    "node_modules/",
-    "dist/",
-  ],
+  ignorePatterns: ['.*.js', 'node_modules/', 'dist/'],
   overrides: [
     {
-      files: ["*.js?(x)", "*.ts?(x)"],
+      files: ['*.js?(x)', '*.ts?(x)'],
     },
   ],
 };

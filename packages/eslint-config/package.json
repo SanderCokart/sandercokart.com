@@ -6,16 +6,17 @@
     "library.js",
     "next.js",
     "react-internal.js",
-    "react.js"
+    "react.js",
+    "typescript.js"
   ],
   "devDependencies": {
     "@sandercokart/eslint-config": "^1.0.1",
-    "@typescript-eslint/eslint-plugin": "^7.13.0",
-    "@typescript-eslint/parser": "^7.13.0",
-    "@vercel/style-guide": "^6.0.0",
+    "@typescript-eslint/eslint-plugin": "^7",
+    "@typescript-eslint/parser": "^7",
+    "@vercel/style-guide": "^5.2.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-config-turbo": "^2.0.3",
+    "eslint-config-turbo": "^2.1.1",
     "eslint-plugin-only-warn": "^1.1.0",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.4"
   }
 }

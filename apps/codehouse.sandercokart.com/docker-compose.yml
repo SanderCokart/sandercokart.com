@@ -1,0 +1,17 @@
+services:
+  codehouse:
+    image: codehouse
+    container_name: codehouse
+    restart: on-failure
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+    build:
+      dockerfile: apps/codehouse.sandercokart.com/Dockerfile
+      context: ../../
+      args:
+        # $ variables are loaded from .env file to keep them secret
+        API_URL: $API_URL
+
+    ports:
+      - '3001:3000'

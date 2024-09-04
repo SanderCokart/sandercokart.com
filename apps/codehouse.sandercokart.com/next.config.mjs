@@ -4,7 +4,9 @@ const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    reactStrictMode: true,
+  eslint: {
+    ignoreDuringBuilds: process.env.NODE_ENV === 'production',
+  },
 };
 
 export default withNextIntl(nextConfig);
