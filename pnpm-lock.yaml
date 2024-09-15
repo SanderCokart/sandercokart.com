@@ -24,7 +24,7 @@ importers:
         specifier: ^5
         version: 5.5.4
 
-  apps/admin.sandercokart.com:
+  apps/admin:
     dependencies:
       '@hookform/resolvers':
         specifier: ^3.6.0
@@ -142,7 +142,7 @@ importers:
         specifier: ^5.2.0
         version: 5.4.3(@types/node@20.16.4)(sass@1.78.0)(terser@5.31.6)
 
-  apps/api.sandercokart.com:
+  apps/api:
     devDependencies:
       axios:
         specifier: ^1.6.4
@@ -157,7 +157,7 @@ importers:
         specifier: ^5.0
         version: 5.4.3(@types/node@20.16.4)(sass@1.78.0)(terser@5.31.6)
 
-  apps/codehouse.sandercokart.com:
+  apps/codehouse:
     dependencies:
       '@hookform/resolvers':
         specifier: ^3
@@ -272,7 +272,7 @@ importers:
         specifier: ^3
         version: 3.4.10(ts-node@10.9.2(@swc/core@1.7.23(@swc/helpers@0.5.5))(@types/node@20.16.4)(typescript@5.5.4))
 
-  apps/sandercokart.com:
+  apps/main:
     dependencies:
       '@next/third-parties':
         specifier: ^14
@@ -3628,6 +3628,7 @@ packages:
   follow-redirects@1.15.8:
     resolution: {integrity: sha512-xgrmBhBToVKay1q2Tao5LI26B83UhrB/vM1avwVSDzt8rx3rO6AizBAaF46EgksTVr+rFTQaqZZ9MVBfUe4nig==}
     engines: {node: '>=4.0'}
+    deprecated: Browser detection issues fixed in v1.15.9
     peerDependencies:
       debug: '*'
     peerDependenciesMeta:
