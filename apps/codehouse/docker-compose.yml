@@ -6,12 +6,21 @@ services:
     extra_hosts:
       - host.docker.internal:host-gateway
 
+    environment:
+      HUSKY: 0 # Disable husky hooks on CI
     build:
-      dockerfile: apps/codehouse.sandercokart.com/Dockerfile
+      dockerfile: apps/codehouse/Dockerfile
       context: ../../
       args:
         # $ variables are loaded from .env file to keep them secret
-        API_URL: $API_URL
+#        SENTRY_AUTH_TOKEN: $SENTRY_AUTH_TOKEN
+        API_URL: API_URL
+        NEXT_PUBLIC_ENV: $NEXT_PUBLIC_ENV
+#        NEXT_PUBLIC_SENTRY: $NEXT_PUBLIC_SENTRY
+#        ANALYZE_BUNDLE: $ANALYZE_BUNDLE
+#        TURBO_TEAM: $TURBO_TEAM
+#        TURBO_TOKEN: $TURBO_TOKEN
+        CI: disabled
 
     ports:
-      - '3001:3000'
+      - '3002:3002'

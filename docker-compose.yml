@@ -1,2 +1,2 @@
 include:
-  - ./apps/codehouse.sandercokart.com/docker-compose.yml
+  - ./apps/codehouse/docker-compose.yml
