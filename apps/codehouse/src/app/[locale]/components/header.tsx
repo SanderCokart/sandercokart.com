@@ -1,7 +1,7 @@
 import { Header as BrandHeader } from '@repo/ui/brand/header';
 import { NamedLogo } from '@repo/ui/brand/named-logo';
 
-import { Link } from '@/lib/navigation';
+import { Link } from '@/i18n/routing';
 
 import { LocaleSwitcher } from './locale-switcher';
 import { Navigation } from './navigation';

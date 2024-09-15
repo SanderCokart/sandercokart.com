@@ -15,7 +15,6 @@ export default async function LandingPage({
   };
 }) {
   unstable_setRequestLocale(locale);
-
   return (
     <main className="grow">
       <HeroSection />
@@ -31,8 +30,4 @@ export default async function LandingPage({
       </div>
     </main>
   );
-}
-
-export function generateStaticParams() {
-  return ['en', 'nl'].map(locale => ({ locale }));
 }

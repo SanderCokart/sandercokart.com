@@ -2,8 +2,8 @@
 
 import { useTranslations } from 'next-intl';
 
+import { Link } from '@/i18n/routing';
 import { links } from '@/lib/nav-links';
-import { Link } from '@/lib/navigation';
 import { cn } from '@/lib/utils';
 
 export function Navigation() {
@@ -23,7 +23,7 @@ function DesktopNavigation() {
       {links.map(link => (
         <Link
           key={link.href}
-          className="font-digital leading-none transition-colors hover:text-accent"
+          className="font-digital hover:text-accent leading-none transition-colors"
           href={link.href}>
           {t(link.t)}
         </Link>
@@ -38,13 +38,13 @@ function MobileNavigation() {
   return (
     <nav
       className={cn(
-        'fixed inset-x-0 bottom-0 flex h-14 w-full items-center justify-evenly bg-primary text-2xl md:hidden',
+        'bg-primary fixed inset-x-0 bottom-0 flex h-14 w-full items-center justify-evenly text-2xl md:hidden',
       )}>
       {links.map(link => (
         <Link
           key={link.href}
           className={cn(
-            'flex flex-col items-center gap-1 font-digital leading-none transition-colors hover:text-accent',
+            'font-digital hover:text-accent flex flex-col items-center gap-1 leading-none transition-colors',
           )}
           href={link.href}>
           {link.icon}

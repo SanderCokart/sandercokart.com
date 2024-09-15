@@ -3,7 +3,7 @@ import './globals.css';
 import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { getMessages, unstable_setRequestLocale } from 'next-intl/server';
 
 import localFont from 'next/font/local';
 
@@ -11,6 +11,7 @@ import type { ReactNode } from 'react';
 
 import { GlobalProviders } from '@/components/global-providers';
 
+import { routing } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 
 import { Footer } from './components/footer';
@@ -24,17 +25,15 @@ const LetsGoDigital = localFont({
   preload: true,
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params: { locale },
 }: {
   children: ReactNode;
   params: { locale: 'en' | 'nl' };
 }) {
+  const messages = await getMessages();
   unstable_setRequestLocale(locale);
-
-  const messages = useMessages();
-
   return (
     <html suppressHydrationWarning className="scroll-smooth" lang={locale}>
       <head>
@@ -49,7 +48,7 @@ export default function RootLayout({
           'flex min-h-dvh flex-col',
           'mb-14 md:mb-0', //this is to account for mobile navigation @see <Navigation />
         )}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
+        <NextIntlClientProvider messages={messages}>
           <GlobalProviders>
             <Header />
             {children}
@@ -62,5 +61,5 @@ export default function RootLayout({
 }
 
 export function generateStaticParams() {
-  return ['en', 'nl'].map(locale => ({ locale }));
+  return routing.locales.map(locale => ({ locale }));
 }

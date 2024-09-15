@@ -5,7 +5,7 @@ import { useLocale } from 'next-intl';
 
 import type { Locales } from '@/types/common';
 
-import { Link, usePathname, useRouter } from '@/lib/navigation';
+import { Link, usePathname, useRouter } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 
 export function LocaleSwitcher() {
