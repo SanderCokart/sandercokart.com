@@ -30,8 +30,8 @@ ENV CI=$CI
 # Required for docker
 ENV NEXT_OUTPUT=standalone
 
-ARG NEXT_PUBLIC_API_URL
-ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ARG API_URL
+ENV API_URL=$API_URL
 
 ARG NEXT_PUBLIC_ENV
 ENV NEXT_PUBLIC_ENV=$NEXT_PUBLIC_ENV
@@ -58,5 +58,7 @@ USER nextjs
 COPY --from=builder --chown=nextjs:nodejs /app/apps/codehouse/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/apps/codehouse/.next/static ./apps/codehouse/.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/apps/codehouse/public ./apps/codehouse/public
+
+EXPOSE 3000
 
 CMD ["node","apps/codehouse/server.js"]
