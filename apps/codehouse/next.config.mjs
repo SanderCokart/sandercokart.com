@@ -5,6 +5,7 @@ const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: process.env.NEXT_OUTPUT || undefined,
   eslint: {
     ignoreDuringBuilds: process.env.NODE_ENV === 'production',
   },
