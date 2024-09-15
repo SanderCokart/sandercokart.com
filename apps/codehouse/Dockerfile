@@ -48,9 +48,6 @@ ENV TURBO_TOKEN=$TURBO_TOKEN
 COPY --from=pruner /app/out/pnpm-lock.yaml /app/out/full/ ./
 RUN pnpm dlx turbo build
 
-# echo debug the existence of the .next folder and its contents
-RUN ls -la ./.next
-
 FROM base AS runner
 WORKDIR /app
 
