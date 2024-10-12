@@ -3,17 +3,18 @@ import { FaEnvelope, FaGithub, FaInstagram, FaPhone, FaTwitter, FaYoutube } from
 
 import Link from 'next/link';
 
-import { CopyToClipboardTooltip as Copy } from '@/app/[locale]/components/copy-to-clipboard-tooltip';
+import { CopyToClipboardTooltip as Copy } from '@/components/copy-to-clipboard-tooltip';
+
 import { cn } from '@/lib/utils';
 
 export function Footer() {
   return (
     <footer
-      className="fond-bold flex flex-col justify-center bg-primary p-8 font-mono text-primary-foreground transition-colors"
+      className="fond-bold bg-primary text-primary-foreground flex flex-col justify-center p-8 font-mono transition-colors"
       id="footer">
       <div className="flex justify-center gap-16">
         <Address />
-        <div className="hidden shrink border border-primary-foreground sm:block" />
+        <div className="border-primary-foreground hidden shrink border sm:block" />
         <Links className="hidden sm:flex" />
       </div>
       <Copyright />
@@ -27,25 +28,25 @@ function Socials() {
     <section className="mx-auto flex gap-8" id="footer-socials">
       <Link
         aria-label="Sander's Github"
-        className="text-4xl transition-colors hover:text-accent"
+        className="hover:text-accent text-4xl transition-colors"
         href="https://github.com/sandercokart">
         <FaGithub />
       </Link>
       <Link
         aria-label="Sander's Instagram"
-        className="text-4xl transition-colors hover:text-accent"
+        className="hover:text-accent text-4xl transition-colors"
         href="https://www.instagram.com/sandercokart/">
         <FaInstagram />
       </Link>
       <Link
         aria-label="Sander's Youtube"
-        className="text-4xl transition-colors hover:text-accent"
+        className="hover:text-accent text-4xl transition-colors"
         href="https://youtube.com/SanderCokart">
         <FaYoutube />
       </Link>
       <Link
         aria-label="Sander's Twitter"
-        className="text-4xl transition-colors hover:text-accent"
+        className="hover:text-accent text-4xl transition-colors"
         href="https://twitter.com/sandercokart">
         <FaTwitter />
       </Link>
@@ -59,19 +60,19 @@ async function Links({ className }: { className?: string }) {
   return (
     <nav
       aria-label="footer navigation"
-      className={cn('flex-col gap-2 font-digital text-2xl', className)}
+      className={cn('font-digital flex-col gap-2 text-2xl', className)}
       id="footer-navigation"
       role="navigation">
-      <Link className="transition-colors hover:text-accent" href="/#portfolio">
+      <Link className="hover:text-accent transition-colors" href="/#portfolio">
         {t('portfolio')}
       </Link>
-      <Link className="transition-colors hover:text-accent" href="/#techstack">
+      <Link className="hover:text-accent transition-colors" href="/#techstack">
         {t('tech-stack')}
       </Link>
-      <Link className="transition-colors hover:text-accent" href="/#testimonials">
+      <Link className="hover:text-accent transition-colors" href="/#testimonials">
         {t('testimonials')}
       </Link>
-      <Link className="transition-colors hover:text-accent" href="/#contact">
+      <Link className="hover:text-accent transition-colors" href="/#contact">
         {t('contact')}
       </Link>
     </nav>
@@ -87,7 +88,7 @@ async function Address() {
         <div className="flex items-center gap-4">
           <FaEnvelope />
           <Link
-            className="text-xs transition-colors hover:text-accent sm:text-base"
+            className="hover:text-accent text-xs transition-colors sm:text-base"
             href="mailto:sandercokart.business@gmail.com">
             sandercokart.business@gmail.com
           </Link>
@@ -95,7 +96,7 @@ async function Address() {
 
         <div className="flex items-center gap-4">
           <FaPhone />
-          <Link className="text-xs transition-colors hover:text-accent sm:text-base" href="tel:+31630137594">
+          <Link className="hover:text-accent text-xs transition-colors sm:text-base" href="tel:+31630137594">
             +31630137594
           </Link>
         </div>

@@ -2,6 +2,7 @@
   "common": {
     "email": "E-mail"
   },
+  "customErrors": {},
   "footer": {
     "BTW": "BTW",
     "KvK": "KvK nummer",
@@ -10,7 +11,48 @@
     "request-address": "Vraag om een adres via mail",
     "request-phone": "Vraag om een telefoonnummer via mail"
   },
+  "form": {
+    "name": "Naam",
+    "email": "Email",
+    "subject": "Onderwerp",
+    "message": "Bericht"
+  },
   "home": {
+    "contact-form": {
+      "form": {
+        "alert": {
+          "description": "We zullen zo snel mogelijk contact met u opnemen.",
+          "title": "Bedankt voor uw bericht!"
+        },
+        "email": "Email",
+        "error": {
+          "description": "Probeer het later opnieuw of stuur een e-mail naar business.sandercokart.com.",
+          "title": "We konden uw bericht niet verzenden"
+        },
+        "message": "Bericht",
+        "name": "Naam",
+        "subject": "Onderwerp",
+        "submit": "Verzenden",
+        "submitting": "Verzenden..."
+      },
+      "title": "Maak een afspraak",
+      "validation": {
+        "validation": {
+          "email": {
+            "required": "Email is verplicht"
+          },
+          "message": {
+            "required": "Bericht is verplicht"
+          },
+          "name": {
+            "required": "Naam is verplicht"
+          },
+          "subject": {
+            "required": "Onderwerp is verplicht"
+          }
+        }
+      }
+    },
     "draft": "Ik zou graag een afspraak willen maken tussen DATUM en DATUM, kan dat?\n\nMet vriendelijke groet,\nNAAM",
     "email": "Email",
     "example": {
@@ -47,45 +89,10 @@
       "vue": "We gebruiken VueJS als alternatief voor React. Het wordt vaak gecombineerd met NuxtJS, wat veel lijkt op NextJS, maar voor Vue. Statistisch gezien is Vue sneller dan React vanwege hoe het reactiviteit behandelt. Het is veel jonger dan React en heeft een kleinere community. Dit betekent dat er minder bestaande oplossingen en bibliotheken beschikbaar zijn."
     },
     "testimonials": {
-      "title": "Referenties",
       "testimonials": {
         "adequaat": "Sander is een ambitieuze programmeur aan het begin van zijn carrière. Sander is technisch erg goed en kan snel schakelen. We zouden Sander zeker nog eens inhuren."
-      }
-    },
-    "contact-form": {
-      "title": "Maak een afspraak",
-      "validation": {
-        "validation": {
-          "email": {
-            "required": "Email is verplicht"
-          },
-          "message": {
-            "required": "Bericht is verplicht"
-          },
-          "name": {
-            "required": "Naam is verplicht"
-          },
-          "subject": {
-            "required": "Onderwerp is verplicht"
-          }
-        }
       },
-      "form": {
-        "email": "Email",
-        "message": "Bericht",
-        "name": "Naam",
-        "subject": "Onderwerp",
-        "submit": "Verzenden",
-        "submitting": "Verzenden...",
-        "error": {
-          "title": "We konden uw bericht niet verzenden",
-          "description": "Probeer het later opnieuw of stuur een e-mail naar business.sandercokart.com."
-        },
-        "alert": {
-          "title": "Bedankt voor uw bericht!",
-          "description": "We zullen zo snel mogelijk contact met u opnemen."
-        }
-      }
+      "title": "Referenties"
     }
   },
   "nav": {

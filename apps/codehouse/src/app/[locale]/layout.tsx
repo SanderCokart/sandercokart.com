@@ -9,10 +9,9 @@ import localFont from 'next/font/local';
 
 import type { ReactNode } from 'react';
 
-import { GlobalProviders } from '@/components/global-providers';
-
 import { routing } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
+import { GlobalProviders } from '@/providers/server.global-providers';
 
 import { Footer } from './components/footer';
 import { Header } from './components/header';
@@ -48,13 +47,11 @@ export default async function RootLayout({
           'flex min-h-dvh flex-col',
           'mb-14 md:mb-0', //this is to account for mobile navigation @see <Navigation />
         )}>
-        <NextIntlClientProvider messages={messages}>
-          <GlobalProviders>
-            <Header />
-            {children}
-            <Footer />
-          </GlobalProviders>
-        </NextIntlClientProvider>
+        <GlobalProviders>
+          <Header />
+          {children}
+          <Footer />
+        </GlobalProviders>
       </body>
     </html>
   );

@@ -1,35 +1,22 @@
 'use client';
 
-import { yupResolver } from '@hookform/resolvers/yup';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Alert, AlertDescription, AlertTitle } from '@repo/ui/alert';
 import { Button } from '@repo/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@repo/ui/form';
 import { Input } from '@repo/ui/input';
 import { Textarea } from '@repo/ui/textarea';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { LuAlertCircle, LuCheckCircle } from 'react-icons/lu';
-import * as Yup from 'yup';
-import { en, nl } from 'yup-locales';
+import { z } from 'zod';
 
 import { useState } from 'react';
 
-import type { AnimationType, Locales } from '@/types/common';
+import type { AnimationType } from '@/types/common';
 
 import { AnimatePresence, MotionDiv } from '@/lib/motion';
-
-const createFormSchema = () => {
-  const locales = { nl, en };
-  const locale = useLocale() as Locales;
-  Yup.setLocale(locales[locale]);
-
-  return Yup.object({
-    name: Yup.string().required(),
-    email: Yup.string().email().required(),
-    subject: Yup.string().required(),
-    message: Yup.string().required(),
-  });
-};
+import { contactSchema } from '@/schemas/contact.schema';
 
 const animation: AnimationType = {
   exit: 'exit',
@@ -44,17 +31,10 @@ const animation: AnimationType = {
 
 export function ContactForm() {
   const t = useTranslations('home.contact-form.form');
-  const schema = createFormSchema();
   const [hasError, setHasError] = useState(false);
 
-  const form = useForm({
-    resolver: yupResolver(schema),
-    defaultValues: {
-      name: '',
-      email: '',
-      subject: '',
-      message: '',
-    },
+  const form = useForm<z.output<typeof contactSchema>>({
+    resolver: zodResolver(contactSchema),
   });
 
   const disabled = form.formState.isSubmitting;
@@ -62,9 +42,7 @@ export function ContactForm() {
   const onSubmit = form.handleSubmit(async formData => {
     const response = await fetch('/contact', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
     });
 
@@ -154,7 +132,7 @@ function ErrorAlert() {
 
   return (
     <Alert>
-      <LuAlertCircle className="h-4 w-4 stroke-destructive" />
+      <LuAlertCircle className="stroke-destructive h-4 w-4" />
       <AlertTitle>{t('title')}</AlertTitle>
       <AlertDescription>{t('description')}</AlertDescription>
     </Alert>
@@ -166,7 +144,7 @@ function SuccessAlert() {
 
   return (
     <Alert>
-      <LuCheckCircle className="h-4 w-4 stroke-accent" />
+      <LuCheckCircle className="stroke-accent h-4 w-4" />
       <AlertTitle>{t('title')}</AlertTitle>
       <AlertDescription>{t('description')}</AlertDescription>
     </Alert>

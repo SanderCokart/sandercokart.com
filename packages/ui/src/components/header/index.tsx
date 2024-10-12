@@ -17,7 +17,7 @@ export function Header({ navigation, localeSwitcher, namedLogo }: HeaderProps) {
 
         {navigation}
 
-        <div className="flex h-full items-center gap-2">
+        <div className="flex h-full items-center gap-8">
           {localeSwitcher}
 
           <ThemeToggle />

@@ -1,12 +1,14 @@
 import { createSharedPathnamesNavigation } from 'next-intl/navigation';
 import { defineRouting } from 'next-intl/routing';
 
+import { defaultLocale, locales } from '@/i18n/config';
+
 export const routing = defineRouting({
   // A list of all locales that are supported
-  locales: ['en', 'nl'],
+  locales,
 
   // Used when no locale matches
-  defaultLocale: 'en',
+  defaultLocale,
 });
 
 // Lightweight wrappers around Next.js' navigation APIs

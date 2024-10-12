@@ -2,7 +2,7 @@
   "common": {
     "email": "E-mail"
   },
-
+  "customErrors": {},
   "footer": {
     "BTW": "VAT",
     "KvK": "Chamber of Commerce number",
@@ -11,7 +11,46 @@
     "request-address": "Request adres via mail",
     "request-phone": "Request phone number via mail"
   },
+  "form": {
+    "name": "Name",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message"
+  },
   "home": {
+    "contact-form": {
+      "form": {
+        "alert": {
+          "description": "We will get back to you as soon as possible.",
+          "title": "Thank you for your message!"
+        },
+        "email": "Email",
+        "error": {
+          "description": "Please try again later or send an e-mail to business.sandercokart.com.",
+          "title": "Could not send message. Please try again later."
+        },
+        "message": "Message",
+        "name": "Name",
+        "subject": "Subject",
+        "submit": "Send",
+        "submitting": "Sending..."
+      },
+      "title": "Make an appointment",
+      "validation": {
+        "email": {
+          "required": "Email is required"
+        },
+        "message": {
+          "required": "Message is required"
+        },
+        "name": {
+          "required": "Name is required"
+        },
+        "subject": {
+          "required": "Subject is required"
+        }
+      }
+    },
     "draft": "I would like to make an appointment between DATE and DATE, can you do that?\n\nKind regards,\nNAME",
     "email": "Email",
     "example": {
@@ -52,39 +91,6 @@
         "adequaat": "Sander is an ambitious programmer at the beginning of his career. Sander is technically very good and can quickly switch. We would definitely hire Sander again."
       },
       "title": "Testimonials"
-    },
-    "contact-form": {
-      "title": "Make an appointment",
-      "validation": {
-        "email": {
-            "required": "Email is required"
-        },
-        "message": {
-            "required": "Message is required"
-        },
-        "name": {
-            "required": "Name is required"
-        },
-        "subject": {
-            "required": "Subject is required"
-        }
-      },
-      "form": {
-        "email": "Email",
-        "message": "Message",
-        "name": "Name",
-        "subject": "Subject",
-        "submit": "Send",
-        "submitting": "Sending...",
-        "error":{
-          "title":  "Could not send message. Please try again later.",
-          "description": "Please try again later or send an e-mail to business.sandercokart.com."
-        },
-        "alert": {
-          "title": "Thank you for your message!",
-          "description": "We will get back to you as soon as possible."
-        }
-      }
     }
   },
   "nav": {
