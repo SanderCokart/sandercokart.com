@@ -7,15 +7,16 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@repo/ui/input';
 import { Textarea } from '@repo/ui/textarea';
 import { useTranslations } from 'next-intl';
+import { useFormState } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { LuAlertCircle, LuCheckCircle } from 'react-icons/lu';
 import { z } from 'zod';
 
-import { useState } from 'react';
+import { useRef } from 'react';
 
 import type { AnimationType } from '@/types/common';
 
-import { AnimatePresence, MotionDiv } from '@/lib/motion';
+import { onContactFormSubmit } from '@/app/actions/contact.action';
 import { contactSchema } from '@/schemas/contact.schema';
 
 const animation: AnimationType = {
@@ -31,32 +32,31 @@ const animation: AnimationType = {
 
 export function ContactForm() {
   const t = useTranslations('home.contact-form.form');
-  const [hasError, setHasError] = useState(false);
+  const [state, formAction] = useFormState(onContactFormSubmit, {
+    message: '',
+  });
+  const ref = useRef<HTMLFormElement>(null);
 
   const form = useForm<z.output<typeof contactSchema>>({
     resolver: zodResolver(contactSchema),
+    defaultValues: {
+      ...(state?.fields ?? {}),
+    },
   });
 
   const disabled = form.formState.isSubmitting;
 
-  const onSubmit = form.handleSubmit(async formData => {
-    const response = await fetch('/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    });
-
-    if (!response.ok) {
-      setHasError(true);
-
-      throw new Error('Failed to submit form');
-    }
-  });
-
   return (
     <Form {...form}>
-      <form noValidate className="flex flex-col gap-4" onSubmit={onSubmit}>
+      {state.message && <div>{state.message}</div>}
+      <form
+        ref={ref}
+        noValidate
+        action={formAction}
+        className="flex flex-col gap-4"
+        onSubmit={form.handleSubmit(() => ref.current?.submit())}>
         <FormField
+          control={form.control}
           name="name"
           render={({ field }) => (
             <FormItem>
@@ -64,12 +64,13 @@ export function ContactForm() {
               <FormControl>
                 <Input {...field} required disabled={disabled} id="name" placeholder="John Doe" />
               </FormControl>
-              <FormMessage />
+              <FormMessage>{state.issues?.name?.message}</FormMessage>
             </FormItem>
           )}
         />
 
         <FormField
+          control={form.control}
           name="email"
           render={({ field }) => (
             <FormItem>
@@ -77,12 +78,13 @@ export function ContactForm() {
               <FormControl>
                 <Input {...field} required disabled={disabled} id="email" placeholder="example@domain.com" />
               </FormControl>
-              <FormMessage />
+              <FormMessage>{state.issues?.email?.message}</FormMessage>
             </FormItem>
           )}
         />
 
         <FormField
+          control={form.control}
           name="subject"
           render={({ field }) => (
             <FormItem>
@@ -90,12 +92,13 @@ export function ContactForm() {
               <FormControl>
                 <Input {...field} required disabled={disabled} id="subject" placeholder="Subject" />
               </FormControl>
-              <FormMessage />
+              <FormMessage>{state.issues?.subject?.message}</FormMessage>
             </FormItem>
           )}
         />
 
         <FormField
+          control={form.control}
           name="message"
           render={({ field }) => (
             <FormItem>
@@ -103,25 +106,12 @@ export function ContactForm() {
               <FormControl>
                 <Textarea {...field} required disabled={disabled} id="message" placeholder="Your message" />
               </FormControl>
-              <FormMessage />
+              <FormMessage>{state.issues?.message?.message}</FormMessage>
             </FormItem>
           )}
         />
 
         <Button type="submit">{form.formState.isSubmitting ? t('submitting') : t('submit')}</Button>
-
-        <AnimatePresence>
-          {form.formState.isSubmitSuccessful && (
-            <MotionDiv key="success" {...animation}>
-              <SuccessAlert />
-            </MotionDiv>
-          )}
-          {hasError && (
-            <MotionDiv key="error" {...animation}>
-              <ErrorAlert />
-            </MotionDiv>
-          )}
-        </AnimatePresence>
       </form>
     </Form>
   );

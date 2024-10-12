@@ -7,4 +7,4 @@ export const contactSchema = z.object({
   message: z.string().trim().min(2).max(1000),
 });
 
-export type Contact = z.output<typeof contactSchema>;
+export type ContactOutput = z.output<typeof contactSchema>;
