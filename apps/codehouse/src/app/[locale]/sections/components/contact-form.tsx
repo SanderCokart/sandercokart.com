@@ -10,10 +10,10 @@ import { useTranslations } from 'next-intl';
 import { useFormState } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { LuAlertCircle, LuCheckCircle } from 'react-icons/lu';
-import { z } from 'zod';
 
 import { useRef } from 'react';
 
+import type { ContactForm } from '@/schemas/contact.schema';
 import type { AnimationType } from '@/types/common';
 
 import { onContactFormSubmit } from '@/app/actions/contact.action';
@@ -32,12 +32,10 @@ const animation: AnimationType = {
 
 export function ContactForm() {
   const t = useTranslations('home.contact-form.form');
-  const [state, formAction] = useFormState(onContactFormSubmit, {
-    message: '',
-  });
+  const [state, formAction] = useFormState(onContactFormSubmit, { message: '' });
   const ref = useRef<HTMLFormElement>(null);
 
-  const form = useForm<z.output<typeof contactSchema>>({
+  const form = useForm<ContactForm>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
       ...(state?.fields ?? {}),

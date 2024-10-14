@@ -9,6 +9,9 @@
     "react.js",
     "typescript.js"
   ],
+  "scripts": {
+    "clean": "rm -rf node_modules"
+  },
   "devDependencies": {
     "@sandercokart/eslint-config": "^1.0.1",
     "@typescript-eslint/eslint-plugin": "^7",

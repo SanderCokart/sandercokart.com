@@ -6,7 +6,8 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "prepare": "husky"
+    "prepare": "husky",
+    "clean": "turbo clean && echo 'Deleting root node_modules...' && rm -rf node_modules"
   },
   "prettier": "@sandercokart/prettier-config",
   "husky": {
