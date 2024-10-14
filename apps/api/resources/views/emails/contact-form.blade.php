@@ -8,12 +8,9 @@
     <title>Document</title>
 </head>
 <body>
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur cumque, delectus dignissimos ducimus explicabo
-harum hic id in incidunt inventore laudantium molestiae necessitatibus odit quae quas repellat sed, voluptas? Ab
-accusantium amet aperiam aspernatur beatae, dolor eaque eligendi esse est fuga hic impedit iusto, molestias nulla optio
-porro possimus similique temporibus! Accusantium ad aspernatur culpa cum ea esse et eveniet ipsum iure laboriosam magni
-modi perferendis quidem quo, sunt velit veritatis. Accusamus, consectetur dolore enim ipsa nemo voluptas. Accusamus
-adipisci aspernatur, aut cum, dignissimos dolorem doloremque ducimus, facilis fugiat labore nihil nobis provident
-quisquam quo reiciendis sapiente similique sit veritatis?
+    <h1>Contact Form</h1>
+    <p>Name: {{ $data['name'] }}</p>
+    <p>Email: {{ $data['email'] }}</p>
+    <p>Message: {{ $data['message'] }}</p>
 </body>
 </html>

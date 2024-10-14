@@ -4,7 +4,8 @@
  */
 
 import { useTranslations } from 'next-intl';
-import { defaultErrorMap, ZodErrorMap, ZodIssueCode, ZodParsedType } from 'zod';
+import { getTranslations } from 'next-intl/server';
+import { defaultErrorMap, z, ZodErrorMap, ZodIssueCode, ZodParsedType } from 'zod';
 
 const jsonStringifyReplacer = (_: string, value: unknown): unknown => {
   if (typeof value === 'bigint') {
@@ -204,4 +205,18 @@ export const makeZodI18nMap: MakeZodI18nMap = option => (issue, ctx) => {
   }
 
   return { message };
+};
+
+export const setServerZodI18nMap = async () => {
+  const t = await getTranslations('zod');
+  const tForm = await getTranslations('form');
+  const tCustom = await getTranslations('customErrors');
+  z.setErrorMap(makeZodI18nMap({ t, tForm, tCustom }));
+};
+
+export const setClientZodI18nMap = () => {
+  const t = useTranslations('zod');
+  const tForm = useTranslations('form');
+  const tCustom = useTranslations('customErrors');
+  z.setErrorMap(makeZodI18nMap({ t, tForm, tCustom }));
 };

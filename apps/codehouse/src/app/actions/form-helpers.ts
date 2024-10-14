@@ -16,16 +16,15 @@ export type FormState<T extends Record<string, any>> = {
 export function mapErrorToIssues<T extends Record<string, any>>(error: ZodError<T>) {
   const formattedErrors = error.format();
 
-  const issues = Object.fromEntries(
-    Object.entries(formattedErrors).map(([key, value]) => {
-      if (value && Array.isArray(value)) {
-        return [key, { message: value[0], all: value }];
-      }
-      return [key, { message: 'Unknown error', all: [] }];
-    }),
-  );
+  const issues: Issues<T> = {};
 
-  return issues as Issues<T>;
+  for (const [key, value] of Object.entries(formattedErrors)) {
+    if (typeof value === 'object' && !Array.isArray(value) && value.hasOwnProperty('_errors')) {
+      issues[key as keyof T] = { message: value._errors[0] as string, all: value._errors };
+    }
+  }
+
+  return issues;
 }
 
 export function extractFieldsFromFormData(formData: FormData) {

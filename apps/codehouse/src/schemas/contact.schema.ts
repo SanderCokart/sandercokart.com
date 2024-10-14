@@ -1,10 +1,12 @@
 import { z } from 'zod';
 
+export const MESSAGE_MAX_LENGTH = 1000;
+
 export const contactSchema = z.object({
-  name: z.string().trim().min(2).max(255),
-  email: z.string().email(),
-  subject: z.string().trim().min(2).max(255),
-  message: z.string().trim().min(2).max(1000),
+  name: z.string().trim().min(1).max(255),
+  email: z.string().trim().email().max(255),
+  subject: z.string().trim().min(1).max(255),
+  message: z.string().trim().min(1).max(MESSAGE_MAX_LENGTH),
 });
 
-export type ContactForm = z.infer<typeof contactSchema>;
+export type ContactFormType = z.infer<typeof contactSchema>;

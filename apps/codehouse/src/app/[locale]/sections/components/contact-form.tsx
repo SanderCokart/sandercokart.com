@@ -13,29 +13,17 @@ import { LuAlertCircle, LuCheckCircle } from 'react-icons/lu';
 
 import { useRef } from 'react';
 
-import type { ContactForm } from '@/schemas/contact.schema';
 import type { AnimationType } from '@/types/common';
 
 import { onContactFormSubmit } from '@/app/actions/contact.action';
-import { contactSchema } from '@/schemas/contact.schema';
-
-const animation: AnimationType = {
-  exit: 'exit',
-  initial: 'initial',
-  animate: 'animate',
-  variants: {
-    initial: { height: 0, transition: { duration: 1 } },
-    animate: { height: 'auto', transition: { duration: 1 } },
-    exit: { height: 0, transition: { duration: 1 } },
-  },
-};
+import { ContactFormType, contactSchema, MESSAGE_MAX_LENGTH } from '@/schemas/contact.schema';
 
 export function ContactForm() {
   const t = useTranslations('home.contact-form.form');
-  const [state, formAction] = useFormState(onContactFormSubmit, { message: '' });
+  const [state, formAction] = useFormState(onContactFormSubmit, { message: '' }, '#contact-form');
   const ref = useRef<HTMLFormElement>(null);
 
-  const form = useForm<ContactForm>({
+  const form = useForm<ContactFormType>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
       ...(state?.fields ?? {}),
@@ -52,7 +40,12 @@ export function ContactForm() {
         noValidate
         action={formAction}
         className="flex flex-col gap-4"
-        onSubmit={form.handleSubmit(() => ref.current?.submit())}>
+        id="contact-form"
+        onSubmit={e => {
+          form.handleSubmit(() => {
+            formAction(new FormData(ref.current || undefined));
+          });
+        }}>
         <FormField
           control={form.control}
           name="name"
@@ -102,7 +95,14 @@ export function ContactForm() {
             <FormItem>
               <FormLabel>{t('message')}</FormLabel>
               <FormControl>
-                <Textarea {...field} required disabled={disabled} id="message" placeholder="Your message" />
+                <Textarea
+                  maxLength={MESSAGE_MAX_LENGTH}
+                  {...field}
+                  required
+                  disabled={disabled}
+                  id="message"
+                  placeholder="Your message"
+                />
               </FormControl>
               <FormMessage>{state.issues?.message?.message}</FormMessage>
             </FormItem>
