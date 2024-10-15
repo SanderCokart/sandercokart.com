@@ -34,15 +34,11 @@ export async function onContactFormSubmit(
   });
 
   if (!response.ok) {
-    console.error('ERROR: ', await response.json());
-
     return {
       message: 'Failed to submit form',
       fields: extractFieldsFromFormData(formData),
     };
   }
-
-  console.log('LOG: ', await response.json());
 
   return {
     message: 'Form submitted successfully',

@@ -17,7 +17,6 @@ class ContactController extends Controller
             'message' => 'required|string|min:1|max:1000',
         ]);
 
-        // Send email
         Mail::to('cokart32@gmail.com')->send(new ContactFormMail($validatedData));
 
         return response()->json([
