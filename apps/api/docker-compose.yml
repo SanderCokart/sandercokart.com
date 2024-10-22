@@ -1,11 +1,6 @@
 services:
     api:
-        depends_on:
-            - db
-            - redis
-        restart: on-failure
-#        environment:
-#            AUTORUN_ENABLED: true
+        image: api:latest
         build:
             dockerfile: apps/api/Dockerfile
             context: ../../
@@ -13,10 +8,16 @@ services:
             args:
                 USER_ID: 1000
                 GROUP_ID: 1000
+        restart: on-failure
         ports:
             - 8080:8080
         volumes:
             - .:/var/www/html
+        depends_on:
+            - db
+            - redis
+        environment:
+            AUTORUN_ENABLED: true
     redis:
         restart: on-failure
         image: redis:latest
