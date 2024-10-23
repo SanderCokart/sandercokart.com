@@ -1,7 +1,14 @@
 services:
   codehouse:
-    image: codehouse
-    container_name: codehouse
+    ports:
+      - '3000:3000'
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+        delay: 30s
+    image: codehouse:latest
     restart: on-failure
     extra_hosts:
       - host.docker.internal:host-gateway
@@ -21,6 +28,3 @@ services:
         TURBO_TEAM: $TURBO_TEAM
         TURBO_TOKEN: $TURBO_TOKEN
         CI: disabled
-
-    ports:
-      - '3000:3000'

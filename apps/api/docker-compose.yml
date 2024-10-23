@@ -1,5 +1,11 @@
 services:
     api:
+        deploy:
+            replicas: 1
+            restart_policy:
+                condition: on-failure
+                delay: 30s
+                max_attempts: 3
         image: api:latest
         build:
             dockerfile: apps/api/Dockerfile
@@ -19,11 +25,23 @@ services:
         environment:
             AUTORUN_ENABLED: true
     redis:
+        deploy:
+            replicas: 1
+            restart_policy:
+                condition: on-failure
+                delay: 30s
+                max_attempts: 3
         restart: on-failure
         image: redis:latest
         ports:
             - 6379:6379
     db:
+        deploy:
+            replicas: 1
+            restart_policy:
+                condition: on-failure
+                delay: 30s
+                max_attempts: 3
         restart: on-failure
         image: mariadb:latest
         ports:
