@@ -1,5 +1,9 @@
 services:
   codehouse:
+    depends_on:
+      - api
+      - db
+      - redis
     ports:
       - '3000:3000'
     deploy:
@@ -10,8 +14,6 @@ services:
         delay: 30s
     image: codehouse:latest
     restart: on-failure
-    extra_hosts:
-      - host.docker.internal:host-gateway
 
     environment:
       HUSKY: 0 # Disable husky hooks on CI
