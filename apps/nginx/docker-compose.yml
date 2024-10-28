@@ -1,12 +1,6 @@
 services:
   nginx:
     restart: on-failure
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
-        max_attempts: 3
-        delay: 30s
     image: nginx:latest
     ports:
       - "80:80"
