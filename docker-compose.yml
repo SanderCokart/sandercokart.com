@@ -1,4 +1,4 @@
 include:
-  - ./apps/nginx/docker-compose.yml
+  - ./apps/traefik/docker-compose.yml
   - ./apps/codehouse/docker-compose.yml
   - ./apps/api/docker-compose.yml
