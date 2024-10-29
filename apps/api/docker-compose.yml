@@ -46,8 +46,8 @@ services:
             - 8025:8025
 secrets:
     MARIADB_PASSWORD:
-        file: ./secrets/MARIADB_PASSWORD.txt
+        file: secrets/MARIADB_PASSWORD.txt
     MARIADB_ROOT_PASSWORD:
-        file: ./secrets/MARIADB_ROOT_PASSWORD.txt
+        file: secrets/MARIADB_ROOT_PASSWORD.txt
     MARIADB_USER:
-        file: ./secrets/MARIADB_USER.txt
+        file: secrets/MARIADB_USER.txt
