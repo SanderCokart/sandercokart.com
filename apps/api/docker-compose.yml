@@ -29,15 +29,19 @@ services:
         ports:
             - 6379:6379
     db:
+        secrets:
+            - MARIADB_PASSWORD
+            - MARIADB_ROOT_PASSWORD
+            - MARIADB_USER
         restart: on-failure
         image: mariadb:latest
         ports:
             - 3306:3306
         environment:
-            MARIADB_ROOT_PASSWORD_FILE: /run/secrets/MARIADB_ROOT_PASSWORD
+            MARIADB_ROOT_PASSWORD_FILE: /run/secrets/mariadb_root_password
             MARIADB_DATABASE: primary
-            MARIADB_USER_FILE: /run/secrets/MARIADB_USER
-            MARIADB_PASSWORD_FILE: /run/secrets/MARIADB_PASSWORD
+            MARIADB_USER_FILE: /run/secrets/mariadb_user
+            MARIADB_PASSWORD_FILE: /run/secrets/mariadb_password
     mailpit:
         restart: on-failure
         image: axllent/mailpit:latest
@@ -46,8 +50,8 @@ services:
             - 8025:8025
 secrets:
     MARIADB_PASSWORD:
-        file: secrets/MARIADB_PASSWORD.txt
+        file: apps/api/secrets/mariadb_password
     MARIADB_ROOT_PASSWORD:
-        file: secrets/MARIADB_ROOT_PASSWORD.txt
+        file: apps/api/secrets/mariadb_root_password
     MARIADB_USER:
-        file: secrets/MARIADB_USER.txt
+        file: apps/api/secrets/mariadb_user
