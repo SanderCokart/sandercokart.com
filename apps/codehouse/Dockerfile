@@ -21,9 +21,6 @@ COPY --from=pruner /app/out/json/ .
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm fetch --frozen-lockfile --prefer-frozen-lockfile
 RUN pnpm install --offline
 
-ARG ANALYZE_BUNDLE=disabled
-ENV ANALYZE_BUNDLE=$ANALYZE_BUNDLE
-
 ARG CI=disabled
 ENV CI=$CI
 
@@ -42,8 +39,8 @@ ENV NEXT_PUBLIC_SENTRY=$NEXT_PUBLIC_SENTRY
 ARG TURBO_TEAM
 ENV TURBO_TEAM=$TURBO_TEAM
 
-ARG TURBO_TOKEN
-ENV TURBO_TOKEN=$TURBO_TOKEN
+RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN SENTRY_AUTH_TOKEN=$(cat /run/secrets/SENTRY_AUTH_TOKEN)
+RUN --mount=type=secret,id=TURBO_TOKEN TURBO_TOKEN=$(cat /run/secrets/TURBO_TOKEN)
 
 COPY --from=pruner /app/out/pnpm-lock.yaml /app/out/full/ ./
 RUN pnpm dlx turbo build

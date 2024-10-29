@@ -4,23 +4,35 @@ services:
       - api
       - db
       - redis
-    ports:
-      - '3000:3000'
     image: codehouse:latest
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.codehouse.rule=Host(`codehouse.sandercokart.com`)'
+      - 'traefik.http.routers.codehouse.entrypoints=websecure'
+      - 'traefik.http.routers.codehouse.tls.certresolver=myresolver'
+    deploy:
+      replicas: 2
     restart: on-failure
-
     environment:
       HUSKY: 0 # Disable husky hooks on CI
+    secrets:
+      - SENTRY_AUTH_TOKEN
+      - TURBO_TOKEN
     build:
       dockerfile: apps/codehouse/Dockerfile
       context: ../../
+      secrets:
+        - SENTRY_AUTH_TOKEN
+        - TURBO_TOKEN
       args:
         # $ variables are loaded from .env file to keep them secret
-        SENTRY_AUTH_TOKEN: $SENTRY_AUTH_TOKEN
         API_URL: $API_URL
         NEXT_PUBLIC_ENV: $NEXT_PUBLIC_ENV
         NEXT_PUBLIC_SENTRY: $NEXT_PUBLIC_SENTRY
-        ANALYZE_BUNDLE: $ANALYZE_BUNDLE
         TURBO_TEAM: $TURBO_TEAM
-        TURBO_TOKEN: $TURBO_TOKEN
         CI: disabled
+secrets:
+  SENTRY_AUTH_TOKEN:
+    file: ./secrets/SENTRY_AUTH_TOKEN.txt
+  TURBO_TOKEN:
+    file: ./secrets/TURBO_TOKEN.txt
