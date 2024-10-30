@@ -15,7 +15,8 @@ services:
                 GROUP_ID: 1000
         restart: on-failure
         ports:
-            - 8080:8080
+            - 3080:8080
+            - 3443:8443
         volumes:
             - .:/var/www/html
         depends_on:
