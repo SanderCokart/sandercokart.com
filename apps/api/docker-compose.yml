@@ -51,8 +51,8 @@ services:
             - 8025:8025
 secrets:
     MARIADB_PASSWORD:
-        file: apps/api/secrets/mariadb_password
+        file: ./secrets/mariadb_password
     MARIADB_ROOT_PASSWORD:
-        file: apps/api/secrets/mariadb_root_password
+        file: ./secrets/mariadb_root_password
     MARIADB_USER:
-        file: apps/api/secrets/mariadb_user
+        file: ./secrets/mariadb_user
