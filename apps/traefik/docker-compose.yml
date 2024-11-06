@@ -3,7 +3,7 @@ services:
     image: traefik:latest
     command:
       - "--api.insecure=true"
-      - "--providers.docker"
+      - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.websecure.address=:443"
       - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
@@ -22,7 +22,7 @@ services:
     volumes:
       # So that Traefik can listen to the Docker events
       - "/var/run/docker.sock:/var/run/docker.sock"
-      - "./letsencrypt:/letsencrypt"
+      - "letsencrypt:/letsencrypt"
 
 volumes:
   letsencrypt:
