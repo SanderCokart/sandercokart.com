@@ -39,10 +39,10 @@ services:
         ports:
             - 3306:3306
         environment:
-            MARIADB_ROOT_PASSWORD_FILE: /run/secrets/mariadb_root_password
+            MARIADB_ROOT_PASSWORD_FILE: /run/secrets/MARIADB_ROOT_PASSWORD
             MARIADB_DATABASE: primary
-            MARIADB_USER_FILE: /run/secrets/mariadb_user
-            MARIADB_PASSWORD_FILE: /run/secrets/mariadb_password
+            MARIADB_USER_FILE: /run/secrets/MARIADB_USER
+            MARIADB_PASSWORD_FILE: /run/secrets/MARIADB_PASSWORD
     mailpit:
         restart: on-failure
         image: axllent/mailpit:latest

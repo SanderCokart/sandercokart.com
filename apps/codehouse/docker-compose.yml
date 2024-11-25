@@ -33,6 +33,6 @@ services:
         CI: disabled
 secrets:
   SENTRY_AUTH_TOKEN:
-    file: ./secrets/SENTRY_AUTH_TOKEN.txt
+    file: ./secrets/SENTRY_AUTH_TOKEN
   TURBO_TOKEN:
-    file: ./secrets/TURBO_TOKEN.txt
+    file: ./secrets/TURBO_TOKEN
