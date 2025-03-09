@@ -7,7 +7,7 @@ services:
     image: codehouse:latest
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.codehouse.rule=Host(`codehouse.sandercokart.com`)'
+      - 'traefik.http.routers.codehouse.rule=Host(`codehouse.${DOMAIN}`)'
       - 'traefik.http.routers.codehouse.entrypoints=websecure'
       - 'traefik.http.routers.codehouse.tls.certresolver=myresolver'
     deploy:

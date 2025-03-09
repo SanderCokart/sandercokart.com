@@ -24,8 +24,6 @@ services:
     redis:
         restart: on-failure
         image: redis:latest
-        ports:
-            - 6379:6379
     db:
         secrets:
             - MARIADB_PASSWORD
