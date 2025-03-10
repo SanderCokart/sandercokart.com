@@ -12,7 +12,7 @@ services:
       - 'traefik.http.routers.codehouse.tls.certresolver=myresolver'
     deploy:
       replicas: 2
-    restart: on-failure
+    restart: unless-stopped
     environment:
       HUSKY: 0 # Disable husky hooks on CI
     secrets:

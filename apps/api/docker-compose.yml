@@ -13,7 +13,7 @@ services:
             args:
                 USER_ID: 1000
                 GROUP_ID: 1000
-        restart: on-failure
+        restart: unless-stopped
         volumes:
             - .:/var/www/html
         depends_on:
@@ -22,14 +22,14 @@ services:
         environment:
             AUTORUN_ENABLED: true
     redis:
-        restart: on-failure
+        restart: unless-stopped
         image: redis:latest
     db:
         secrets:
             - MARIADB_PASSWORD
             - MARIADB_ROOT_PASSWORD
             - MARIADB_USER
-        restart: on-failure
+        restart: unless-stopped
         image: mariadb:latest
         environment:
             MARIADB_ROOT_PASSWORD_FILE: /run/secrets/MARIADB_ROOT_PASSWORD
@@ -37,7 +37,7 @@ services:
             MARIADB_USER_FILE: /run/secrets/MARIADB_USER
             MARIADB_PASSWORD_FILE: /run/secrets/MARIADB_PASSWORD
     mailpit:
-        restart: on-failure
+        restart: unless-stopped
         image: axllent/mailpit:latest
         ports:
             - 1025:1025
