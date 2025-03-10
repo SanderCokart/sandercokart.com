@@ -1,5 +1,6 @@
 services:
     api:
+        tty: true
         image: api:latest
         labels:
             - 'traefik.enable=true'
