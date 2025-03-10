@@ -14,7 +14,7 @@ services:
       - "--providers.docker.exposedbydefault=false"
       - "--providers.docker=true"
     environment:
-      - CF_API_TOKEN_FILE=/run/secrets/CF_API_TOKEN
+      - CF_DNS_API_TOKEN=/run/secrets/CF_API_TOKEN
       - CF_ZONE_API_TOKEN=/run/secrets/CF_API_TOKEN
     secrets:
       - CF_API_TOKEN
