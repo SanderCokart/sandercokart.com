@@ -2,13 +2,13 @@ import './globals.css';
 
 import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
-import { NextIntlClientProvider, useMessages } from 'next-intl';
-import { getMessages, unstable_setRequestLocale } from 'next-intl/server';
+import { getMessages, setRequestLocale } from 'next-intl/server';
 
 import localFont from 'next/font/local';
 
 import type { ReactNode } from 'react';
 
+import { LocaleCode } from '@/i18n/config';
 import { routing } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 import { GlobalProviders } from '@/providers/server.global-providers';
@@ -24,24 +24,12 @@ const LetsGoDigital = localFont({
   preload: true,
 });
 
-export default async function RootLayout(
-  props: {
-    children: ReactNode;
-    params: Promise<{ locale: 'en' | 'nl' }>;
-  }
-) {
-  const params = await props.params;
-
-  const {
-    locale
-  } = params;
-
-  const {
-    children
-  } = props;
+type RootLayoutParams = { children: ReactNode; params: Promise<{ locale: LocaleCode }> };
+export default async function RootLayout({ params, children }: RootLayoutParams) {
+  const { locale } = await params;
+  setRequestLocale(locale);
 
   const messages = await getMessages();
-  unstable_setRequestLocale(locale);
   return (
     <html suppressHydrationWarning className="scroll-smooth" lang={locale}>
       <head>

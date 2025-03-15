@@ -25,7 +25,6 @@
     "next-intl": "catalog:",
     "next-runtime-env": "catalog:",
     "next-themes": "catalog:",
-    "postcss-import": "catalog:",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-error-boundary": "^4.1.2",
@@ -33,11 +32,9 @@
     "react-icons": "catalog:",
     "react-remove-scroll": "^2.6.3",
     "react-simple-modal-provider": "^1.9.0",
-    "sass": "^1.85.1",
     "sharp": "catalog:",
     "swiper": "^11.2.5",
-    "tailwind-merge": "catalog:",
-    "typescript": "catalog:",
+    "tailwind-merge": "catalog:tailwind4",
     "yup": "^1.6.1",
     "yup-locales": "^1.2.28",
     "zod": "catalog:"
@@ -52,16 +49,14 @@
     "autoprefixer": "catalog:",
     "eslint": "catalog:eslint9",
     "eslint-config-next": "15.2.2",
+    "import-in-the-middle":"catalog:",
     "postcss": "catalog:",
-    "tailwindcss": "catalog:"
+    "postcss-import": "catalog:",
+    "require-in-the-middle":"catalog:",
+    "tailwindcss": "catalog:tailwind4",
+    "typescript": "catalog:"
   },
   "engines": {
     "node": ">=20"
-  },
-  "pnpm": {
-    "overrides": {
-      "@types/react": "19.0.10",
-      "@types/react-dom": "19.0.4"
-    }
   }
 }

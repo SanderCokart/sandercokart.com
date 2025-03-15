@@ -46,7 +46,7 @@
     "postcss": "catalog:",
     "postcss-import": "catalog:",
     "react": "catalog:react18",
-    "tailwindcss": "3.4.3",
+    "tailwindcss": "catalog:tailwind4",
     "typescript": "catalog:"
   },
   "dependencies": {
@@ -58,7 +58,7 @@
     "@radix-ui/react-label": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.2",
     "@radix-ui/react-tooltip": "^1.1.8",
-    "@tailwindcss/typography": "^0.5.16",
+    "@tailwindcss/typography": "catalog:tailwind4",
     "class-variance-authority": "catalog:",
     "clsx": "catalog:",
     "embla-carousel-react": "^8.5.2",
@@ -66,8 +66,8 @@
     "lucide-react": "^0.482.0",
     "react-hook-form": "^7.54.2",
     "react-icons": "catalog:",
-    "tailwind-merge": "catalog:",
-    "tailwindcss-animate": "^1.0.7",
+    "tailwind-merge": "catalog:tailwind4",
+    "tailwindcss-animate": "catalog:tailwind4",
     "zod": "catalog:"
   }
 }

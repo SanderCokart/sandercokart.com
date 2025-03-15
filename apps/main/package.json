@@ -36,7 +36,7 @@
     "sharp": "catalog:",
     "shiki": "^1",
     "slugify": "^1",
-    "tailwind-merge": "catalog:"
+    "tailwind-merge": "catalog:tailwind4"
   },
   "devDependencies": {
     "@mdx-js/loader": "^3",
@@ -55,7 +55,7 @@
     "eslint-config-next": "catalog:eslint9",
     "postcss": "catalog:",
     "postcss-import": "catalog:",
-    "tailwindcss": "catalog:",
+    "tailwindcss": "catalog:tailwind4",
     "terminal-kit": "^3",
     "typescript": "catalog:"
   }
