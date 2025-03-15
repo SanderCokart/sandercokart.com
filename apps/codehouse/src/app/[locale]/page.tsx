@@ -7,13 +7,19 @@ import { PortfolioSection } from './sections/portfolio-section';
 import { TechStackSection } from './sections/tech-stack-section';
 import { TestimonialsSection } from './sections/testimonials-section';
 
-export default async function LandingPage({
-  params: { locale },
-}: {
-  params: {
-    locale: 'en' | 'nl';
-  };
-}) {
+export default async function LandingPage(
+  props: {
+    params: Promise<{
+      locale: 'en' | 'nl';
+    }>;
+  }
+) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
   unstable_setRequestLocale(locale);
   return (
     <main className="grow">

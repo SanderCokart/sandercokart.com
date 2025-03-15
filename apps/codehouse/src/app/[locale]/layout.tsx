@@ -24,13 +24,22 @@ const LetsGoDigital = localFont({
   preload: true,
 });
 
-export default async function RootLayout({
-  children,
-  params: { locale },
-}: {
-  children: ReactNode;
-  params: { locale: 'en' | 'nl' };
-}) {
+export default async function RootLayout(
+  props: {
+    children: ReactNode;
+    params: Promise<{ locale: 'en' | 'nl' }>;
+  }
+) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
+  const {
+    children
+  } = props;
+
   const messages = await getMessages();
   unstable_setRequestLocale(locale);
   return (

@@ -8,18 +8,17 @@ import { Input } from '@repo/ui/input';
 import { Textarea } from '@repo/ui/textarea';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import { useFormState } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { LuAlertCircle } from 'react-icons/lu';
 
-import { useRef } from 'react';
+import { useRef, useActionState } from 'react';
 
 import { onContactFormSubmit } from '@/app/actions/contact.action';
 import { ContactFormType, contactSchema, MESSAGE_MAX_LENGTH } from '@/schemas/contact.schema';
 
 export function ContactForm() {
   const t = useTranslations('home.contact-form.form');
-  const [state, formAction] = useFormState(onContactFormSubmit, { message: '' }, '#contact-form');
+  const [state, formAction] = useActionState(onContactFormSubmit, { message: '' }, '#contact-form');
   const ref = useRef<HTMLFormElement>(null);
 
   const form = useForm<ContactFormType>({

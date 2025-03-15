@@ -13,13 +13,11 @@
     "clean": "rm -rf node_modules"
   },
   "devDependencies": {
-    "@sandercokart/eslint-config": "^1.0.1",
-    "@typescript-eslint/eslint-plugin": "catalog:eslint8",
-    "@typescript-eslint/parser": "catalog:eslint8",
-    "@vercel/style-guide": "catalog:eslint8",
-    "eslint-config-prettier": "catalog:eslint8",
-    "eslint-config-turbo": "catalog:eslint8",
-    "eslint-plugin-only-warn": "catalog:eslint8",
+    "@typescript-eslint/eslint-plugin": "catalog:eslint9",
+    "@typescript-eslint/parser": "catalog:eslint9",
+    "eslint-config-prettier": "catalog:eslint9",
+    "eslint-config-turbo": "catalog:eslint9",
+    "eslint-plugin-only-warn": "catalog:eslint9",
     "typescript": "catalog:"
   }
 }
