@@ -1,17 +1,12 @@
-import { fileURLToPath } from 'node:url';
-
-import { withSentryConfig } from '@sentry/nextjs';
-import createJiti from 'jiti';
+import {withSentryConfig} from '@sentry/nextjs';
 import createNextIntlPlugin from 'next-intl/plugin';
-
-const jiti = createJiti(fileURLToPath(import.meta.url));
-const { env } = jiti('./src/env');
+import {env} from "@/env";
+import type { NextConfig } from "next";
 
 const withNextIntl = createNextIntlPlugin();
 let finalConfig;
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig:NextConfig = {
   output: env.NEXT_OUTPUT || undefined,
   eslint: {
     ignoreDuringBuilds: env.NODE_ENV === 'production',
