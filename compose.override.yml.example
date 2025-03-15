@@ -1,0 +1,15 @@
+services:
+  api:
+    ports:
+      - 8080:8080
+    build:
+      target: development
+  codehouse:
+    ports:
+      - 3001:3000
+  db:
+    ports:
+      - 3306:3306
+  redis:
+    ports:
+      - 6379:6379

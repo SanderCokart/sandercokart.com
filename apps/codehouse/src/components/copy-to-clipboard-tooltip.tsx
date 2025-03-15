@@ -13,7 +13,7 @@ export function CopyToClipboardTooltip({ children }: { children: string }) {
   return (
     <TooltipProvider>
       <Tooltip open={copied}>
-        <TooltipTrigger className="transition-colors hover:text-accent" onClick={copyToClipboard}>
+        <TooltipTrigger className="hover:text-accent transition-colors" onClick={copyToClipboard}>
           {children}
         </TooltipTrigger>
         <TooltipContent>Copied to clipboard!</TooltipContent>

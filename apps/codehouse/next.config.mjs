@@ -1,16 +1,20 @@
+import { fileURLToPath } from 'node:url';
+
 import { withSentryConfig } from '@sentry/nextjs';
+import createJiti from 'jiti';
 import createNextIntlPlugin from 'next-intl/plugin';
 
-// import { CI_ENABLED, NEXT_OUTPUT, NODE_ENV, SENTRY_AUTH_TOKEN, SENTRY_ENABLED } from './src/app.config';
+const jiti = createJiti(fileURLToPath(import.meta.url));
+const { env } = jiti('./src/env');
 
 const withNextIntl = createNextIntlPlugin();
 let finalConfig;
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: process.env.NEXT_OUTPUT || undefined,
+  output: env.NEXT_OUTPUT || undefined,
   eslint: {
-    ignoreDuringBuilds: process.env.NODE_ENV === 'production',
+    ignoreDuringBuilds: env.NODE_ENV === 'production',
   },
 };
 
@@ -22,10 +26,10 @@ let sentryBuildOptions = {
   project: 'codehouse',
   sentryUrl: 'https://sentry.io/',
 
-  authToken: process.env.NEXT_PUBLIC_SENTRY_AUTH_TOKEN,
+  authToken: env.SENTRY_AUTH_TOKEN,
 
   // Only print logs for uploading source maps in CI
-  silent: process.env.CI === 'disabled',
+  silent: env.CI === 'true',
 
   // For all available options, see:
   // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
@@ -58,6 +62,6 @@ let sentryBuildOptions = {
 };
 
 finalConfig = withNextIntl(nextConfig);
-if (process.env.NEXT_PUBLIC_SENTRY === 'enabled') finalConfig = withSentryConfig(finalConfig, sentryBuildOptions);
+if (env.SENTRY_ENABLED === 'true') finalConfig = withSentryConfig(finalConfig, sentryBuildOptions);
 
 export default finalConfig;

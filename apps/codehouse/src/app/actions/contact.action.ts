@@ -2,9 +2,9 @@
 
 import type { FormState } from '@/app/actions/form-helpers';
 
-import { API_URL } from '@/app.config.mjs';
 import { extractFieldsFromFormData, mapErrorToIssues } from '@/app/actions/form-helpers';
 import { makeZodI18nMap, setServerZodI18nMap } from '@/app/utils/zod-error-map';
+import { env } from '@/env';
 import { ContactFormType, contactSchema } from '@/schemas/contact.schema';
 
 export async function onContactFormSubmit(
@@ -25,7 +25,7 @@ export async function onContactFormSubmit(
     };
   }
 
-  const response = await fetch(API_URL + '/contact', {
+  const response = await fetch(env.NEXT_PUBLIC_API_URL + '/contact', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

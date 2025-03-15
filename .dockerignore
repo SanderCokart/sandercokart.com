@@ -1,0 +1,20 @@
+# NextJS
+**.next
+
+# Docker
+**.dockerignore
+**Dockerfile
+**docker-compose.yml
+
+# Editors
+**.idea
+**.vscode
+
+# Git
+**.git
+**.gitignore
+
+# Files
+**.md
+**node_modules
+**.env*

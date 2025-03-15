@@ -10,7 +10,7 @@ services:
         build:
             dockerfile: apps/api/Dockerfile
             context: ../../
-            target: development
+            target: production
             args:
                 USER_ID: 1000
                 GROUP_ID: 1000
@@ -24,7 +24,7 @@ services:
             AUTORUN_ENABLED: true
     redis:
         restart: unless-stopped
-        image: redis:latest
+        image: redis:alpine
     db:
         secrets:
             - MARIADB_PASSWORD

@@ -9,7 +9,6 @@
     "prepare": "husky",
     "clean": "turbo clean && echo 'Deleting root node_modules...' && rm -rf node_modules"
   },
-  "prettier": "@sandercokart/prettier-config",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -28,13 +27,15 @@
     ]
   },
   "devDependencies": {
-    "@sandercokart/prettier-config": "^2",
+    "@ianvs/prettier-plugin-sort-imports": "^4",
     "husky": "^9",
     "lint-staged": "^15",
+    "prettier":"^3",
+    "prettier-plugin-tailwindcss": "^0.6.11",
     "turbo": "^2",
-    "typescript": "^5"
+    "typescript": "catalog:"
   },
-  "packageManager": "pnpm@9.9.0",
+  "packageManager": "pnpm@10.6.3",
   "engines": {
     "node": ">=20"
   }

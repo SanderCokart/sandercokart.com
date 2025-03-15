@@ -1,7 +1,10 @@
-FROM node:20-alpine AS base
+FROM node:20.18.3-alpine AS base
+
+RUN npm install -g corepack@latest
+
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
+RUN corepack enable pnpm
 
 RUN apk update
 RUN apk add --no-cache ca-certificates libc6-compat
@@ -27,14 +30,14 @@ ENV CI=$CI
 # Required for docker
 ENV NEXT_OUTPUT=standalone
 
-ARG API_URL
-ENV API_URL=$API_URL
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=$API_URL
 
 ARG NEXT_PUBLIC_ENV
 ENV NEXT_PUBLIC_ENV=$NEXT_PUBLIC_ENV
 
-ARG NEXT_PUBLIC_SENTRY=disabled
-ENV NEXT_PUBLIC_SENTRY=$NEXT_PUBLIC_SENTRY
+ARG SENTRY_ENABLED=true
+ENV SENTRY_ENABLED=$SENTRY_ENABLED
 
 ARG TURBO_TEAM
 ENV TURBO_TEAM=$TURBO_TEAM
@@ -55,7 +58,5 @@ USER nextjs
 COPY --from=builder --chown=nextjs:nodejs /app/apps/codehouse/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/apps/codehouse/.next/static ./apps/codehouse/.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/apps/codehouse/public ./apps/codehouse/public
-
-EXPOSE 3000
 
 CMD ["node","apps/codehouse/server.js"]

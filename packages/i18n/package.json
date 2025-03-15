@@ -1,0 +1,31 @@
+{
+  "name": "@repo/i18n",
+  "version": "0.0.0",
+  "private": true,
+  "imports": {
+    "#*": "./src/*"
+  },
+  "scripts": {
+    "clean": "rm -rf node_modules"
+  },
+  "exports": {
+    "./actions/*": "./src/actions/*.ts",
+    "./components/*": "./src/components/*.tsx",
+    "./config": "./src/config.ts",
+    "./messages/*": "./src/messages/*.json",
+    "./providers/*": "./src/providers/*.tsx",
+    "./request": "./src/request.ts",
+    "./zod": "./src/zod.ts"
+  },
+  "dependencies": {
+    "next": "catalog:",
+    "next-intl": "catalog:",
+    "zod":"catalog:"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:react18",
+    "@types/react-dom": "catalog:react18"
+  }
+}
