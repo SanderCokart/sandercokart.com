@@ -1,11 +1,9 @@
+import { cn } from '@repo/ui/lib/utils';
 import { getTranslations } from 'next-intl/server';
 import { FaEnvelope, FaGithub, FaInstagram, FaPhone, FaTwitter, FaYoutube } from 'react-icons/fa';
 
-import Link from 'next/link';
-
-import { CopyToClipboardTooltip as Copy } from '@/components/copy-to-clipboard-tooltip';
-
-import { cn } from '@/lib/utils';
+import { CopyToClipboardTooltip as Copy } from '@/src/components/copy-to-clipboard-tooltip';
+import { Link } from '@/src/i18n/navigation';
 
 export function Footer() {
   return (

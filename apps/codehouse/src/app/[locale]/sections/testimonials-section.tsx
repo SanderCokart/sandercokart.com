@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import { MotionDiv } from '@/lib/motion';
+import { MotionDiv } from '@/src/lib/motion';
 
 import { Quote } from './components/quote';
 

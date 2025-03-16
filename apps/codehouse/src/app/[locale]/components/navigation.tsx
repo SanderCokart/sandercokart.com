@@ -1,10 +1,10 @@
 'use client';
 
+import { cn } from '@repo/ui/lib/utils';
 import { useTranslations } from 'next-intl';
 
-import { Link } from '@/i18n/routing';
-import { links } from '@/lib/nav-links';
-import { cn } from '@/lib/utils';
+import { Link } from '@/src/i18n/navigation';
+import { links } from '@/src/lib/nav-links';
 
 export function Navigation() {
   return (

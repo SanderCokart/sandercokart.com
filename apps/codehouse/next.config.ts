@@ -1,12 +1,14 @@
-import {withSentryConfig} from '@sentry/nextjs';
+import { withSentryConfig } from '@sentry/nextjs';
 import createNextIntlPlugin from 'next-intl/plugin';
-import {env} from "@/env";
-import type { NextConfig } from "next";
+
+import type { NextConfig } from 'next';
+
+import { env } from '@/src/env';
 
 const withNextIntl = createNextIntlPlugin();
 let finalConfig;
 
-const nextConfig:NextConfig = {
+const nextConfig: NextConfig = {
   output: env.NEXT_OUTPUT || undefined,
   eslint: {
     ignoreDuringBuilds: env.NODE_ENV === 'production',
@@ -24,7 +26,7 @@ let sentryBuildOptions = {
   authToken: env.SENTRY_AUTH_TOKEN,
 
   // Only print logs for uploading source maps in CI
-  silent: env.CI === 'true',
+  silent: env.CI,
 
   // For all available options, see:
   // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
@@ -57,6 +59,6 @@ let sentryBuildOptions = {
 };
 
 finalConfig = withNextIntl(nextConfig);
-if (env.SENTRY_ENABLED === 'true') finalConfig = withSentryConfig(finalConfig, sentryBuildOptions);
+if (env.SENTRY_ENABLED) finalConfig = withSentryConfig(finalConfig, sentryBuildOptions);
 
 export default finalConfig;

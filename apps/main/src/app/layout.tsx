@@ -1,5 +1,6 @@
 import './globals.css';
 
+import { cn } from '@repo/ui/lib/utils';
 import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
 
@@ -7,7 +8,6 @@ import localFont from 'next/font/local';
 
 import type { ReactNode } from 'react';
 
-import { cn } from '@/lib/utils';
 import { GlobalProviders } from '@/providers/global-providers';
 
 import { Header } from './components/header';

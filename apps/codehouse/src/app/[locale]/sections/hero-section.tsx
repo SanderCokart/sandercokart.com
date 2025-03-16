@@ -1,3 +1,4 @@
+import { cn } from '@repo/ui/lib/utils';
 import { useTranslations } from 'next-intl';
 
 import Image from 'next/image';
@@ -5,8 +6,7 @@ import Image from 'next/image';
 import LogoINV from '@/public/static/images/logo/Logo-INV.png';
 import Logo from '@/public/static/images/logo/Logo.png';
 
-import { Link } from '@/i18n/routing';
-import { cn } from '@/lib/utils';
+import { Link } from '@/src/i18n/navigation';
 
 export function HeroSection() {
   const t = useTranslations('home.hero');

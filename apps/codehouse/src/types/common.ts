@@ -7,5 +7,3 @@ export type AnimationType = {
 
   variants: Variants;
 };
-
-export type Locales = 'en' | 'nl';

@@ -1,27 +1,33 @@
-import './globals.css';
+import '@repo/ui/globals.css';
 
-import { GeistMono } from 'geist/font/mono';
-import { GeistSans } from 'geist/font/sans';
-import { getMessages, setRequestLocale } from 'next-intl/server';
+import { cn } from '@repo/ui/lib/utils';
+import { setRequestLocale } from 'next-intl/server';
 
+import { Geist, Geist_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
 
 import type { ReactNode } from 'react';
 
-import { LocaleCode } from '@/i18n/config';
-import { routing } from '@/i18n/routing';
-import { cn } from '@/lib/utils';
-import { GlobalProviders } from '@/providers/server.global-providers';
+import { LocaleCode } from '@/src/i18n/config';
+import { routing } from '@/src/i18n/routing';
+import { GlobalProviders } from '@/src/providers/server.global-providers';
 
 import { Footer } from './components/footer';
 import { Header } from './components/header';
 
 const LetsGoDigital = localFont({
-  src: '../../../public/fonts/LetsGoDigital.ttf',
+  src: './fonts/LetsGoDigital.ttf',
   variable: '--font-digital',
-  weight: '400',
-  style: 'normal',
-  preload: true,
+});
+
+const fontSans = Geist({
+  subsets: ['latin'],
+  variable: '--font-sans',
+});
+
+const fontMono = Geist_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
 });
 
 type RootLayoutParams = { children: ReactNode; params: Promise<{ locale: LocaleCode }> };
@@ -29,7 +35,6 @@ export default async function RootLayout({ params, children }: RootLayoutParams)
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const messages = await getMessages();
   return (
     <html suppressHydrationWarning className="scroll-smooth" lang={locale}>
       <head>
@@ -38,9 +43,10 @@ export default async function RootLayout({ params, children }: RootLayoutParams)
       </head>
       <body
         className={cn(
-          GeistSans.variable,
-          GeistMono.variable,
+          fontMono.variable,
+          fontSans.variable,
           LetsGoDigital.variable,
+          'font-sans antialiased',
           'flex min-h-dvh flex-col',
           'mb-14 md:mb-0', //this is to account for mobile navigation @see <Navigation />
         )}>

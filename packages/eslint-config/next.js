@@ -1,48 +1,51 @@
-const { resolve } = require('node:path');
-const project = resolve(process.cwd(), 'tsconfig.json');
+import pluginNext from '@next/eslint-plugin-next';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import pluginReact from 'eslint-plugin-react';
+import pluginReactHooks from 'eslint-plugin-react-hooks';
+import js from 'eslint/js';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
-/*
- * This is a custom ESLint configuration for use with
- * Next.js apps.
- *
- * This config extends the Vercel Engineering Style Guide.
- * For more information, see https://github.com/vercel/style-guide
- *
- */
+import { config as baseConfig } from './base.js';
 
-/** @type {import("eslint").Linter.Config} */
-module.exports = {
-  env: {
-    node: true,
-    browser: true,
-  },
-  extends: [
-    // Base
-    'eslint:recommended',
-    // Custom
-    './typescript',
-    './react',
-    // Prettier, style and turbo should be last
-    'prettier',
-    require.resolve('@vercel/style-guide/eslint/next'),
-    'turbo',
-  ],
-  globals: {
-    React: true,
-    JSX: true,
-  },
-  ignorePatterns: ['.*.js', 'node_modules/'],
-  overrides: [
-    {
-      files: ['*.js?(x)', '*.ts?(x)'],
-    },
-  ],
-  plugins: ['only-warn'],
-  settings: {
-    'import/resolver': {
-      typescript: {
-        project,
+/**
+ * A custom ESLint configuration for libraries that use Next.js.
+ *
+ * @type {import("eslint").Linter.Config}
+ * */
+export const nextJsConfig = [
+  ...baseConfig,
+  js.configs.recommended,
+  eslintConfigPrettier,
+  ...tseslint.configs.recommended,
+  {
+    ...pluginReact.configs.flat.recommended,
+    languageOptions: {
+      ...pluginReact.configs.flat.recommended.languageOptions,
+      globals: {
+        ...globals.serviceworker,
       },
     },
   },
-};
+  {
+    plugins: {
+      '@next/next': pluginNext,
+    },
+    rules: {
+      ...pluginNext.configs.recommended.rules,
+      ...pluginNext.configs['core-web-vitals'].rules,
+    },
+  },
+  {
+    plugins: {
+      'react-hooks': pluginReactHooks,
+    },
+    settings: { react: { version: 'detect' } },
+    rules: {
+      ...pluginReactHooks.configs.recommended.rules,
+      // React scope no longer necessary with new JSX transform.
+      'react/react-in-jsx-scope': 'off',
+      'react/prop-types': 'off',
+    },
+  },
+];

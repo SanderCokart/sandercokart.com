@@ -1,4 +1,5 @@
 import { YouTubeEmbed } from '@next/third-parties/google';
+import { cn } from '@repo/ui/lib/utils';
 import { format } from 'date-fns';
 import { getMDXComponent } from 'mdx-bundler/client';
 
@@ -6,7 +7,6 @@ import type { Page } from '@/types/common';
 
 import components from '@/app/articles/[slug]/components';
 import { getArticleBySlug } from '@/lib/actions/articles';
-import { cn } from '@/lib/utils';
 
 type PARAMS = { slug: string };
 type SEARCH_PARAMS = null;

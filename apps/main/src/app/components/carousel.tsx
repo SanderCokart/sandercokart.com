@@ -1,4 +1,5 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@repo/ui/carousel';
+import { cn } from '@repo/ui/lib/utils';
 import { format, formatDistanceToNow } from 'date-fns';
 
 import { forwardRef } from 'react';
@@ -15,7 +16,6 @@ import type {
 } from '@repo/ui/carousel';
 
 import placeholder from '@/app/placeholder.webp';
-import { cn } from '@/lib/utils';
 
 const ArticleCarousel = forwardRef<HTMLDivElement, CarouselProps>(({ className, ...props }, ref) => {
   return <Carousel ref={ref} className={cn('bg-muted w-full px-8', className)} {...props} />;

@@ -1,20 +1,20 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Alert, AlertTitle } from '@repo/ui/alert';
-import { Button } from '@repo/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@repo/ui/form';
-import { Input } from '@repo/ui/input';
-import { Textarea } from '@repo/ui/textarea';
+import { Alert, AlertTitle } from '@repo/ui/components/shadcn/alert';
+import { Button } from '@repo/ui/components/shadcn/button';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@repo/ui/components/shadcn/form';
+import { Input } from '@repo/ui/components/shadcn/input';
+import { Textarea } from '@repo/ui/components/shadcn/textarea';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
-import { LuAlertCircle } from 'react-icons/lu';
+import { LuCircleAlert } from 'react-icons/lu';
 
-import { useRef, useActionState } from 'react';
+import { useActionState, useRef } from 'react';
 
-import { onContactFormSubmit } from '@/app/actions/contact.action';
-import { ContactFormType, contactSchema, MESSAGE_MAX_LENGTH } from '@/schemas/contact.schema';
+import { onContactFormSubmit } from '@/src/app/actions/contact.action';
+import { ContactFormType, contactSchema, MESSAGE_MAX_LENGTH } from '@/src/schemas/contact.schema';
 
 export function ContactForm() {
   const t = useTranslations('home.contact-form.form');
@@ -125,7 +125,7 @@ export function ContactForm() {
               initial={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3 }}>
               <Alert>
-                <LuAlertCircle className="h-4 w-4" />
+                <LuCircleAlert className="h-4 w-4" />
                 <AlertTitle>{state.message}</AlertTitle>
               </Alert>
             </motion.div>

@@ -1,16 +1,13 @@
 'use server';
 
-import type { FormState } from '@/app/actions/form-helpers';
+import { setServerZodI18nMap } from '@repo/i18n/zod';
+import { FormState } from 'react-hook-form';
 
-import { extractFieldsFromFormData, mapErrorToIssues } from '@/app/actions/form-helpers';
-import { makeZodI18nMap, setServerZodI18nMap } from '@/app/utils/zod-error-map';
-import { env } from '@/env';
-import { ContactFormType, contactSchema } from '@/schemas/contact.schema';
+import { extractFieldsFromFormData, mapErrorToIssues } from '@/src/app/actions/form-helpers';
+import { env } from '@/src/env';
+import { ContactFormType, contactSchema } from '@/src/schemas/contact.schema';
 
-export async function onContactFormSubmit(
-  prevState: FormState<ContactFormType>,
-  formData: FormData,
-): Promise<FormState<ContactFormType>> {
+export async function onContactFormSubmit(prevState: FormState<ContactFormType>, formData: FormData) {
   const data = extractFieldsFromFormData(formData);
 
   await setServerZodI18nMap();

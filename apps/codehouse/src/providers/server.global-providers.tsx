@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
-import { ClientProviders } from '@/providers/client.client-providers';
-import { ServerProviders } from '@/providers/server.server-providers';
+import { ClientProviders } from '@/src/providers/client.client-providers';
+import { ServerProviders } from '@/src/providers/server.server-providers';
 
 export function GlobalProviders({ children }: { children: ReactNode }) {
   return (

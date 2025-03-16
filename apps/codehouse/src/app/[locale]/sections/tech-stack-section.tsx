@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, CardHeader } from '@repo/ui/card';
+import { Card, CardHeader } from '@repo/ui/components/shadcn/card';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { FaLaravel, FaReact, FaVuejs } from 'react-icons/fa6';

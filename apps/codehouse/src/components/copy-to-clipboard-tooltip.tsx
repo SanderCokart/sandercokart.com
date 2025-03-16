@@ -1,7 +1,7 @@
 'use client';
 
 import { useClipboard } from '@mantine/hooks';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@repo/ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@repo/ui/components/shadcn/tooltip';
 
 export function CopyToClipboardTooltip({ children }: { children: string }) {
   const { copy, copied } = useClipboard({ timeout: 500 });

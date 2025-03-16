@@ -1,19 +1,18 @@
 'use client';
 
+import { cn } from '@repo/ui/lib/utils';
 import { GB as GBFlag, NL as NLFlag } from 'country-flag-icons/react/3x2';
 import { useLocale } from 'next-intl';
 
-import type { Locales } from '@/types/common';
-
-import { Link, usePathname, useRouter } from '@/i18n/navigation';
-import { cn } from '@/lib/utils';
+import { LocaleCode } from '@/src/i18n/config';
+import { Link, usePathname, useRouter } from '@/src/i18n/navigation';
 
 export function LocaleSwitcher() {
   const pathname = usePathname();
   const router = useRouter();
-  const active_locale = useLocale() as Locales;
+  const active_locale = useLocale() as LocaleCode;
 
-  const setAppLocale = async (locale: Locales) => {
+  const setAppLocale = async (locale: LocaleCode) => {
     router.replace(pathname, { locale });
   };
 

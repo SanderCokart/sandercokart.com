@@ -1,9 +1,10 @@
 'use client';
 
+import { cn } from '@repo/ui/lib/utils';
+
 import Link from 'next/link';
 
 import { links } from '@/lib/nav-links';
-import { cn } from '@/lib/utils';
 
 export function Navigation() {
   return (
