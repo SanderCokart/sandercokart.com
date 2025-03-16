@@ -112,7 +112,7 @@ catalogs:
       specifier: 4.0.14
       version: 4.0.14
     tailwindcss-animate:
-      specifier: ^1.0.7
+      specifier: 1.0.7
       version: 1.0.7
 
 overrides:

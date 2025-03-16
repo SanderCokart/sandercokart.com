@@ -1,5 +1,5 @@
-import { Header as BrandHeader } from '@repo/ui/brand/header';
-import { NamedLogo } from '@repo/ui/brand/named-logo';
+import { Header as BrandHeader } from '@repo/ui/components/header';
+import { NamedLogo } from '@repo/ui/components/header/named-logo';
 
 import Link from 'next/link';
 

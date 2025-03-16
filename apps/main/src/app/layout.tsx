@@ -1,4 +1,4 @@
-import './globals.css';
+import '@repo/ui/globals.css';
 
 import { cn } from '@repo/ui/lib/utils';
 import { GeistMono } from 'geist/font/mono';
