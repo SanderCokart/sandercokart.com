@@ -4,6 +4,7 @@ import * as LabelPrimitive from '@radix-ui/react-label';
 import { Slot } from '@radix-ui/react-slot';
 import { Label } from '@repo/ui/components/shadcn/label';
 import { cn } from '@repo/ui/lib/utils';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Controller, FormProvider, useFormContext, useFormState } from 'react-hook-form';
 
 import * as React from 'react';
@@ -119,7 +120,7 @@ function FormMessage({ className, ...props }: React.ComponentProps<'p'>) {
   const body = error ? String(error?.message ?? '') : props.children;
 
   if (!body) {
-    return <div className="h-5" />;
+    return null;
   }
 
   return (
@@ -129,4 +130,40 @@ function FormMessage({ className, ...props }: React.ComponentProps<'p'>) {
   );
 }
 
-export { useFormField, Form, FormItem, FormLabel, FormControl, FormDescription, FormMessage, FormField };
+function AnimatedFormMessage({ className, ...props }: React.ComponentProps<'p'>) {
+  const { error, formMessageId } = useFormField();
+  const body = error ? String(error?.message ?? '') : props.children;
+
+  return (
+    <p
+      aria-hidden={!body}
+      data-slot="form-message"
+      id={formMessageId}
+      className={cn('text-destructive text-sm', className)}
+      {...props}>
+      <AnimatePresence>
+        {body && (
+          <motion.span
+            className="block overflow-hidden"
+            initial={{ height: 0, opacity: 0, y: -10 }}
+            animate={{ height: 'auto', opacity: 1, y: 0 }}
+            exit={{ height: 0, opacity: 0, y: -10 }}>
+            {body}
+          </motion.span>
+        )}
+      </AnimatePresence>
+    </p>
+  );
+}
+
+export {
+  useFormField,
+  Form,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormDescription,
+  FormMessage,
+  AnimatedFormMessage,
+  FormField,
+};

@@ -3,7 +3,14 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Alert, AlertTitle } from '@repo/ui/components/shadcn/alert';
 import { Button } from '@repo/ui/components/shadcn/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@repo/ui/components/shadcn/form';
+import {
+  AnimatedFormMessage,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from '@repo/ui/components/shadcn/form';
 import { Input } from '@repo/ui/components/shadcn/input';
 import { Textarea } from '@repo/ui/components/shadcn/textarea';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -63,7 +70,7 @@ export function ContactForm() {
               <FormControl>
                 <Input {...field} required disabled={disabled} id="name" placeholder="John Doe" />
               </FormControl>
-              <FormMessage>{state.issues?.name?.message}</FormMessage>
+              <AnimatedFormMessage>{state.issues?.name?.message}</AnimatedFormMessage>
             </FormItem>
           )}
         />
@@ -77,7 +84,7 @@ export function ContactForm() {
               <FormControl>
                 <Input {...field} required disabled={disabled} id="email" placeholder="example@domain.com" />
               </FormControl>
-              <FormMessage>{state.issues?.email?.message}</FormMessage>
+              <AnimatedFormMessage>{state.issues?.email?.message}</AnimatedFormMessage>
             </FormItem>
           )}
         />
@@ -91,7 +98,7 @@ export function ContactForm() {
               <FormControl>
                 <Input {...field} required disabled={disabled} id="subject" placeholder="Subject" />
               </FormControl>
-              <FormMessage>{state.issues?.subject?.message}</FormMessage>
+              <AnimatedFormMessage>{state.issues?.subject?.message}</AnimatedFormMessage>
             </FormItem>
           )}
         />
@@ -112,7 +119,7 @@ export function ContactForm() {
                   placeholder="Your message"
                 />
               </FormControl>
-              <FormMessage>{state.issues?.message?.message}</FormMessage>
+              <AnimatedFormMessage>{state.issues?.message?.message}</AnimatedFormMessage>
             </FormItem>
           )}
         />

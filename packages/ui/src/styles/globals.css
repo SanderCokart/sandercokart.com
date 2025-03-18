@@ -9,19 +9,19 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
+    --background: var(--color-zinc-50);
+    --foreground: var(--color-zinc-900);
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.145 0 0);
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
+    --primary: var(--color-violet-500);
+    --primary-foreground: var(--color-zinc-100);
     --secondary: oklch(0.97 0 0);
     --secondary-foreground: oklch(0.205 0 0);
     --muted: oklch(0.97 0 0);
     --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
+    --accent: var(--color-green-400);
     --accent-foreground: oklch(0.205 0 0);
     --destructive: oklch(0.577 0.245 27.325);
     --destructive-foreground: oklch(0.577 0.245 27.325);
@@ -42,6 +42,10 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
+
+    --react: oklch(0.824 0.117 219.524);
+    --laravel: oklch(0.638 0.242 29.164);
+    --vue: oklch(0.699 0.132 160.322)
 }
 
 .dark {
@@ -77,10 +81,6 @@
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(0.269 0 0);
     --sidebar-ring: oklch(0.439 0 0);
-
-    --react: oklch(0.824 0.117 219.524);
-    --laravel: oklch(0.638 0.242 29.164);
-    --vue: oklch(0.699 0.132 160.322)
 }
 
 @theme inline {

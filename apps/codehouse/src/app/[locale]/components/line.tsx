@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 import { useRef } from 'react';
 
@@ -8,7 +8,7 @@ export function Line() {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: [0, 1, 0, 1],
+    offset: ['start end', 'start start'],
   });
 
   return (

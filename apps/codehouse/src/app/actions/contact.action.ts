@@ -7,7 +7,8 @@ import { extractFieldsFromFormData, mapErrorToIssues } from '@/src/app/actions/f
 import { env } from '@/src/env';
 import { ContactFormType, contactSchema } from '@/src/schemas/contact.schema';
 
-export async function onContactFormSubmit(prevState: FormState<ContactFormType>, formData: FormData) {
+// TODO typesafe
+export async function onContactFormSubmit(prevState: unknown, formData: FormData) {
   const data = extractFieldsFromFormData(formData);
 
   await setServerZodI18nMap();
