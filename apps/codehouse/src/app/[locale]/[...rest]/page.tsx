@@ -1,20 +1,16 @@
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 
 import { notFound } from 'next/navigation';
 
-export default async function CatchAllPage(
-  props: {
-    params: Promise<{
-      locale: 'en' | 'nl';
-    }>;
-  }
-) {
+export default async function CatchAllPage(props: {
+  params: Promise<{
+    locale: 'en' | 'nl';
+  }>;
+}) {
   const params = await props.params;
 
-  const {
-    locale
-  } = params;
+  const { locale } = params;
 
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
   notFound();
 }

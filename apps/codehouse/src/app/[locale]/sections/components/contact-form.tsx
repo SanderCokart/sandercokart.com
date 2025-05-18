@@ -18,16 +18,15 @@ import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { LuCircleAlert } from 'react-icons/lu';
 
-import { useActionState, useRef } from 'react';
+import { useState } from 'react';
 
-import { onContactFormSubmit } from '@/src/app/actions/contact.action';
+import { tryCatch } from '@/src/lib/try-catch';
+import { env } from '@/src/env';
 import { ContactFormType, contactSchema, MESSAGE_MAX_LENGTH } from '@/src/schemas/contact.schema';
 
 export function ContactForm() {
   const t = useTranslations('home.contact-form.form');
-  const [state, formAction] = useActionState(onContactFormSubmit, { message: '' }, '#contact-form');
-  const ref = useRef<HTMLFormElement>(null);
-
+  const [formMessage, setFormMessage] = useState<string>('');
   const form = useForm<ContactFormType>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
@@ -35,32 +34,35 @@ export function ContactForm() {
       email: '',
       subject: '',
       message: '',
-      ...(state?.fields ?? {}),
     },
   });
 
   const disabled = form.formState.isSubmitting;
 
-  const onSubmit = form.handleSubmit(async data => {
-    const formData = new FormData();
+  const onSubmit = form.handleSubmit(async (formData) => {
+    const { data, error } = await tryCatch(
+      fetch(`${env.NEXT_PUBLIC_API_URL}/v1/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+    );
 
-    for (const key in data) {
-      formData.append(key, data[key as keyof ContactFormType]);
+    if (error || !data?.ok) {
+      setFormMessage(t('error.title'));
+      return;
     }
 
-    formAction(formData);
+    setFormMessage(t('alert.title'));
     form.reset();
   });
 
   return (
     <Form {...form}>
-      <form
-        ref={ref}
-        noValidate
-        action={formAction}
-        className="flex flex-col gap-4"
-        id="contact-form"
-        onSubmit={onSubmit}>
+      <form noValidate className="flex flex-col gap-4" onSubmit={onSubmit}>
         <FormField
           control={form.control}
           name="name"
@@ -70,7 +72,7 @@ export function ContactForm() {
               <FormControl>
                 <Input {...field} required disabled={disabled} id="name" placeholder="John Doe" />
               </FormControl>
-              <AnimatedFormMessage>{state.issues?.name?.message}</AnimatedFormMessage>
+              <AnimatedFormMessage>{form.formState.errors.name?.message}</AnimatedFormMessage>
             </FormItem>
           )}
         />
@@ -84,7 +86,7 @@ export function ContactForm() {
               <FormControl>
                 <Input {...field} required disabled={disabled} id="email" placeholder="example@domain.com" />
               </FormControl>
-              <AnimatedFormMessage>{state.issues?.email?.message}</AnimatedFormMessage>
+              <AnimatedFormMessage>{form.formState.errors.email?.message}</AnimatedFormMessage>
             </FormItem>
           )}
         />
@@ -98,7 +100,7 @@ export function ContactForm() {
               <FormControl>
                 <Input {...field} required disabled={disabled} id="subject" placeholder="Subject" />
               </FormControl>
-              <AnimatedFormMessage>{state.issues?.subject?.message}</AnimatedFormMessage>
+              <AnimatedFormMessage>{form.formState.errors.subject?.message}</AnimatedFormMessage>
             </FormItem>
           )}
         />
@@ -119,13 +121,13 @@ export function ContactForm() {
                   placeholder="Your message"
                 />
               </FormControl>
-              <AnimatedFormMessage>{state.issues?.message?.message}</AnimatedFormMessage>
+              <AnimatedFormMessage>{form.formState.errors.message?.message}</AnimatedFormMessage>
             </FormItem>
           )}
         />
 
         <AnimatePresence>
-          {state.message && (
+          {formMessage && (
             <motion.div
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
@@ -133,7 +135,7 @@ export function ContactForm() {
               transition={{ duration: 0.3 }}>
               <Alert>
                 <LuCircleAlert className="h-4 w-4" />
-                <AlertTitle>{state.message}</AlertTitle>
+                <AlertTitle>{formMessage}</AlertTitle>
               </Alert>
             </motion.div>
           )}

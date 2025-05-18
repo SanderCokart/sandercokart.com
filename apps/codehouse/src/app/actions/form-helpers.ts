@@ -26,7 +26,3 @@ export function mapErrorToIssues<T extends Record<string, any>>(error: ZodError<
 
   return issues;
 }
-
-export function extractFieldsFromFormData(formData: FormData) {
-  return Object.fromEntries(formData);
-}

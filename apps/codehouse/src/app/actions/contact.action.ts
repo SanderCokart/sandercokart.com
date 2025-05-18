@@ -1,15 +1,19 @@
 'use server';
 
 import { setServerZodI18nMap } from '@repo/i18n/zod';
-import { FormState } from 'react-hook-form';
 
-import { extractFieldsFromFormData, mapErrorToIssues } from '@/src/app/actions/form-helpers';
+import { mapErrorToIssues } from '@/src/app/actions/form-helpers';
 import { env } from '@/src/env';
-import { ContactFormType, contactSchema } from '@/src/schemas/contact.schema';
+import { contactSchema } from '@/src/schemas/contact.schema';
 
-// TODO typesafe
-export async function onContactFormSubmit(prevState: unknown, formData: FormData) {
-  const data = extractFieldsFromFormData(formData);
+type FormState = {
+  message: string;
+  fields?: Record<string, FormDataEntryValue>;
+  issues?: Record<string, { message: string; all: string[] }>;
+};
+
+export async function onContactFormSubmit(prevState: unknown, formData: FormData): Promise<FormState> {
+  const data = Object.fromEntries(formData);
 
   await setServerZodI18nMap();
 
@@ -18,12 +22,12 @@ export async function onContactFormSubmit(prevState: unknown, formData: FormData
   if (!parsed.success) {
     return {
       message: 'Invalid form data',
-      fields: extractFieldsFromFormData(formData),
+      fields: Object.fromEntries(formData),
       issues: mapErrorToIssues(parsed.error),
     };
   }
 
-  const response = await fetch(env.NEXT_PUBLIC_API_URL + '/contact', {
+  const response = await fetch(env.NEXT_PUBLIC_API_URL + '/v1/contact', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -34,7 +38,7 @@ export async function onContactFormSubmit(prevState: unknown, formData: FormData
   if (!response.ok) {
     return {
       message: 'Failed to submit form',
-      fields: extractFieldsFromFormData(formData),
+      fields: Object.fromEntries(formData),
     };
   }
 
