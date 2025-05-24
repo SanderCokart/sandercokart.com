@@ -32,8 +32,8 @@
     "lint-staged": "^15.5.0",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
-    "turbo": "catalog:",
-    "typescript": "catalog:"
+    "turbo": "2.4.4",
+    "typescript": "5.8.2"
   },
   "packageManager": "pnpm@10.6.3",
   "engines": {

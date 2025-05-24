@@ -18,14 +18,14 @@
     "./zod": "./src/zod.ts"
   },
   "dependencies": {
-    "next": "catalog:",
-    "next-intl": "catalog:",
-    "zod":"catalog:"
+    "next": "15.2.2",
+    "next-intl": "4.0.2",
+    "zod": "3.24.2"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "@types/node": "catalog:",
-    "@types/react": "catalog:react18",
-    "@types/react-dom": "catalog:react18"
+    "@types/node": "20.17.24",
+    "@types/react": "19.0.10",
+    "@types/react-dom": "19.0.4"
   }
 }
