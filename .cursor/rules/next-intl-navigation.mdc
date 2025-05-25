@@ -1,0 +1,16 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Next-intl Navigation Functions
+
+When using `Link`, `redirect`, `usePathname`, `useRouter`, `getPathname`, or `permanentRedirect` from `next-intl/navigation`, refer to their custom implementation and export in this project.
+
+These functions are lightweight wrappers around Next.js' navigation APIs that consider the routing configuration.
+
+They are defined in:
+[navigation.ts](mdc:apps/codehouse/src/i18n/navigation.ts)
+import { Link } from @/src/i18n/navigation
+
+
