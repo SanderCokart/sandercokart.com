@@ -93,6 +93,46 @@
         "adequaat": "Sander is een ambitieuze programmeur aan het begin van zijn carrière. Sander is technisch erg goed en kan snel schakelen. We zouden Sander zeker nog eens inhuren."
       },
       "title": "Referenties"
+    },
+    "services": {
+      "title": "Mijn Diensten",
+      "call-to-action": "Lees Meer",
+      "bespoke-solutions": {
+        "title": "Simpele Websites",
+        "description": "Generieke website bouwers zat? Ik maak verbluffende, snelle websites, perfect voor merken die een unieke online aanwezigheid zoeken.",
+        "features": {
+          "unique-visuals": "Unieke visuals & verbluffende animaties",
+          "internationalization": "Meertaligheid",
+          "blazing-speed": "Bliksemsnelle website prestaties",
+          "hosting-included": "Wij regelen de hosting voor u",
+          "responsive-design": "Perfect op alle apparaten, van mobiel tot breedbeeld"
+        },
+        "call-to-action": "Creëer uw website"
+      },
+      "web-application-development": {
+        "title": "Op Maat Gemaakte Software",
+        "description": "Bedrijfsoplossing nodig? Ik creëer schaalbare en veilige software, van database tot applicatie, afgestemd op uw behoeften.",
+        "features": {
+          "custom-webapps": "Op maat gemaakte webapplicaties",
+          "database-storage": "Database en Opslag",
+          "secure-api": "Beveiliging volgens best practices",
+          "scalable-cloud": "Schaalbaar en geoptimaliseerd voor snelheid",
+          "security-implementation": "Kies zelf waar je wilt hosten"
+        },
+        "call-to-action": "Ontdek oplossingen"
+      },
+      "freelance": {
+        "title": "Freelance Ontwikkeling",
+        "description": "Ervaren ontwikkelaar gezocht? Ik bied expertise in moderne webtechnologieën om uw projecten succesvol en efficiënt te maken.",
+        "features": {
+          "client-side-apps": "Vue of React Client side applicaties",
+          "nextjs-solution": "Next.js alles-in-een oplossing",
+          "agile-git": "Ervaring met agile en git flow",
+          "laravel-apis": "API's ontworpen in Laravel",
+          "fast-integration": "Snelle aanpassing en integratie"
+        },
+        "call-to-action": "Bespeek uw project"
+      }
     }
   },
   "nav": {

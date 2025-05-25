@@ -5,6 +5,8 @@
 import * as Sentry from '@sentry/nextjs';
 
 Sentry.init({
+  enabled: process.env.SENTRY_ENABLED === 'true',
+
   environment: process.env.NEXT_PUBLIC_ENV,
 
   dsn: 'https://d6f287611c3dc58eacadf32eaabdaac4@o4506644789329920.ingest.us.sentry.io/4507957562310656',

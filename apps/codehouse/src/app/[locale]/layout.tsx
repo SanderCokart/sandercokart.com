@@ -1,4 +1,4 @@
-import '@repo/ui/globals.css';
+import './globals.css';
 
 import { cn } from '@repo/ui/lib/utils';
 import { setRequestLocale } from 'next-intl/server';

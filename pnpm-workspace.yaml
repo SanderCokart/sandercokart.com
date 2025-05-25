@@ -1,0 +1,10 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+onlyBuiltDependencies:
+  - "@sentry/cli"
+  - "@swc/core"
+  - "core-js-pure"
+  - "es5-ext"
+  - "esbuild"
+  - "sharp"
