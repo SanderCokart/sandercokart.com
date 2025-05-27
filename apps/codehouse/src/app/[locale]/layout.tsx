@@ -1,4 +1,4 @@
-import './globals.css';
+import '@/src/app/globals.css';
 
 import { cn } from '@repo/ui/lib/utils';
 import { setRequestLocale } from 'next-intl/server';
@@ -12,11 +12,10 @@ import { LocaleCode } from '@/src/i18n/config';
 import { routing } from '@/src/i18n/routing';
 import { GlobalProviders } from '@/src/providers/server.global-providers';
 
-import { Footer } from './components/footer';
-import { Header } from './components/header';
+import { Footer } from './(components)/footer';
 
 const LetsGoDigital = localFont({
-  src: './fonts/LetsGoDigital.ttf',
+  src: '../fonts/LetsGoDigital.ttf',
   variable: '--font-digital',
 });
 
@@ -51,7 +50,6 @@ export default async function RootLayout({ params, children }: RootLayoutParams)
           'mb-14 md:mb-0', //this is to account for mobile navigation @see <Navigation />
         )}>
         <GlobalProviders>
-          <Header />
           {children}
           <Footer />
         </GlobalProviders>

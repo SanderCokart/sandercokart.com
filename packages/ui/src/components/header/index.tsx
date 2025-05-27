@@ -6,7 +6,7 @@ import { ThemeToggle } from './theme-toggle';
 export interface HeaderProps {
   localeSwitcher?: ReactNode;
   namedLogo: ReactNode;
-  navigation: ReactNode;
+  navigation?: ReactNode;
 }
 
 export function Header({ navigation, localeSwitcher, namedLogo }: HeaderProps) {

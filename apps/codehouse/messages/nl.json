@@ -121,13 +121,7 @@
       }
     },
     "subject": "Onderwerp",
-    "tech-stack": {
-      "laravel": "We gebruiken laravel voor onze backend en fullstack projecten. Of u nu een eenvoudige API of een volledig webapp nodig heeft, laravel is een goede keuze. We combineren vaak laravel met andere tools zoals InertiaJS, waardoor we een rijke javascript ondersteunde webapp kunnen bouwen zonder een apart (sub)domein nodig te hebben.",
-      "next": "We gebruiken NextJS voor onze websiteprojecten. NextJS gebruikt strategieën zoals server side rendering, static generation en code splitting om de snelste ervaring te bieden. Het gebruikt React onder de motorkap, zodat we toegang hebben tot alle geweldige bibliotheken die er zijn. Wanneer mogelijk, gebruiken we NextJS boven alleenstaand React, Vue of Laravel + JavaScript Framework oplossingen vanwege de enorme prestatieboost die NextJS biedt. codehouse.sandercokart.com is hiermee gemaakt!",
-      "react": "React is ons framework van keuze voor het bouwen van websites en webapps. De reden hiervoor is dat React de grootste gemeenschap heeft en het meest populaire framework is. Dit betekent dat we veel tijd kunnen besparen door bestaande oplossingen en bibliotheken te gebruiken om de ontwikkeling te versnellen.",
-      "title": "Tech Stack",
-      "vue": "We gebruiken VueJS als alternatief voor React. Het wordt vaak gecombineerd met NuxtJS, wat veel lijkt op NextJS, maar voor Vue. Statistisch gezien is Vue sneller dan React vanwege hoe het reactiviteit behandelt. Het is veel jonger dan React en heeft een kleinere community. Dit betekent dat er minder bestaande oplossingen en bibliotheken beschikbaar zijn."
-    },
+
     "testimonials": {
       "testimonials": {
         "adequaat": "Sander is een ambitieuze programmeur aan het begin van zijn carrière. Sander is technisch erg goed en kan snel schakelen. We zouden Sander zeker nog eens inhuren."
@@ -144,5 +138,14 @@
   "not-found-page": {
     "back-to-front": "Ga terug naar de voorpagina",
     "message": "Deze pagina bestaat niet."
+  },
+  "freelance-page": {
+    "tech-stack": {
+      "laravel": "We gebruiken laravel voor onze backend en fullstack projecten. Of u nu een eenvoudige API of een volledig webapp nodig heeft, laravel is een goede keuze. We combineren vaak laravel met andere tools zoals InertiaJS, waardoor we een rijke javascript ondersteunde webapp kunnen bouwen zonder een apart (sub)domein nodig te hebben.",
+      "next": "We gebruiken NextJS voor onze websiteprojecten. NextJS gebruikt strategieën zoals server side rendering, static generation en code splitting om de snelste ervaring te bieden. Het gebruikt React onder de motorkap, zodat we toegang hebben tot alle geweldige bibliotheken die er zijn. Wanneer mogelijk, gebruiken we NextJS boven alleenstaand React, Vue of Laravel + JavaScript Framework oplossingen vanwege de enorme prestatieboost die NextJS biedt. codehouse.sandercokart.com is hiermee gemaakt!",
+      "react": "React is ons framework van keuze voor het bouwen van websites en webapps. De reden hiervoor is dat React de grootste gemeenschap heeft en het meest populaire framework is. Dit betekent dat we veel tijd kunnen besparen door bestaande oplossingen en bibliotheken te gebruiken om de ontwikkeling te versnellen.",
+      "title": "Tech Stack",
+      "vue": "We gebruiken VueJS als alternatief voor React. Het wordt vaak gecombineerd met NuxtJS, wat veel lijkt op NextJS, maar voor Vue. Statistisch gezien is Vue sneller dan React vanwege hoe het reactiviteit behandelt. Het is veel jonger dan React en heeft een kleinere community. Dit betekent dat er minder bestaande oplossingen en bibliotheken beschikbaar zijn."
+    }
   }
 }

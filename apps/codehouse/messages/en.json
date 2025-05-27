@@ -119,13 +119,7 @@
       }
     },
     "subject": "Subject",
-    "tech-stack": {
-      "laravel": "We use laravel for our backend and fullstack projects. Whether you need a simple API or a full blown webapp, laravel is a great choice. We often combine laravel with other tools like InertiaJS which allows us to build a rich javascript supported webapp without needing a separate (sub)domain.",
-      "next": "We use NextJS for our website projects. NextJS uses strategies like server side rendering, static generation and code splitting to provide a the fastest experience. It uses React under the hood so we have access to all the great libraries out there. When possible we prefer to use NextJS over standalone React, Vue or Laravel + JavaScript Framework solutions due to the massive performance boost NextJS provides. codehouse.sandercokart.com was build with this!",
-      "react": "React is our go-to framework for building websites and webapps. The reason behind this is that React has the largest community and is the most popular framework. This means we can save a lot of time by using existing solutions and libraries to speed up development.",
-      "title": "Tech Stack",
-      "vue": "We use VueJS as an alternative to React. It is often combined with NuxtJS which is much like NextJS but for Vue. Statistically speaking, Vue is faster than React due to how it handles reactivity. It is much younger than React though and has a smaller community. This means that there are less existing solutions and libraries available."
-    },
+
     "testimonials": {
       "testimonials": {
         "adequaat": "Sander is an ambitious programmer at the beginning of his career. Sander is technically very good and can quickly switch. We would definitely hire Sander again."
@@ -142,5 +136,14 @@
   "not-found-page": {
     "back-to-front": "Go back to the front page",
     "message": "This page does not exist."
+  },
+  "freelance-page": {
+    "tech-stack": {
+      "laravel": "We use laravel for our backend and fullstack projects. Whether you need a simple API or a full blown webapp, laravel is a great choice. We often combine laravel with other tools like InertiaJS which allows us to build a rich javascript supported webapp without needing a separate (sub)domain.",
+      "next": "We use NextJS for our website projects. NextJS uses strategies like server side rendering, static generation and code splitting to provide a the fastest experience. It uses React under the hood so we have access to all the great libraries out there. When possible we prefer to use NextJS over standalone React, Vue or Laravel + JavaScript Framework solutions due to the massive performance boost NextJS provides. codehouse.sandercokart.com was build with this!",
+      "react": "React is our go-to framework for building websites and webapps. The reason behind this is that React has the largest community and is the most popular framework. This means we can save a lot of time by using existing solutions and libraries to speed up development.",
+      "title": "Tech Stack",
+      "vue": "We use VueJS as an alternative to React. It is often combined with NuxtJS which is much like NextJS but for Vue. Statistically speaking, Vue is faster than React due to how it handles reactivity. It is much younger than React though and has a smaller community. This means that there are less existing solutions and libraries available."
+    }
   }
 }

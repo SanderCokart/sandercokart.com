@@ -5,18 +5,20 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@repo/ui/components/shadcn/carousel';
+import { cn } from '@repo/ui/lib/utils';
 import { useTranslations } from 'next-intl';
 
+import { ComponentProps, FC } from 'react';
 import Image from 'next/image';
 
 import NaWijzerAdmin from '@/public/static/images/portfolio/nawijzer-admin.png';
 import NaWijzerQuestionnaire from '@/public/static/images/portfolio/nawijzer-questionnaire.png';
 
-export function PortfolioSection() {
+export const PortfolioSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
   const t = useTranslations('home.portfolio');
 
   return (
-    <section className="flex scroll-mt-16 flex-col sm:scroll-mt-16" id="portfolio">
+    <section className={cn('flex scroll-mt-16 flex-col sm:scroll-mt-16', className)} id="portfolio" {...props}>
       <h1 className="mb-4 text-center text-5xl font-bold">{t('title')}</h1>
 
       <div className="space-y-4">
@@ -50,4 +52,4 @@ export function PortfolioSection() {
       </div>
     </section>
   );
-}
+};

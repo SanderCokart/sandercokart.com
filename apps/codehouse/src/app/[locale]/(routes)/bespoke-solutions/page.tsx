@@ -4,4 +4,4 @@ export default function Page() {
       <h1>Bespoke Solutions</h1>
     </div>
   );
-} 
+}
