@@ -2,6 +2,7 @@
   "common": {
     "email": "E-mail"
   },
+  "customErrors": {},
   "footer": {
     "BTW": "VAT",
     "KvK": "Chamber of Commerce number",
@@ -11,10 +12,10 @@
     "request-phone": "Request phone number via mail"
   },
   "form": {
-    "name": "Name",
     "email": "Email",
-    "subject": "Subject",
-    "message": "Message"
+    "message": "Message",
+    "name": "Name",
+    "subject": "Subject"
   },
   "home": {
     "contact-form": {
@@ -77,6 +78,46 @@
     },
     "previous-project": "Previous project",
     "send": "Send",
+    "services": {
+      "bespoke-solutions": {
+        "call-to-action": "Create your website",
+        "description": "Tired of generic builders? I craft visually stunning, fast-loading static websites, perfect for brands seeking a unique and blazing-fast online presence.",
+        "features": {
+          "blazing-speed": "Blazing speed",
+          "hosting-included": "We handle hosting for you",
+          "internationalization": "Internationalization",
+          "responsive-design": "Perfect on all devices, from mobile to ultrawide",
+          "unique-visuals": "Unique visuals & stunning animations"
+        },
+        "title": "Simple Websites"
+      },
+      "call-to-action": "Learn More",
+      "freelance": {
+        "call-to-action": "Discuss your project",
+        "description": "Looking for a skilled developer? I offer expertise in modern web technologies to ensure your projects are successful and efficient.",
+        "features": {
+          "agile-git": "Experience with agile and git flow",
+          "client-side-apps": "Vue or React Client side applications",
+          "fast-integration": "Fast adaptation and integration",
+          "laravel-apis": "API's designed in Laravel",
+          "nextjs-solution": "Next.js all-in-one solution"
+        },
+        "title": "Freelance Development"
+      },
+      "title": "Which service are you looking for?",
+      "web-application-development": {
+        "call-to-action": "Discover solutions",
+        "description": "Need a business solution? I create scalable and secure software, from database design to full-stack applications, tailored to your specific needs.",
+        "features": {
+          "custom-webapps": "Custom web applications",
+          "database-storage": "Database and storage",
+          "scalable-cloud": "Scalable cloud solutions",
+          "secure-api": "Secure API development",
+          "security-implementation": "Security implementation"
+        },
+        "title": "Custom Software Solutions"
+      }
+    },
     "subject": "Subject",
     "tech-stack": {
       "laravel": "We use laravel for our backend and fullstack projects. Whether you need a simple API or a full blown webapp, laravel is a great choice. We often combine laravel with other tools like InertiaJS which allows us to build a rich javascript supported webapp without needing a separate (sub)domain.",
@@ -90,46 +131,6 @@
         "adequaat": "Sander is an ambitious programmer at the beginning of his career. Sander is technically very good and can quickly switch. We would definitely hire Sander again."
       },
       "title": "Testimonials"
-    },
-    "services": {
-      "title": "Which service are you looking for?",
-      "call-to-action": "Learn More",
-      "bespoke-solutions": {
-        "title": "Simple Websites",
-        "description": "Tired of generic builders? I craft visually stunning, fast-loading static websites, perfect for brands seeking a unique and blazing-fast online presence.",
-        "features": {
-          "unique-visuals": "Unique visuals & stunning animations",
-          "internationalization": "Internationalization",
-          "blazing-speed": "Blazing speed",
-          "hosting-included": "We handle hosting for you",
-          "responsive-design": "Perfect on all devices, from mobile to ultrawide"
-        },
-        "call-to-action": "Create your website"
-      },
-      "web-application-development": {
-        "title": "Custom Software Solutions",
-        "description": "Need a business solution? I create scalable and secure software, from database design to full-stack applications, tailored to your specific needs.",
-        "features": {
-          "custom-webapps": "Custom web applications",
-          "database-storage": "Database and storage",
-          "secure-api": "Secure API development",
-          "scalable-cloud": "Scalable cloud solutions",
-          "security-implementation": "Security implementation"
-        },
-        "call-to-action": "Discover solutions"
-      },
-      "freelance": {
-        "title": "Freelance Development",
-        "description": "Looking for a skilled developer? I offer expertise in modern web technologies to ensure your projects are successful and efficient.",
-        "features": {
-          "client-side-apps": "Vue or React Client side applications",
-          "nextjs-solution": "Next.js all-in-one solution",
-          "agile-git": "Experience with agile and git flow",
-          "laravel-apis": "API's designed in Laravel",
-          "fast-integration": "Fast adaptation and integration"
-        },
-        "call-to-action": "Discuss your project"
-      }
     }
   },
   "nav": {

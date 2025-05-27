@@ -2,6 +2,7 @@
   "common": {
     "email": "E-mail"
   },
+  "customErrors": {},
   "footer": {
     "BTW": "BTW",
     "KvK": "KvK nummer",
@@ -11,10 +12,10 @@
     "request-phone": "Vraag om een telefoonnummer via mail"
   },
   "form": {
-    "name": "Naam",
     "email": "Email",
-    "subject": "Onderwerp",
-    "message": "Bericht"
+    "message": "Bericht",
+    "name": "Naam",
+    "subject": "Onderwerp"
   },
   "home": {
     "contact-form": {
@@ -79,6 +80,46 @@
     },
     "previous-project": "Vorige project",
     "send": "Verzenden",
+    "services": {
+      "bespoke-solutions": {
+        "call-to-action": "Creëer uw website",
+        "description": "Generieke website bouwers zat? Ik maak verbluffende, snelle websites, perfect voor merken die een unieke online aanwezigheid zoeken.",
+        "features": {
+          "blazing-speed": "Bliksemsnelle website prestaties",
+          "hosting-included": "Wij regelen de hosting voor u",
+          "internationalization": "Meertaligheid",
+          "responsive-design": "Perfect op alle apparaten, van mobiel tot breedbeeld",
+          "unique-visuals": "Unieke visuals & verbluffende animaties"
+        },
+        "title": "Simpele Websites"
+      },
+      "call-to-action": "Lees Meer",
+      "freelance": {
+        "call-to-action": "Bespeek uw project",
+        "description": "Ervaren ontwikkelaar gezocht? Ik bied expertise in moderne webtechnologieën om uw projecten succesvol en efficiënt te maken.",
+        "features": {
+          "agile-git": "Ervaring met agile en git flow",
+          "client-side-apps": "Vue of React Client side applicaties",
+          "fast-integration": "Snelle aanpassing en integratie",
+          "laravel-apis": "API's ontworpen in Laravel",
+          "nextjs-solution": "Next.js alles-in-een oplossing"
+        },
+        "title": "Freelance Ontwikkeling"
+      },
+      "title": "Welke dienst ben je naar op zoek?",
+      "web-application-development": {
+        "call-to-action": "Ontdek oplossingen",
+        "description": "Bedrijfsoplossing nodig? Ik creëer schaalbare en veilige software, van database tot applicatie, afgestemd op uw behoeften.",
+        "features": {
+          "custom-webapps": "Op maat gemaakte webapplicaties",
+          "database-storage": "Database en Opslag",
+          "scalable-cloud": "Schaalbaar en geoptimaliseerd voor snelheid",
+          "secure-api": "Beveiliging volgens best practices",
+          "security-implementation": "Kies zelf waar je wilt hosten"
+        },
+        "title": "Op Maat Gemaakte Software"
+      }
+    },
     "subject": "Onderwerp",
     "tech-stack": {
       "laravel": "We gebruiken laravel voor onze backend en fullstack projecten. Of u nu een eenvoudige API of een volledig webapp nodig heeft, laravel is een goede keuze. We combineren vaak laravel met andere tools zoals InertiaJS, waardoor we een rijke javascript ondersteunde webapp kunnen bouwen zonder een apart (sub)domein nodig te hebben.",
@@ -92,46 +133,6 @@
         "adequaat": "Sander is een ambitieuze programmeur aan het begin van zijn carrière. Sander is technisch erg goed en kan snel schakelen. We zouden Sander zeker nog eens inhuren."
       },
       "title": "Referenties"
-    },
-    "services": {
-      "title": "Welke dienst ben je naar op zoek?",
-      "call-to-action": "Lees Meer",
-      "bespoke-solutions": {
-        "title": "Simpele Websites",
-        "description": "Generieke website bouwers zat? Ik maak verbluffende, snelle websites, perfect voor merken die een unieke online aanwezigheid zoeken.",
-        "features": {
-          "unique-visuals": "Unieke visuals & verbluffende animaties",
-          "internationalization": "Meertaligheid",
-          "blazing-speed": "Bliksemsnelle website prestaties",
-          "hosting-included": "Wij regelen de hosting voor u",
-          "responsive-design": "Perfect op alle apparaten, van mobiel tot breedbeeld"
-        },
-        "call-to-action": "Creëer uw website"
-      },
-      "web-application-development": {
-        "title": "Op Maat Gemaakte Software",
-        "description": "Bedrijfsoplossing nodig? Ik creëer schaalbare en veilige software, van database tot applicatie, afgestemd op uw behoeften.",
-        "features": {
-          "custom-webapps": "Op maat gemaakte webapplicaties",
-          "database-storage": "Database en Opslag",
-          "secure-api": "Beveiliging volgens best practices",
-          "scalable-cloud": "Schaalbaar en geoptimaliseerd voor snelheid",
-          "security-implementation": "Kies zelf waar je wilt hosten"
-        },
-        "call-to-action": "Ontdek oplossingen"
-      },
-      "freelance": {
-        "title": "Freelance Ontwikkeling",
-        "description": "Ervaren ontwikkelaar gezocht? Ik bied expertise in moderne webtechnologieën om uw projecten succesvol en efficiënt te maken.",
-        "features": {
-          "client-side-apps": "Vue of React Client side applicaties",
-          "nextjs-solution": "Next.js alles-in-een oplossing",
-          "agile-git": "Ervaring met agile en git flow",
-          "laravel-apis": "API's ontworpen in Laravel",
-          "fast-integration": "Snelle aanpassing en integratie"
-        },
-        "call-to-action": "Bespeek uw project"
-      }
     }
   },
   "nav": {
