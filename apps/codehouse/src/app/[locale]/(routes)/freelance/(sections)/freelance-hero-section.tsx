@@ -8,7 +8,7 @@ import Logo from '@/public/static/images/logo/Logo.png';
 
 import { Link } from '@/src/i18n/navigation';
 
-export function HeroSection() {
+export function FreelanceHeroSection() {
   const t = useTranslations('home.hero');
 
   return (
@@ -26,7 +26,7 @@ export function HeroSection() {
       <article className="flex-none space-y-4 md:w-7/12">
         <h2 className="max-w-md text-center text-3xl font-bold uppercase sm:text-left sm:text-5xl">
           {t.rich('title', {
-            highlight: chunks => <span className="text-accent">{chunks}</span>,
+            highlight: (chunks: string) => <span className="text-accent">{chunks}</span>,
           })}
         </h2>
         <p className="text-center text-xl sm:text-left md:text-2xl">{t('description')}</p>

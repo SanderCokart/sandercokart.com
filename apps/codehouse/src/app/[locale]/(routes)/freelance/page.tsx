@@ -1,7 +1,7 @@
 import { Line } from '@/src/components/line';
 
 import { ContactSection } from './(sections)/contact-section';
-import { HeroSection } from './(sections)/hero-section';
+import { FreelanceHeroSection } from './(sections)/freelance-hero-section';
 import { PortfolioSection } from './(sections)/portfolio-section';
 import { TechStackSection } from './(sections)/tech-stack-section';
 import { TestimonialsSection } from './(sections)/testimonials-section';
@@ -9,7 +9,7 @@ import { TestimonialsSection } from './(sections)/testimonials-section';
 export default function Page() {
   return (
     <main className="grow">
-      <HeroSection />
+      <FreelanceHeroSection />
       <div className="mb-16">
         <Line />
         <PortfolioSection className="container max-w-screen-lg" />
