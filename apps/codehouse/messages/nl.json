@@ -1,6 +1,40 @@
 {
   "bespoke-solutions-page": {
-    "title": "Wij bouwen <highlight>op maat gemaakte</highlight> websites voor <highlight>kleine bedrijven</highlight> om je marketing naar een hoger niveau te tillen."
+    "title": "Wij bouwen <highlight>op maat gemaakte</highlight> websites voor <highlight>kleine bedrijven</highlight> om je marketing naar een hoger niveau te tillen.",
+    "service-features": {
+      "performant": {
+        "label": "Performant",
+        "description": "Wij bouwen websites die <highlight>snel</highlight> en <highlight>efficiënt</highlight> zijn met de nieuwste webdevelopment technologieën."
+      },
+      "hosting": {
+        "label": "Hosting",
+        "description": "Wij regelen alle <highlight>hosting</highlight> voor u, zodat u zich kunt richten op uw bedrijf."
+      },
+      "internationalization": {
+        "label": "Internationalisatie",
+        "description": "Wij bouwen websites die <highlight>toegankelijk</highlight> zijn voor gebruikers over de hele wereld."
+      },
+      "mobile-friendly": {
+        "label": "Mobielvriendelijk",
+        "description": "Wij bouwen <highlight>responsieve</highlight> websites die er geweldig uitzien op alle apparaten."
+      },
+      "unique-design": {
+        "label": "Uniek Ontwerp",
+        "description": "Wij bouwen websites die <highlight>uniek</highlight> zijn en afgestemd op uw bedrijf."
+      },
+      "iterative-development": {
+        "label": "Iteratieve Ontwikkeling",
+        "description": "Wij bouwen websites die <highlight>iteratief ontwikkeld</highlight> worden om ervoor te zorgen dat ze altijd up-to-date zijn en aan uw behoeften voldoen."
+      },
+      "customizable": {
+        "label": "Aanpasbaar",
+        "description": "Wij bouwen websites die <highlight>aanpasbaar</highlight> zijn aan uw exacte behoeften."
+      },
+      "accessible": {
+        "label": "Toegankelijk",
+        "description": "Wij bouwen websites die <highlight>toegankelijk</highlight> zijn voor gebruikers met een beperking."
+      }
+    }
   },
   "common": {
     "email": "E-mail"

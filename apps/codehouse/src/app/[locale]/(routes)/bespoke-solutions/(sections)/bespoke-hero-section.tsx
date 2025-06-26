@@ -1,58 +1,117 @@
 import { cn } from '@repo/ui/lib/utils';
 import {
-  EuroIcon,
+  AccessibilityIcon,
   GlobeIcon,
   PaintbrushIcon,
   RefreshCcwDotIcon,
   ServerIcon,
+  SettingsIcon,
   TabletSmartphoneIcon,
   ZapIcon,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
-import { ServiceFeature } from '../(components)/service-feature';
+import { useMemo } from 'react';
+import Image from 'next/image';
 
-const service_features = [
-  {
-    icon: <ZapIcon className="h-8 w-8" />,
-    label: 'Performant',
-    tooltip: 'We build websites that are fast and efficient using the latest technologies in web development.',
+import LogoINV from '@/public/static/images/logo/Logo-INV.png';
+import Logo from '@/public/static/images/logo/Logo.png';
+
+import { MotionLi, MotionUl } from '@/src/lib/motion';
+
+import { FeatureProps, ServiceFeature } from '../(components)/service-feature';
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      staggerDirection: 1,
+    },
   },
-  {
-    icon: <ServerIcon className="h-8 w-8" />,
-    label: 'Hosting',
-    tooltip: 'We handle all the hosting for you so you can focus on your business.',
+};
+
+const reverseContainer = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      staggerDirection: -1,
+    },
   },
-  {
-    icon: <GlobeIcon className="h-8 w-8" />,
-    label: 'Internationalization',
-    tooltip: 'We build websites that are accessible to users all over the world.',
-  },
-  {
-    icon: <TabletSmartphoneIcon className="h-8 w-8" />,
-    label: 'Mobile-Friendly',
-    tooltip: 'We build responsive websites that look great on all devices.',
-  },
-  {
-    icon: <PaintbrushIcon className="h-8 w-8" />,
-    label: 'Unique Design',
-    tooltip: 'We build websites that are unique and tailored to your business.',
-  },
-  {
-    icon: <RefreshCcwDotIcon className="h-8 w-8" />,
-    label: 'Iterative Development',
-    tooltip:
-      'We build websites that are iteratively developed to ensure they are always up to date and meet your needs.',
-  },
-  {
-    icon: <EuroIcon className="h-8 w-8" />,
-    label: 'Transparent Pricing',
-    tooltip: 'We provide transparent pricing for our services so you know exactly what you are getting.',
-  },
-];
+};
+
+const item = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1 },
+};
 
 export function BespokeHeroSection() {
   const t = useTranslations('bespoke-solutions-page');
+
+  const service_features: FeatureProps[] = useMemo(
+    () => [
+      {
+        icon: ZapIcon,
+        label: t('service-features.performant.label'),
+        description: t.rich('service-features.performant.description', {
+          highlight: (chunks: string) => <strong className="text-accent">{chunks}</strong>,
+        }),
+      },
+      {
+        icon: ServerIcon,
+        label: t('service-features.hosting.label'),
+        description: t.rich('service-features.hosting.description', {
+          highlight: (chunks: string) => <strong className="text-accent">{chunks}</strong>,
+        }),
+      },
+      {
+        icon: GlobeIcon,
+        label: t('service-features.internationalization.label'),
+        description: t.rich('service-features.internationalization.description', {
+          highlight: (chunks: string) => <strong className="text-accent">{chunks}</strong>,
+        }),
+      },
+      {
+        icon: TabletSmartphoneIcon,
+        label: t('service-features.mobile-friendly.label'),
+        description: t.rich('service-features.mobile-friendly.description', {
+          highlight: (chunks: string) => <strong className="text-accent">{chunks}</strong>,
+        }),
+      },
+      {
+        icon: PaintbrushIcon,
+        label: t('service-features.unique-design.label'),
+        description: t.rich('service-features.unique-design.description', {
+          highlight: (chunks: string) => <strong className="text-accent">{chunks}</strong>,
+        }),
+      },
+      {
+        icon: RefreshCcwDotIcon,
+        label: t('service-features.iterative-development.label'),
+        description: t.rich('service-features.iterative-development.description', {
+          highlight: (chunks: string) => <strong className="text-accent">{chunks}</strong>,
+        }),
+      },
+      {
+        icon: SettingsIcon,
+        label: t('service-features.customizable.label'),
+        description: t.rich('service-features.customizable.description', {
+          highlight: (chunks: string) => <strong className="text-accent">{chunks}</strong>,
+        }),
+      },
+      {
+        icon: AccessibilityIcon,
+        label: t('service-features.accessible.label'),
+        description: t.rich('service-features.accessible.description', {
+          highlight: (chunks: string) => <strong className="text-accent">{chunks}</strong>,
+        }),
+      },
+    ],
+    [t],
+  );
 
   return (
     <section
@@ -62,17 +121,55 @@ export function BespokeHeroSection() {
         'container grid place-items-center',
       )}
       id="hero">
-      <article className="flex flex-col gap-16">
+      <article className="flex flex-col gap-8">
+        <Image priority alt="Logo" className="tw-w-full mx-auto block sm:w-1/5 dark:hidden" src={LogoINV} />
+        <Image priority alt="Logo" className="tw-w-full mx-auto hidden sm:w-1/5 dark:block" src={Logo} />
+
         <h2 className="text-balance text-center text-3xl font-bold uppercase sm:text-5xl">
           {t.rich('title', {
             highlight: (chunks: string) => <span className="text-accent">{chunks}</span>,
           })}
         </h2>
 
-        <div className="flex items-center justify-between">
-          {service_features.map(feature => (
-            <ServiceFeature key={feature.label} feature={feature} />
-          ))}
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4 xl:gap-8">
+          {/* First 4 features with staggerDirection: 1 */}
+          <MotionUl className="contents" variants={container} initial="hidden" animate="show">
+            {service_features.slice(0, 4).map((feature, idx) => (
+              <MotionLi
+                key={`first-${feature.label}`}
+                variants={item}
+                className="group transition-transform hover:scale-105">
+                <ServiceFeature
+                  className={cn(
+                    'h-full w-full',
+                    // Default: primary, On hover: accent
+                    'bg-primary/10 border-primary',
+                    'group-hover:bg-accent/10 group-hover:border-accent transition-colors',
+                  )}
+                  feature={feature}
+                />
+              </MotionLi>
+            ))}
+          </MotionUl>
+          {/* Last 4 features with staggerDirection: -1 */}
+          <MotionUl className="contents" variants={reverseContainer} initial="hidden" animate="show">
+            {service_features.slice(-4).map((feature, idx) => (
+              <MotionLi
+                key={`last-${feature.label}`}
+                variants={item}
+                className="group transition-transform hover:scale-105">
+                <ServiceFeature
+                  className={cn(
+                    'h-full w-full',
+                    // Default: primary, On hover: accent
+                    'bg-primary/10 border-primary',
+                    'group-hover:bg-accent/10 group-hover:border-accent transition-colors',
+                  )}
+                  feature={feature}
+                />
+              </MotionLi>
+            ))}
+          </MotionUl>
         </div>
       </article>
     </section>

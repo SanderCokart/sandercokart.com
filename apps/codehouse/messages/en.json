@@ -1,6 +1,40 @@
 {
   "bespoke-solutions-page": {
-    "title": "We build <highlight>bespoke</highlight> websites for <highlight>small businesses</highlight> to elevate your marketing."
+    "title": "We build <highlight>bespoke</highlight> websites for <highlight>small businesses</highlight> to elevate your marketing.",
+    "service-features": {
+      "performant": {
+        "label": "Performant",
+        "description": "We build websites that are <highlight>fast</highlight> and <highlight>efficient</highlight> using the latest technologies in web development."
+      },
+      "hosting": {
+        "label": "Hosting",
+        "description": "We handle all the <highlight>hosting</highlight> for you so you can focus on your business."
+      },
+      "internationalization": {
+        "label": "Internationalization",
+        "description": "We build websites that are <highlight>accessible</highlight> to users all over the world."
+      },
+      "mobile-friendly": {
+        "label": "Mobile-Friendly",
+        "description": "We build <highlight>responsive</highlight> websites that look great on all devices."
+      },
+      "unique-design": {
+        "label": "Unique Design",
+        "description": "We build websites that are <highlight>unique</highlight> and tailored to your business."
+      },
+      "iterative-development": {
+        "label": "Iterative Development",
+        "description": "We build websites that are <highlight>iteratively developed</highlight> to ensure they are always up to date and meet your needs."
+      },
+      "customizable": {
+        "label": "Customizable",
+        "description": "We build websites that are <highlight>customizable</highlight> to your exact needs."
+      },
+      "accessible": {
+        "label": "Accessible",
+        "description": "We build websites that are <highlight>accessible</highlight> to users with disabilities."
+      }
+    }
   },
   "common": {
     "email": "E-mail"

@@ -2,7 +2,9 @@
 
 import { AnimatePresence, motion } from 'framer-motion';
 
-const MotionDiv = motion.div;
-const MotionSpan = motion.span;
+export const MotionDiv = motion.div;
+export const MotionSpan = motion.span;
+export const MotionUl = motion.ul;
+export const MotionLi = motion.li;
 
-export { AnimatePresence, MotionDiv, MotionSpan };
+export { AnimatePresence };
