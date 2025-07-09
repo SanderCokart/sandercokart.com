@@ -1,34 +1,36 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Alert, AlertTitle } from '@repo/ui/components/shadcn/alert';
-import { Button } from '@repo/ui/components/shadcn/button';
-import {
-  AnimatedFormMessage,
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from '@repo/ui/components/shadcn/form';
-import { Input } from '@repo/ui/components/shadcn/input';
-import { Textarea } from '@repo/ui/components/shadcn/textarea';
-import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
-import { LuCircleAlert } from 'react-icons/lu';
+import * as z from 'zod';
 
-import { useState } from 'react';
+import { Button } from '@repo/ui/components/ui/button';
+import { Input } from '@repo/ui/components/ui/input';
+import { Label } from '@repo/ui/components/ui/label';
+import { Textarea } from '@repo/ui/components/ui/textarea';
 
-import { tryCatch } from '@/src/lib/try-catch';
-import { env } from '@/src/env';
-import { ContactFormType, contactSchema, MESSAGE_MAX_LENGTH } from '@/src/schemas/contact.schema';
+import { sendContactMail } from '@/src/actions/send-contact-mail';
+import { Form } from '@/src/components/ui/form';
+import { useToast } from '@/src/components/ui/use-toast';
 
 export function ContactForm() {
-  const t = useTranslations('home.contact-form.form');
-  const [formMessage, setFormMessage] = useState<string>('');
-  const form = useForm<ContactFormType>({
-    resolver: zodResolver(contactSchema),
+  const { toast } = useToast();
+
+  const t = useTranslations('contact-form.form');
+
+  const formSchema = z.object({
+    name: z.string().min(1, { message: t('validation.name.required') }),
+    email: z
+      .string()
+      .min(1, { message: t('validation.email.required') })
+      .email({ message: t('validation.email.invalid') }),
+    subject: z.string().min(1, { message: t('validation.subject.required') }),
+    message: z.string().min(1, { message: t('validation.message.required') }),
+  });
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
       name: '',
       email: '',
@@ -37,112 +39,67 @@ export function ContactForm() {
     },
   });
 
-  const disabled = form.formState.isSubmitting;
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      await sendContactMail(values);
 
-  const onSubmit = form.handleSubmit(async (formData) => {
-    const { data, error } = await tryCatch(
-      fetch(`${env.NEXT_PUBLIC_API_URL}/v1/contact`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
-    );
+      toast({
+        title: t('alert.success.title'),
+        description: t('alert.success.description'),
+      });
 
-    if (error || !data?.ok) {
-      setFormMessage(t('error.title'));
-      return;
+      form.reset();
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: t('alert.error.title'),
+        description: t('alert.error.description'),
+        variant: 'destructive',
+      });
     }
-
-    setFormMessage(t('alert.title'));
-    form.reset();
-  });
+  }
 
   return (
-    <Form {...form}>
-      <form noValidate className="flex flex-col gap-4" onSubmit={onSubmit}>
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('name')}</FormLabel>
-              <FormControl>
-                <Input {...field} required disabled={disabled} id="name" placeholder="John Doe" />
-              </FormControl>
-              <AnimatedFormMessage>{form.formState.errors.name?.message}</AnimatedFormMessage>
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('email')}</FormLabel>
-              <FormControl>
-                <Input {...field} required disabled={disabled} id="email" placeholder="example@domain.com" />
-              </FormControl>
-              <AnimatedFormMessage>{form.formState.errors.email?.message}</AnimatedFormMessage>
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="subject"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('subject')}</FormLabel>
-              <FormControl>
-                <Input {...field} required disabled={disabled} id="subject" placeholder="Subject" />
-              </FormControl>
-              <AnimatedFormMessage>{form.formState.errors.subject?.message}</AnimatedFormMessage>
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="message"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('message')}</FormLabel>
-              <FormControl>
-                <Textarea
-                  maxLength={MESSAGE_MAX_LENGTH}
-                  {...field}
-                  required
-                  disabled={disabled}
-                  id="message"
-                  placeholder="Your message"
-                />
-              </FormControl>
-              <AnimatedFormMessage>{form.formState.errors.message?.message}</AnimatedFormMessage>
-            </FormItem>
-          )}
-        />
-
-        <AnimatePresence>
-          {formMessage && (
-            <motion.div
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              initial={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}>
-              <Alert>
-                <LuCircleAlert className="h-4 w-4" />
-                <AlertTitle>{formMessage}</AlertTitle>
-              </Alert>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        <Button type="submit">{form.formState.isSubmitting ? t('submitting') : t('submit')}</Button>
-      </form>
+    <Form form={form} onSubmit={onSubmit} className="grid gap-4">
+      <div>
+        <Label htmlFor="name">{t('name')}</Label>
+        <Input id="name" type="text" {...form.register('name')} />
+        {form.formState.errors.name && (
+          <p className="text-sm font-medium text-destructive">
+            {form.formState.errors.name.message}
+          </p>
+        )}
+      </div>
+      <div>
+        <Label htmlFor="email">{t('email')}</Label>
+        <Input id="email" type="email" {...form.register('email')} />
+        {form.formState.errors.email && (
+          <p className="text-sm font-medium text-destructive">
+            {form.formState.errors.email.message}
+          </p>
+        )}
+      </div>
+      <div>
+        <Label htmlFor="subject">{t('subject')}</Label>
+        <Input id="subject" type="text" {...form.register('subject')} />
+        {form.formState.errors.subject && (
+          <p className="text-sm font-medium text-destructive">
+            {form.formState.errors.subject.message}
+          </p>
+        )}
+      </div>
+      <div>
+        <Label htmlFor="message">{t('message')}</Label>
+        <Textarea id="message" {...form.register('message')} />
+        {form.formState.errors.message && (
+          <p className="text-sm font-medium text-destructive">
+            {form.formState.errors.message.message}
+          </p>
+        )}
+      </div>
+      <Button type="submit" className="w-full">
+        {form.formState.isSubmitting ? t('submitting') : t('submit')}
+      </Button>
     </Form>
   );
 }

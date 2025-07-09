@@ -1,17 +1,15 @@
-import { cn } from '@repo/ui/lib/utils';
+import { Section } from '@/src/components/section';
 import { getTranslations } from 'next-intl/server';
-
-import { ComponentProps, FC } from 'react';
 
 import { ContactForm } from './components/contact-form';
 
-export const ContactSection: FC<ComponentProps<'section'>> = async ({ className, ...props }) => {
-  const t = await getTranslations('home.contact-form');
+export async function ContactSection() {
+  const t = await getTranslations('contact-form');
 
   return (
-    <section className={cn('scroll-mt-16 sm:scroll-mt-16', className)} id="contact-form" {...props}>
-      <h1 className="mb-4 text-center text-5xl font-bold">{t('title')}</h1>
+    <Section className="container max-w-screen-lg" id="contact">
+      <h2 className="mb-8 text-center text-3xl font-bold uppercase sm:text-5xl">{t('title')}</h2>
       <ContactForm />
-    </section>
+    </Section>
   );
-};
+}

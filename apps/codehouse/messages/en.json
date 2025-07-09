@@ -34,6 +34,105 @@
         "label": "Accessible",
         "description": "We build websites that are <highlight>accessible</highlight> to users with disabilities."
       }
+    },
+    "why-choose-bespoke": {
+      "title": "Why a Custom Website Outperforms Templates",
+      "uniqueness": {
+        "title": "Unique Brand Identity",
+        "description": "Stand out from the crowd with a website custom-designed to reflect your brand's unique personality and values, unlike generic templates."
+      },
+      "scalability": {
+        "title": "Scalable for Growth",
+        "description": "Your website grows with your business. Custom solutions are built to be easily expandable, adding new features and functionalities as your needs evolve."
+      },
+      "ownership": {
+        "title": "Full Ownership & Control",
+        "description": "Gain complete control over your digital asset. A bespoke website means you own the code and have the flexibility to implement any future vision without limitations."
+      },
+      "performance": {
+        "title": "Optimized Performance",
+        "description": "Custom websites are lean and optimized for speed, ensuring a fast and smooth experience for your visitors, which improves SEO and user engagement."
+      },
+      "security": {
+        "title": "Enhanced Security",
+        "description": "Tailored security measures are implemented from the ground up, providing a more robust defense against vulnerabilities compared to off-the-shelf platforms."
+      },
+      "support": {
+        "title": "Dedicated Support",
+        "description": "Receive personalized support and maintenance for your unique website, ensuring it remains up-to-date, secure, and performs optimally."
+      }
+    },
+    "pricing": {
+      "title": "Transparent Pricing for Your Simple Website",
+      "contact-button": "Contact for a Custom Quote",
+      "basic": {
+        "title": "Basic Presence",
+        "description": "Ideal for personal portfolios or small informational sites.",
+        "price": "€499 one-time",
+        "feature1": "1 Page Website",
+        "feature2": "Mobile Responsive Design",
+        "feature3": "Basic SEO Setup"
+      },
+      "standard": {
+        "title": "Small Business Starter",
+        "description": "Perfect for small businesses needing an online presence with key features.",
+        "price": "€999 one-time",
+        "feature1": "Up to 5 Pages",
+        "feature2": "Contact Form Integration",
+        "feature3": "Image Gallery",
+        "feature4": "Google Analytics Integration"
+      },
+      "premium": {
+        "title": "Enhanced Business Package",
+        "description": "For businesses looking for more advanced features and deeper engagement.",
+        "price": "€1999 one-time",
+        "feature1": "Up to 10 Pages",
+        "feature2": "Blog Functionality",
+        "feature3": "Advanced SEO Optimization",
+        "feature4": "Social Media Integration",
+        "feature5": "Basic Content Management System (CMS)"
+      },
+      "calculator": {
+        "title": "Build Your Custom Website Quote",
+        "description": "Select the features you need to get an estimated price for your bespoke website. All prices are one-time fees unless specified otherwise.",
+        "features": {
+          "performant": {
+            "label": "Performant Website",
+            "cost": "€{cost}"
+          },
+          "hosting": {
+            "label": "Hosting Management",
+            "cost": "€{cost}"
+          },
+          "internationalization": {
+            "label": "Multi-language Support",
+            "cost": "€{cost}"
+          },
+          "mobileFriendly": {
+            "label": "Mobile-Friendly Design",
+            "cost": "€{cost}"
+          },
+          "uniqueDesign": {
+            "label": "Unique Custom Design",
+            "cost": "€{cost}"
+          },
+          "iterativeDevelopment": {
+            "label": "Iterative Development (Monthly Fee)",
+            "cost": "€{cost}/month"
+          },
+          "customizable": {
+            "label": "Highly Customizable",
+            "cost": "€{cost}"
+          },
+          "accessible": {
+            "label": "Accessibility Features",
+            "cost": "€{cost}"
+          }
+        },
+        "total": "Estimated Total: €{total}",
+        "max-price-reached": "You've reached the maximum estimated price of €3000. Please contact us for a custom quote.",
+        "note": "Prices are estimates and may vary. Max estimated project cost: €{maxPrice}."
+      }
     }
   },
   "common": {
@@ -54,48 +153,12 @@
     "name": "Name",
     "subject": "Subject"
   },
-  "freelance-page": {
-    "tech-stack": {
-      "laravel": "We use laravel for our backend and fullstack projects. Whether you need a simple API or a full blown webapp, laravel is a great choice. We often combine laravel with other tools like InertiaJS which allows us to build a rich javascript supported webapp without needing a separate (sub)domain.",
-      "next": "We use NextJS for our website projects. NextJS uses strategies like server side rendering, static generation and code splitting to provide a the fastest experience. It uses React under the hood so we have access to all the great libraries out there. When possible we prefer to use NextJS over standalone React, Vue or Laravel + JavaScript Framework solutions due to the massive performance boost NextJS provides. codehouse.sandercokart.com was build with this!",
-      "react": "React is our go-to framework for building websites and webapps. The reason behind this is that React has the largest community and is the most popular framework. This means we can save a lot of time by using existing solutions and libraries to speed up development.",
-      "title": "Tech Stack",
-      "vue": "We use VueJS as an alternative to React. It is often combined with NuxtJS which is much like NextJS but for Vue. Statistically speaking, Vue is faster than React due to how it handles reactivity. It is much younger than React though and has a smaller community. This means that there are less existing solutions and libraries available."
-    }
-  },
+  "freelance-page": {},
   "home": {
-    "contact-form": {
-      "form": {
-        "alert": {
-          "description": "We will get back to you as soon as possible.",
-          "title": "Thank you for your message!"
-        },
-        "email": "Email",
-        "error": {
-          "description": "Please try again later or send an e-mail to business.sandercokart.com.",
-          "title": "Could not send message. Please try again later."
-        },
-        "message": "Message",
-        "name": "Name",
-        "subject": "Subject",
-        "submit": "Send",
-        "submitting": "Sending..."
-      },
-      "title": "Make an appointment",
-      "validation": {
-        "email": {
-          "required": "Email is required"
-        },
-        "message": {
-          "required": "Message is required"
-        },
-        "name": {
-          "required": "Name is required"
-        },
-        "subject": {
-          "required": "Subject is required"
-        }
-      }
+    "hero": {
+      "contact": "Contact us to plan your next project!",
+      "description": "A tech stack to deliver effective and efficient solutions for your business.\nUsing the latest technologies and best practices.",
+      "title": "We build <highlight>websites and webapps</highlight> for you and your business"
     },
     "draft": "I would like to make an appointment between DATE and DATE, can you do that?\n\nKind regards,\nNAME",
     "email": "Email",
@@ -103,74 +166,15 @@
       "email": "example@domain.com",
       "name": "John Doe"
     },
-    "hero": {
-      "contact": "Contact us to plan your next project!",
-      "description": "A tech stack to deliver effective and efficient solutions for your business.\nUsing the latest technologies and best practices.",
-      "title": "We build <highlight>websites and webapps</highlight> for you and your business"
-    },
     "insert-template": "Insert template",
     "makeAnAppointment": "Make an appointment",
     "message": "Message",
     "more-on-github": "See more projects on GitHub",
     "name": "Name",
     "next-project": "Next project",
-    "portfolio": {
-      "nawijzer": {
-        "caption-1": "Questionnaire",
-        "caption-2": "Filament admin panel with dark mode",
-        "description": "NaWijzer.nl is a website I build for my first client: Adequaat, Groningen. The website presents a political questionnaire to the users. The website also has a webapp behind the scenes that allows admins to generate reports as well as create new questions and answer sets."
-      },
-      "title": "Portfolio"
-    },
     "previous-project": "Previous project",
     "send": "Send",
-    "services": {
-      "bespoke-solutions": {
-        "call-to-action": "Create your website",
-        "description": "Tired of generic builders? I craft visually stunning, fast-loading static websites, perfect for brands seeking a unique and blazing-fast online presence.",
-        "features": {
-          "blazing-speed": "Blazing speed",
-          "hosting-included": "We handle hosting for you",
-          "internationalization": "Internationalization",
-          "responsive-design": "Perfect on all devices, from mobile to ultrawide",
-          "unique-visuals": "Unique visuals & stunning animations"
-        },
-        "title": "Simple Websites"
-      },
-      "call-to-action": "Learn More",
-      "freelance": {
-        "call-to-action": "Discuss your project",
-        "description": "Looking for a skilled developer? I offer expertise in modern web technologies to ensure your projects are successful and efficient.",
-        "features": {
-          "agile-git": "Experience with agile and git flow",
-          "client-side-apps": "Vue or React Client side applications",
-          "fast-integration": "Fast adaptation and integration",
-          "laravel-apis": "API's designed in Laravel",
-          "nextjs-solution": "Next.js all-in-one solution"
-        },
-        "title": "Freelance Development"
-      },
-      "title": "Which service are you looking for?",
-      "web-application-development": {
-        "call-to-action": "Discover solutions",
-        "description": "Need a business solution? I create scalable and secure software, from database design to full-stack applications, tailored to your specific needs.",
-        "features": {
-          "custom-webapps": "Custom web applications",
-          "database-storage": "Database and storage",
-          "scalable-cloud": "Scalable cloud solutions",
-          "secure-api": "Secure API development",
-          "security-implementation": "Security implementation"
-        },
-        "title": "Custom Software Solutions"
-      }
-    },
-    "subject": "Subject",
-    "testimonials": {
-      "testimonials": {
-        "adequaat": "Sander is an ambitious programmer at the beginning of his career. Sander is technically very good and can quickly switch. We would definitely hire Sander again."
-      },
-      "title": "Testimonials"
-    }
+    "subject": "Subject"
   },
   "nav": {
     "contact": "Contact",
@@ -181,5 +185,101 @@
   "not-found-page": {
     "back-to-front": "Go back to the front page",
     "message": "This page does not exist."
+  },
+  "testimonials": {
+    "title": "Testimonials",
+    "adequaat": {
+      "author": "Sythe Veenje - adequaat.nl",
+      "quote": "Sander is an ambitious programmer at the beginning of his career. Sander is technically very good and can quickly switch. We would definitely hire Sander again."
+    },
+    "bespoke": []
+  },
+  "contact-form": {
+    "form": {
+      "alert": {
+        "description": "We will get back to you as soon as possible.",
+        "title": "Thank you for your message!"
+      },
+      "email": "Email",
+      "error": {
+        "description": "Please try again later or send an e-mail to business.sandercokart.com.",
+        "title": "Could not send message. Please try again later."
+      },
+      "message": "Message",
+      "name": "Name",
+      "subject": "Subject",
+      "submit": "Send",
+      "submitting": "Sending..."
+    },
+    "title": "Make an appointment",
+    "validation": {
+      "email": {
+        "required": "Email is required"
+      },
+      "message": {
+        "required": "Message is required"
+      },
+      "name": {
+        "required": "Name is required"
+      },
+      "subject": {
+        "required": "Subject is required"
+      }
+    }
+  },
+  "portfolio": {
+    "nawijzer": {
+      "caption-1": "Questionnaire",
+      "caption-2": "Filament admin panel with dark mode",
+      "description": "NaWijzer.nl is a website I build for my first client: Adequaat, Groningen. The website presents a political questionnaire to the users. The website also has a webapp behind the scenes that allows admins to generate reports as well as create new questions and answer sets."
+    },
+    "title": "Portfolio"
+  },
+  "services": {
+    "bespoke-solutions": {
+      "call-to-action": "Create your website",
+      "description": "Tired of generic builders? I craft visually stunning, fast-loading static websites, perfect for brands seeking a unique and blazing-fast online presence.",
+      "features": {
+        "blazing-speed": "Blazing speed",
+        "hosting-included": "We handle hosting for you",
+        "internationalization": "Internationalization",
+        "responsive-design": "Perfect on all devices, from mobile to ultrawide",
+        "unique-visuals": "Unique visuals & stunning animations"
+      },
+      "title": "Simple Websites"
+    },
+    "call-to-action": "Learn More",
+    "freelance": {
+      "call-to-action": "Discuss your project",
+      "description": "Looking for a skilled developer? I offer expertise in modern web technologies to ensure your projects are successful and efficient.",
+      "features": {
+        "agile-git": "Experience with agile and git flow",
+        "client-side-apps": "Vue or React Client side applications",
+        "fast-integration": "Fast adaptation and integration",
+        "laravel-apis": "API's designed in Laravel",
+        "nextjs-solution": "Next.js all-in-one solution"
+      },
+      "title": "Freelance Development"
+    },
+    "title": "Which service are you looking for?",
+    "web-application-development": {
+      "call-to-action": "Discover solutions",
+      "description": "Need a business solution? I create scalable and secure software, from database design to full-stack applications, tailored to your specific needs.",
+      "features": {
+        "custom-webapps": "Custom web applications",
+        "database-storage": "Database and storage",
+        "scalable-cloud": "Scalable cloud solutions",
+        "secure-api": "Secure API development",
+        "security-implementation": "Security implementation"
+      },
+      "title": "Custom Software Solutions"
+    }
+  },
+  "tech-stack": {
+    "laravel": "We use laravel for our backend and fullstack projects. Whether you need a simple API or a full blown webapp, laravel is a great choice. We often combine laravel with other tools like InertiaJS which allows us to build a rich javascript supported webapp without needing a separate (sub)domain.",
+    "next": "We use NextJS for our website projects. NextJS uses strategies like server side rendering, static generation and code splitting to provide a the fastest experience. It uses React under the hood so we have access to all the great libraries out there. When possible we prefer to use NextJS over standalone React, Vue or Laravel + JavaScript Framework solutions due to the massive performance boost NextJS provides. codehouse.sandercokart.com was build with this!",
+    "react": "React is our go-to framework for building websites and webapps. The reason behind this is that React has the largest community and is the most popular framework. This means we can save a lot of time by using existing solutions and libraries to speed up development.",
+    "title": "Tech Stack",
+    "vue": "We use VueJS as an alternative to React. It is often combined with NuxtJS which is much like NextJS but for Vue. Statistically speaking, Vue is faster than React due to how it handles reactivity. It is much younger than React though and has a smaller community. This means that there are less existing solutions and libraries available."
   }
 }
