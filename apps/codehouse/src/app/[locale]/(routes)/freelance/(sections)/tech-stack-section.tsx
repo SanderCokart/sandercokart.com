@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import { ComponentProps, FC } from 'react';
 
 export const TechStackSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
-  const t = useTranslations('tech-stack');
+  const t = useTranslations('services.tech-stack');
 
   return (
     <section className={cn('scroll-mt-16 sm:scroll-mt-16', className)} id="tech-stack" {...props}>

@@ -1,4 +1,4 @@
-import { 
+import {
   Carousel,
   CarouselContent,
   CarouselItem,
@@ -8,7 +8,7 @@ import {
 import { cn } from '@repo/ui/lib/utils';
 import { useTranslations } from 'next-intl';
 
-import { ComponentProps, FC } from 'react';
+import { FC } from 'react';
 import Image from 'next/image';
 
 import NaWijzerAdmin from '@/public/static/images/portfolio/nawijzer-admin.png';
@@ -54,4 +54,4 @@ export const PortfolioSectionComponent: FC<PortfolioSectionComponentProps> = ({ 
       </div>
     </section>
   );
-}; 
+};
