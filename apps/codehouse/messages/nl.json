@@ -238,6 +238,7 @@
     "title": "Portfolio"
   },
   "services": {
+    "title": "Diensten",
     "bespoke-solutions": {
       "call-to-action": "Creëer uw website",
       "description": "Generieke website bouwers zat? Ik maak verbluffende, snelle websites, perfect voor merken die een unieke online aanwezigheid zoeken.",
@@ -250,38 +251,91 @@
       },
       "title": "Simpele Websites"
     },
-    "call-to-action": "Lees Meer",
     "freelance": {
-      "call-to-action": "Bespeek uw project",
-      "description": "Ervaren ontwikkelaar gezocht? Ik bied expertise in moderne webtechnologieën om uw projecten succesvol en efficiënt te maken.",
+      "title": "Freelance Ontwikkeling",
+      "description": "Op zoek naar een ervaren ontwikkelaar voor uw team? Ik breng expertise in moderne webtechnologieën en frameworks om uw projecten te laten slagen.",
       "features": {
-        "agile-git": "Ervaring met agile en git flow",
-        "client-side-apps": "Vue of React Client side applicaties",
-        "fast-integration": "Snelle aanpassing en integratie",
-        "laravel-apis": "API's ontworpen in Laravel",
-        "nextjs-solution": "Next.js alles-in-een oplossing"
+        "agile-git": "Agile workflow en Git best practices",
+        "client-side-apps": "Client-side applicaties",
+        "fast-integration": "Snelle onboarding",
+        "laravel-apis": "Laravel API's en backends",
+        "nextjs-solution": "Next.js oplossingen"
       },
-      "title": "Freelance Ontwikkeling"
+      "call-to-action": "Meer over Freelance"
     },
-    "title": "Welke dienst ben je naar op zoek?",
     "web-application-development": {
-      "call-to-action": "Ontdek oplossingen",
-      "description": "Bedrijfsoplossing nodig? Ik creëer schaalbare en veilige software, van database tot applicatie, afgestemd op uw behoeften.",
+      "title": "Op Maat Gemaakte Software",
+      "description": "Heeft u een complete bedrijfsoplossing nodig? Van database-ontwerp tot full-stack applicaties, ik creëer schaalbare en veilige software op maat.",
       "features": {
         "custom-webapps": "Op maat gemaakte webapplicaties",
-        "database-storage": "Database en Opslag",
-        "scalable-cloud": "Schaalbaar en geoptimaliseerd voor snelheid",
-        "secure-api": "Beveiliging volgens best practices",
-        "security-implementation": "Kies zelf waar je wilt hosten"
+        "database-storage": "Database ontwerp en opslag",
+        "scalable-cloud": "Cloud infrastructuur en schaalbaarheid",
+        "secure-api": "Veilige API-ontwikkeling",
+        "security-implementation": "Beveiligingsimplementatie en best practices"
       },
-      "title": "Op Maat Gemaakte Software"
+      "call-to-action": "Meer over Software op Maat"
+    },
+    "previous-project": "Vorige project",
+    "send": "Verzenden",
+    "subject": "Onderwerp",
+    "tech-stack": {
+      "laravel": "We gebruiken laravel voor onze backend en fullstack projecten. Of u nu een eenvoudige API of een volledig webapp nodig heeft, laravel is een goede keuze. We combineren vaak laravel met andere tools zoals InertiaJS, waardoor we een rijke javascript ondersteunde webapp kunnen bouwen zonder een apart (sub)domein nodig te hebben.",
+      "next": "We gebruiken NextJS voor onze websiteprojecten. NextJS gebruikt strategieën zoals server side rendering, static generation en code splitting om de snelste ervaring te bieden. Het gebruikt React onder de motorkap, zodat we toegang hebben tot alle geweldige bibliotheken die er zijn. Wanneer mogelijk, gebruiken we NextJS boven alleenstaand React, Vue of Laravel + JavaScript Framework oplossingen vanwege de enorme prestatieboost die NextJS biedt. codehouse.sandercokart.com is hiermee gemaakt!",
+      "react": "React is ons framework van keuze voor het bouwen van websites en webapps. De reden hiervoor is dat React de grootste gemeenschap heeft en het meest populaire framework is. Dit betekent dat we veel tijd kunnen besparen door bestaande oplossingen en bibliotheken te gebruiken om de ontwikkeling te versnellen.",
+      "title": "Tech Stack",
+      "vue": "We gebruiken VueJS als alternatief voor React. Het wordt vaak gecombineerd met NuxtJS, wat veel lijkt op NextJS, maar voor Vue. Statistisch gezien is Vue sneller dan React vanwege hoe het reactiviteit behandelt. Het is veel jonger dan React en heeft een kleinere community. Dit betekent dat er minder bestaande oplossingen en bibliotheken beschikbaar zijn."
+    },
+    "testimonials": {
+      "testimonials": {
+        "adequaat": "Sander is een ambitieuze programmeur aan het begin van zijn carrière. Sander is technisch erg goed en kan snel schakelen. We zouden Sander zeker nog eens inhuren."
+      },
+      "title": "Referenties"
+    },
+    "services": {
+      "title": "Mijn Diensten",
+      "freelance": {
+        "title": "Freelance Ontwikkeling",
+        "description": "Op zoek naar een ervaren ontwikkelaar voor uw team? Ik breng expertise in moderne webtechnologieën en frameworks om uw projecten te laten slagen.",
+        "features": {
+          "react": "React, Vue en Next.js ontwikkeling",
+          "fullstack": "Full-stack mogelijkheden",
+          "agile": "Ervaring met Agile methodologie",
+          "team": "Team samenwerking",
+          "onboarding": "Snelle integratie"
+        }
+      },
+      "custom": {
+        "title": "Op Maat Gemaakte Software",
+        "description": "Heeft u een complete bedrijfsoplossing nodig? Van database-ontwerp tot full-stack applicaties, ik creëer schaalbare en veilige software op maat.",
+        "features": {
+          "webapps": "Op maat gemaakte webapplicaties",
+          "database": "Database ontwerp & implementatie",
+          "api": "API ontwikkeling",
+          "cloud": "Cloud infrastructuur",
+          "security": "Beveiligingsbest practices"
+        }
+      },
+      "marketing": {
+        "title": "Statische Websites",
+        "description": "Ben je de algemene website bouwers zoals WordPress, Wix of Squarespace zat? Wij maken visueel verbluffende statische websites die in een oogwenk laden. Perfect voor merken die een unieke en bliksemsnelle online aanwezigheid eisen.",
+        "features": {
+          "design": "Unieke visuals & verbluffende animaties",
+          "i18n": "Meertaligheid",
+          "performance": "Bliksemsnelle website prestaties",
+          "cms": "Wij regelen de hosting voor u",
+          "mobile": "Perfect op alle apparaten, van mobiel tot breedbeeld"
+        }
+      }
     }
   },
-  "tech-stack": {
-    "laravel": "We gebruiken laravel voor onze backend en fullstack projecten. Of u nu een eenvoudige API of een volledig webapp nodig heeft, laravel is een goede keuze. We combineren vaak laravel met andere tools zoals InertiaJS, waardoor we een rijke javascript ondersteunde webapp kunnen bouwen zonder een apart (sub)domein nodig te hebben.",
-    "next": "We gebruiken NextJS voor onze websiteprojecten. NextJS gebruikt strategieën zoals server side rendering, static generation en code splitting om de snelste ervaring te bieden. Het gebruikt React onder de motorkap, zodat we toegang hebben tot alle geweldige bibliotheken die er zijn. Wanneer mogelijk, gebruiken we NextJS boven alleenstaand React, Vue of Laravel + JavaScript Framework oplossingen vanwege de enorme prestatieboost die NextJS biedt. codehouse.sandercokart.com is hiermee gemaakt!",
-    "react": "React is ons framework van keuze voor het bouwen van websites en webapps. De reden hiervoor is dat React de grootste gemeenschap heeft en het meest populaire framework is. Dit betekent dat we veel tijd kunnen besparen door bestaande oplossingen en bibliotheken te gebruiken om de ontwikkeling te versnellen.",
-    "title": "Tech Stack",
-    "vue": "We gebruiken VueJS als alternatief voor React. Het wordt vaak gecombineerd met NuxtJS, wat veel lijkt op NextJS, maar voor Vue. Statistisch gezien is Vue sneller dan React vanwege hoe het reactiviteit behandelt. Het is veel jonger dan React en heeft een kleinere community. Dit betekent dat er minder bestaande oplossingen en bibliotheken beschikbaar zijn."
+  "nav": {
+    "contact": "Contact",
+    "portfolio": "Portfolio",
+    "tech-stack": "Tech Stack",
+    "testimonials": "Referenties"
+  },
+  "not-found-page": {
+    "back-to-front": "Ga terug naar de voorpagina",
+    "message": "Deze pagina bestaat niet."
   }
 }

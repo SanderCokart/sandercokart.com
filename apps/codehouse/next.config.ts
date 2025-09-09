@@ -10,6 +10,10 @@ let finalConfig;
 
 const nextConfig: NextConfig = {
   output: env.NEXT_OUTPUT || undefined,
+  serverExternalPackages: [
+    'import-in-the-middle',
+    'require-in-the-middle',
+  ],
   eslint: {
     ignoreDuringBuilds: env.NODE_ENV === 'production',
   },
