@@ -16,5 +16,8 @@
     "lib": "@/src/lib",
     "utils": "@repo/ui/lib/utils",
     "ui": "@repo/ui/components/shadcn"
+  },
+  "registries": {
+    "@acme": "https://acme.com/r/{name}.json"
   }
 }

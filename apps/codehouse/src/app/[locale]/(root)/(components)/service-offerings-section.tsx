@@ -5,6 +5,8 @@ import { cn } from '@repo/ui/lib/utils';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { FaCode, FaDatabase, FaGlobe } from 'react-icons/fa';
+import { Button } from '@repo/ui/components/shadcn/button';
+import { Link } from '@/src/i18n/navigation';
 
 export function ServiceOfferingsSection() {
   const t = useTranslations('services.services');
@@ -23,6 +25,7 @@ export function ServiceOfferingsSection() {
       ],
       color: 'from-blue-500/10 to-blue-500/20',
       iconColor: 'text-blue-500',
+      link: '/freelance',
     },
     {
       icon: <FaDatabase className="h-16 w-16" />,
@@ -37,6 +40,7 @@ export function ServiceOfferingsSection() {
       ],
       color: 'from-purple-500/10 to-purple-500/20',
       iconColor: 'text-purple-500',
+      link: '/web-application-development',
     },
     {
       icon: <FaGlobe className="h-16 w-16" />,
@@ -49,8 +53,9 @@ export function ServiceOfferingsSection() {
         t('marketing.features.cms'),
         t('marketing.features.mobile'),
       ],
-      color: 'from-green-500/10 to-green-500/20',
-      iconColor: 'text-green-500',
+      color: 'from-yellow-500/10 to-yellow-500/20',
+      iconColor: 'text-yellow-500',
+      link: '/bespoke-solutions',
     },
   ];
 
@@ -71,20 +76,21 @@ export function ServiceOfferingsSection() {
       <article className="container px-0 sm:max-w-screen-sm sm:px-4 xl:max-w-screen-2xl">
         <h1 className="mb-8 text-center text-5xl font-bold">{t('title')}</h1>
         <div className="grid gap-0 sm:gap-8 xl:grid-cols-3">
-          {services.map(service => (
+          {services.map((service, index) => (
             <motion.div
               key={service.title}
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: 'easeInOut' }}
+              transition={{ duration: 0.5, ease: 'easeOut', delay: index * 0.2 }}
               viewport={{ once: true }}
               className="group relative overflow-hidden">
               <Card
                 className={cn(
-                  'grid grid-rows-[1fr,1fr,2fr,3fr]',
+                  'grid grid-rows-[1fr,1fr,2fr,2fr,auto]',
                   'h-full bg-gradient-to-b',
                   service.color,
-                  'rounded-none transition-transform sm:rounded-lg',
+                  'rounded-none transition-transform transition-colors duration-300 ease-in-out sm:rounded-lg',
+                  'has-[a:hover]:from-accent/10 has-[a:hover]:to-accent/20',
                 )}>
                 <CardHeader className="grid grid-rows-subgrid">
                   <div className={`flex items-center justify-center ${service.iconColor}`}>{service.icon}</div>
@@ -101,6 +107,13 @@ export function ServiceOfferingsSection() {
                     ))}
                   </ul>
                 </CardContent>
+                <div className="flex items-center justify-center p-4">
+                  <Button asChild variant="ghost" size="lg" className="text-lg">
+                    <Link href={service.link}>
+                      {t('callToAction')}
+                    </Link>
+                  </Button>
+                </div>
               </Card>
             </motion.div>
           ))}

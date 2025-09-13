@@ -239,6 +239,7 @@
   },
   "services": {
     "title": "Diensten",
+    "callToAction": "Lees meer",
     "bespoke-solutions": {
       "call-to-action": "Creëer uw website",
       "description": "Generieke website bouwers zat? Ik maak verbluffende, snelle websites, perfect voor merken die een unieke online aanwezigheid zoeken.",
@@ -325,7 +326,8 @@
           "cms": "Wij regelen de hosting voor u",
           "mobile": "Perfect op alle apparaten, van mobiel tot breedbeeld"
         }
-      }
+      },
+      "callToAction": "Lees meer"
     }
   },
   "nav": {

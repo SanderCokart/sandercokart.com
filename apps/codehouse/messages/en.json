@@ -241,6 +241,7 @@
   },
   "services": {
     "title": "Services",
+    "callToAction": "Learn more",
     "bespoke-solutions": {
       "call-to-action": "Create your website",
       "description": "Tired of generic builders? I craft visually stunning, fast-loading static websites, perfect for brands seeking a unique and blazing-fast online presence.",
@@ -327,7 +328,8 @@
           "cms": "We handle hosting for you",
           "mobile": "Perfect on all devices, from mobile to ultrawide"
         }
-      }
+      },
+      "callToAction": "Learn more"
     }
   },
   "nav": {

@@ -1,0 +1,55 @@
+---
+alwaysApply: false
+description: "Guidelines for resolving Context7 library IDs and fetching docs in this monorepo. Use per-app package.json heuristics to pick the most-relevant library (shadcn, next.js, laravel, tailwind, etc.)."
+globs: "**/package.json,apps/**,packages/**"
+---
+
+# Context7 usage guideline for this repository
+
+This rule explains how to pick and resolve a Context7-compatible library ID when asking for library documentation in this monorepo. Follow these steps every time you need to fetch library docs programmatically (via `resolve-library-id` + `get-library-docs`) or when instructing the assistant to fetch docs.
+
+- **Always call `resolve-library-id` first** unless the user explicitly supplies a Context7 library ID in the exact format `/org/project` or `/org/project/version`.
+  - The `resolve-library-id` call must include a short explanation of why the selected library is appropriate (use the tool's `explanation` parameter).
+  - Only call `get-library-docs` after you have a resolved Context7-compatible library ID.
+
+- **Choose the library based on the app you're working in** by inspecting that app's `package.json` dependencies and devDependencies.
+  - Example app package.json paths to check in this repo: `apps/codehouse/package.json`, `apps/main/package.json`, `apps/api/package.json`, `packages/ui/package.json`.
+  - Prefer the most specific, high-level package that represents the technology (e.g., `next` / `next` → `/vercel/next.js`, `tailwindcss` → `/tailwindcss/docs`).
+
+- **Heuristic mapping (common cases)**
+  - `@shadcn/ui`, `shadcn` → `/shadcn/ui`
+  - `next`, `nextjs` → `/vercel/next.js`
+  - `laravel` → `/laravel/laravel` or `/laravel/framework` depending on context (prefer `/laravel/laravel` for app-level docs)
+  - `tailwindcss` → `/tailwindcss/docs`
+  - `framer-motion` → `/framer/motion`
+  - `resend` → `/resend/resend` (or closest match)
+  - `sentry` → `/getsentry/sentry`
+  - `react` libraries: prefer org/project that matches the library name on Context7
+
+- **If multiple candidates exist** (e.g., both `@shadcn/ui` and `@shadcn/example`), prefer:
+  1. The package listed directly in the app's `dependencies` over `devDependencies`.
+  2. The package with the most matching name similarity to the user's query.
+  3. Libraries with higher documentation coverage (if metadata available).
+
+- **When uncertain**:
+  - Ask for clarification if the user's intent is ambiguous (for example: "Do you want UI component docs or Next.js routing docs?").
+  - Otherwise resolve to the most common/general library for the ecosystem (e.g., `/vercel/next.js` for Next projects).
+
+- **Practical examples**
+  - If working inside `apps/codehouse` and its `package.json` contains `@shadcn/ui`, call `resolve-library-id` with `libraryName: "@shadcn/ui"` and explain: "Selecting shadcn UI docs because `@shadcn/ui` is listed in apps/codehouse/package.json".
+  - If the user asks for "Next.js routing", call `resolve-library-id` with `libraryName: "next"` and explain that this repo's app uses Next; then call `get-library-docs` with the returned ID.
+
+- **Authoring guidance for assistant usage**
+  - In your explanation to `resolve-library-id` include which `package.json` and which dependency matched (e.g., `apps/codehouse/package.json → dependencies['@shadcn/ui']`).
+  - If you programmatically select the library, include the selection rationale in the `explanation` field.
+
+- **When a library isn't in package.json**
+  - Prefer asking the user for clarification. If the user explicitly names a popular library (e.g., "Show Tailwind docs"), you may resolve directly to `/tailwindcss/docs`.
+
+- **References (examples in this repository)**
+  - `apps/codehouse/package.json` (check for UI, next, tailwind, framer deps)
+  - `apps/main/package.json`
+  - `apps/api/package.json`
+  - `packages/ui/package.json`
+
+Keep this rule updated when new common libraries are added to the monorepo. If a clear org/project mapping exists on Context7 for a dependency, prefer that mapping in the heuristic table above. 
