@@ -1,343 +1,157 @@
 {
-  "bespoke-solutions-page": {
-    "title": "Wij bouwen <highlight>op maat gemaakte</highlight> websites voor <highlight>kleine bedrijven</highlight> om je marketing naar een hoger niveau te tillen.",
-    "service-features": {
-      "performant": {
-        "label": "Performant",
-        "description": "Wij bouwen websites die <highlight>snel</highlight> en <highlight>efficiënt</highlight> zijn met de nieuwste webdevelopment technologieën."
-      },
-      "hosting": {
-        "label": "Hosting",
-        "description": "Wij regelen alle <highlight>hosting</highlight> voor u, zodat u zich kunt richten op uw bedrijf."
-      },
-      "internationalization": {
-        "label": "Internationalisatie",
-        "description": "Wij bouwen websites die <highlight>toegankelijk</highlight> zijn voor gebruikers over de hele wereld."
-      },
-      "mobile-friendly": {
-        "label": "Mobielvriendelijk",
-        "description": "Wij bouwen <highlight>responsieve</highlight> websites die er geweldig uitzien op alle apparaten."
-      },
-      "unique-design": {
-        "label": "Uniek Ontwerp",
-        "description": "Wij bouwen websites die <highlight>uniek</highlight> zijn en afgestemd op uw bedrijf."
-      },
-      "iterative-development": {
-        "label": "Iteratieve Ontwikkeling",
-        "description": "Wij bouwen websites die <highlight>iteratief ontwikkeld</highlight> worden om ervoor te zorgen dat ze altijd up-to-date zijn en aan uw behoeften voldoen."
-      },
-      "customizable": {
-        "label": "Aanpasbaar",
-        "description": "Wij bouwen websites die <highlight>aanpasbaar</highlight> zijn aan uw exacte behoeften."
-      },
-      "accessible": {
-        "label": "Toegankelijk",
-        "description": "Wij bouwen websites die <highlight>toegankelijk</highlight> zijn voor gebruikers met een beperking."
-      }
-    },
-    "why-choose-bespoke": {
-      "title": "Waarom een maatwerk website beter presteert dan templates",
-      "uniqueness": {
-        "title": "Unieke merkidentiteit",
-        "description": "Onderscheid u van de massa met een website die op maat is ontworpen om de unieke persoonlijkheid en waarden van uw merk te weerspiegelen, in tegenstelling tot generieke templates."
-      },
-      "scalability": {
-        "title": "Schaalbaar voor groei",
-        "description": "Uw website groeit mee met uw bedrijf. Maatwerk oplossingen zijn gebouwd om eenvoudig uitbreidbaar te zijn, waarbij nieuwe functies en functionaliteiten worden toegevoegd naarmate uw behoeften evolueren."
-      },
-      "ownership": {
-        "title": "Volledig eigendom en controle",
-        "description": "Krijg volledige controle over uw digitale activa. Een maatwerk website betekent dat u de code bezit en de flexibiliteit hebt om elke toekomstige visie te implementeren zonder beperkingen."
-      },
-      "performance": {
-        "title": "Geoptimaliseerde prestaties",
-        "description": "Maatwerk websites zijn licht en geoptimaliseerd voor snelheid, wat zorgt voor een snelle en soepele ervaring voor uw bezoekers, wat SEO en gebruikersbetrokkenheid verbetert."
-      },
-      "security": {
-        "title": "Verbeterde beveiliging",
-        "description": "Op maat gemaakte beveiligingsmaatregelen worden vanaf de basis geïmplementeerd, wat een robuustere verdediging biedt tegen kwetsbaarheden in vergelijking met standaard platforms."
-      },
-      "support": {
-        "title": "Toegewijde ondersteuning",
-        "description": "Ontvang gepersonaliseerde ondersteuning en onderhoud voor uw unieke website, zodat deze up-to-date, veilig en optimaal blijft presteren."
-      }
-    },
-    "pricing": {
-      "title": "Transparante prijzen voor uw simpele website",
-      "contact-button": "Neem contact op voor een offerte op maat",
-      "basic": {
-        "title": "Basis aanwezigheid",
-        "description": "Ideaal voor persoonlijke portfolio's of kleine informatieve sites.",
-        "price": "€499 eenmalig",
-        "feature1": "1 Pagina Website",
-        "feature2": "Mobiel Responsief Ontwerp",
-        "feature3": "Basis SEO Installatie"
-      },
-      "standard": {
-        "title": "MKB Starter",
-        "description": "Perfect voor kleine bedrijven die een online aanwezigheid nodig hebben met belangrijke functies.",
-        "price": "€999 eenmalig",
-        "feature1": "Tot 5 Pagina's",
-        "feature2": "Contactformulier Integratie",
-        "feature3": "Afbeeldingengalerij",
-        "feature4": "Google Analytics Integratie"
-      },
-      "premium": {
-        "title": "Uitgebreid Zakelijk Pakket",
-        "description": "Voor bedrijven die op zoek zijn naar meer geavanceerde functies en diepere betrokkenheid.",
-        "price": "€1999 eenmalig",
-        "feature1": "Tot 10 Pagina's",
-        "feature2": "Blog Functionaliteit",
-        "feature3": "Geavanceerde SEO Optimalisatie",
-        "feature4": "Sociale Media Integratie",
-        "feature5": "Basis Content Management Systeem (CMS)"
-      },
-      "calculator": {
-        "title": "Stel uw Offerte op Maat Samen",
-        "description": "Selecteer de functies die u nodig heeft om een geschatte prijs voor uw maatwerk website te krijgen. Alle prijzen zijn eenmalige kosten, tenzij anders vermeld.",
-        "features": {
-          "performant": {
-            "label": "Performante Website",
-            "cost": "€{cost}"
-          },
-          "hosting": {
-            "label": "Hosting Beheer",
-            "cost": "€{cost}"
-          },
-          "internationalization": {
-            "label": "Meertalige Ondersteuning",
-            "cost": "€{cost}"
-          },
-          "mobileFriendly": {
-            "label": "Mobielvriendelijk Ontwerp",
-            "cost": "€{cost}"
-          },
-          "uniqueDesign": {
-            "label": "Uniek Maatwerk Ontwerp",
-            "cost": "€{cost}"
-          },
-          "iterativeDevelopment": {
-            "label": "Iteratieve Ontwikkeling (Maandelijks)",
-            "cost": "€{cost}/maand"
-          },
-          "customizable": {
-            "label": "Zeer Aanpasbaar",
-            "cost": "€{cost}"
-          },
-          "accessible": {
-            "label": "Toegankelijkheidsfuncties",
-            "cost": "€{cost}"
-          }
-        },
-        "total": "Geschat Totaal: €{total}",
-        "max-price-reached": "U heeft de maximale geschatte prijs van €3000 bereikt. Neem contact met ons op voor een offerte op maat.",
-        "note": "Prijzen zijn schattingen en kunnen variëren. Maximale geschatte projectkosten: €{maxPrice}."
-      }
-    }
+  "BespokeHeroSection": {
+    "features_accessible_description": "Wij bouwen websites die <highlight>toegankelijk</highlight> zijn voor gebruikers met een beperking.",
+    "features_accessible_label": "Toegankelijk",
+    "features_customizable_description": "Wij bouwen websites die <highlight>aanpasbaar</highlight> zijn aan uw exacte behoeften.",
+    "features_customizable_label": "Aanpasbaar",
+    "features_hosting_description": "Wij regelen alle <highlight>hosting</highlight> voor u, zodat u zich kunt richten op uw bedrijf.",
+    "features_hosting_label": "Hosting",
+    "features_internationalization_description": "Wij bouwen websites die <highlight>toegankelijk</highlight> zijn voor gebruikers over de hele wereld.",
+    "features_internationalization_label": "Internationalisatie",
+    "features_iterativeDevelopment_description": "Wij bouwen websites die <highlight>iteratief ontwikkeld</highlight> worden om ervoor te zorgen dat ze altijd up-to-date zijn en aan uw behoeften voldoen.",
+    "features_iterativeDevelopment_label": "Iteratieve Ontwikkeling",
+    "features_mobileFriendly_description": "Wij bouwen <highlight>responsieve</highlight> websites die er geweldig uitzien op alle apparaten.",
+    "features_mobileFriendly_label": "Mobielvriendelijk",
+    "features_performant_description": "Wij bouwen websites die <highlight>snel</highlight> en <highlight>efficiënt</highlight> zijn met de nieuwste webdevelopment technologieën.",
+    "features_performant_label": "Performant",
+    "features_uniqueDesign_description": "Wij bouwen websites die <highlight>uniek</highlight> zijn en afgestemd op uw bedrijf.",
+    "features_uniqueDesign_label": "Uniek Ontwerp",
+    "title": "Wij bouwen <highlight>op maat gemaakte</highlight> websites voor <highlight>kleine bedrijven</highlight> om je marketing naar een hoger niveau te tillen."
   },
-  "common": {
-    "email": "E-mail"
+  "BespokePricingSection": {
+    "calculator_contactCta": "Neem contact op voor een offerte op maat",
+    "calculator_description": "Selecteer de functies die u nodig heeft om een geschatte prijs voor uw maatwerk website te krijgen. Alle prijzen zijn eenmalige kosten, tenzij anders vermeld.",
+    "calculator_features_accessible": "Toegankelijkheidsfuncties",
+    "calculator_features_customizable": "Zeer Aanpasbaar",
+    "calculator_features_hosting": "Hosting Beheer",
+    "calculator_features_internationalization": "Meertalige Ondersteuning",
+    "calculator_features_iterativeDevelopment": "Iteratieve Ontwikkeling (Maandelijks)",
+    "calculator_features_mobileFriendly": "Mobielvriendelijk Ontwerp",
+    "calculator_features_performant": "Performante Website",
+    "calculator_features_uniqueDesign": "Uniek Maatwerk Ontwerp",
+    "calculator_maxPriceReached": "U heeft de maximale geschatte prijs van €3000 bereikt. Neem contact met ons op voor een offerte op maat.",
+    "calculator_note": "Prijzen zijn schattingen en kunnen variëren. Maximale geschatte projectkosten: €{maxPrice}.",
+    "calculator_title": "Stel uw Offerte op Maat Samen",
+    "calculator_total": "Geschat Totaal: {total}",
+    "contactCta": "Neem contact op voor een offerte op maat",
+    "packages_basic_description": "Ideaal voor persoonlijke portfolio's of kleine informatieve sites.",
+    "packages_basic_features_pageCount": "1 Pagina Website",
+    "packages_basic_features_responsiveDesign": "Mobiel Responsief Ontwerp",
+    "packages_basic_features_seoSetup": "Basis SEO Installatie",
+    "packages_basic_price": "€499 eenmalig",
+    "packages_basic_title": "Basis aanwezigheid",
+    "packages_premium_description": "Voor bedrijven die op zoek zijn naar meer geavanceerde functies en diepere betrokkenheid.",
+    "packages_premium_features_advancedSeo": "Geavanceerde SEO Optimalisatie",
+    "packages_premium_features_basicCms": "Basis Content Management Systeem (CMS)",
+    "packages_premium_features_blogFunctionality": "Blog Functionaliteit",
+    "packages_premium_features_pageCount": "Tot 10 Pagina's",
+    "packages_premium_features_socialMedia": "Sociale Media Integratie",
+    "packages_premium_price": "€1999 eenmalig",
+    "packages_premium_title": "Uitgebreid Zakelijk Pakket",
+    "packages_standard_description": "Perfect voor kleine bedrijven die een online aanwezigheid nodig hebben met belangrijke functies.",
+    "packages_standard_features_contactForm": "Contactformulier Integratie",
+    "packages_standard_features_googleAnalytics": "Google Analytics Integratie",
+    "packages_standard_features_imageGallery": "Afbeeldingengalerij",
+    "packages_standard_features_pageCount": "Tot 5 Pagina's",
+    "packages_standard_price": "€999 eenmalig",
+    "packages_standard_title": "MKB Starter",
+    "title": "Transparante prijzen voor uw simpele website"
   },
-  "customErrors": {},
-  "footer": {
-    "BTW": "BTW",
-    "KvK": "KvK nummer",
-    "copyright": "© Sander's CodeHouse {date} Alle rechten voorbehouden.",
-    "phone": "Telefoon",
-    "request-address": "Vraag om een adres via mail",
-    "request-phone": "Vraag om een telefoonnummer via mail"
+  "BespokeTestimonialsSection": {
+    "title": "Referenties"
   },
-  "form": {
-    "email": "Email",
-    "message": "Bericht",
-    "name": "Naam",
-    "subject": "Onderwerp"
+  "BespokeWhyChooseSection": {
+    "features_ownership_description": "Krijg volledige controle over uw digitale activa. Een maatwerk website betekent dat u de code bezit en de flexibiliteit hebt om elke toekomstige visie te implementeren zonder beperkingen.",
+    "features_ownership_title": "Volledig eigendom en controle",
+    "features_performance_description": "Maatwerk websites zijn licht en geoptimaliseerd voor snelheid, wat zorgt voor een snelle en soepele ervaring voor uw bezoekers, wat SEO en gebruikersbetrokkenheid verbetert.",
+    "features_performance_title": "Geoptimaliseerde prestaties",
+    "features_scalability_description": "Uw website groeit mee met uw bedrijf. Maatwerk oplossingen zijn gebouwd om eenvoudig uitbreidbaar te zijn, waarbij nieuwe functies en functionaliteiten worden toegevoegd naarmate uw behoeften evolueren.",
+    "features_scalability_title": "Schaalbaar voor groei",
+    "features_security_description": "Op maat gemaakte beveiligingsmaatregelen worden vanaf de basis geïmplementeerd, wat een robuustere verdediging biedt tegen kwetsbaarheden in vergelijking met standaard platforms.",
+    "features_security_title": "Verbeterde beveiliging",
+    "features_support_description": "Ontvang gepersonaliseerde ondersteuning en onderhoud voor uw unieke website, zodat deze up-to-date, veilig en optimaal blijft presteren.",
+    "features_support_title": "Toegewijde ondersteuning",
+    "features_uniqueness_description": "Onderscheid u van de massa met een website die op maat is ontworpen om de unieke persoonlijkheid en waarden van uw merk te weerspiegelen, in tegenstelling tot generieke templates.",
+    "features_uniqueness_title": "Unieke merkidentiteit",
+    "title": "Waarom een maatwerk website beter presteert dan templates"
   },
-  "freelance-page": {},
-  "home": {
-    "hero": {
-      "contact": "Neem contact met ons op om uw volgende project te plannen!",
-      "description": "Een tech stack om effectieve en efficiënte oplossingen te leveren voor uw bedrijf.\nGebruikmakend van de nieuwste technologieën en beste praktijken.",
-      "title": "Wij maken <highlight>websites en webapps</highlight> voor u en uw bedrijf"
-    },
-    "draft": "Ik zou graag een afspraak willen maken tussen DATUM en DATUM, kan dat?\n\nMet vriendelijke groet,\nNAAM",
-    "email": "Email",
-    "example": {
-      "email": "voorbeeld@domein.com",
-      "name": "John Doe"
-    },
-    "insert-template": "Voeg sjabloon in",
-    "makeAnAppointment": "Maak een afspraak",
-    "message": "Bericht",
-    "more-on-github": "Zie meer projecten op GitHub",
-    "name": "Naam",
-    "next-project": "Volgende project",
-    "previous-project": "Vorige project",
-    "send": "Verzenden",
-    "subject": "Onderwerp"
+  "Footer": {
+    "Address_btw": "BTW",
+    "Address_kvk": "KvK nummer",
+    "Copyright_message": "© Sander's CodeHouse {date} Alle rechten voorbehouden."
   },
-  "nav": {
-    "contact": "Contact",
-    "portfolio": "Portfolio",
-    "tech-stack": "Tech Stack",
-    "testimonials": "Referenties"
+  "FreelanceHeroSection": {
+    "button": "Bekijk mijn werk",
+    "description": "Ontketen het volledige potentieel van uw bedrijf met op maat gemaakte webapplicaties en deskundige freelance ontwikkeling. Van concept tot implementatie lever ik op maat gemaakte digitale oplossingen die zijn ontworpen om groei te stimuleren, de gebruikersbetrokkenheid te vergroten en de bedrijfsvoering te stroomlijnen. Laten we samen iets uitzonderlijks bouwen.",
+    "title": "Weboplossingen op maat voor uw bedrijf"
   },
-  "not-found-page": {
+  "FreelancePage": {
+    "testimonials_1_author": "Sander is een ambitieuze programmeur aan het begin van zijn carrière.",
+    "testimonials_1_quote": "Sander is technisch erg goed en kan snel schakelen. We zouden Sander zeker nog eens inhuren.",
+    "title": "Referenties"
+  },
+  "GenericTestimonialsSection": {
+    "title": "Referenties"
+  },
+  "Header": {
+    "NamedLogo_name": "Sander's Codehouse",
+    "NamedLogo_slogan": "Laten we coderen..."
+  },
+  "NotFoundPage": {
     "back-to-front": "Ga terug naar de voorpagina",
     "message": "Deze pagina bestaat niet."
   },
-  "testimonials": {
-    "title": "Referenties",
-    "freelance": [
-      {
-        "author": "Sander is een ambitieuze programmeur aan het begin van zijn carrière.",
-        "quote": "Sander is technisch erg goed en kan snel schakelen. We zouden Sander zeker nog eens inhuren."
-      }
-    ],
-    "bespoke": []
-  },
-  "contact-form": {
-    "form": {
-      "alert": {
-        "description": "We zullen zo snel mogelijk contact met u opnemen.",
-        "title": "Bedankt voor uw bericht!"
-      },
-      "email": "Email",
-      "error": {
-        "description": "Probeer het later opnieuw of stuur een e-mail naar business.sandercokart.com.",
-        "title": "We konden uw bericht niet verzenden"
-      },
-      "message": "Bericht",
-      "name": "Naam",
-      "subject": "Onderwerp",
-      "submit": "Verzenden",
-      "submitting": "Verzenden..."
-    },
-    "title": "Maak een afspraak",
-    "validation": {
-      "email": {
-        "required": "Email is verplicht"
-      },
-      "message": {
-        "required": "Bericht is verplicht"
-      },
-      "name": {
-        "required": "Naam is verplicht"
-      },
-      "subject": {
-        "required": "Onderwerp is verplicht"
-      }
-    }
-  },
-  "portfolio": {
-    "nawijzer": {
-      "caption-1": "Vragenlijst",
-      "caption-2": "Filament admin paneel met donkere modus",
-      "description": "NaWijzer.nl is een website die ik heb gebouwd voor mijn eerste klant: Adequaat, Groningen. De website presenteert een politieke vragenlijst aan de gebruikers. De website heeft ook een webapp achter de schermen die het mogelijk maakt om rapporten te genereren, evenals nieuwe vragen en antwoorden-sets te maken."
-    },
+  "PortfolioSection": {
+    "nawijzer_caption_1_alt": "NaWijzer Questionnaire",
+    "nawijzer_caption_1_text": "NaWijzer Vragenlijstsysteem",
+    "nawijzer_caption_2_alt": "NaWijzer Admin",
+    "nawijzer_caption_2_text": "NaWijzer Beheerdersdashboard",
+    "nawijzer_description": "Ik heb geholpen bij het bouwen van het platform voor NaWijzer, waarbij de nadruk lag op hun aangepaste vragenlijstsysteem en het administratieve dashboard. Dit project omvatte het creëren van een robuuste backend voor vragenlijstbeheer en een gebruiksvriendelijke interface voor beheerders, samen met een op maat gemaakte oplossing voor het genereren van dynamische PDF's uit de vragenlijstgegevens.",
+    "nawijzer_title": "NaWijzer.nl",
     "title": "Portfolio"
   },
-  "services": {
-    "title": "Diensten",
+  "ServiceOfferingsSection": {
     "callToAction": "Lees meer",
-    "bespoke-solutions": {
-      "call-to-action": "Creëer uw website",
-      "description": "Generieke website bouwers zat? Ik maak verbluffende, snelle websites, perfect voor merken die een unieke online aanwezigheid zoeken.",
-      "features": {
-        "blazing-speed": "Bliksemsnelle website prestaties",
-        "hosting-included": "Wij regelen de hosting voor u",
-        "internationalization": "Meertaligheid",
-        "responsive-design": "Perfect op alle apparaten, van mobiel tot breedbeeld",
-        "unique-visuals": "Unieke visuals & verbluffende animaties"
-      },
-      "title": "Simpele Websites"
-    },
-    "freelance": {
-      "title": "Freelance Ontwikkeling",
-      "description": "Op zoek naar een ervaren ontwikkelaar voor uw team? Ik breng expertise in moderne webtechnologieën en frameworks om uw projecten te laten slagen.",
-      "features": {
-        "agile-git": "Agile workflow en Git best practices",
-        "client-side-apps": "Client-side applicaties",
-        "fast-integration": "Snelle onboarding",
-        "laravel-apis": "Laravel API's en backends",
-        "nextjs-solution": "Next.js oplossingen"
-      },
-      "call-to-action": "Meer over Freelance"
-    },
-    "web-application-development": {
-      "title": "Op Maat Gemaakte Software",
-      "description": "Heeft u een complete bedrijfsoplossing nodig? Van database-ontwerp tot full-stack applicaties, ik creëer schaalbare en veilige software op maat.",
-      "features": {
-        "custom-webapps": "Op maat gemaakte webapplicaties",
-        "database-storage": "Database ontwerp en opslag",
-        "scalable-cloud": "Cloud infrastructuur en schaalbaarheid",
-        "secure-api": "Veilige API-ontwikkeling",
-        "security-implementation": "Beveiligingsimplementatie en best practices"
-      },
-      "call-to-action": "Meer over Software op Maat"
-    },
-    "previous-project": "Vorige project",
-    "send": "Verzenden",
-    "subject": "Onderwerp",
-    "tech-stack": {
-      "laravel": "We gebruiken laravel voor onze backend en fullstack projecten. Of u nu een eenvoudige API of een volledig webapp nodig heeft, laravel is een goede keuze. We combineren vaak laravel met andere tools zoals InertiaJS, waardoor we een rijke javascript ondersteunde webapp kunnen bouwen zonder een apart (sub)domein nodig te hebben.",
-      "next": "We gebruiken NextJS voor onze websiteprojecten. NextJS gebruikt strategieën zoals server side rendering, static generation en code splitting om de snelste ervaring te bieden. Het gebruikt React onder de motorkap, zodat we toegang hebben tot alle geweldige bibliotheken die er zijn. Wanneer mogelijk, gebruiken we NextJS boven alleenstaand React, Vue of Laravel + JavaScript Framework oplossingen vanwege de enorme prestatieboost die NextJS biedt. codehouse.sandercokart.com is hiermee gemaakt!",
-      "react": "React is ons framework van keuze voor het bouwen van websites en webapps. De reden hiervoor is dat React de grootste gemeenschap heeft en het meest populaire framework is. Dit betekent dat we veel tijd kunnen besparen door bestaande oplossingen en bibliotheken te gebruiken om de ontwikkeling te versnellen.",
-      "title": "Tech Stack",
-      "vue": "We gebruiken VueJS als alternatief voor React. Het wordt vaak gecombineerd met NuxtJS, wat veel lijkt op NextJS, maar voor Vue. Statistisch gezien is Vue sneller dan React vanwege hoe het reactiviteit behandelt. Het is veel jonger dan React en heeft een kleinere community. Dit betekent dat er minder bestaande oplossingen en bibliotheken beschikbaar zijn."
-    },
-    "testimonials": {
-      "testimonials": {
-        "adequaat": "Sander is een ambitieuze programmeur aan het begin van zijn carrière. Sander is technisch erg goed en kan snel schakelen. We zouden Sander zeker nog eens inhuren."
-      },
-      "title": "Referenties"
-    },
-    "services": {
-      "title": "Mijn Diensten",
-      "freelance": {
-        "title": "Freelance Ontwikkeling",
-        "description": "Op zoek naar een ervaren ontwikkelaar voor uw team? Ik breng expertise in moderne webtechnologieën en frameworks om uw projecten te laten slagen.",
-        "features": {
-          "react": "React, Vue en Next.js ontwikkeling",
-          "fullstack": "Full-stack mogelijkheden",
-          "agile": "Ervaring met Agile methodologie",
-          "team": "Team samenwerking",
-          "onboarding": "Snelle integratie"
-        }
-      },
-      "custom": {
-        "title": "Op Maat Gemaakte Software",
-        "description": "Heeft u een complete bedrijfsoplossing nodig? Van database-ontwerp tot full-stack applicaties, ik creëer schaalbare en veilige software op maat.",
-        "features": {
-          "webapps": "Op maat gemaakte webapplicaties",
-          "database": "Database ontwerp & implementatie",
-          "api": "API ontwikkeling",
-          "cloud": "Cloud infrastructuur",
-          "security": "Beveiligingsbest practices"
-        }
-      },
-      "marketing": {
-        "title": "Statische Websites",
-        "description": "Ben je de algemene website bouwers zoals WordPress, Wix of Squarespace zat? Wij maken visueel verbluffende statische websites die in een oogwenk laden. Perfect voor merken die een unieke en bliksemsnelle online aanwezigheid eisen.",
-        "features": {
-          "design": "Unieke visuals & verbluffende animaties",
-          "i18n": "Meertaligheid",
-          "performance": "Bliksemsnelle website prestaties",
-          "cms": "Wij regelen de hosting voor u",
-          "mobile": "Perfect op alle apparaten, van mobiel tot breedbeeld"
-        }
-      },
-      "callToAction": "Lees meer"
-    }
+    "custom_description": "Heeft u een complete bedrijfsoplossing nodig? Van database-ontwerp tot full-stack applicaties, ik creëer schaalbare en veilige software op maat.",
+    "custom_features_api": "API ontwikkeling",
+    "custom_features_cloud": "Cloud infrastructuur",
+    "custom_features_database": "Database ontwerp & implementatie",
+    "custom_features_security": "Beveiligingsbest practices",
+    "custom_features_webapps": "Op maat gemaakte webapplicaties",
+    "custom_title": "Op Maat Gemaakte Software",
+    "freelance_description": "Op zoek naar een ervaren ontwikkelaar voor uw team? Ik breng expertise in moderne webtechnologieën en frameworks om uw projecten te laten slagen.",
+    "freelance_features_agile": "Ervaring met Agile methodologie",
+    "freelance_features_fullstack": "Full-stack mogelijkheden",
+    "freelance_features_onboarding": "Snelle integratie",
+    "freelance_features_react": "React, Vue en Next.js ontwikkeling",
+    "freelance_features_team": "Team samenwerking",
+    "freelance_title": "Freelance Ontwikkeling",
+    "marketing_description": "Ben je de algemene website bouwers zoals WordPress, Wix of Squarespace zat? Wij maken visueel verbluffende statische websites die in een oogwenk laden. Perfect voor merken die een unieke en bliksemsnelle online aanwezigheid eisen.",
+    "marketing_features_cms": "Wij regelen de hosting voor u",
+    "marketing_features_design": "Unieke visuals & verbluffende animaties",
+    "marketing_features_i18n": "Meertaligheid",
+    "marketing_features_mobile": "Perfect op alle apparaten, van mobiel tot breedbeeld",
+    "marketing_features_performance": "Bliksemsnelle website prestaties",
+    "marketing_title": "Statische Websites",
+    "title": "Diensten"
   },
-  "nav": {
-    "contact": "Contact",
-    "portfolio": "Portfolio",
-    "tech-stack": "Tech Stack",
-    "testimonials": "Referenties"
+  "TechStackSection": {
+    "laravel": "We gebruiken laravel voor onze backend en fullstack projecten. Of u nu een eenvoudige API of een volledig webapp nodig heeft, laravel is een goede keuze. We combineren vaak laravel met andere tools zoals InertiaJS, waardoor we een rijke javascript ondersteunde webapp kunnen bouwen zonder een apart (sub)domein nodig te hebben.",
+    "next": "We gebruiken NextJS voor onze websiteprojecten. NextJS gebruikt strategieën zoals server side rendering, static generation en code splitting om de snelste ervaring te bieden. Het gebruikt React onder de motorkap, zodat we toegang hebben tot alle geweldige bibliotheken die er zijn. Wanneer mogelijk, gebruiken we NextJS boven alleenstaand React, Vue of Laravel + JavaScript Framework oplossingen vanwege de enorme prestatieboost die NextJS biedt. codehouse.sandercokart.com is hiermee gemaakt!",
+    "react": "React is ons framework van keuze voor het bouwen van websites en webapps. De reden hiervoor is dat React de grootste gemeenschap heeft en het meest populaire framework is. Dit betekent dat we veel tijd kunnen besparen door bestaande oplossingen en bibliotheken te gebruiken om de ontwikkeling te versnellen.",
+    "title": "Tech Stack",
+    "vue": "We gebruiken VueJS als alternatief voor React. Het wordt vaak gecombineerd met NuxtJS, wat veel lijkt op NextJS, maar voor Vue. Statistisch gezien is Vue sneller dan React vanwege hoe het reactiviteit behandelt. Het is veel jonger dan React en heeft een kleinere community. Dit betekent dat er minder bestaande oplossingen en bibliotheken beschikbaar zijn."
   },
-  "not-found-page": {
-    "back-to-front": "Ga terug naar de voorpagina",
-    "message": "Deze pagina bestaat niet."
+  "common": {
+    "navigation_contact": "Contact",
+    "navigation_portfolio": "Portfolio",
+    "navigation_tech-stack": "Tech Stack",
+    "navigation_testimonials": "Referenties"
+  },
+  "customErrors": {
+  },
+  "form": {
+  },
+  "freelance-page": {
   }
 }

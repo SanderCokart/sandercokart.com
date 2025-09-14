@@ -5,7 +5,7 @@ import { GB as GBFlag, NL as NLFlag } from 'country-flag-icons/react/3x2';
 import { useLocale } from 'next-intl';
 
 import { LocaleCode } from '@/src/i18n/config';
-import { Link, usePathname, useRouter } from '@/src/i18n/navigation';
+import { Link, usePathname } from '@/src/i18n/navigation';
 
 export function LocaleSwitcher() {
   const pathname = usePathname();

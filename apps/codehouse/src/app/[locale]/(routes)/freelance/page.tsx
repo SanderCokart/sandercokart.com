@@ -9,13 +9,15 @@ import { FreelanceHeroSection } from './(sections)/freelance-hero-section';
 import { PortfolioSection } from './(sections)/portfolio-section';
 import { TechStackSection } from './(sections)/tech-stack-section';
 
-export default function Page() {
-  const t = useTranslations('testimonials');
+export default function FreelancePage() {
+  const t = useTranslations('FreelancePage');
 
-  const testimonials = useMemo(
-    () => t.raw('freelance') as Array<{ author: string; quote: string }>,
-    [t],
-  );
+  const testimonials = [
+    {
+      author: t('testimonials_1_author'),
+      quote: t('testimonials_1_quote'),
+    },
+  ];
 
   return (
     <main className="grow">

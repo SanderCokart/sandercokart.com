@@ -49,63 +49,63 @@ const item = {
 };
 
 export function BespokeHeroSection() {
-  const t = useTranslations('bespoke-solutions-page');
+  const t = useTranslations('BespokeHeroSection');
 
   const service_features: FeatureProps[] = useMemo(
     () => [
       {
         icon: ZapIcon,
-        label: t('service-features.performant.label'),
-        description: t.rich('service-features.performant.description', {
+        label: t('features_performant_label'),
+        description: t.rich('features_performant_description', {
           highlight: (chunks: string) => <strong className="text-accent">{chunks}</strong>,
         }),
       },
       {
         icon: ServerIcon,
-        label: t('service-features.hosting.label'),
-        description: t.rich('service-features.hosting.description', {
+        label: t('features_hosting_label'),
+        description: t.rich('features_hosting_description', {
           highlight: (chunks: string) => <strong className="text-accent">{chunks}</strong>,
         }),
       },
       {
         icon: GlobeIcon,
-        label: t('service-features.internationalization.label'),
-        description: t.rich('service-features.internationalization.description', {
+        label: t('features_internationalization_label'),
+        description: t.rich('features_internationalization_description', {
           highlight: (chunks: string) => <strong className="text-accent">{chunks}</strong>,
         }),
       },
       {
         icon: TabletSmartphoneIcon,
-        label: t('service-features.mobile-friendly.label'),
-        description: t.rich('service-features.mobile-friendly.description', {
+        label: t('features_mobileFriendly_label'),
+        description: t.rich('features_mobileFriendly_description', {
           highlight: (chunks: string) => <strong className="text-accent">{chunks}</strong>,
         }),
       },
       {
         icon: PaintbrushIcon,
-        label: t('service-features.unique-design.label'),
-        description: t.rich('service-features.unique-design.description', {
+        label: t('features_uniqueDesign_label'),
+        description: t.rich('features_uniqueDesign_description', {
           highlight: (chunks: string) => <strong className="text-accent">{chunks}</strong>,
         }),
       },
       {
         icon: RefreshCcwDotIcon,
-        label: t('service-features.iterative-development.label'),
-        description: t.rich('service-features.iterative-development.description', {
+        label: t('features_iterativeDevelopment_label'),
+        description: t.rich('features_iterativeDevelopment_description', {
           highlight: (chunks: string) => <strong className="text-accent">{chunks}</strong>,
         }),
       },
       {
         icon: SettingsIcon,
-        label: t('service-features.customizable.label'),
-        description: t.rich('service-features.customizable.description', {
+        label: t('features_customizable_label'),
+        description: t.rich('features_customizable_description', {
           highlight: (chunks: string) => <strong className="text-accent">{chunks}</strong>,
         }),
       },
       {
         icon: AccessibilityIcon,
-        label: t('service-features.accessible.label'),
-        description: t.rich('service-features.accessible.description', {
+        label: t('features_accessible_label'),
+        description: t.rich('features_accessible_description', {
           highlight: (chunks: string) => <strong className="text-accent">{chunks}</strong>,
         }),
       },

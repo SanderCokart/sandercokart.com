@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import { ComponentProps, FC } from 'react';
 
 export const FreelanceHeroSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
-  const t = useTranslations('home.hero');
+  const t = useTranslations('FreelanceHeroSection');
 
   return (
     <section className={cn('min-h-[calc(100dvh-theme(spacing.11))] sm:min-h-[calc(100dvh-theme(spacing.16))]', 'grid place-items-center', className)} id="hero" {...props}>
@@ -15,7 +15,7 @@ export const FreelanceHeroSection: FC<ComponentProps<'section'>> = ({ className,
       <p className="text-balance text-center text-lg text-muted-foreground sm:text-xl">
         {t('description')}
       </p>
-      <p className="text-center text-lg font-bold sm:text-xl">{t('contact')}</p>
+      <p className="text-center text-lg font-bold sm:text-xl">{t('button')}</p>
     </section>
   );
 };

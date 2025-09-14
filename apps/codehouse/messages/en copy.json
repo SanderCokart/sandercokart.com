@@ -1,0 +1,313 @@
+{
+  "bespoke-solutions-page": {
+    "title": "We build <highlight>bespoke</highlight> websites for <highlight>small businesses</highlight> to elevate your marketing.",
+    "service-features": {
+      "performant": {
+        "label": "Performant",
+        "description": "We build websites that are <highlight>fast</highlight> and <highlight>efficient</highlight> using the latest technologies in web development."
+      },
+      "hosting": {
+        "label": "Hosting",
+        "description": "We handle all the <highlight>hosting</highlight> for you so you can focus on your business."
+      },
+      "internationalization": {
+        "label": "Internationalization",
+        "description": "We build websites that are <highlight>accessible</highlight> to users all over the world."
+      },
+      "mobile-friendly": {
+        "label": "Mobile-Friendly",
+        "description": "We build <highlight>responsive</highlight> websites that look great on all devices."
+      },
+      "unique-design": {
+        "label": "Unique Design",
+        "description": "We build websites that are <highlight>unique</highlight> and tailored to your business."
+      },
+      "iterative-development": {
+        "label": "Iterative Development",
+        "description": "We build websites that are <highlight>iteratively developed</highlight> to ensure they are always up to date and meet your needs."
+      },
+      "customizable": {
+        "label": "Customizable",
+        "description": "We build websites that are <highlight>customizable</highlight> to your exact needs."
+      },
+      "accessible": {
+        "label": "Accessible",
+        "description": "We build websites that are <highlight>accessible</highlight> to users with disabilities."
+      }
+    },
+    "why-choose-bespoke": {
+      "title": "Why a Custom Website Outperforms Templates",
+      "uniqueness": {
+        "title": "Unique Brand Identity",
+        "description": "Stand out from the crowd with a website custom-designed to reflect your brand's unique personality and values, unlike generic templates."
+      },
+      "scalability": {
+        "title": "Scalable for Growth",
+        "description": "Your website grows with your business. Custom solutions are built to be easily expandable, adding new features and functionalities as your needs evolve."
+      },
+      "ownership": {
+        "title": "Full Ownership & Control",
+        "description": "Gain complete control over your digital asset. A bespoke website means you own the code and have the flexibility to implement any future vision without limitations."
+      },
+      "performance": {
+        "title": "Optimized Performance",
+        "description": "Custom websites are lean and optimized for speed, ensuring a fast and smooth experience for your visitors, which improves SEO and user engagement."
+      },
+      "security": {
+        "title": "Enhanced Security",
+        "description": "Tailored security measures are implemented from the ground up, providing a more robust defense against vulnerabilities compared to off-the-shelf platforms."
+      },
+      "support": {
+        "title": "Dedicated Support",
+        "description": "Receive personalized support and maintenance for your unique website, ensuring it remains up-to-date, secure, and performs optimally."
+      }
+    },
+    "pricing": {
+      "title": "Transparent Pricing for Your Simple Website",
+      "contact-button": "Contact for a Custom Quote",
+      "basic": {
+        "title": "Basic Presence",
+        "description": "Ideal for personal portfolios or small informational sites.",
+        "price": "€499 one-time",
+        "feature1": "1 Page Website",
+        "feature2": "Mobile Responsive Design",
+        "feature3": "Basic SEO Setup"
+      },
+      "standard": {
+        "title": "Small Business Starter",
+        "description": "Perfect for small businesses needing an online presence with key features.",
+        "price": "€999 one-time",
+        "feature1": "Up to 5 Pages",
+        "feature2": "Contact Form Integration",
+        "feature3": "Image Gallery",
+        "feature4": "Google Analytics Integration"
+      },
+      "premium": {
+        "title": "Enhanced Business Package",
+        "description": "For businesses looking for more advanced features and deeper engagement.",
+        "price": "€1999 one-time",
+        "feature1": "Up to 10 Pages",
+        "feature2": "Blog Functionality",
+        "feature3": "Advanced SEO Optimization",
+        "feature4": "Social Media Integration",
+        "feature5": "Basic Content Management System (CMS)"
+      },
+      "calculator": {
+        "title": "Build Your Custom Website Quote",
+        "description": "Select the features you need to get an estimated price for your bespoke website. All prices are one-time fees unless specified otherwise.",
+        "features": {
+          "performant": {
+            "label": "Performant Website",
+            "cost": "€{cost}"
+          },
+          "hosting": {
+            "label": "Hosting Management",
+            "cost": "€{cost}"
+          },
+          "internationalization": {
+            "label": "Multi-language Support",
+            "cost": "€{cost}"
+          },
+          "mobileFriendly": {
+            "label": "Mobile-Friendly Design",
+            "cost": "€{cost}"
+          },
+          "uniqueDesign": {
+            "label": "Unique Custom Design",
+            "cost": "€{cost}"
+          },
+          "iterativeDevelopment": {
+            "label": "Iterative Development (Monthly Fee)",
+            "cost": "€{cost}/month"
+          },
+          "customizable": {
+            "label": "Highly Customizable",
+            "cost": "€{cost}"
+          },
+          "accessible": {
+            "label": "Accessibility Features",
+            "cost": "€{cost}"
+          }
+        },
+        "total": "Estimated Total: €{total}",
+        "max-price-reached": "You've reached the maximum estimated price of €3000. Please contact us for a custom quote.",
+        "note": "Prices are estimates and may vary. Max estimated project cost: €{maxPrice}."
+      }
+    }
+  },
+  "common": {
+    "email": "E-mail"
+  },
+  "customErrors": {},
+  "footer": {
+    "BTW": "VAT",
+    "KvK": "Chamber of Commerce number",
+    "copyright": "© Sander's CodeHouse {date} All rights reserved.",
+    "phone": "Phone",
+    "request-address": "Request adres via mail",
+    "request-phone": "Request phone number via mail"
+  },
+  "form": {
+    "name": "Name",
+    "subject": "Subject"
+  },
+  "freelance-page": {},
+  "home": {
+    "hero": {
+      "contact": "Contact us to plan your next project!",
+      "description": "A tech stack to deliver effective and efficient solutions for your business.\nUsing the latest technologies and best practices.",
+      "title": "We build <highlight>websites and webapps</highlight> for you and your business"
+    },
+    "draft": "I would like to make an appointment between DATE and DATE, can you do that?\n\nKind regards,\nNAME",
+    "email": "Email",
+    "example": {
+      "email": "example@domain.com",
+      "name": "John Doe"
+    },
+    "insert-template": "Insert template",
+    "makeAnAppointment": "Make an appointment",
+    "message": "Message",
+    "more-on-github": "See more projects on GitHub",
+    "name": "Name",
+    "next-project": "Next project",
+    "previous-project": "Previous project",
+    "send": "Send",
+    "subject": "Subject"
+  },
+  "nav": {
+    "contact": "Contact",
+    "portfolio": "Portfolio",
+    "tech-stack": "Tech Stack",
+    "testimonials": "Testimonials"
+  },
+  "not-found-page": {
+    "back-to-front": "Go back to the front page",
+    "message": "This page does not exist."
+  },
+  "testimonials": {
+    "title": "Testimonials",
+    "freelance": [
+      {
+        "author": "Sander is een ambitieuze programmeur aan het begin van zijn carrière.",
+        "quote": "Sander is technisch erg goed en kan snel schakelen. We zouden Sander zeker nog eens inhuren."
+      }
+    ],
+    "adequaat": {
+      "author": "Sythe Veenje - adequaat.nl",
+      "quote": "Sander is an ambitious programmer at the beginning of his career. Sander is technically very good and can quickly switch. We would definitely hire Sander again."
+    },
+    "bespoke": []
+  },
+  
+  "portfolio": {
+    "nawijzer": {
+      "caption-1": "Questionnaire",
+      "caption-2": "Filament admin panel with dark mode",
+      "description": "NaWijzer.nl is a website I build for my first client: Adequaat, Groningen. The website presents a political questionnaire to the users. The website also has a webapp behind the scenes that allows admins to generate reports as well as create new questions and answer sets."
+    },
+    "title": "Portfolio"
+  },
+  "services": {
+    "title": "Services",
+    "callToAction": "Learn more",
+    "bespoke-solutions": {
+      "call-to-action": "Create your website",
+      "description": "Tired of generic builders? I craft visually stunning, fast-loading static websites, perfect for brands seeking a unique and blazing-fast online presence.",
+      "features": {
+        "blazing-speed": "Blazing speed",
+        "hosting-included": "We handle hosting for you",
+        "internationalization": "Internationalization",
+        "responsive-design": "Perfect on all devices, from mobile to ultrawide",
+        "unique-visuals": "Unique visuals & stunning animations"
+      },
+      "title": "Simple Websites"
+    },
+    "freelance": {
+      "title": "Freelance Development",
+      "description": "Looking to hire a skilled developer for your team? I bring expertise in modern web technologies and frameworks to help your projects succeed.",
+      "features": {
+        "agile-git": "Agile workflow and Git best practices",
+        "client-side-apps": "Client-side applications",
+        "fast-integration": "Fast onboarding",
+        "laravel-apis": "Laravel APIs and back ends",
+        "nextjs-solution": "Next.js solutions"
+      },
+      "call-to-action": "Learn more about Freelance"
+    },
+    "web-application-development": {
+      "title": "Custom Software Solutions",
+      "description": "Need a complete business solution? From database design to full-stack applications, I create scalable and secure software tailored to your needs.",
+      "features": {
+        "custom-webapps": "Custom web applications",
+        "database-storage": "Database design and storage",
+        "scalable-cloud": "Cloud infrastructure and scalability",
+        "secure-api": "Secure API development",
+        "security-implementation": "Security best practices and implementation"
+      },
+      "call-to-action": "Learn more about Custom Software"
+    },
+    "previous-project": "Previous project",
+    "send": "Send",
+    "subject": "Subject",
+    "tech-stack": {
+      "laravel": "We use laravel for our backend and fullstack projects. Whether you need a simple API or a full blown webapp, laravel is a great choice. We often combine laravel with other tools like InertiaJS which allows us to build a rich javascript supported webapp without needing a separate (sub)domain.",
+      "next": "We use NextJS for our website projects. NextJS uses strategies like server side rendering, static generation and code splitting to provide a the fastest experience. It uses React under the hood so we have access to all the great libraries out there. When possible we prefer to use NextJS over standalone React, Vue or Laravel + JavaScript Framework solutions due to the massive performance boost NextJS provides. codehouse.sandercokart.com was build with this!",
+      "react": "React is our go-to framework for building websites and webapps. The reason behind this is that React has the largest community and is the most popular framework. This means we can save a lot of time by using existing solutions and libraries to speed up development.",
+      "title": "Tech Stack",
+      "vue": "We use VueJS as an alternative to React. It is often combined with NuxtJS which is much like NextJS but for Vue. Statistically speaking, Vue is faster than React due to how it handles reactivity. It is much younger than React though and has a smaller community. This means that there are less existing solutions and libraries available."
+    },
+    "testimonials": {
+      "testimonials": {
+        "adequaat": "Sander is an ambitious programmer at the beginning of his career. Sander is technically very good and can quickly switch. We would definitely hire Sander again."
+      },
+      "title": "Testimonials"
+    },
+    "services": {
+      "title": "My Services",
+      "freelance": {
+        "title": "Freelance Development",
+        "description": "Looking to hire a skilled developer for your team? I bring expertise in modern web technologies and frameworks to help your projects succeed.",
+        "features": {
+          "react": "React, Vue, and Next.js development",
+          "fullstack": "Full-stack capabilities",
+          "agile": "Agile methodology experience",
+          "team": "Team collaboration",
+          "onboarding": "Quick onboarding"
+        }
+      },
+      "custom": {
+        "title": "Custom Software Solutions",
+        "description": "Need a complete business solution? From database design to full-stack applications, I create scalable and secure software tailored to your needs.",
+        "features": {
+          "webapps": "Custom web applications",
+          "database": "Database design & implementation",
+          "api": "API development",
+          "cloud": "Cloud infrastructure",
+          "security": "Security best practices"
+        }
+      },
+      "marketing": {
+        "title": "Static Websites",
+        "description": "Tired of generic website builders like WordPress, Wix, or Squarespace? We craft visually stunning static websites that load in a snap. Perfect for brands that demand a unique and lightning-fast online presence.",
+        "features": {
+          "design": "Unique visuals & stunning animations",
+          "i18n": "Internationalization",
+          "performance": "Blazing speed",
+          "cms": "We handle hosting for you",
+          "mobile": "Perfect on all devices, from mobile to ultrawide"
+        }
+      },
+      "callToAction": "Learn more"
+    }
+  },
+  "nav": {
+    "contact": "Contact",
+    "portfolio": "Portfolio",
+    "tech-stack": "Tech Stack",
+    "testimonials": "Testimonials"
+  },
+  "not-found-page": {
+    "back-to-front": "Go back to the front page",
+    "message": "This page does not exist."
+  }
+}

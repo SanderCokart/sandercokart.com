@@ -53,7 +53,7 @@ function Socials() {
 }
 
 async function Links({ className }: { className?: string }) {
-  const t = await getTranslations('nav');
+  const t = await getTranslations('common');
 
   return (
     <nav
@@ -62,23 +62,23 @@ async function Links({ className }: { className?: string }) {
       id="footer-navigation"
       role="navigation">
       <Link className="hover:text-accent transition-colors" href="/#portfolio">
-        {t('portfolio')}
+        {t('navigation_portfolio')}
       </Link>
       <Link className="hover:text-accent transition-colors" href="/#techstack">
-        {t('tech-stack')}
+        {t('navigation_tech-stack')}
       </Link>
       <Link className="hover:text-accent transition-colors" href="/#testimonials">
-        {t('testimonials')}
+        {t('navigation_testimonials')}
       </Link>
       <Link className="hover:text-accent transition-colors" href="/#contact">
-        {t('contact')}
+        {t('navigation_contact')}
       </Link>
     </nav>
   );
 }
 
 async function Address() {
-  const t = await getTranslations();
+  const t = await getTranslations('Footer');
 
   return (
     <section id="footer-address">
@@ -101,10 +101,10 @@ async function Address() {
 
         <div className="flex flex-col justify-evenly md:justify-between">
           <span className="text-xs sm:text-base">
-            {t('footer.KvK')}: <Copy>89270738</Copy>
+            {t('Address_kvk')}: <Copy>89270738</Copy>
           </span>
           <span className="text-xs sm:text-base">
-            {t('footer.BTW')}: <Copy>NL004710701B39</Copy>
+            {t('Address_btw')}: <Copy>NL004710701B39</Copy>
           </span>
         </div>
       </address>
@@ -113,12 +113,12 @@ async function Address() {
 }
 
 async function Copyright() {
-  const t = await getTranslations('footer');
+  const t = await getTranslations('Footer');
   const date = new Date().getFullYear();
 
   return (
     <section className="mx-auto my-8" id="footer-copyright">
-      <p className="text-center text-xs">{t('copyright', { date })}</p>
+      <p className="text-center text-xs">{t('Copyright_message', { date })}</p>
     </section>
   );
 }

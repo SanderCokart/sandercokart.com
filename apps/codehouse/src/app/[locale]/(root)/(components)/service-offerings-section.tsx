@@ -9,19 +9,19 @@ import { Button } from '@repo/ui/components/shadcn/button';
 import { Link } from '@/src/i18n/navigation';
 
 export function ServiceOfferingsSection() {
-  const t = useTranslations('services.services');
+  const t = useTranslations('ServiceOfferingsSection');
 
   const services = [
     {
       icon: <FaCode className="h-16 w-16" />,
-      title: t('freelance.title'),
-      description: t('freelance.description'),
+      title: t('freelance_title'),
+      description: t('freelance_description'),
       features: [
-        t('freelance.features.react'),
-        t('freelance.features.fullstack'),
-        t('freelance.features.agile'),
-        t('freelance.features.team'),
-        t('freelance.features.onboarding'),
+        t('freelance_features_react'),
+        t('freelance_features_fullstack'),
+        t('freelance_features_agile'),
+        t('freelance_features_team'),
+        t('freelance_features_onboarding'),
       ],
       color: 'from-blue-500/10 to-blue-500/20',
       iconColor: 'text-blue-500',
@@ -29,14 +29,14 @@ export function ServiceOfferingsSection() {
     },
     {
       icon: <FaDatabase className="h-16 w-16" />,
-      title: t('custom.title'),
-      description: t('custom.description'),
+      title: t('custom_title'),
+      description: t('custom_description'),
       features: [
-        t('custom.features.webapps'),
-        t('custom.features.database'),
-        t('custom.features.api'),
-        t('custom.features.cloud'),
-        t('custom.features.security'),
+        t('custom_features_webapps'),
+        t('custom_features_database'),
+        t('custom_features_api'),
+        t('custom_features_cloud'),
+        t('custom_features_security'),
       ],
       color: 'from-purple-500/10 to-purple-500/20',
       iconColor: 'text-purple-500',
@@ -44,14 +44,14 @@ export function ServiceOfferingsSection() {
     },
     {
       icon: <FaGlobe className="h-16 w-16" />,
-      title: t('marketing.title'),
-      description: t('marketing.description'),
+      title: t('marketing_title'),
+      description: t('marketing_description'),
       features: [
-        t('marketing.features.design'),
-        t('marketing.features.i18n'),
-        t('marketing.features.performance'),
-        t('marketing.features.cms'),
-        t('marketing.features.mobile'),
+        t('marketing_features_design'),
+        t('marketing_features_i18n'),
+        t('marketing_features_performance'),
+        t('marketing_features_cms'),
+        t('marketing_features_mobile'),
       ],
       color: 'from-yellow-500/10 to-yellow-500/20',
       iconColor: 'text-yellow-500',
