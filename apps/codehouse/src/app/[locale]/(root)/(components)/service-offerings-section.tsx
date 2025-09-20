@@ -1,11 +1,12 @@
 'use client';
 
+import { Button } from '@repo/ui/components/shadcn/button';
 import { Card, CardContent, CardHeader } from '@repo/ui/components/shadcn/card';
 import { cn } from '@repo/ui/lib/utils';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { FaCode, FaDatabase, FaGlobe } from 'react-icons/fa';
-import { Button } from '@repo/ui/components/shadcn/button';
+
 import { Link } from '@/src/i18n/navigation';
 
 export function ServiceOfferingsSection() {
@@ -89,14 +90,14 @@ export function ServiceOfferingsSection() {
                   'grid grid-rows-[1fr,1fr,2fr,2fr,auto]',
                   'h-full bg-gradient-to-b',
                   service.color,
-                  'rounded-none transition-transform transition-colors duration-300 ease-in-out sm:rounded-lg',
+                  'rounded-none transition-colors duration-1000 ease-in-out sm:rounded-lg',
                   'has-[a:hover]:from-accent/10 has-[a:hover]:to-accent/20',
                 )}>
                 <CardHeader className="grid grid-rows-subgrid">
                   <div className={`flex items-center justify-center ${service.iconColor}`}>{service.icon}</div>
                   <h2 className="mt-4 text-center text-3xl font-bold">{service.title}</h2>
                 </CardHeader>
-                <CardContent className="grid grid-rows-subgrid row-span-2">
+                <CardContent className="row-span-2 grid grid-rows-subgrid">
                   <p className="mt-2 text-center text-lg">{service.description}</p>
                   <ul className="space-y-2">
                     {service.features.map(feature => (
@@ -109,9 +110,7 @@ export function ServiceOfferingsSection() {
                 </CardContent>
                 <div className="flex items-center justify-center p-4">
                   <Button asChild variant="ghost" size="lg" className="text-lg">
-                    <Link href={service.link}>
-                      {t('callToAction')}
-                    </Link>
+                    <Link href={service.link}>{t('callToAction')}</Link>
                   </Button>
                 </div>
               </Card>

@@ -7,12 +7,12 @@ import { MotionDiv } from '@/src/lib/motion';
 
 import { Quote } from '@/src/components/quote';
 
-type Testimonial = {
+export type Testimonial = {
   author: string;
   quote: string;
 };
 
-interface GenericTestimonialsSectionProps extends ComponentProps<'section'> {
+export interface GenericTestimonialsSectionProps extends ComponentProps<'section'> {
   testimonials: Testimonial[];
 }
 

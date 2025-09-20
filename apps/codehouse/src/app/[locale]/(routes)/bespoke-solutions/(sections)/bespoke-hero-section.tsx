@@ -26,6 +26,7 @@ const container = {
   show: {
     opacity: 1,
     transition: {
+      delayChildren: 0.3,
       staggerChildren: 0.1,
       staggerDirection: 1,
     },
@@ -37,6 +38,7 @@ const reverseContainer = {
   show: {
     opacity: 1,
     transition: {
+      delayChildren: 0.3,
       staggerChildren: 0.1,
       staggerDirection: -1,
     },
@@ -57,56 +59,56 @@ export function BespokeHeroSection() {
         icon: ZapIcon,
         label: t('features_performant_label'),
         description: t.rich('features_performant_description', {
-          highlight: (chunks: string) => <strong className="text-accent">{chunks}</strong>,
+          highlight: (chunks: string) => <strong className="dark:text-accent text-primary">{chunks}</strong>,
         }),
       },
       {
         icon: ServerIcon,
         label: t('features_hosting_label'),
         description: t.rich('features_hosting_description', {
-          highlight: (chunks: string) => <strong className="text-accent">{chunks}</strong>,
+          highlight: (chunks: string) => <strong className="dark:text-accent text-primary">{chunks}</strong>,
         }),
       },
       {
         icon: GlobeIcon,
         label: t('features_internationalization_label'),
         description: t.rich('features_internationalization_description', {
-          highlight: (chunks: string) => <strong className="text-accent">{chunks}</strong>,
+          highlight: (chunks: string) => <strong className="dark:text-accent text-primary">{chunks}</strong>,
         }),
       },
       {
         icon: TabletSmartphoneIcon,
         label: t('features_mobileFriendly_label'),
         description: t.rich('features_mobileFriendly_description', {
-          highlight: (chunks: string) => <strong className="text-accent">{chunks}</strong>,
+          highlight: (chunks: string) => <strong className="dark:text-accent text-primary">{chunks}</strong>,
         }),
       },
       {
         icon: PaintbrushIcon,
         label: t('features_uniqueDesign_label'),
         description: t.rich('features_uniqueDesign_description', {
-          highlight: (chunks: string) => <strong className="text-accent">{chunks}</strong>,
+          highlight: (chunks: string) => <strong className="dark:text-accent text-primary">{chunks}</strong>,
         }),
       },
       {
         icon: RefreshCcwDotIcon,
         label: t('features_iterativeDevelopment_label'),
         description: t.rich('features_iterativeDevelopment_description', {
-          highlight: (chunks: string) => <strong className="text-accent">{chunks}</strong>,
+          highlight: (chunks: string) => <strong className="dark:text-accent text-primary">{chunks}</strong>,
         }),
       },
       {
         icon: SettingsIcon,
         label: t('features_customizable_label'),
         description: t.rich('features_customizable_description', {
-          highlight: (chunks: string) => <strong className="text-accent">{chunks}</strong>,
+          highlight: (chunks: string) => <strong className="dark:text-accent text-primary">{chunks}</strong>,
         }),
       },
       {
         icon: AccessibilityIcon,
         label: t('features_accessible_label'),
         description: t.rich('features_accessible_description', {
-          highlight: (chunks: string) => <strong className="text-accent">{chunks}</strong>,
+          highlight: (chunks: string) => <strong className="dark:text-accent text-primary">{chunks}</strong>,
         }),
       },
     ],

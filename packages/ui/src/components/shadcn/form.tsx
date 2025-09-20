@@ -69,7 +69,7 @@ function FormItem({ className, ...props }: React.ComponentProps<'div'>) {
 
   return (
     <FormItemContext.Provider value={{ id }}>
-      <div data-slot="form-item" className={cn('grid gap-2', className)} {...props} />
+      <div data-slot="form-item" className={cn('group/form-item grid gap-2', className)} {...props} />
     </FormItemContext.Provider>
   );
 }
@@ -83,8 +83,14 @@ function FormLabel({ className, ...props }: React.ComponentProps<typeof LabelPri
       data-error={!!error}
       className={cn('data-[error=true]:text-destructive', className)}
       htmlFor={formItemId}
-      {...props}
-    />
+      {...props}>
+      <span className="relative">
+        {props.children}
+        <span className="text-destructive absolute -left-3 top-1 hidden group-has-[input:required]/form-item:inline">
+          *
+        </span>
+      </span>
+    </Label>
   );
 }
 
@@ -130,6 +136,16 @@ function FormMessage({ className, ...props }: React.ComponentProps<'p'>) {
   );
 }
 
+function FormDynamicDescription({ className, ...props }: React.ComponentProps<'p'>) {
+  const { error, formDescriptionId } = useFormField();
+
+  if (error) return <FormMessage {...props} />;
+
+  return (
+    <FormDescription id={formDescriptionId} className={cn('text-muted-foreground text-sm', className)} {...props} />
+  );
+}
+
 function AnimatedFormMessage({ className, ...props }: React.ComponentProps<'p'>) {
   const { error, formMessageId } = useFormField();
   const body = error ? String(error?.message ?? '') : props.children;
@@ -166,4 +182,5 @@ export {
   FormMessage,
   AnimatedFormMessage,
   FormField,
+  FormDynamicDescription,
 };
