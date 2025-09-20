@@ -190,7 +190,7 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
                       <FormControl>
                         <ToggleGroup
                           type="single"
-                          onValueChange={value => field.onChange(value === 'yes')}
+                          onValueChange={value => value && field.onChange(value === 'yes')}
                           value={field.value ? 'yes' : 'no'}>
                           <ToggleGroupItem value="yes">{t('yes')}</ToggleGroupItem>
                           <ToggleGroupItem value="no">{t('no')}</ToggleGroupItem>
@@ -266,7 +266,7 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
                       <FormControl>
                         <ToggleGroup
                           type="single"
-                          onValueChange={value => field.onChange(value === 'yes')}
+                          onValueChange={value => value && field.onChange(value === 'yes')}
                           value={field.value ? 'yes' : 'no'}>
                           <ToggleGroupItem value="yes">{t('yes')}</ToggleGroupItem>
                           <ToggleGroupItem value="no">{t('no')}</ToggleGroupItem>
@@ -292,7 +292,7 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
                       <FormControl>
                         <ToggleGroup
                           type="single"
-                          onValueChange={value => field.onChange(value === 'yes')}
+                          onValueChange={value => value && field.onChange(value === 'yes')}
                           value={field.value ? 'yes' : 'no'}>
                           <ToggleGroupItem value="yes">{t('yes')}</ToggleGroupItem>
                           <ToggleGroupItem value="no">{t('no')}</ToggleGroupItem>
@@ -320,7 +320,7 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
                         <FormControl>
                           <ToggleGroup
                             type="single"
-                            onValueChange={value => field.onChange(value === 'yes')}
+                            onValueChange={value => value && field.onChange(value === 'yes')}
                             value={field.value ? 'yes' : 'no'}>
                             <ToggleGroupItem value="yes">{t('yes')}</ToggleGroupItem>
                             <ToggleGroupItem value="no">{t('no')}</ToggleGroupItem>
@@ -348,7 +348,7 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
                       <FormControl>
                         <ToggleGroup
                           type="single"
-                          onValueChange={value => field.onChange(value === 'yes')}
+                          onValueChange={value => value && field.onChange(value === 'yes')}
                           value={field.value ? 'yes' : 'no'}>
                           <ToggleGroupItem value="yes">{t('yes')}</ToggleGroupItem>
                           <ToggleGroupItem value="no">{t('no')}</ToggleGroupItem>
@@ -374,7 +374,7 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
                       <FormControl>
                         <ToggleGroup
                           type="single"
-                          onValueChange={value => field.onChange(value === 'yes')}
+                          onValueChange={value => value && field.onChange(value === 'yes')}
                           value={field.value ? 'yes' : 'no'}>
                           <ToggleGroupItem value="yes">{t('yes')}</ToggleGroupItem>
                           <ToggleGroupItem value="no">{t('no')}</ToggleGroupItem>
