@@ -72,7 +72,7 @@ const client = {
 
 const shared = {
   /** The API URL */
-  [EnvKeys.NEXT_PUBLIC_API_URL]: z.string().url().optional().default('http://localhost:8080'),
+  [EnvKeys.NEXT_PUBLIC_API_URL]: z.string().url().optional().default('http://127.0.0.1:8080'),
   /** Node environment can run in development or production */
   [EnvKeys.NODE_ENV]: z.enum(['development', 'production']).default('development'),
 };

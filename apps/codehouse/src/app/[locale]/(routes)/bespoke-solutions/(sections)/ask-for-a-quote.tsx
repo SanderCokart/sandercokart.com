@@ -6,7 +6,6 @@ import { Card, CardContent } from '@repo/ui/components/shadcn/card';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormDynamicDescription,
   FormField,
   FormItem,
@@ -21,23 +20,27 @@ import { useTranslations } from 'next-intl';
 import { Resolver, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { ComponentProps, FC } from 'react';
+import { FC, useState } from 'react';
 
-const formSchema = z.object({
-  projectName: z.string().min(1, { message: 'Project name is required.' }),
-  projectDescription: z.string().min(1, { message: 'Project description is required.' }),
-  targetAudience: z.string().optional(),
-  desiredFeatures: z.string().optional(),
-  budget: z.string().optional(),
-  timeline: z.string().optional(),
-  hasCustomDomain: z.boolean().default(false),
-  customDomainName: z.string().optional(),
-  needsInternationalization: z.boolean().default(false),
-  hasHosting: z.boolean().default(false),
-  needsFullHostingCare: z.boolean().default(false),
-  needsSeoOptimization: z.boolean().default(false),
-  needsAccessibility: z.boolean().default(false),
-});
+import type { ComponentProps } from 'react';
+
+import { env } from '@/src/env';
+
+const formSchema = z
+  .object({
+    projectName: z.string().min(1),
+    projectDescription: z.string().min(1),
+    targetAudience: z.string().optional(),
+    desiredFeatures: z.string().optional(),
+    budget: z.string().optional(),
+    timeline: z.string().optional(),
+    hasExistingWebsite: z.boolean().default(false),
+    existingWebsiteLink: z.string().optional(),
+    needsInternationalization: z.boolean().default(false),
+  })
+  .refine(data => !data.hasExistingWebsite || !!data.existingWebsiteLink, {
+    params: { i18n: 'existingWebsiteLink_required' },
+  });
 
 type AskForAQuoteFormValues = z.infer<typeof formSchema>;
 
@@ -53,20 +56,32 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
       desiredFeatures: '',
       budget: '',
       timeline: '',
-      hasCustomDomain: false,
-      customDomainName: '',
+      hasExistingWebsite: false,
+      existingWebsiteLink: '',
       needsInternationalization: false,
-      hasHosting: false,
-      needsFullHostingCare: false,
-      needsSeoOptimization: false,
-      needsAccessibility: false,
     },
   });
 
-  const hasHosting = form.watch('hasHosting');
-  const hasCustomDomain = form.watch('hasCustomDomain');
+  const hasExistingWebsite = form.watch('hasExistingWebsite');
 
-  const handleSubmit = form.handleSubmit(data => {
+  const [error, setError] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
+
+  const handleSubmit = form.handleSubmit(async formData => {
+    const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/v1/contact`, {
+      method: 'POST',
+      body: JSON.stringify(formData),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
     console.log(data);
   });
 
@@ -84,7 +99,7 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
           <p className="text-muted-foreground mb-6 text-balance text-center">{t('form_description')}</p>
 
           <div className="flex flex-col gap-8">
-            {/* Project Name */}
+            {/* Project name */}
             <FormField
               control={form.control}
               name="projectName"
@@ -99,7 +114,7 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
               )}
             />
 
-            {/* Project Description */}
+            {/* Project description */}
             <FormField
               control={form.control}
               name="projectDescription"
@@ -108,6 +123,7 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
                   <FormLabel>{t('questions_projectDescription_label')}</FormLabel>
                   <FormControl>
                     <Textarea
+                      required
                       placeholder={t('questions_projectDescription_placeholder')}
                       className="resize-y"
                       {...field}
@@ -118,7 +134,7 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
               )}
             />
 
-            {/* Target Audience */}
+            {/* Target audience */}
             <FormField
               control={form.control}
               name="targetAudience"
@@ -175,17 +191,18 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
                 </FormItem>
               )}
             />
-            {/* Has Custom Domain */}
+            {/* Has custom domain */}
+
             <Card className="border-primary/50 overflow-hidden">
-              <CardContent className="space-y-6">
+              <CardContent>
                 <FormField
                   control={form.control}
-                  name="hasCustomDomain"
+                  name="hasExistingWebsite"
                   render={({ field }) => (
                     <FormItem className="flex flex-row items-center justify-between">
                       <div className="space-y-0.5">
-                        <FormLabel className="text-base">{t('questions_hasCustomDomain_label')}</FormLabel>
-                        <FormDynamicDescription>{t('questions_hasCustomDomain_description')}</FormDynamicDescription>
+                        <FormLabel className="text-base">{t('questions_hasExistingWebsite_label')}</FormLabel>
+                        <FormDynamicDescription>{t('questions_hasExistingWebsite_description')}</FormDynamicDescription>
                       </div>
                       <FormControl>
                         <ToggleGroup
@@ -201,45 +218,22 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
                 />
 
                 <AnimatePresence mode="wait">
-                  {hasCustomDomain ? (
+                  {hasExistingWebsite && (
                     <motion.div
-                      key="currentCustomDomainName"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}>
+                      initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                      animate={{ opacity: 1, height: 'auto', marginTop: '24px' }}
+                      exit={{ opacity: 0, height: 0, marginTop: 0 }}>
                       <FormField
                         control={form.control}
-                        name="customDomainName"
+                        name="existingWebsiteLink"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>{t('questions_currentCustomDomainName_label')}</FormLabel>
+                            <FormLabel>{t('questions_existingWebsiteLink_label')}</FormLabel>
                             <FormControl>
-                              <Input placeholder={t('questions_currentCustomDomainName_placeholder')} {...field} />
+                              <Input placeholder={t('questions_existingWebsiteLink_placeholder')} {...field} />
                             </FormControl>
                             <FormDynamicDescription>
-                              {t('questions_currentCustomDomainName_description')}
-                            </FormDynamicDescription>
-                          </FormItem>
-                        )}
-                      />
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="customDomainName"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}>
-                      <FormField
-                        control={form.control}
-                        name="customDomainName"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>{t('questions_customDomainName_label')}</FormLabel>
-                            <FormControl>
-                              <Input placeholder={t('questions_customDomainName_placeholder')} {...field} />
-                            </FormControl>
-                            <FormDynamicDescription>
-                              {t('questions_customDomainName_description')}
+                              {t('questions_existingWebsiteLink_description')}
                             </FormDynamicDescription>
                           </FormItem>
                         )}
@@ -249,8 +243,9 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
                 </AnimatePresence>
               </CardContent>
             </Card>
-            {/* Needs Internationalization */}
-            <Card className="border-accent/10">
+
+            {/* Needs internationalization */}
+            <Card className="border-primary/50">
               <CardContent>
                 <FormField
                   control={form.control}
@@ -262,114 +257,6 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
                         <FormDynamicDescription>
                           {t('questions_needsInternationalization_description')}
                         </FormDynamicDescription>
-                      </div>
-                      <FormControl>
-                        <ToggleGroup
-                          type="single"
-                          onValueChange={value => value && field.onChange(value === 'yes')}
-                          value={field.value ? 'yes' : 'no'}>
-                          <ToggleGroupItem value="yes">{t('yes')}</ToggleGroupItem>
-                          <ToggleGroupItem value="no">{t('no')}</ToggleGroupItem>
-                        </ToggleGroup>
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </CardContent>
-            </Card>
-            {/* Has Hosting */}
-            <Card className="border-accent/10">
-              <CardContent>
-                <FormField
-                  control={form.control}
-                  name="hasHosting"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-center justify-between">
-                      <div className="space-y-0.5">
-                        <FormLabel className="text-base">{t('questions_hasHosting_label')}</FormLabel>
-                        <FormDescription>{t('questions_hasHosting_description')}</FormDescription>
-                      </div>
-                      <FormControl>
-                        <ToggleGroup
-                          type="single"
-                          onValueChange={value => value && field.onChange(value === 'yes')}
-                          value={field.value ? 'yes' : 'no'}>
-                          <ToggleGroupItem value="yes">{t('yes')}</ToggleGroupItem>
-                          <ToggleGroupItem value="no">{t('no')}</ToggleGroupItem>
-                        </ToggleGroup>
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </CardContent>
-            </Card>
-
-            {/* Needs Full Hosting Care (Conditional) */}
-            {hasHosting && (
-              <Card className="border-accent/10">
-                <CardContent>
-                  <FormField
-                    control={form.control}
-                    name="needsFullHostingCare"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-row items-center justify-between">
-                        <div className="space-y-0.5">
-                          <FormLabel className="text-base">{t('questions_needsFullHostingCare_label')}</FormLabel>
-                          <FormDescription>{t('questions_needsFullHostingCare_description')}</FormDescription>
-                        </div>
-                        <FormControl>
-                          <ToggleGroup
-                            type="single"
-                            onValueChange={value => value && field.onChange(value === 'yes')}
-                            value={field.value ? 'yes' : 'no'}>
-                            <ToggleGroupItem value="yes">{t('yes')}</ToggleGroupItem>
-                            <ToggleGroupItem value="no">{t('no')}</ToggleGroupItem>
-                          </ToggleGroup>
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Needs SEO Optimization */}
-            <Card className="border-accent/10">
-              <CardContent>
-                <FormField
-                  control={form.control}
-                  name="needsSeoOptimization"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-center justify-between">
-                      <div className="space-y-0.5">
-                        <FormLabel className="text-base">{t('questions_needsSeoOptimization_label')}</FormLabel>
-                        <FormDescription>{t('questions_needsSeoOptimization_description')}</FormDescription>
-                      </div>
-                      <FormControl>
-                        <ToggleGroup
-                          type="single"
-                          onValueChange={value => value && field.onChange(value === 'yes')}
-                          value={field.value ? 'yes' : 'no'}>
-                          <ToggleGroupItem value="yes">{t('yes')}</ToggleGroupItem>
-                          <ToggleGroupItem value="no">{t('no')}</ToggleGroupItem>
-                        </ToggleGroup>
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </CardContent>
-            </Card>
-            {/* Needs Accessibility */}
-            <Card className="border-accent/10">
-              <CardContent>
-                <FormField
-                  control={form.control}
-                  name="needsAccessibility"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-center justify-between">
-                      <div className="space-y-0.5">
-                        <FormLabel className="text-base">{t('questions_needsAccessibility_label')}</FormLabel>
-                        <FormDescription>{t('questions_needsAccessibility_description')}</FormDescription>
                       </div>
                       <FormControl>
                         <ToggleGroup

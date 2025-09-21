@@ -86,7 +86,7 @@ function FormLabel({ className, ...props }: React.ComponentProps<typeof LabelPri
       {...props}>
       <span className="relative">
         {props.children}
-        <span className="text-destructive absolute -left-3 top-1 hidden group-has-[input:required]/form-item:inline">
+        <span className="text-destructive absolute -left-3 top-1 hidden group-has-[*:required]/form-item:inline">
           *
         </span>
       </span>

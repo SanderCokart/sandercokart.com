@@ -7,27 +7,16 @@
     "questions_budget_description": "Geef een geschatte budgetreeks op voor uw project.",
     "questions_budget_label": "Geschat Budget",
     "questions_budget_placeholder": "Bijv., €5000 - €10000",
-    "questions_currentCustomDomainName_description": "Geef de volledige domeinnaam op die u momenteel gebruikt (bijv. www.uwbedrijf.nl).",
-    "questions_currentCustomDomainName_label": "Huidige domeinnaam",
-    "questions_currentCustomDomainName_placeholder": "Voer uw huidige domeinnaam in",
-    "questions_customDomainName_description": "Geef de volledige domeinnaam op (bijv. www.uwbedrijf.nl).",
-    "questions_customDomainName_label": "Domeinnaam",
-    "questions_customDomainName_placeholder": "Voer uw domeinnaam in",
     "questions_desiredFeatures_description": "Specificeer de belangrijkste functionaliteiten die u voor uw website voor ogen heeft.",
     "questions_desiredFeatures_label": "Gewenste Functies",
     "questions_desiredFeatures_placeholder": "Noem specifieke functionaliteiten of integraties (bijv. e-commerce, blog, contactformulier)",
-    "questions_hasCustomDomain_description": "(bijv. uwwebsite.nl)",
-    "questions_hasCustomDomain_label": "Heeft u al een domein?",
-    "questions_hasHosting_description": "Geef aan of u al bestaande hosting voor uw website heeft.",
-    "questions_hasHosting_label": "Heeft u al hosting?",
-    "questions_needsAccessibility_description": "Zorg ervoor dat uw website bruikbaar is voor iedereen, ongeacht de bekwaamheid.",
-    "questions_needsAccessibility_label": "Heeft u toegankelijkheidsfuncties nodig (bijv. voor gebruikers met een beperking)?",
-    "questions_needsFullHostingCare_description": "Laat ons alle technische aspecten van hosting voor u regelen.",
-    "questions_needsFullHostingCare_label": "Wilt u dat wij de volledige hosting setup en het beheer verzorgen?",
+    "questions_existingWebsiteLink_description": "Geef een link op naar uw huidige website.",
+    "questions_existingWebsiteLink_label": "Link naar bestaande website",
+    "questions_existingWebsiteLink_placeholder": "Bijv. https://www.uwbedrijf.nl",
+    "questions_hasExistingWebsite_description": "Vertel ons of u al een website heeft, zodat we kunnen zien wat we kunnen verbeteren!",
+    "questions_hasExistingWebsite_label": "Heeft u een bestaande website?",
     "questions_needsInternationalization_description": "Stel uw website in staat om een wereldwijd publiek te bereiken.",
     "questions_needsInternationalization_label": "Heeft u meertalige ondersteuning (internationalisatie) nodig?",
-    "questions_needsSeoOptimization_description": "Verbeter uw zichtbaarheid en ranking in zoekmachines.",
-    "questions_needsSeoOptimization_label": "Heeft u SEO (Search Engine Optimization) nodig om hoger te scoren in zoekmachines?",
     "questions_projectDescription_description": "Beschrijf kort wat uw website zal doen en het hoofddoel ervan.",
     "questions_projectDescription_label": "Projectomschrijving",
     "questions_projectDescription_placeholder": "Vertel ons over uw visie op de website...",
@@ -195,9 +184,17 @@
     "navigation_testimonials": "Referenties"
   },
   "customErrors": {
+    "existingWebsiteLink_required": "Link naar bestaande website is vereist als u een bestaande website hebt."
   },
   "form": {
-  },
-  "freelance-page": {
+    "budget": "Geschat budget",
+    "desiredFeatures": "Gewenste functies",
+    "existingWebsiteLink": "Link naar bestaande website",
+    "hasExistingWebsite": "Heeft u een bestaande website?",
+    "needsInternationalization": "Heeft u meertalige ondersteuning (internationalisatie) nodig?",
+    "projectDescription": "Projectomschrijving",
+    "projectName": "Projectnaam",
+    "targetAudience": "Doelgroep",
+    "timeline": "Gewenste tijdlijn"
   }
 }

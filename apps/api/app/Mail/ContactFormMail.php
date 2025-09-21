@@ -19,7 +19,7 @@ class ContactFormMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: $this->data['subject'],
+            subject: 'New Project Inquiry: ' . $this->data['projectName'],
         );
     }
 

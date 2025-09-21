@@ -1,64 +1,46 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$-->
-<html dir="ltr" lang="en">
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-    <meta name="x-apple-disable-message-reformatting" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form Submission</title>
+    <style>
+        body { font-family: monospace; background-color: #f3f4f6; color: #1f2937; margin: 0; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; background-color: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .header { background-color: #4c1d95; color: white; padding: 20px; text-align: center; }
+        .content { padding: 20px; }
+        h1 { margin: 0; font-size: 24px; }
+        p { margin: 10px 0; }
+        strong { color: #4c1d95; }
+        pre { white-space: pre-wrap; word-wrap: break-word; background-color: #f3f4f6; padding: 10px; border-radius: 4px; }
+    </style>
 </head>
-<div style="display:none;overflow:hidden;line-height:1px;opacity:0;max-height:0;max-width:0">Contact Form: Hello<div> ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿</div>
-</div>
-
-<body style="font-family:ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;">
-<table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="border-color:rgb(76,29,149);border-radius:0.5rem;border-width:1px;border-style:solid;padding:2rem;max-width:37.5em">
-    <tbody>
-    <tr style="width:100%">
-        <td>
-            <h1 style="text-align:center">codehouse.sandercokart.com</h1>
-            <table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation">
-                <tbody>
-                <tr>
-                    <td>
-                        <h1>{{$data['subject']}}</h1>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation">
-                <tbody>
-                <tr>
-                    <td>
-                        <table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation">
-                            <tbody style="width:100%">
-                            <tr style="width:100%">
-                                <td data-id="__react-email-column">
-                                    <p style="font-size:14px;line-height:24px;margin:16px 0"><strong>Name:</strong> <!-- -->{{$data['name']}}</p>
-                                </td>
-                                <td data-id="__react-email-column">
-                                    <p style="font-size:14px;line-height:24px;margin:16px 0"><strong>Email:</strong> <!-- -->{{$data['email']}}</p>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <hr style="width:100%;border:none;border-top:1px solid #eaeaea" />
-            <table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation">
-                <tbody>
-                <tr>
-                    <td>
-                        <p style="font-size:14px;line-height:24px;margin:16px 0">
-                            {{$data['message']}}
-                        </p>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>New Project Inquiry</h1>
+        </div>
+        <div class="content">
+            <p><strong>Project Name:</strong> <pre>{{ $data['projectName'] }}</pre></p>
+            <p><strong>Project Description:</strong> <pre>{{ $data['projectDescription'] }}</pre></p>
+            @if(isset($data['targetAudience']))
+                <p><strong>Target Audience:</strong> <pre>{{ $data['targetAudience'] }}</pre></p>
+            @endif
+            @if(isset($data['desiredFeatures']))
+                <p><strong>Desired Features:</strong> <pre>{{ $data['desiredFeatures'] }}</pre></p>
+            @endif
+            @if(isset($data['budget']))
+                <p><strong>Budget:</strong> <pre>{{ $data['budget'] }}</pre></p>
+            @endif
+            @if(isset($data['timeline']))
+                <p><strong>Timeline:</strong> <pre>{{ $data['timeline'] }}</pre></p>
+            @endif
+            <p><strong>Has Existing Website:</strong> {{ $data['hasExistingWebsite'] ? 'Yes' : 'No' }}</p>
+            @if($data['hasExistingWebsite'] && isset($data['existingWebsiteLink']))
+                <p><strong>Existing Website Link:</strong> <a href="{{ $data['existingWebsiteLink'] }}" style="color: #4c1d95;">{{ $data['existingWebsiteLink'] }}</a></p>
+            @endif
+            <p><strong>Needs Internationalization:</strong> {{ $data['needsInternationalization'] ? 'Yes' : 'No' }}</p>
+        </div>
+    </div>
 </body>
-
-</html><!--/$-->
+</html>

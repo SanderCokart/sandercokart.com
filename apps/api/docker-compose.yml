@@ -7,6 +7,8 @@ services:
             - 'traefik.http.routers.api.rule=Host(`api.sandercokart.com`)'
             - 'traefik.http.routers.api.entrypoints=websecure'
             - 'traefik.http.routers.api.tls.certresolver=myresolver'
+        env_file:
+            - .env
         build:
             dockerfile: apps/api/Dockerfile
             context: ../../
