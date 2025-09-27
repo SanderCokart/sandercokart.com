@@ -196,5 +196,9 @@
     "projectName": "Projectnaam",
     "targetAudience": "Doelgroep",
     "timeline": "Gewenste tijdlijn"
+  },
+  "FormStatus": {
+    "submitting": "Verzenden...",
+    "submitted": "Verzonden"
   }
 }

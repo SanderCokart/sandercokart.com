@@ -11,7 +11,7 @@ export interface HeaderProps {
 
 export function Header({ navigation, localeSwitcher, namedLogo }: HeaderProps) {
   return (
-    <header className="bg-primary text-primary-foreground sticky top-0 z-10 flex h-11 transition-colors sm:h-16">
+    <header className="bg-primary text-primary-foreground sticky top-0 z-30 flex h-11 transition-colors sm:h-16">
       <div className="container flex h-full grow items-center justify-between">
         {namedLogo}
 

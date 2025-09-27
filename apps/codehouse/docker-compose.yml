@@ -27,9 +27,8 @@ services:
         TURBO_TEAM: $TURBO_TEAM
         SENTRY_AUTH_TOKEN: /run/secrets/SENTRY_AUTH_TOKEN
         TURBO_TOKEN: /run/secrets/TURBO_TOKEN
-        CI: disabled
 secrets:
   SENTRY_AUTH_TOKEN:
-    file: ./secrets/SENTRY_AUTH_TOKEN
+    file: ./secrets/SENTRY_AUTH_TOKEN.secret
   TURBO_TOKEN:
-    file: ./secrets/TURBO_TOKEN
+    file: ./secrets/TURBO_TOKEN.secret

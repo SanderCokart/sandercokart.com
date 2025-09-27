@@ -1,6 +1,10 @@
 # NextJS
 **.next
 
+# Laravel
+vendor
+apps/api/public/storage
+
 # Docker
 **.dockerignore
 **Dockerfile

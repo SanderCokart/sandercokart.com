@@ -196,5 +196,9 @@
     "projectName": "Project name",
     "targetAudience": "Target audience",
     "timeline": "Desired timeline"
+  },
+  "FormStatus": {
+    "submitting": "Submitting...",
+    "submitted": "Submitted"
   }
 }

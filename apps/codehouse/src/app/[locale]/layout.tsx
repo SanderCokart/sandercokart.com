@@ -13,6 +13,7 @@ import { routing } from '@/src/i18n/routing';
 import { GlobalProviders } from '@/src/providers/server.global-providers';
 
 import { Footer } from './(components)/footer';
+import { PublicEnvScript } from 'next-runtime-env';
 
 const LetsGoDigital = localFont({
   src: '../fonts/LetsGoDigital.ttf',
@@ -37,6 +38,7 @@ export default async function RootLayout({ params, children }: RootLayoutParams)
   return (
     <html suppressHydrationWarning className="scroll-smooth" lang={locale}>
       <head>
+        <PublicEnvScript />
         <meta content="dPDNIWNVFj_4vuPMESyYIF--2WitrHLfPQe2CTcz-Ok" name="google-site-verification" />
         <title>Sander's CodeHouse</title>
       </head>

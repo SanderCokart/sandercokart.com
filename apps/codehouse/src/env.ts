@@ -66,13 +66,13 @@ const server = {
   [EnvKeys.TURBO_TOKEN]: z.string().optional(),
 };
 const client = {
+  /** The API URL */
+  [EnvKeys.NEXT_PUBLIC_API_URL]: z.string().url().optional(),
   /** The app environment */
   [EnvKeys.NEXT_PUBLIC_ENV]: z.enum(['development', 'production']).default('development'),
 };
 
 const shared = {
-  /** The API URL */
-  [EnvKeys.NEXT_PUBLIC_API_URL]: z.string().url().optional().default('http://127.0.0.1:8080'),
   /** Node environment can run in development or production */
   [EnvKeys.NODE_ENV]: z.enum(['development', 'production']).default('development'),
 };

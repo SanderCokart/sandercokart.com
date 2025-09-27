@@ -1,4 +1,4 @@
-FROM node:20.18.3-alpine AS base
+FROM node:lts-alpine AS base
 
 RUN npm install -g corepack@latest
 
@@ -24,7 +24,7 @@ COPY --from=pruner /app/out/json/ .
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm fetch --frozen-lockfile --prefer-frozen-lockfile
 RUN pnpm install --offline
 
-ARG CI=disabled
+ARG CI=false
 ENV CI=$CI
 
 # Required for docker

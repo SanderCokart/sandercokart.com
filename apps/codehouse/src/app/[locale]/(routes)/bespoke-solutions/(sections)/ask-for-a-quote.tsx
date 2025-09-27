@@ -20,11 +20,11 @@ import { useTranslations } from 'next-intl';
 import { Resolver, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { FC, useState } from 'react';
-
-import type { ComponentProps } from 'react';
+import type { ComponentProps, FC } from 'react';
 
 import { env } from '@/src/env';
+
+import { FormStatus } from './components/form-status';
 
 const formSchema = z
   .object({
@@ -64,32 +64,21 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
 
   const hasExistingWebsite = form.watch('hasExistingWebsite');
 
-  const [error, setError] = useState<string | null>(null);
-  const [message, setMessage] = useState<string | null>(null);
-
   const handleSubmit = form.handleSubmit(async formData => {
     const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/v1/contact`, {
       method: 'POST',
       body: JSON.stringify(formData),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
     });
-
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
-    const data = await response.json();
-    console.log(data);
+    if (!response.ok) throw new Error('Failed to submit form');
   });
 
   return (
-    <section className={cn('container max-w-screen-md py-12', className)} {...props}>
+    <section className={cn('container relative max-w-screen-md py-12', className)} {...props}>
+      <FormStatus form={form} />
       <h2 className="mb-4 text-center text-3xl font-bold uppercase sm:text-5xl">{t('title')}</h2>
       <p className="text-muted-foreground mb-8 text-center">{t('description')}</p>
-
       <Form {...form}>
         <form
           noValidate

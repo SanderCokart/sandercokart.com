@@ -3,20 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ContactFormMail;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\Response;
 
 class ContactController extends Controller
 {
-
-    public function index()
-    {
-        return response()->json([
-            'message' => 'Contact form'
-        ]);
-    }
-    public function __invoke(Request $request): JsonResponse
+    public function __invoke(Request $request): Response
     {
         $validatedData = $request->validate([
             'projectName'               => 'required|string|min:1|max:255',
@@ -30,10 +23,8 @@ class ContactController extends Controller
             'needsInternationalization' => 'required|boolean',
         ]);
 
-        Mail::to('cokart32@gmail.com')->send(new ContactFormMail($validatedData));
+        Mail::to('anonymous@example.com')->send(new ContactFormMail($validatedData));
 
-        return response()->json([
-            'message' => 'Email sent successfully'
-        ]);
+        return response()->noContent();
     }
 }
