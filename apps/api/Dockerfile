@@ -36,3 +36,4 @@ FROM base AS production
 
 # Copy our app files as www-data (33:33)
 COPY --chown=www-data:www-data . /var/www/html
+USER www-data

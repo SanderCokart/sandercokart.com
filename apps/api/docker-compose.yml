@@ -12,7 +12,7 @@ services:
         build:
             dockerfile: apps/api/Dockerfile
             context: ../../
-            target: production
+            target: development
             args:
                 USER_ID: 1000
                 GROUP_ID: 1000
