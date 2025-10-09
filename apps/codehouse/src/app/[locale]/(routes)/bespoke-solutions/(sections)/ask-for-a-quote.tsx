@@ -68,7 +68,7 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
     const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/v1/contact`, {
       method: 'POST',
       body: JSON.stringify(formData),
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       credentials: 'include',
     });
     if (!response.ok) throw new Error('Failed to submit form');

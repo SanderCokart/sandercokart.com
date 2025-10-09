@@ -90,8 +90,8 @@ export function ServiceOfferingsSection() {
                   'grid grid-rows-[1fr,1fr,2fr,2fr,auto]',
                   'h-full bg-gradient-to-b',
                   service.color,
-                  'rounded-none transition-colors duration-1000 ease-in-out sm:rounded-lg',
-                  'has-[a:hover]:from-accent/10 has-[a:hover]:to-accent/20',
+                  'rounded-none transition-colors duration-500 ease-in-out sm:rounded-lg',
+                  'has-[a:hover]:from-primary/10 has-[a:hover]:to-primary/20 dark:has-[a:hover]:from-accent/10 dark:has-[a:hover]:to-accent/20',
                 )}>
                 <CardHeader className="grid grid-rows-subgrid">
                   <div className={`flex items-center justify-center ${service.iconColor}`}>{service.icon}</div>
@@ -102,14 +102,22 @@ export function ServiceOfferingsSection() {
                   <ul className="space-y-2">
                     {service.features.map(feature => (
                       <li key={feature} className="flex items-center gap-2">
-                        <span className="text-accent">•</span>
+                        <span className="dark:text-accent text-primary">•</span>
                         {feature}
                       </li>
                     ))}
                   </ul>
                 </CardContent>
                 <div className="flex items-center justify-center p-4">
-                  <Button asChild variant="ghost" size="lg" className="text-lg">
+                  <Button
+                    asChild
+                    variant="ghost"
+                    size="lg"
+                    className={cn(
+                      'text-lg duration-500 font-semibold',
+                      'hover:bg-primary/30 hover:text-inherit',
+                      'dark:hover:bg-accent/60 dark:hover:text-accent-foreground',
+                    )}>
                     <Link href={service.link}>{t('callToAction')}</Link>
                   </Button>
                 </div>
