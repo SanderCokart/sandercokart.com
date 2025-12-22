@@ -14,9 +14,6 @@ const nextConfig: NextConfig = {
     'import-in-the-middle',
     'require-in-the-middle',
   ],
-  eslint: {
-    ignoreDuringBuilds: env.NODE_ENV === 'production',
-  },
 };
 
 let sentryBuildOptions = {

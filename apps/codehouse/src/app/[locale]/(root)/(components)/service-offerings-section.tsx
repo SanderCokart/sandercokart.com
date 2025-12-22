@@ -75,14 +75,22 @@ export function ServiceOfferingsSection() {
       )}
       id="services">
       <article className="container px-0 sm:max-w-screen-sm sm:px-4 xl:max-w-screen-2xl">
-        <h1 className="mb-8 text-center text-5xl font-bold">{t('title')}</h1>
+        <motion.h1
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+          viewport={{ once: true }}
+          className="mb-8 text-center text-5xl font-bold"
+        >
+          {t('title')}
+        </motion.h1>
         <div className="grid gap-0 sm:gap-8 xl:grid-cols-3">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: 'easeOut', delay: index * 0.2 }}
+              transition={{ duration: 0.5, ease: 'easeOut', delay: 0.5 + index * 0.2 }}
               viewport={{ once: true }}
               className="group relative overflow-hidden">
               <Card
