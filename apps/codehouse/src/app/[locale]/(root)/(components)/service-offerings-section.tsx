@@ -27,6 +27,7 @@ export function ServiceOfferingsSection() {
       color: 'from-purple-500/10 to-purple-500/20',
       iconColor: 'text-purple-500',
       link: '/freelance',
+      comingSoon: true,
     },
     {
       icon: <FaDatabase className="h-16 w-16" />,
@@ -42,6 +43,7 @@ export function ServiceOfferingsSection() {
       color: 'from-blue-500/10 to-blue-500/20',
       iconColor: 'text-blue-500',
       link: '/web-application-development',
+      comingSoon: true,
     },
     {
       icon: <FaGlobe className="h-16 w-16" />,
@@ -57,6 +59,7 @@ export function ServiceOfferingsSection() {
       color: 'from-green-500/10 to-green-500/20',
       iconColor: 'text-green-500',
       link: '/bespoke-solutions',
+      comingSoon: false,
     },
 
   ];
@@ -101,6 +104,7 @@ export function ServiceOfferingsSection() {
                   service.color,
                   'rounded-none transition-colors duration-500 ease-in-out sm:rounded-lg',
                   'has-[a:hover]:from-primary/10 has-[a:hover]:to-primary/20 dark:has-[a:hover]:from-accent/10 dark:has-[a:hover]:to-accent/20',
+                  service.comingSoon && 'blur-[2px] brightness-75',
                 )}>
                 <CardHeader className="grid grid-rows-subgrid">
                   <div className={`flex items-center justify-center ${service.iconColor}`}>{service.icon}</div>
@@ -119,18 +123,33 @@ export function ServiceOfferingsSection() {
                 </CardContent>
                 <div className="flex items-center justify-center p-4">
                   <Button
-                    asChild
+                    asChild={!service.comingSoon}
                     variant="ghost"
                     size="lg"
+                    disabled={service.comingSoon}
                     className={cn(
                       'text-lg duration-500 font-semibold',
                       'hover:bg-primary/30 hover:text-inherit',
                       'dark:hover:bg-accent/60 dark:hover:text-accent-foreground',
+                      service.comingSoon && 'cursor-not-allowed',
                     )}>
-                    <Link href={service.link}>{t('callToAction')}</Link>
+                    {service.comingSoon ? (
+                      <span>{t('callToAction')}</span>
+                    ) : (
+                      <Link href={service.link}>{t('callToAction')}</Link>
+                    )}
                   </Button>
                 </div>
               </Card>
+              {service.comingSoon && (
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <span
+                    className="text-black dark:text-white font-digital tracking-widest text-6xl transform rotate-45 drop-shadow-[2px_2px_10px_rgba(0,0,0,1)]"
+                  >
+                    COMING SOON...
+                  </span>
+                </div>
+              )}
             </motion.div>
           ))}
         </div>
