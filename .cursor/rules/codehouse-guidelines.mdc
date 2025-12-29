@@ -14,17 +14,17 @@ alwaysApply: true
 - **Accessible:** Designed for users with disabilities.
 
 **Main Service Categories & Their Value Proposition:**
-- **Simple Websites (Bespoke Solutions):** Focus on crafting visually stunning, fast-loading static websites for unique and blazing-fast online presence.
+- **Personal Websites (Bespoke Solutions):** Focus on crafting visually stunning, fast-loading personal websites for unique and blazing-fast online presence.
 - **Freelance Development:** Offering expertise in modern web technologies for successful and efficient projects.
-- **Custom Software Solutions (Web Application Development):** Creating scalable, secure, and tailored full-stack business solutions, from database design to complex applications.
+- **Business Solutions (Web Application Development):** Creating scalable, secure, and tailored digital systems for commercial needs, such as customer portals, inventory management, and internal dashboards.
 
 ## Page Structure:
 
 The `codehouse` application is organized with the following key routes and their corresponding content areas:
 - `/` (Home Page): Introduces the services, showcases a portfolio, and includes a contact form.
-- `/bespoke-solutions`: Details the "Simple Websites" offering with its specific features.
+- `/bespoke-solutions`: Details the "Personal Websites" offering with its specific features.
 - `/freelance`: Describes the "Freelance Development" services and expertise.
-- `/web-application-development`: Outlines the "Custom Software Solutions" including database and API development.
+- `/web-application-development`: Outlines the "Business Solutions" including customer portals and management systems.
 - Additionally, there are sections for `footer`, `form` elements, `navigation`, and a `not-found-page` for error handling.
 
 **Internationalization:** The application supports multiple locales, currently English (`en`) and Dutch (`nl`), managed through `next-intl` with translation keys defined in `messages/{locale}.json` files (e.g., `messages/en.json`).

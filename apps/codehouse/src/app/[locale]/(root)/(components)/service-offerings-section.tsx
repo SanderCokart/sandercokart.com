@@ -24,8 +24,8 @@ export function ServiceOfferingsSection() {
         t('freelance_features_team'),
         t('freelance_features_onboarding'),
       ],
-      color: 'from-blue-500/10 to-blue-500/20',
-      iconColor: 'text-blue-500',
+      color: 'from-purple-500/10 to-purple-500/20',
+      iconColor: 'text-purple-500',
       link: '/freelance',
     },
     {
@@ -39,8 +39,8 @@ export function ServiceOfferingsSection() {
         t('custom_features_cloud'),
         t('custom_features_security'),
       ],
-      color: 'from-purple-500/10 to-purple-500/20',
-      iconColor: 'text-purple-500',
+      color: 'from-blue-500/10 to-blue-500/20',
+      iconColor: 'text-blue-500',
       link: '/web-application-development',
     },
     {
@@ -51,13 +51,14 @@ export function ServiceOfferingsSection() {
         t('marketing_features_design'),
         t('marketing_features_i18n'),
         t('marketing_features_performance'),
-        t('marketing_features_cms'),
         t('marketing_features_mobile'),
+        t('marketing_features_cms'),
       ],
-      color: 'from-yellow-500/10 to-yellow-500/20',
-      iconColor: 'text-yellow-500',
+      color: 'from-green-500/10 to-green-500/20',
+      iconColor: 'text-green-500',
       link: '/bespoke-solutions',
     },
+
   ];
 
   /**
