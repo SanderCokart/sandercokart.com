@@ -128,10 +128,6 @@
   "GenericTestimonialsSection": {
     "title": "Testimonials"
   },
-  "Header": {
-    "NamedLogo_name": "Sander's Codehouse",
-    "NamedLogo_slogan": "Let's code..."
-  },
   "NotFoundPage": {
     "back-to-front": "Go back to the front page",
     "message": "This page does not exist."

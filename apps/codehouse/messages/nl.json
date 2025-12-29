@@ -128,10 +128,6 @@
   "GenericTestimonialsSection": {
     "title": "Referenties"
   },
-  "Header": {
-    "NamedLogo_name": "Sander's Codehouse",
-    "NamedLogo_slogan": "Laten we coderen..."
-  },
   "NotFoundPage": {
     "back-to-front": "Ga terug naar de voorpagina",
     "message": "Deze pagina bestaat niet."
