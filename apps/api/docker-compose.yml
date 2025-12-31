@@ -1,12 +1,12 @@
 services:
     api:
         tty: true
-        image: api:latest
+        image: 'api:latest'
         labels:
-            - 'traefik.enable=true'
-            - 'traefik.http.routers.api.rule=Host(`api.sandercokart.com`)'
-            - 'traefik.http.routers.api.entrypoints=websecure'
-            - 'traefik.http.routers.api.tls.certresolver=myresolver'
+            - traefik.enable=true
+            - traefik.http.routers.api.rule=Host(`api.sandercokart.com`)
+            - traefik.http.routers.api.entrypoints=websecure
+            - traefik.http.routers.api.tls.certresolver=myresolver
         env_file:
             - .env
         build:
@@ -18,7 +18,7 @@ services:
                 GROUP_ID: 1000
         restart: unless-stopped
         volumes:
-            - .:/var/www/html
+            - '.:/var/www/html'
         depends_on:
             - db
             - redis
@@ -26,9 +26,12 @@ services:
             AUTORUN_ENABLED: false
     redis:
         restart: unless-stopped
-        image: redis:alpine
+        image: 'redis:alpine'
         healthcheck:
-            test: ["CMD", "redis-cli", "ping"]
+            test:
+                - CMD
+                - redis-cli
+                - ping
             interval: 30s
             timeout: 10s
             retries: 3
@@ -38,18 +41,41 @@ services:
             - MARIADB_ROOT_PASSWORD
             - MARIADB_USER
         restart: unless-stopped
-        image: mariadb:latest
+        image: 'mariadb:11'
+        ports:
+            - '${FORWARD_DB_PORT:-3306}:3306'
         environment:
-            MARIADB_ROOT_PASSWORD_FILE: /run/secrets/MARIADB_ROOT_PASSWORD
-            MARIADB_DATABASE: primary
-            MARIADB_USER_FILE: /run/secrets/MARIADB_USER
-            MARIADB_PASSWORD_FILE: /run/secrets/MARIADB_PASSWORD
+            MYSQL_ROOT_PASSWORD_FILE: /run/secrets/MARIADB_ROOT_PASSWORD
+            MYSQL_ROOT_HOST: '%'
+            MYSQL_DATABASE: primary
+            MYSQL_USER_FILE: /run/secrets/MARIADB_USER
+            MYSQL_PASSWORD_FILE: /run/secrets/MARIADB_PASSWORD
+        volumes:
+            - 'sail-mariadb:/var/lib/mysql'
+            - './vendor/laravel/sail/database/mariadb/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
+        healthcheck:
+            test:
+                - CMD
+                - healthcheck.sh
+                - '--connect'
+                - '--innodb_initialized'
+            retries: 3
+            timeout: 5s
     mailpit:
         restart: unless-stopped
-        image: axllent/mailpit:latest
+        image: 'axllent/mailpit:latest'
         ports:
-            - 1025:1025
-            - 8025:8025
+            - '1025:1025'
+            - '8025:8025'
+    laravel.test:
+        build:
+            args:
+                MYSQL_CLIENT: mariadb-client
+        depends_on:
+            - db
+            - redis
+            - mailpit
+            
 secrets:
     MARIADB_PASSWORD:
         file: ./secrets/mariadb_password
@@ -57,3 +83,9 @@ secrets:
         file: ./secrets/mariadb_root_password
     MARIADB_USER:
         file: ./secrets/mariadb_user
+volumes:
+    sail-mariadb:
+        driver: local
+    sail-redis:
+        driver: local
+
