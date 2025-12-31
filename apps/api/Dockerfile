@@ -3,6 +3,9 @@
 ############################################
 FROM serversideup/php:8.5-fpm-nginx-alpine AS base
 
+# Install PHP extensions
+RUN install-php-extensions redis
+
 ############################################
 # Development Image
 ############################################
