@@ -27,6 +27,8 @@ services:
     redis:
         restart: unless-stopped
         image: 'redis:alpine'
+        environment:
+            - REDIS_PASSWORD=${REDIS_PASSWORD}
         healthcheck:
             test:
                 - CMD
@@ -47,11 +49,14 @@ services:
         ports:
             - '${FORWARD_DB_PORT:-3306}:3306'
         environment:
-            MYSQL_ROOT_PASSWORD_FILE: /run/secrets/MARIADB_ROOT_PASSWORD
-            MYSQL_ROOT_HOST: '%'
-            MYSQL_DATABASE: primary
-            MYSQL_USER_FILE: /run/secrets/MARIADB_USER
-            MYSQL_PASSWORD_FILE: /run/secrets/MARIADB_PASSWORD
+            # MARIADB_ROOT_PASSWORD_FILE: /run/secrets/MARIADB_ROOT_PASSWORD
+            MARIADB_ROOT_HOST: '%'
+            MARIADB_DATABASE: '${DB_DATABASE}'
+            MARIADB_ROOT_PASSWORD: '${DB_ROOT_PASSWORD}'
+            MARIADB_USER: '${DB_USERNAME}'
+            MARIADB_PASSWORD: '${DB_PASSWORD}'
+            # MARIADB_USER_FILE: /run/secrets/MARIADB_USER
+            # MARIADB_PASSWORD_FILE: /run/secrets/MARIADB_PASSWORD
         volumes:
             - 'sail-mariadb:/var/lib/mysql'
             - './vendor/laravel/sail/database/mariadb/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
