@@ -12,7 +12,7 @@ export const BespokeWhyChooseSection: FC<ComponentProps<'section'>> = ({ classNa
       <h2 className="mb-8 text-center text-3xl font-bold uppercase sm:text-5xl">{t('title')}</h2>
       <p className="mb-8 text-balance text-center">
         {t.rich('description', {
-          highlight: (chunks: string) => <span className="text-primary dark:text-accent font-medium">{chunks}</span>,
+          highlight: chunks => <span className="text-primary dark:text-accent font-medium">{chunks}</span>,
         })}
       </p>
       <div className="grid gap-8 md:grid-cols-2">

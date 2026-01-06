@@ -30,9 +30,9 @@ const fontMono = Geist_Mono({
   variable: '--font-mono',
 });
 
-type RootLayoutParams = { children: ReactNode; params: Promise<{ locale: LocaleCode }> };
+type RootLayoutParams = { children: ReactNode; params: Promise<{ locale: string }> };
 export default async function RootLayout({ params, children }: RootLayoutParams) {
-  const { locale } = await params;
+  const { locale } = (await params) as { locale: LocaleCode };
   setRequestLocale(locale);
 
   return (
@@ -52,6 +52,7 @@ export default async function RootLayout({ params, children }: RootLayoutParams)
           'mb-14 md:mb-0', //this is to account for mobile navigation @see <Navigation />
         )}>
         <GlobalProviders>
+          <div className="bg-red-500 p-2 text-center text-white">DEMO: {process.env.DEMO}</div>
           {children}
           <Footer />
         </GlobalProviders>

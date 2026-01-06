@@ -179,9 +179,6 @@
     "navigation_tech-stack": "Tech Stack",
     "navigation_testimonials": "Referenties"
   },
-  "customErrors": {
-    "existingWebsiteLink_required": "Link naar bestaande website is vereist als u een bestaande website hebt."
-  },
   "form": {
     "budget": "Geschat budget",
     "desiredFeatures": "Gewenste functies",
@@ -196,5 +193,36 @@
   "FormStatus": {
     "submitting": "Verzenden...",
     "submitted": "Verzonden"
+  },
+  "zod": {
+    "errors": {
+      "invalid": "{name} is ongeldig",
+      "required": "{name} is verplicht",
+      "invalid_literal": "{name} moet {expected} zijn",
+      "invalid_date": "{name} is geen geldige datum",
+      "invalid_enum_value": "{name} is ongeldig",
+      "invalid_string": {
+        "email": "{name} moet een geldig e-mailadres zijn",
+        "url": "{name} moet een geldige URL zijn",
+        "uuid": "{name} moet een geldige UUID zijn",
+        "regex": "{name} is ongeldig"
+      },
+      "too_small": {
+        "string": "{name} moet minimaal {min} tekens bevatten",
+        "number": "{name} moet minimaal {min} zijn",
+        "array": "{name} moet minimaal {min} items bevatten"
+      },
+      "too_big": {
+        "string": "{name} mag maximaal {max} tekens bevatten",
+        "number": "{name} mag maximaal {max} zijn",
+        "array": "{name} mag maximaal {max} items bevatten"
+      },
+      "not_multiple_of": "{name} moet een veelvoud zijn van {multipleOf}",
+      "not_finite": "{name} moet een eindig getal zijn",
+      "unrecognized_keys": "{name} bevat onbekende sleutels: {keys}",
+      "invalid_union": "{name} is ongeldig",
+      "invalid_intersection_types": "{name} kruisingsresultaten konden niet worden samengevoegd"
+    },
+    "custom": {}
   }
 }

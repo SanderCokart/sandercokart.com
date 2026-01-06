@@ -4,12 +4,10 @@ import { notFound } from 'next/navigation';
 
 export default async function CatchAllPage(props: {
   params: Promise<{
-    locale: 'en' | 'nl';
+    locale: string;
   }>;
 }) {
-  const params = await props.params;
-
-  const { locale } = params;
+  const { locale } = (await props.params) as { locale: 'en' | 'nl' };
 
   setRequestLocale(locale);
   notFound();

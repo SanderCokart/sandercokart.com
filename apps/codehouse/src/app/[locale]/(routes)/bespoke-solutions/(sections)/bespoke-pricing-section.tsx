@@ -82,7 +82,7 @@ export const BespokePricingSection: FC<ComponentProps<'section'>> = ({ className
                   disabled={totalPrice + (featureCosts[feature] || 0) > maxPrice && !selectedFeatures[feature]} // Add nullish coalescing
                 />
                 <Label htmlFor={feature}>
-                  {t(`calculator_features_${feature}`)} ({formatCurrency(featureCosts[feature] || 0)})
+                  {t(`calculator_features_${feature}` as any)} ({formatCurrency(featureCosts[feature] || 0)})
                 </Label>
               </div>
             ))}

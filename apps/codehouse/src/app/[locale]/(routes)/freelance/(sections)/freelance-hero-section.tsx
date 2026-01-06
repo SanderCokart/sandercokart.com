@@ -9,7 +9,7 @@ export const FreelanceHeroSection: FC<ComponentProps<'section'>> = ({ className,
     <section className={cn('min-h-[calc(100dvh-theme(spacing.11))] sm:min-h-[calc(100dvh-theme(spacing.16))]', 'grid place-items-center', className)} id="hero" {...props}>
       <h1 className="text-center text-3xl font-bold uppercase sm:text-5xl">
         {t.rich('title', {
-          highlight: (chunks) => <span className="text-accent">{chunks}</span>,
+          highlight: chunks => <span className="text-accent">{chunks}</span>,
         })}
       </h1>
       <p className="text-balance text-center text-lg text-muted-foreground sm:text-xl">

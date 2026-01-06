@@ -13,9 +13,7 @@
     "./components/*": "./src/components/*.tsx",
     "./config": "./src/config.ts",
     "./messages/*": "./src/messages/*.json",
-    "./providers/*": "./src/providers/*.tsx",
-    "./request": "./src/request.ts",
-    "./zod": "./src/zod.ts"
+    "./request": "./src/request.ts"
   },
   "dependencies": {
     "next": "15.2.2",

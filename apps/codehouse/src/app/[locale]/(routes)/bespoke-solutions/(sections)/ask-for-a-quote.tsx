@@ -26,29 +26,32 @@ import { env } from '@/src/env';
 
 import { FormStatus } from './components/form-status';
 
-const formSchema = z
-  .object({
-    projectName: z.string().min(1),
-    projectDescription: z.string().min(1),
-    targetAudience: z.string().optional(),
-    desiredFeatures: z.string().optional(),
-    budget: z.string().optional(),
-    timeline: z.string().optional(),
-    hasExistingWebsite: z.boolean().default(false),
-    existingWebsiteLink: z.string().optional(),
-    needsInternationalization: z.boolean().default(false),
-  })
-  .refine(data => !data.hasExistingWebsite || !!data.existingWebsiteLink, {
-    params: { i18n: 'existingWebsiteLink_required' },
-  });
-
-type AskForAQuoteFormValues = z.infer<typeof formSchema>;
-
 export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
   const t = useTranslations('AskForAQuote');
+  const tZod = useTranslations('zod');
+  const tForm = useTranslations('form');
+
+  const formSchema = z
+    .object({
+      projectName: z.string().min(1, tZod('errors.required', { name: tForm('projectName') })),
+      projectDescription: z.string().min(1, tZod('errors.required', { name: tForm('projectDescription') })),
+      targetAudience: z.string(),
+      desiredFeatures: z.string(),
+      budget: z.string(),
+      timeline: z.string(),
+      hasExistingWebsite: z.boolean(),
+      existingWebsiteLink: z.string(),
+      needsInternationalization: z.boolean(),
+    })
+    .refine(data => Boolean(!data.hasExistingWebsite || data.existingWebsiteLink), {
+      message: tZod('errors.required', { name: tForm('existingWebsiteLink') }),
+      path: ['existingWebsiteLink'],
+    });
+
+  type AskForAQuoteFormValues = z.infer<typeof formSchema>;
 
   const form = useForm<AskForAQuoteFormValues>({
-    resolver: zodResolver(formSchema) as Resolver<AskForAQuoteFormValues>,
+    resolver: zodResolver(formSchema),
     defaultValues: {
       projectName: '',
       projectDescription: '',

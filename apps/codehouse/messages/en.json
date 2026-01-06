@@ -179,9 +179,6 @@
     "navigation_tech-stack": "Tech Stack",
     "navigation_testimonials": "Testimonials"
   },
-  "customErrors": {
-    "existingWebsiteLink_required": "Link to existing website is required if you have an existing website."
-  },
   "form": {
     "budget": "Estimated budget",
     "desiredFeatures": "Desired features",
@@ -196,5 +193,36 @@
   "FormStatus": {
     "submitting": "Submitting...",
     "submitted": "Submitted"
+  },
+  "zod": {
+    "errors": {
+      "invalid": "{name} is invalid",
+      "required": "{name} is required",
+      "invalid_literal": "{name} must be {expected}",
+      "invalid_date": "{name} is not a valid date",
+      "invalid_enum_value": "{name} is invalid",
+      "invalid_string": {
+        "email": "{name} must be a valid email",
+        "url": "{name} must be a valid URL",
+        "uuid": "{name} must be a valid UUID",
+        "regex": "{name} is invalid"
+      },
+      "too_small": {
+        "string": "{name} must be at least {min} characters",
+        "number": "{name} must be at least {min}",
+        "array": "{name} must have at least {min} items"
+      },
+      "too_big": {
+        "string": "{name} must be at most {max} characters",
+        "number": "{name} must be at most {max}",
+        "array": "{name} must have at most {max} items"
+      },
+      "not_multiple_of": "{name} must be a multiple of {multipleOf}",
+      "not_finite": "{name} must be a finite number",
+      "unrecognized_keys": "{name} contains unknown keys: {keys}",
+      "invalid_union": "{name} is invalid",
+      "invalid_intersection_types": "{name} intersection results could not be merged"
+    },
+    "custom": {}
   }
 }

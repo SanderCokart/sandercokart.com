@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
-import { useMemo } from 'react';
+import { type ReactNode, useMemo } from 'react';
 import Image from 'next/image';
 
 import LogoINV from '@/public/static/images/logo/Logo-INV.png';
@@ -59,56 +59,72 @@ export function BespokeHeroSection() {
         icon: ZapIcon,
         label: t('features_performant_label'),
         description: t.rich('features_performant_description', {
-          highlight: (chunks: string) => <strong className="dark:text-accent text-primary">{chunks}</strong>,
+          highlight: chunks => (
+            <strong className="dark:text-accent text-primary">{chunks}</strong>
+          ),
         }),
       },
       {
         icon: ServerIcon,
         label: t('features_hosting_label'),
         description: t.rich('features_hosting_description', {
-          highlight: (chunks: string) => <strong className="dark:text-accent text-primary">{chunks}</strong>,
+          highlight: chunks => (
+            <strong className="dark:text-accent text-primary">{chunks}</strong>
+          ),
         }),
       },
       {
         icon: GlobeIcon,
         label: t('features_internationalization_label'),
         description: t.rich('features_internationalization_description', {
-          highlight: (chunks: string) => <strong className="dark:text-accent text-primary">{chunks}</strong>,
+          highlight: chunks => (
+            <strong className="dark:text-accent text-primary">{chunks}</strong>
+          ),
         }),
       },
       {
         icon: TabletSmartphoneIcon,
         label: t('features_mobileFriendly_label'),
         description: t.rich('features_mobileFriendly_description', {
-          highlight: (chunks: string) => <strong className="dark:text-accent text-primary">{chunks}</strong>,
+          highlight: chunks => (
+            <strong className="dark:text-accent text-primary">{chunks}</strong>
+          ),
         }),
       },
       {
         icon: PaintbrushIcon,
         label: t('features_uniqueDesign_label'),
         description: t.rich('features_uniqueDesign_description', {
-          highlight: (chunks: string) => <strong className="dark:text-accent text-primary">{chunks}</strong>,
+          highlight: chunks => (
+            <strong className="dark:text-accent text-primary">{chunks}</strong>
+          ),
         }),
       },
       {
         icon: RefreshCcwDotIcon,
         label: t('features_iterativeDevelopment_label'),
         description: t.rich('features_iterativeDevelopment_description', {
-          highlight: (chunks: string) => <strong className="dark:text-accent text-primary">{chunks}</strong>,
+          highlight: chunks => (
+            <strong className="dark:text-accent text-primary">{chunks}</strong>
+          ),
         }),
       },
       {
         icon: SettingsIcon,
         label: t('features_customizable_label'),
         description: t.rich('features_customizable_description', {
-          highlight: (chunks: string) => <strong className="dark:text-accent text-primary">{chunks}</strong>,
+          highlight: chunks => (
+            <strong className="dark:text-accent text-primary">{chunks}</strong>
+          ),
         }),
       },
       {
         icon: AccessibilityIcon,
         label: t('features_accessible_label'),
         description: t.rich('features_accessible_description', {
-          highlight: (chunks: string) => <strong className="dark:text-accent text-primary">{chunks}</strong>,
+          highlight: chunks => (
+            <strong className="dark:text-accent text-primary">{chunks}</strong>
+          ),
         }),
       },
     ],
@@ -129,7 +145,9 @@ export function BespokeHeroSection() {
 
         <h2 className="text-balance text-center text-3xl font-bold uppercase sm:text-5xl">
           {t.rich('title', {
-            highlight: (chunks: string) => <span className="text-accent">{chunks}</span>,
+            highlight: chunks => (
+              <span className="text-accent">{chunks}</span>
+            ),
           })}
         </h2>
 
