@@ -9,12 +9,6 @@ services:
     deploy:
       replicas: 1
     restart: unless-stopped
-    environment:
-      DEMO: ABC
-    secrets:
-      - SENTRY_AUTH_TOKEN
-      - TURBO_TOKEN
-      - DEMO
     env_file:
       - .env
     build:
@@ -28,12 +22,8 @@ services:
         NEXT_PUBLIC_ENV: $NEXT_PUBLIC_ENV
         SENTRY_ENABLED: $SENTRY_ENABLED
         TURBO_TEAM: $TURBO_TEAM
-        SENTRY_AUTH_TOKEN: /run/secrets/SENTRY_AUTH_TOKEN
-        TURBO_TOKEN: /run/secrets/TURBO_TOKEN
 secrets:
   SENTRY_AUTH_TOKEN:
     file: ./secrets/SENTRY_AUTH_TOKEN.secret
   TURBO_TOKEN:
     file: ./secrets/TURBO_TOKEN.secret
-  DEMO:
-    file: ./secrets/DEMO.secret

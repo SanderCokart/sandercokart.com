@@ -42,11 +42,10 @@ ENV SENTRY_ENABLED=$SENTRY_ENABLED
 ARG TURBO_TEAM
 ENV TURBO_TEAM=$TURBO_TEAM
 
-RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN SENTRY_AUTH_TOKEN=$(cat /run/secrets/SENTRY_AUTH_TOKEN)
-RUN --mount=type=secret,id=TURBO_TOKEN TURBO_TOKEN=$(cat /run/secrets/TURBO_TOKEN)
-
 COPY --from=pruner /app/out/pnpm-lock.yaml /app/out/full/ ./
-RUN pnpm dlx turbo build
+RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN --mount=type=secret,id=TURBO_TOKEN \
+	export SENTRY_AUTH_TOKEN="$(cat /run/secrets/SENTRY_AUTH_TOKEN)" TURBO_TOKEN="$(cat /run/secrets/TURBO_TOKEN)" && \
+	pnpm dlx turbo build
 
 FROM base AS runner
 WORKDIR /app

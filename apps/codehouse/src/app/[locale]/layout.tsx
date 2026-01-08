@@ -52,7 +52,6 @@ export default async function RootLayout({ params, children }: RootLayoutParams)
           'mb-14 md:mb-0', //this is to account for mobile navigation @see <Navigation />
         )}>
         <GlobalProviders>
-          <div className="bg-red-500 p-2 text-center text-white">DEMO: {process.env.DEMO}</div>
           {children}
           <Footer />
         </GlobalProviders>

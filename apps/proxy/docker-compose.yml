@@ -1,23 +1,33 @@
 services:
   proxy:
     image: traefik:latest
-    command:
-      #- "--api.insecure=true"
-      - "--certificatesresolvers.myresolver.acme.email=${TRAEFIK_ACME_EMAIL}"
-      - "--certificatesresolvers.myresolver.acme.storage=/certificates/acme.json"
-      - "--certificatesresolvers.myresolver.acme.dnschallenge=true"
-      - "--certificatesresolvers.myresolver.acme.dnschallenge.provider=cloudflare"
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
-      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
-      - "--entrypoints.websecure.address=:443"
-      - "--providers.docker.exposedbydefault=false"
-      - "--providers.docker=true"
     environment:
-      - CF_API_EMAIL=${TRAEFIK_ACME_EMAIL}
-      - CF_DNS_API_TOKEN=/run/secrets/CF_API_TOKEN
+      - CF_API_EMAIL_FILE=/run/secrets/CF_API_EMAIL
+      - CF_DNS_API_TOKEN_FILE=/run/secrets/CF_DNS_API_TOKEN
+      - TRAEFIK_API_DASHBOARD=true
+      - TRAEFIK_CERTIFICATESRESOLVERS_MYRESOLVER_ACME_DNSCHALLENGE_PROVIDER=cloudflare
+      - TRAEFIK_CERTIFICATESRESOLVERS_MYRESOLVER_ACME_DNSCHALLENGE=true
+      - TRAEFIK_CERTIFICATESRESOLVERS_MYRESOLVER_ACME_EMAIL_FILE=/run/secrets/TRAEFIK_ACME_EMAIL
+      - TRAEFIK_CERTIFICATESRESOLVERS_MYRESOLVER_ACME_STORAGE=/certificates/acme.json
+      - TRAEFIK_ENTRYPOINTS_WEB_ADDRESS=:80
+      - TRAEFIK_ENTRYPOINTS_WEB_HTTP_REDIRECTIONS_ENTRYPOINT_SCHEME=https
+      - TRAEFIK_ENTRYPOINTS_WEB_HTTP_REDIRECTIONS_ENTRYPOINT_TO=websecure
+      - TRAEFIK_ENTRYPOINTS_WEBSECURE_ADDRESS=:443
+      - TRAEFIK_PROVIDERS_DOCKER_EXPOSEDBYDEFAULT=false
+      - TRAEFIK_PROVIDERS_DOCKER=true
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.auth.basicauth.usersfile=/run/secrets/DASHBOARD_CREDENTIALS"
+      - "traefik.http.routers.dashboard.entrypoints=websecure"
+      - "traefik.http.routers.dashboard.middlewares=auth"
+      - "traefik.http.routers.dashboard.rule=Host(`traefik.sandercokart.com`)"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.routers.dashboard.tls.certresolver=myresolver"
     secrets:
-      - CF_API_TOKEN
+      - CF_API_EMAIL
+      - CF_DNS_API_TOKEN
+      - DASHBOARD_CREDENTIALS
+      - TRAEFIK_ACME_EMAIL
     ports:
       # The HTTP port
       - "80:80"
@@ -31,8 +41,14 @@ services:
       - "certificates:/certificates"
 
 secrets:
-  CF_API_TOKEN:
-    file: ./secrets/CF_API_TOKEN
+  CF_DNS_API_TOKEN:
+    file: ./secrets/CF_DNS_API_TOKEN.secret
+  TRAEFIK_ACME_EMAIL:
+    file: ./secrets/TRAEFIK_ACME_EMAIL.secret
+  CF_API_EMAIL:
+    file: ./secrets/CF_API_EMAIL.secret
+  DASHBOARD_CREDENTIALS:
+    file: ./secrets/DASHBOARD_CREDENTIALS.secret
 
 volumes:
   certificates:

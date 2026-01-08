@@ -24,6 +24,8 @@ services:
             - redis
         environment:
             AUTORUN_ENABLED: false
+        secrets:
+            - APP_KEY
     redis:
         restart: unless-stopped
         image: 'redis:alpine'
@@ -49,14 +51,11 @@ services:
         ports:
             - '${FORWARD_DB_PORT:-3306}:3306'
         environment:
-            # MARIADB_ROOT_PASSWORD_FILE: /run/secrets/MARIADB_ROOT_PASSWORD
             MARIADB_ROOT_HOST: '%'
             MARIADB_DATABASE: '${DB_DATABASE}'
-            MARIADB_ROOT_PASSWORD: '${DB_ROOT_PASSWORD}'
-            MARIADB_USER: '${DB_USERNAME}'
-            MARIADB_PASSWORD: '${DB_PASSWORD}'
-            # MARIADB_USER_FILE: /run/secrets/MARIADB_USER
-            # MARIADB_PASSWORD_FILE: /run/secrets/MARIADB_PASSWORD
+            MARIADB_ROOT_PASSWORD_FILE: /run/secrets/MARIADB_ROOT_PASSWORD
+            MARIADB_USER_FILE: /run/secrets/MARIADB_USER
+            MARIADB_PASSWORD_FILE: /run/secrets/MARIADB_PASSWORD
         volumes:
             - 'sail-mariadb:/var/lib/mysql'
             - './vendor/laravel/sail/database/mariadb/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
@@ -85,11 +84,15 @@ services:
             
 secrets:
     MARIADB_PASSWORD:
-        file: ./secrets/mariadb_password
+        file: ./secrets/MARIADB_PASSWORD.secret
     MARIADB_ROOT_PASSWORD:
-        file: ./secrets/mariadb_root_password
+        file: ./secrets/MARIADB_ROOT_PASSWORD.secret
     MARIADB_USER:
-        file: ./secrets/mariadb_user
+        file: ./secrets/MARIADB_USER.secret
+    APP_KEY:
+        file: ./secrets/APP_KEY.secret
+    REDIS_PASSWORD:
+        file: ./secrets/REDIS_PASSWORD.secret
 volumes:
     sail-mariadb:
         driver: local
