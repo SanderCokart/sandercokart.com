@@ -184,10 +184,17 @@ edit_secret() {
         echo -e "${DIM}If you want a custom username, enter 'user:password'.${RESET}"
     fi
 
-    printf "${YELLOW}  ? ${RESET}New value ${DIM}(current: ${current_val:-'UNSET'}, 'c' to cancel)${RESET}: "
+    printf "${YELLOW}  ? ${RESET}New value ${DIM}(current: ${current_val:-'UNSET'}, 'c' to cancel, 'u' to unset)${RESET}: "
     read new_val
     
     [[ "$new_val" == "c" ]] && return
+
+    if [[ "$new_val" == "u" ]]; then
+        rm -f "$path"
+        log_success "Unset $name"
+        sleep 1
+        return
+    fi
 
     if [[ "$name" == "DASHBOARD_CREDENTIALS.secret" && -n "$new_val" ]]; then
         if [[ "$new_val" != *":"* ]]; then
@@ -216,7 +223,8 @@ edit_secret() {
     if [ -n "$final_val" ]; then
         mkdir -p "$(dirname "$path")"
         echo -n "$final_val" > "$path"
-        chmod 600 "$path"
+        chmod 400 "$path"
+        chown www-data:www-data "$path"
         log_success "Saved $name"
     else
         log_warn "No value set."
