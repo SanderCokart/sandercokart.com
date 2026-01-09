@@ -11,6 +11,8 @@ RUN install-php-extensions redis
 ############################################
 FROM base AS development
 
+# Copy entrypoint script
+COPY --chmod=755 apps/api/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
 # We can pass USER_ID and GROUP_ID as build arguments
 # to ensure the www-data user has the same UID and GID
@@ -24,6 +26,9 @@ RUN docker-php-serversideup-set-id www-data $USER_ID:$GROUP_ID  && \
     docker-php-serversideup-set-file-permissions --owner $USER_ID:$GROUP_ID --service nginx
 USER www-data
 
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+CMD ["php-fpm"]
+
 ############################################
 # Production Image
 ############################################
@@ -32,6 +37,12 @@ USER www-data
 # calling any of that permission stuff
 FROM base AS production
 
+# Copy entrypoint script
+COPY --chmod=755 apps/api/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+
 # Copy our app files as www-data (33:33)
 COPY --chown=www-data:www-data . /var/www/html
 USER www-data
+
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+CMD ["php-fpm"]
