@@ -78,14 +78,6 @@ services:
         ports:
             - '1025:1025'
             - '8025:8025'
-    laravel.test:
-        build:
-            args:
-                MYSQL_CLIENT: mariadb-client
-        depends_on:
-            - db
-            - redis
-            - mailpit
             
 secrets:
     MARIADB_PASSWORD:
