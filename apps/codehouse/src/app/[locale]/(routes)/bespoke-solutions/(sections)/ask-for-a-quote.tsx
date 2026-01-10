@@ -33,6 +33,9 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
 
   const formSchema = z
     .object({
+      name: z.string().min(1, tZod('errors.required', { name: tForm('name') })),
+      email: z.string().min(1, tZod('errors.required', { name: tForm('email') })).email(tZod('errors.invalid_string.email', { name: tForm('email') })),
+      phone: z.string().optional(),
       projectName: z.string().min(1, tZod('errors.required', { name: tForm('projectName') })),
       projectDescription: z.string().min(1, tZod('errors.required', { name: tForm('projectDescription') })),
       targetAudience: z.string(),
@@ -53,6 +56,9 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
   const form = useForm<AskForAQuoteFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      name: '',
+      email: '',
+      phone: '',
       projectName: '',
       projectDescription: '',
       targetAudience: '',
@@ -91,6 +97,51 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
           <p className="text-muted-foreground mb-6 text-balance text-center">{t('form_description')}</p>
 
           <div className="flex flex-col gap-8">
+            {/* Name */}
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('questions_name_label')}</FormLabel>
+                  <FormControl>
+                    <Input required placeholder={t('questions_name_placeholder')} {...field} />
+                  </FormControl>
+                  <FormDynamicDescription>{t('questions_name_description')}</FormDynamicDescription>
+                </FormItem>
+              )}
+            />
+
+            {/* Email */}
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('questions_email_label')}</FormLabel>
+                  <FormControl>
+                    <Input required type="email" placeholder={t('questions_email_placeholder')} {...field} />
+                  </FormControl>
+                  <FormDynamicDescription>{t('questions_email_description')}</FormDynamicDescription>
+                </FormItem>
+              )}
+            />
+
+            {/* Phone */}
+            <FormField
+              control={form.control}
+              name="phone"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('questions_phone_label')}</FormLabel>
+                  <FormControl>
+                    <Input type="tel" placeholder="+31 6 12345678" {...field} />
+                  </FormControl>
+                  <FormDynamicDescription>{t('questions_phone_description')}</FormDynamicDescription>
+                </FormItem>
+              )}
+            />
+
             {/* Project name */}
             <FormField
               control={form.control}

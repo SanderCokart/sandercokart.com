@@ -21,6 +21,11 @@
             <h1>New Project Inquiry</h1>
         </div>
         <div class="content">
+            <p><strong>Name:</strong> <pre>{{ $data['name'] }}</pre></p>
+            <p><strong>Email:</strong> <a href="mailto:{{ $data['email'] }}" style="color: #4c1d95;">{{ $data['email'] }}</a></p>
+            @if(isset($data['phone']) && !empty($data['phone']))
+                <p><strong>Phone:</strong> <a href="tel:{{ $data['phone'] }}" style="color: #4c1d95;">{{ $data['phone'] }}</a></p>
+            @endif
             <p><strong>Project Name:</strong> <pre>{{ $data['projectName'] }}</pre></p>
             <p><strong>Project Description:</strong> <pre>{{ $data['projectDescription'] }}</pre></p>
             @if(isset($data['targetAudience']))

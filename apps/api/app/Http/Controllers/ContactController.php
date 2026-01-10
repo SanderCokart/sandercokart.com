@@ -12,6 +12,9 @@ class ContactController extends Controller
     public function __invoke(Request $request): Response
     {
         $validatedData = $request->validate([
+            'name'                      => 'required|string|min:1|max:255',
+            'email'                     => 'required|string|email|max:255',
+            'phone'                     => 'nullable|string|max:255',
             'projectName'               => 'required|string|min:1|max:255',
             'projectDescription'        => 'required|string|min:1|max:3000',
             'targetAudience'            => 'nullable|string|max:500',
