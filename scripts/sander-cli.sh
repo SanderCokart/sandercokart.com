@@ -49,6 +49,212 @@ echo "  ___) / ___ \| |\  | |_| | |___|  _ <    | |___| |___ | |  "
 echo " |____/_/   \_\_| \_|____/|_____|_| \_\    \____|_____|___| "
 echo -e "         ${DIM}SANDER CLI v1.0${RESET}\n"
 
+# --- Init Tasks ---
+
+init_task() {
+    local options=("Copy .env.example files" "Set USER_ID and GROUP_ID")
+    local selected=()
+    local current=0
+    
+    # Initialize all as not selected
+    for i in "${!options[@]}"; do
+        selected+=('false')
+    done
+    
+    tput civis
+    
+    while true; do
+        clear
+        log_header "Project Initialization"
+        echo -e "${DIM}Select initialization tasks (SPACE to toggle, ENTER to confirm)${RESET}\n"
+        
+        for i in "${!options[@]}"; do
+            local checkbox="[ ]"
+            if [ "${selected[$i]}" == "true" ]; then
+                checkbox="${GREEN}[✓]${RESET}"
+            fi
+            
+            if [ "$i" -eq "$current" ]; then
+                echo -e "${BOLD}${BLUE}>${RESET} $checkbox ${BOLD}${options[$i]}${RESET}"
+            else
+                echo -e "  $checkbox ${options[$i]}"
+            fi
+        done
+        
+        IFS= read -rsn1 key
+        if [[ $key == $'\e' ]]; then
+            read -rsn2 -t 0.1 key
+            if [[ $key == "[A" ]]; then # Up
+                ((current--))
+                [ $current -lt 0 ] && current=$((${#options[@]} - 1))
+            elif [[ $key == "[B" ]]; then # Down
+                ((current++))
+                [ $current -ge ${#options[@]} ] && current=0
+            fi
+        elif [[ $key == " " ]]; then # Space - toggle
+            if [ "${selected[$current]}" == "true" ]; then
+                selected[$current]="false"
+            else
+                selected[$current]="true"
+            fi
+        elif [[ $key == $'\x0a' || $key == "" ]]; then # Enter - execute
+            # Check if any tasks are selected
+            local any_selected=false
+            for sel in "${selected[@]}"; do
+                if [ "$sel" == "true" ]; then
+                    any_selected=true
+                    break
+                fi
+            done
+            
+            if [ "$any_selected" == "false" ]; then
+                log_warn "No tasks selected. Select tasks with SPACE, then press ENTER."
+                sleep 2
+                continue
+            fi
+            
+            # Show confirmation
+            clear
+            log_header "Confirm Execution"
+            echo -e "${DIM}The following tasks will be executed:${RESET}\n"
+            
+            for i in "${!options[@]}"; do
+                if [ "${selected[$i]}" == "true" ]; then
+                    echo -e "${GREEN}✓${RESET} ${options[$i]}"
+                fi
+            done
+            
+            echo -e "\n${YELLOW}Press ENTER to continue, or any other key to go back...${RESET}"
+            read -rsn1 confirm_key
+            if [[ $confirm_key == "" ]]; then
+                break
+            else
+                continue
+            fi
+        elif [[ $key == "q" ]]; then
+            tput cnorm
+            return
+        fi
+    done
+    
+    tput cnorm
+    clear
+    log_header "Executing Initialization Tasks"
+    
+    # Execute selected tasks
+    if [ "${selected[0]}" == "true" ]; then
+        log_info "Copying .env.example files..."
+        for app_dir in apps/*; do
+            if [ -f "$app_dir/.env.example" ]; then
+                if [ ! -f "$app_dir/.env" ]; then
+                    cp "$app_dir/.env.example" "$app_dir/.env"
+                    log_success "Created .env for $(basename "$app_dir")"
+                else
+                    log_dim "$(basename "$app_dir")/.env already exists, skipping copy."
+                fi
+            fi
+        done
+    fi
+    
+    # Handle USER_ID and GROUP_ID
+    if [ "${selected[1]}" == "true" ]; then
+        local api_env="apps/api/.env"
+        # Check if apps/api/.env file exists
+        if [ ! -f "$api_env" ]; then
+            log_warn "No .env file found in apps/api!"
+            log_info "Please ensure the first task (Copy .env.example files) is selected or create it manually."
+            sleep 3
+            return
+        fi
+        
+        local user_id=""
+        local group_id=""
+        
+        # Detect candidates for sub-menu display
+        local current_uid=$(id -u "${SUDO_USER:-$USER}")
+        local www_uid=$(id -u www-data 2>/dev/null || echo "N/A")
+        
+        # Sub-menu for UID/GID source
+        local source_options=("Current User ($current_uid)" "www-data user ($www_uid)" "Custom values")
+        local source_current=0
+        local chosen_source=-1
+        
+        tput civis
+        while [ "$chosen_source" -eq -1 ]; do
+            clear
+            log_header "Choose UID/GID Source"
+            echo -e "${DIM}Select the source for USER_ID and GROUP_ID:${RESET}\n"
+            for i in "${!source_options[@]}"; do
+                if [ "$i" -eq "$source_current" ]; then
+                    echo -e "${BOLD}${BLUE}>${RESET} ${BOLD}${source_options[$i]}${RESET}"
+                else
+                    echo -e "  ${source_options[$i]}"
+                fi
+            done
+            
+            IFS= read -rsn1 key
+            if [[ $key == $'\e' ]]; then
+                read -rsn2 -t 0.1 key
+                if [[ $key == "[A" ]]; then # Up
+                    ((source_current--))
+                    [ $source_current -lt 0 ] && source_current=$((${#source_options[@]} - 1))
+                elif [[ $key == "[B" ]]; then # Down
+                    ((source_current++))
+                    [ $source_current -ge ${#source_options[@]} ] && source_current=0
+                fi
+            elif [[ $key == $'\x0a' || $key == "" ]]; then # Enter
+                chosen_source=$source_current
+            fi
+        done
+        tput cnorm
+
+        case $chosen_source in
+            0) # Current user
+                user_id=$(id -u "${SUDO_USER:-$USER}")
+                group_id=$(id -g "${SUDO_USER:-$USER}")
+                log_info "Using current user: $user_id:$group_id"
+                ;;
+            1) # www-data
+                user_id=$(id -u www-data 2>/dev/null)
+                group_id=$(id -g www-data 2>/dev/null)
+                if [ -z "$user_id" ] || [ -z "$group_id" ]; then
+                    log_warn "User 'www-data' not found. Falling back to current user."
+                    user_id=$(id -u "${SUDO_USER:-$USER}")
+                    group_id=$(id -g "${SUDO_USER:-$USER}")
+                fi
+                log_info "Using www-data: $user_id:$group_id"
+                ;;
+            2) # Custom
+                printf "${CYAN}?${RESET} Enter USER_ID: "
+                read -r user_id
+                printf "${CYAN}?${RESET} Enter GROUP_ID: "
+                read -r group_id
+                ;;
+        esac
+        
+        if [ -n "$user_id" ]; then
+            if grep -q "^USER_ID=" "$api_env"; then
+                sed -i "s/^USER_ID=.*/USER_ID=$user_id/" "$api_env"
+            else
+                echo "USER_ID=$user_id" >> "$api_env"
+            fi
+            log_success "Set USER_ID=$user_id in $api_env"
+        fi
+        
+        if [ -n "$group_id" ]; then
+            if grep -q "^GROUP_ID=" "$api_env"; then
+                sed -i "s/^GROUP_ID=.*/GROUP_ID=$group_id/" "$api_env"
+            else
+                echo "GROUP_ID=$group_id" >> "$api_env"
+            fi
+            log_success "Set GROUP_ID=$group_id in $api_env"
+        fi
+    fi
+    
+    log_success "Initialization complete!"
+    sleep 2
+}
+
 # --- Secret Management ---
 
 collect_secrets() {
@@ -60,9 +266,14 @@ collect_secrets() {
             local examples_dir="$secrets_dir/examples"
             
             # Ensure .env exists
-            if [ -f "$app_dir/.env.example" ] && [ ! -f "$app_dir/.env" ]; then
-                cp "$app_dir/.env.example" "$app_dir/.env"
-                log_success "Created .env for $app_name"
+            if [ -f "$app_dir/.env.example" ]; then
+                if [ ! -f "$app_dir/.env" ]; then
+                    cp "$app_dir/.env.example" "$app_dir/.env"
+                    log_success "Created .env for $app_name"
+                else
+                    # Silent skip in collect_secrets to avoid cluttering every refresh
+                    :
+                fi
             fi
 
             if [ -d "$examples_dir" ]; then
@@ -250,7 +461,7 @@ setup_secrets_task() {
         echo -e "  ${CYAN}q${RESET}     Finish and continue"
 
         # Read keys (handling escape sequences for arrows)
-        read -rsn1 key
+        IFS= read -rsn1 key
         if [[ $key == $'\e' ]]; then
             read -rsn2 -t 0.1 key # Read the Rest of the sequence
             if [[ $key == "[A" ]]; then # Up
@@ -260,7 +471,7 @@ setup_secrets_task() {
                 ((selected++))
                 [ $selected -ge ${#secrets_list[@]} ] && selected=0
             fi
-        elif [[ $key == "" ]]; then # Enter key
+        elif [[ $key == $'\x0a' || $key == "" ]]; then # Enter key
             tput cnorm # Show cursor for input
             edit_secret "$selected"
             tput civis # Hide it again
@@ -273,13 +484,6 @@ setup_secrets_task() {
     # Restore cursor and clear trap
     tput cnorm
     trap - INT TERM EXIT
-}
-
-start_docker_task() {
-    log_header "Docker Services"
-    log_info "Starting: api, redis, proxy, db, codehouse..."
-    docker compose up api redis proxy db codehouse -d
-    log_success "Services initiated in background."
 }
 
 # --- Main Menu ---
@@ -295,7 +499,7 @@ display_main_menu() {
     echo " |____/_/   \_\_| \_|____/|_____|_| \_\    \____|_____|___| "
     echo -e "         ${DIM}SANDER CLI v1.0${RESET}\n"
 
-    local options=("Full Setup (Secrets + Docker)" "Secrets Setup/Review" "Start Docker Services" "Debug: Reset All Secrets" "Exit")
+    local options=("Project Init" "Secrets Setup/Review" "Exit")
     
     for i in "${!options[@]}"; do
         if [ "$i" -eq "$selected" ]; then
@@ -308,7 +512,7 @@ display_main_menu() {
 
 main() {
     local selected=0
-    local options_count=5
+    local options_count=3
     
     # Hide cursor
     tput civis
@@ -317,7 +521,7 @@ main() {
     while true; do
         display_main_menu "$selected"
         
-        read -rsn1 key
+        IFS= read -rsn1 key
         if [[ $key == $'\e' ]]; then
             read -rsn2 -t 0.1 key
             if [[ $key == "[A" ]]; then # Up
@@ -327,26 +531,15 @@ main() {
                 ((selected++))
                 [ $selected -ge $options_count ] && selected=0
             fi
-        elif [[ $key == "" ]]; then # Enter
+        elif [[ $key == $'\x0a' || $key == "" ]]; then # Enter
             case $selected in
                 0)
-                    setup_secrets_task
-                    start_docker_task
-                    break
+                    init_task
                     ;;
                 1)
                     setup_secrets_task
                     ;;
                 2)
-                    start_docker_task
-                    break
-                    ;;
-                3)
-                    tput cnorm
-                    reset_secrets_task
-                    tput civis
-                    ;;
-                4)
                     log_info "Exiting..."
                     break
                     ;;

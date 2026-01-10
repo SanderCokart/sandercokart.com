@@ -14,11 +14,9 @@ services:
             context: ../../
             target: development
             args:
-                USER_ID: 1000
-                GROUP_ID: 1000
+                USER_ID: ${USER_ID}
+                GROUP_ID: ${GROUP_ID}
         restart: unless-stopped
-        volumes:
-            - '.:/var/www/html'
         depends_on:
             - db
             - redis
@@ -31,8 +29,8 @@ services:
             - source: MARIADB_PASSWORD
               target: DB_PASSWORD
             - REDIS_PASSWORD
-            - MAIL_USERNAME
-            - MAIL_PASSWORD
+            # - MAIL_USERNAME
+            # - MAIL_PASSWORD
     redis:
         secrets:
             - REDIS_PASSWORD
@@ -101,10 +99,10 @@ secrets:
         file: ./secrets/APP_KEY.secret
     REDIS_PASSWORD:
         file: ./secrets/REDIS_PASSWORD.secret
-    MAIL_USERNAME:
-        file: ./secrets/MAIL_USERNAME.secret
-    MAIL_PASSWORD:
-        file: ./secrets/MAIL_PASSWORD.secret
+    # MAIL_USERNAME:
+    #     file: ./secrets/MAIL_USERNAME.secret
+    # MAIL_PASSWORD:
+    #     file: ./secrets/MAIL_PASSWORD.secret
 volumes:
     sail-mariadb:
         driver: local

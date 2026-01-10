@@ -2,8 +2,11 @@
 **.next
 
 # Laravel
-vendor
+**boost.json
+**phpunit.xml
 apps/api/public/storage
+apps/api/secrets
+vendor
 
 # Docker
 **.dockerignore
@@ -13,12 +16,17 @@ apps/api/public/storage
 # Editors
 **.idea
 **.vscode
+**.cursor
 
 # Git
 **.git
 **.gitignore
+**.gitattributes
 
 # Files
+**.DS_Store
+**.editorconfig
+**.env*
+**.github
 **.md
 **node_modules
-**.env*
