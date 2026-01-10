@@ -39,7 +39,6 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
       projectName: z.string().min(1, tZod('errors.required', { name: tForm('projectName') })),
       projectDescription: z.string().min(1, tZod('errors.required', { name: tForm('projectDescription') })),
       targetAudience: z.string(),
-      desiredFeatures: z.string(),
       budget: z.string(),
       timeline: z.string(),
       hasExistingWebsite: z.boolean(),
@@ -62,7 +61,6 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
       projectName: '',
       projectDescription: '',
       targetAudience: '',
-      desiredFeatures: '',
       budget: '',
       timeline: '',
       hasExistingWebsite: false,
@@ -192,20 +190,6 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
               )}
             />
 
-            {/* Desired Features */}
-            <FormField
-              control={form.control}
-              name="desiredFeatures"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('questions_desiredFeatures_label')}</FormLabel>
-                  <FormControl>
-                    <Input placeholder={t('questions_desiredFeatures_placeholder')} {...field} />
-                  </FormControl>
-                  <FormDynamicDescription>{t('questions_desiredFeatures_description')}</FormDynamicDescription>
-                </FormItem>
-              )}
-            />
             {/* Budget */}
             <FormField
               control={form.control}

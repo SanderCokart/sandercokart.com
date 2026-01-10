@@ -1,5 +1,5 @@
 {
-  "name": "mail",
+  "name": "@repo/mail",
   "version": "0.0.34",
   "private": true,
   "scripts": {

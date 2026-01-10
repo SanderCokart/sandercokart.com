@@ -18,7 +18,6 @@ class ContactController extends Controller
             'projectName'               => 'required|string|min:1|max:255',
             'projectDescription'        => 'required|string|min:1|max:3000',
             'targetAudience'            => 'nullable|string|max:500',
-            'desiredFeatures'           => 'nullable|string|max:1000',
             'budget'                    => 'nullable|string|max:255',
             'timeline'                  => 'nullable|string|max:255',
             'hasExistingWebsite'        => 'required|boolean',

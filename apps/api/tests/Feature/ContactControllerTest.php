@@ -11,7 +11,6 @@ describe('ContactController', function () {
             'projectName' => 'Test Project',
             'projectDescription' => 'This is a test project description.',
             'targetAudience' => 'Developers',
-            'desiredFeatures' => 'Feature 1, Feature 2',
             'budget' => '$5000',
             'timeline' => '3 months',
             'hasExistingWebsite' => false,
