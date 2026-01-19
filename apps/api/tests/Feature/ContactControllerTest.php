@@ -8,6 +8,8 @@ describe('ContactController', function () {
         Mail::fake();
 
         $data = [
+            'name' => 'John Doe',
+            'email' => 'john@example.com',
             'projectName' => 'Test Project',
             'projectDescription' => 'This is a test project description.',
             'targetAudience' => 'Developers',

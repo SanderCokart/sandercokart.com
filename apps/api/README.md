@@ -7,6 +7,33 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Environment Variables
+
+This project uses [dotenvx](https://dotenvx.com) for encrypted environment variables.
+
+### Unlocking and Decrypting Environment Files
+
+To unlock and decrypt your environment files:
+
+```bash
+# Unlock the .env.keys file (run once)
+dotenvx decrypt
+
+# Decrypt .envx files to .env for local development
+dotenvx decrypt -f .envx.local --stdout > .env
+dotenvx decrypt -f .envx.production --stdout > .env
+```
+
+### Encrypting Environment Files
+
+To encrypt your environment files:
+
+```bash
+# Encrypt .env files to .envx format
+dotenvx encrypt -f .env.local
+dotenvx encrypt -f .env.production
+```
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

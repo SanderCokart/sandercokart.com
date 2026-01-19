@@ -1,0 +1,38 @@
+{
+  "name": "@repo/runtime-env",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "tsdown",
+    "clean": "rm -rf node_modules dist .turbo .cache"
+  },
+  "type": "module",
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./env-script": {
+      "types": "./dist/env-script.d.ts",
+      "default": "./dist/env-script.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "dependencies": {
+    "next": "15.2.2",
+    "react": "19.2.3"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "20.17.24",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "tsdown": "0.20.0-beta.3"
+  }
+}

@@ -29,20 +29,16 @@ services:
             - source: MARIADB_PASSWORD
               target: DB_PASSWORD
             - REDIS_PASSWORD
-            # - MAIL_USERNAME
-            # - MAIL_PASSWORD
     redis:
         secrets:
             - REDIS_PASSWORD
         restart: unless-stopped
         image: 'redis:8.4-alpine'
-        command: sh -c "redis-server --requirepass $$(cat /run/secrets/REDIS_PASSWORD)"
+        command: >
+            sh -c "redis-server --requirepass \"$(cat /run/secrets/REDIS_PASSWORD)\""
         healthcheck:
-            test:
-                - CMD
-                - sh
-                - -c
-                - "redis-cli -a $$(cat /run/secrets/REDIS_PASSWORD) ping | grep PONG"
+            test: >
+                sh -c "redis-cli -a \"$(cat /run/secrets/REDIS_PASSWORD)\" ping"
             interval: 30s
             timeout: 10s
             retries: 3
@@ -75,9 +71,6 @@ services:
     mailpit:
         restart: unless-stopped
         image: 'axllent/mailpit:latest'
-        ports:
-            - '1025:1025'
-            - '8025:8025'
             
 secrets:
     MARIADB_PASSWORD:
@@ -90,10 +83,6 @@ secrets:
         file: ./secrets/APP_KEY.secret
     REDIS_PASSWORD:
         file: ./secrets/REDIS_PASSWORD.secret
-    # MAIL_USERNAME:
-    #     file: ./secrets/MAIL_USERNAME.secret
-    # MAIL_PASSWORD:
-    #     file: ./secrets/MAIL_PASSWORD.secret
 volumes:
     sail-mariadb:
         driver: local

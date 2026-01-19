@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Bundled React Library",
+  "extends": "./bundled-library.json",
+  "compilerOptions": {
+    "jsx": "react-jsx"
+  }
+}

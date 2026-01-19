@@ -1,6 +1,0 @@
----
-description: project structure, tools, docker, turbo nextjs laravel serversideup
-globs: 
-alwaysApply: false
----
-Refer to [README.md](mdc:README.md)

@@ -34,7 +34,10 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
   const formSchema = z
     .object({
       name: z.string().min(1, tZod('errors.required', { name: tForm('name') })),
-      email: z.string().min(1, tZod('errors.required', { name: tForm('email') })).email(tZod('errors.invalid_string.email', { name: tForm('email') })),
+      email: z
+        .string()
+        .min(1, tZod('errors.required', { name: tForm('email') }))
+        .email(tZod('errors.invalid_string.email', { name: tForm('email') })),
       phone: z.string().optional(),
       projectName: z.string().min(1, tZod('errors.required', { name: tForm('projectName') })),
       projectDescription: z.string().min(1, tZod('errors.required', { name: tForm('projectDescription') })),
@@ -83,6 +86,8 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
 
   return (
     <section className={cn('container relative max-w-screen-md py-12', className)} {...props}>
+      <pre>{JSON.stringify(env.NEXT_PUBLIC_API_URL, null, 2)}</pre>
+
       <FormStatus form={form} />
       <h2 className="mb-4 text-center text-3xl font-bold uppercase sm:text-5xl">{t('title')}</h2>
       <p className="text-muted-foreground mb-8 text-center">{t('description')}</p>

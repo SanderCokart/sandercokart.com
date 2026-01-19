@@ -6,7 +6,7 @@ FROM serversideup/php:8.5-fpm-nginx-alpine AS base
 # Install PHP extensions
 USER root
 RUN install-php-extensions redis
-COPY --chmod=755 ./apps/api/entrypoint.d/ /etc/entrypoint.d/
+
 USER www-data
 
 ############################################

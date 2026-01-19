@@ -9,14 +9,18 @@ const withNextIntl = createNextIntlPlugin();
 let finalConfig;
 
 const nextConfig: NextConfig = {
-  output: env.NEXT_OUTPUT || undefined,
+  output: env.NEXT_OUTPUT,
   serverExternalPackages: [
     'import-in-the-middle',
     'require-in-the-middle',
   ],
+  transpilePackages: [
+    '@t3-oss/env-nextjs',
+    '@t3-oss/env-core',
+  ],
 };
 
-let sentryBuildOptions = {
+const sentryBuildOptions = {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options
 
@@ -60,6 +64,6 @@ let sentryBuildOptions = {
 };
 
 finalConfig = withNextIntl(nextConfig);
-if (env.SENTRY_ENABLED) finalConfig = withSentryConfig(finalConfig, sentryBuildOptions);
+if (env.NEXT_PUBLIC_SENTRY_ENABLED) finalConfig = withSentryConfig(finalConfig, sentryBuildOptions);
 
 export default finalConfig;

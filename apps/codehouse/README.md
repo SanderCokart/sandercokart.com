@@ -18,6 +18,33 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
+## Environment Variables
+
+This project uses [dotenvx](https://dotenvx.com) for encrypted environment variables.
+
+### Unlocking and Decrypting Environment Files
+
+To unlock and decrypt your environment files:
+
+```bash
+# Unlock the .env.keys file (run once)
+dotenvx decrypt
+
+# Decrypt .envx files to .env for local development
+dotenvx decrypt -f .envx.local --stdout > .env
+dotenvx decrypt -f .envx.production --stdout > .env
+```
+
+### Encrypting Environment Files
+
+To encrypt your environment files:
+
+```bash
+# Encrypt .env files to .envx format
+dotenvx encrypt -f .env.local
+dotenvx encrypt -f .env.production
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

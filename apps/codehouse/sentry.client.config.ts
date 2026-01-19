@@ -4,10 +4,12 @@
 
 import * as Sentry from '@sentry/nextjs';
 
-Sentry.init({
-  enabled: process.env.SENTRY_ENABLED === 'true',
+import { env } from '@/src/env';
 
-  environment: process.env.NEXT_PUBLIC_ENV,
+Sentry.init({
+  enabled: env.NEXT_PUBLIC_SENTRY_ENABLED,
+
+  environment: env.NEXT_PUBLIC_ENV,
 
   dsn: 'https://d6f287611c3dc58eacadf32eaabdaac4@o4506644789329920.ingest.us.sentry.io/4507957562310656',
 
@@ -21,7 +23,7 @@ Sentry.init({
   ],
 
   // Define how likely traces are sampled. Adjust this value in production, or use tracesSampler for greater control.
-  tracesSampleRate: process.env.NEXT_PUBLIC_ENV === 'production' ? 0.25 : 1,
+  tracesSampleRate: env.NEXT_PUBLIC_ENV === 'production' ? 0.25 : 1,
 
   // Define how likely Replay events are sampled.
   // This sets the sample rate to be 10%. You may want this to be 100% while
@@ -33,4 +35,7 @@ Sentry.init({
 
   // Setting this option to true will print useful information to the console while you're setting up Sentry.
   debug: false,
+
+  // If sendDefaultPii is true, Sentry will infer the IP address of users' devices to events
+  sendDefaultPii: true,
 });

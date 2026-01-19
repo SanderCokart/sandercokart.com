@@ -5,6 +5,7 @@ import { setRequestLocale } from 'next-intl/server';
 
 import { Geist, Geist_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
+import Script from 'next/script';
 
 import type { ReactNode } from 'react';
 
@@ -13,7 +14,9 @@ import { routing } from '@/src/i18n/routing';
 import { GlobalProviders } from '@/src/providers/server.global-providers';
 
 import { Footer } from './(components)/footer';
-import { PublicEnvScript } from 'next-runtime-env';
+import { ClientEnv } from './client-env';
+import { EnvScript } from '@repo/runtime-env/env-script';
+import { ServerEnv } from './server-env';
 
 const LetsGoDigital = localFont({
   src: '../fonts/LetsGoDigital.ttf',
@@ -38,9 +41,9 @@ export default async function RootLayout({ params, children }: RootLayoutParams)
   return (
     <html suppressHydrationWarning className="scroll-smooth" lang={locale}>
       <head>
-        <PublicEnvScript />
         <meta content="dPDNIWNVFj_4vuPMESyYIF--2WitrHLfPQe2CTcz-Ok" name="google-site-verification" />
         <title>Sander's CodeHouse</title>
+        <EnvScript />
       </head>
       <body
         className={cn(
@@ -52,6 +55,10 @@ export default async function RootLayout({ params, children }: RootLayoutParams)
           'mb-14 md:mb-0', //this is to account for mobile navigation @see <Navigation />
         )}>
         <GlobalProviders>
+          <div className="flex gap-4">
+            <ServerEnv />
+            <ClientEnv />
+          </div>
           {children}
           <Footer />
         </GlobalProviders>

@@ -4,16 +4,34 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "env": ["NODE_ENV"],
+      "env": [
+        "NODE_ENV",
+        "NEXT_PUBLIC_*",
+        "VITE_*",
+        "SENTRY_AUTH_TOKEN",
+        "TURBO_TEAM",
+        "TURBO_TOKEN",
+        "APP_ENV",
+        "APP_URL"
+      ],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+    },
+    "codehouse#build": {
+      "dependsOn": ["@repo/runtime-env#build", "^build"]
     },
     "lint": {
       "dependsOn": ["^lint"]
     },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "env": ["DOTENV_PRIVATE_KEY*"]
+    },
+    "start": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["^build"]
     },
     "clean": {
       "dependsOn": ["^clean"],

@@ -1,0 +1,16 @@
+#/-------------------[DOTENV_PUBLIC_KEY]--------------------/
+#/            public-key encryption for .env files          /
+#/       [how it works](https://dotenvx.com/encryption)     /
+#/----------------------------------------------------------/
+DOTENV_PUBLIC_KEY_PRODUCTION="0316232059d30319255d1ee7a9f7c239f652a1cb70783bb6b775586e91b6f7ef26"
+
+# REQUIRED
+NEXT_PUBLIC_ENV=encrypted:BIIlUvE/U2o1GXoqT2uq6DZXc7Dr6lA5fqJW14m+dsjWcKwT/VLZyQfgKyE4zL1W5N0I+qj27PBNOc0+4jG5sJ/drRvJneF/wsoOhALJCn5aVNbGbfqtFXygv+9LoCgYDxNr7+mJS6v2G4Y=
+NEXT_PUBLIC_API_URL=encrypted:BOwsZw+x4KeoyhYMg20GtMeigOFQYw4d38WSc8hN6WGYai31K3SSS7gtCR2AISI3v27Lv+cAIgEa/Td+pSfyqI/w01wg/UjRDJy8CjGQpqEl3FxAj371P9i4a3SZ1S4Q0fpP2DaP0WO8V9I6JHysCyWYI+v/mL/+RVMrHMs=
+
+# OPTIONAL
+TURBO_TEAM=encrypted:BJY00VX1r6sZguZOBONrYsWbfkzVRgZPeJKt2vU2pU/sTwBPk4VtfkAVJ6nRjGnwkLSezl4xQSNpORsGteOFlTBdhs9i4mAhqjuhBTLVaMfRiS12PH6oU4TCsQTJwdzQL+3gF3y8Bi9sGlUT6mY=
+NEXT_PUBLIC_SENTRY_ENABLED=encrypted:BOM3M/kmtANQBaS3NlF5znyW9aFx6tSCPulOkTtf73SA5o5w22W3iKCOxQO83/znHtGM+Iav1XLS6QwKtoz644K2uBj+WeRYBlolwzI9b11EUeO/pBiDRocJFrAWdqsDK8Ylo/4=
+
+
+

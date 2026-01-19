@@ -5,10 +5,12 @@ import { BespokePricingSection } from './(sections)/bespoke-pricing-section';
 import { BespokeTestimonialsSection } from './(sections)/bespoke-testimonials-section';
 import { BespokeWhyChooseSection } from './(sections)/bespoke-why-choose-section';
 import { AskForAQuote } from './(sections)/ask-for-a-quote';
+import { env } from '@/src/env';
 
 export default function Page() {
   return (
     <main className="grow">
+      <pre>{JSON.stringify(env.NEXT_PUBLIC_API_URL, null, 2)}</pre>
       <BespokeHeroSection />
       <div className="mb-16">
         <Line />
