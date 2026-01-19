@@ -1,11 +1,11 @@
 # NextJS
 **.next
 
+
 # Laravel
 **boost.json
 **phpunit.xml
 apps/api/public/storage
-apps/api/secrets
 vendor
 
 # Docker
@@ -30,3 +30,6 @@ vendor
 **.github
 **.md
 **node_modules
+
+# Secrets
+apps/*/secrets

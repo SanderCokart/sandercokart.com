@@ -15,8 +15,10 @@ const nextConfig: NextConfig = {
     'require-in-the-middle',
   ],
   transpilePackages: [
-    '@t3-oss/env-nextjs',
+    '@repo/runtime-env',
+    '@repo/ui',
     '@t3-oss/env-core',
+    '@t3-oss/env-nextjs',
   ],
 };
 
