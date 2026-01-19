@@ -5,7 +5,6 @@ import { setRequestLocale } from 'next-intl/server';
 
 import { Geist, Geist_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
-import Script from 'next/script';
 
 import type { ReactNode } from 'react';
 
@@ -14,9 +13,7 @@ import { routing } from '@/src/i18n/routing';
 import { GlobalProviders } from '@/src/providers/server.global-providers';
 
 import { Footer } from './(components)/footer';
-import { ClientEnv } from './client-env';
 import { EnvScript } from '@repo/runtime-env/env-script';
-import { ServerEnv } from './server-env';
 
 const LetsGoDigital = localFont({
   src: '../fonts/LetsGoDigital.ttf',
