@@ -1,13 +1,14 @@
 services:
   proxy:
     image: traefik:latest
+    entrypoint: ["/app/custom-entrypoint.sh"]
     environment:
       - CF_API_EMAIL_FILE=/run/secrets/CF_API_EMAIL
       - CF_DNS_API_TOKEN_FILE=/run/secrets/CF_DNS_API_TOKEN
       - TRAEFIK_API_DASHBOARD=true
       - TRAEFIK_CERTIFICATESRESOLVERS_MYRESOLVER_ACME_DNSCHALLENGE_PROVIDER=cloudflare
       - TRAEFIK_CERTIFICATESRESOLVERS_MYRESOLVER_ACME_DNSCHALLENGE=true
-      - TRAEFIK_CERTIFICATESRESOLVERS_MYRESOLVER_ACME_EMAIL_FILE=/run/secrets/TRAEFIK_ACME_EMAIL
+      - TRAEFIK_CERTIFICATESRESOLVERS_MYRESOLVER_ACME_EMAIL=${TRAEFIK_ACME_EMAIL}
       - TRAEFIK_CERTIFICATESRESOLVERS_MYRESOLVER_ACME_STORAGE=/certificates/acme.json
       - TRAEFIK_ENTRYPOINTS_WEB_ADDRESS=:80
       - TRAEFIK_ENTRYPOINTS_WEB_HTTP_REDIRECTIONS_ENTRYPOINT_SCHEME=https
@@ -39,6 +40,7 @@ services:
       # So that Traefik can listen to the Docker events
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "certificates:/certificates"
+      - "./custom-entrypoint.sh:/app/custom-entrypoint.sh"
 
 secrets:
   CF_DNS_API_TOKEN:
