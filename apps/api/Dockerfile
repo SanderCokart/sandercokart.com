@@ -27,8 +27,11 @@ RUN docker-php-serversideup-set-id www-data $USER_ID:$GROUP_ID  && \
     docker-php-serversideup-set-file-permissions --owner $USER_ID:$GROUP_ID --service nginx
 
 COPY --chown=www-data:www-data ./apps/api/ /var/www/html
+RUN chmod +x /var/www/html/custom-entrypoint.sh
 USER www-data
 
+ENTRYPOINT ["/var/www/html/custom-entrypoint.sh"]
+CMD ["/init"]
 
 ############################################
 # Production Image
@@ -38,6 +41,16 @@ USER www-data
 # calling any of that permission stuff
 FROM base AS production
 
+WORKDIR /var/www/html
+
 # Copy our app files as www-data (33:33)
-COPY --chown=www-data:www-data ./apps/api/* /var/www/html
+COPY --chown=www-data:www-data ./apps/api/ /var/www/html
+
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-ansi
+
+USER root
+RUN chmod +x /var/www/html/custom-entrypoint.sh
+
 USER www-data
+ENTRYPOINT ["/var/www/html/custom-entrypoint.sh"]
+CMD ["/init"]

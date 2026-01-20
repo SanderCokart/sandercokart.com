@@ -3,15 +3,29 @@ services:
         tty: true
         image: 'api:latest'
         labels:
-            - traefik.enable=true
-            - traefik.http.routers.api.rule=Host(`api.sandercokart.com`)
-            - traefik.http.routers.api.entrypoints=websecure
-            - traefik.http.routers.api.tls.certresolver=myresolver
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.api.rule=Host(`api.sandercokart.com`)'
+            - 'traefik.http.routers.api.entrypoints=websecure'
+            - 'traefik.http.routers.api.tls.certresolver=myresolver'
         env_file:
             - .env
+        secrets:
+            - APP_KEY
+            - source: MARIADB_USER
+              target: DB_USERNAME
+            - source: MARIADB_PASSWORD
+              target: DB_PASSWORD
+            - REDIS_PASSWORD
         build:
             dockerfile: apps/api/Dockerfile
             context: ../../
+            secrets:
+                - APP_KEY
+                - source: MARIADB_USER
+                  target: DB_USERNAME
+                - source: MARIADB_PASSWORD
+                  target: DB_PASSWORD
+                - REDIS_PASSWORD
             target: production
             args:
                 USER_ID: ${USER_ID}
@@ -21,14 +35,7 @@ services:
             - db
             - redis
         environment:
-            AUTORUN_ENABLED: false
-        secrets:
-            - APP_KEY
-            - source: MARIADB_USER
-              target: DB_USERNAME
-            - source: MARIADB_PASSWORD
-              target: DB_PASSWORD
-            - REDIS_PASSWORD
+            AUTORUN_ENABLED: true
     redis:
         secrets:
             - REDIS_PASSWORD

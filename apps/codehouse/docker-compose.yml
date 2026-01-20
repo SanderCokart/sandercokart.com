@@ -5,6 +5,7 @@ services:
       - 'traefik.enable=true'
       - 'traefik.http.routers.codehouse.rule=Host(`codehouse.sandercokart.com`)'
       - 'traefik.http.routers.codehouse.entrypoints=websecure'
+      - 'traefik.http.services.codehouse.loadbalancer.server.port=3000'
       - 'traefik.http.routers.codehouse.tls.certresolver=myresolver'
     deploy:
       replicas: 1

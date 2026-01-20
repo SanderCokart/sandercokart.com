@@ -435,7 +435,54 @@ edit_secret() {
         mkdir -p "$(dirname "$path")"
         echo -n "$final_val" > "$path"
         chmod 400 "$path"
-        chown www-data:www-data "$path"
+
+        # Choose ownership
+        local ownership_options=("Current User ($(id -u "${SUDO_USER:-$USER}"):$(id -g "${SUDO_USER:-$USER}"))" "Alpine www-data (82:82)")
+        local ownership_current=0
+        local chosen_ownership=-1
+
+        tput civis
+        while [ "$chosen_ownership" -eq -1 ]; do
+            clear
+            log_header "Choose File Ownership"
+            echo -e "${DIM}Select ownership for the secret file:${RESET}\n"
+
+            for i in "${!ownership_options[@]}"; do
+                if [ "$i" -eq "$ownership_current" ]; then
+                    echo -e "${BOLD}${BLUE}>${RESET} ${BOLD}${ownership_options[$i]}${RESET}"
+                else
+                    echo -e "  ${ownership_options[$i]}"
+                fi
+            done
+
+            IFS= read -rsn1 key
+            if [[ $key == $'\e' ]]; then
+                read -rsn2 -t 0.1 key
+                if [[ $key == "[A" ]]; then # Up
+                    ((ownership_current--))
+                    [ $ownership_current -lt 0 ] && ownership_current=$((${#ownership_options[@]} - 1))
+                elif [[ $key == "[B" ]]; then # Down
+                    ((ownership_current++))
+                    [ $ownership_current -ge ${#ownership_options[@]} ] && ownership_current=0
+                fi
+            elif [[ $key == $'\x0a' || $key == "" ]]; then # Enter
+                chosen_ownership=$ownership_current
+            fi
+        done
+        tput cnorm
+        clear
+
+        case $chosen_ownership in
+            0) # Current user
+                chown "${SUDO_USER:-$USER}:${SUDO_USER:-$USER}" "$path"
+                log_success "Set ownership to current user ($(id -u "${SUDO_USER:-$USER}"):$(id -g "${SUDO_USER:-$USER}"))"
+                ;;
+            1) # Alpine www-data
+                chown 82:82 "$path"
+                log_success "Set ownership to Alpine www-data (82:82)"
+                ;;
+        esac
+
         log_success "Saved $name"
     else
         log_warn "No value set."
