@@ -1,5 +1,6 @@
 services:
   proxy:
+    profiles: [production]
     image: traefik-custom:latest
     build:
       dockerfile: apps/proxy/Dockerfile

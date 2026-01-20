@@ -1,5 +1,6 @@
 services:
   codehouse:
+    profiles: [production]
     image: codehouse:latest
     labels:
       - 'traefik.enable=true'

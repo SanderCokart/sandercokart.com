@@ -1,5 +1,6 @@
 services:
     api:
+        profiles: [development, production]
         tty: true
         image: 'api:latest'
         labels:
@@ -45,6 +46,7 @@ services:
             timeout: 10s
             retries: 3
     redis:
+        profiles: [development, production]
         secrets:
             - REDIS_PASSWORD
         restart: unless-stopped
@@ -60,6 +62,7 @@ services:
         volumes:
             - 'sail-redis:/data'
     db:
+        profiles: [development, production]
         secrets:
             - MARIADB_PASSWORD
             - MARIADB_ROOT_PASSWORD
