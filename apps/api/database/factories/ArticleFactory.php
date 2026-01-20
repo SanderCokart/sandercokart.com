@@ -14,7 +14,7 @@ class ArticleFactory extends Factory
     {
         $now = Carbon::now();
 
-        //we need a date in the past and set it as created at, we then need to set the updated at to a date after the created at date
+        // we need a date in the past and set it as created at, we then need to set the updated at to a date after the created at date
         // and finally we need to set the published at date to a date after the created at date
 
         $createdAt = $this->faker->dateTimeBetween($now->copy()->subDays(30), $now);
@@ -22,13 +22,13 @@ class ArticleFactory extends Factory
         $publishedAt = $this->faker->dateTimeBetween($createdAt, $now);
 
         return [
-            'created_at'   => $createdAt,
-            'updated_at'   => $updatedAt,
-            'content'      => $this->faker->realTextBetween(1000, 3000),
-            'title'        => $this->faker->sentence(),
+            'created_at' => $createdAt,
+            'updated_at' => $updatedAt,
+            'content' => $this->faker->realTextBetween(1000, 3000),
+            'title' => $this->faker->sentence(),
             'published_at' => $publishedAt,
-            //'slug'         => $this->faker->slug(),
-            'description'  => $this->faker->realTextBetween(100,200),
+            // 'slug'         => $this->faker->slug(),
+            'description' => $this->faker->realTextBetween(100, 200),
         ];
     }
 }
