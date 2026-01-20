@@ -10,7 +10,6 @@ import { env } from '@/src/env';
 export default function Page() {
   return (
     <main className="grow">
-      <pre>{JSON.stringify(env.NEXT_PUBLIC_API_URL, null, 2)}</pre>
       <BespokeHeroSection />
       <div className="mb-16">
         <Line />

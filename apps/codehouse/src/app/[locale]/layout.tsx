@@ -49,7 +49,7 @@ export default async function RootLayout({ params, children }: RootLayoutParams)
           LetsGoDigital.variable,
           'font-sans antialiased',
           'flex min-h-dvh flex-col',
-          'mb-14 md:mb-0', //this is to account for mobile navigation @see <Navigation />
+          // 'mb-14 md:mb-0', //this is to account for mobile navigation @see <Navigation />
         )}>
         <GlobalProviders>
           {children}
