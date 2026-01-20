@@ -87,6 +87,7 @@ services:
             retries: 3
             timeout: 5s
     mailpit:
+        profiles: [development]
         restart: unless-stopped
         image: 'axllent/mailpit:latest'
             
