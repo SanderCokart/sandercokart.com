@@ -12,8 +12,8 @@ export function Footer() {
       id="footer">
       <div className="flex justify-center gap-16">
         <Address />
-        <div className="border-primary-foreground hidden shrink border sm:block" />
-        <Links className="hidden sm:flex" />
+        {/* <div className="border-primary-foreground hidden shrink border sm:block" /> */}
+        {/* <Links className="hidden sm:flex" /> */}
       </div>
       <Copyright />
       <Socials />

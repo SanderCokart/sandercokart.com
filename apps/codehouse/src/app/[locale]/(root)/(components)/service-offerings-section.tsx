@@ -14,20 +14,20 @@ export function ServiceOfferingsSection() {
 
   const services = [
     {
-      icon: <FaCode className="h-16 w-16" />,
-      title: t('freelance_title'),
-      description: t('freelance_description'),
+      icon: <FaGlobe className="h-16 w-16" />,
+      title: t('marketing_title'),
+      description: t('marketing_description'),
       features: [
-        t('freelance_features_react'),
-        t('freelance_features_fullstack'),
-        t('freelance_features_agile'),
-        t('freelance_features_team'),
-        t('freelance_features_onboarding'),
+        t('marketing_features_design'),
+        t('marketing_features_i18n'),
+        t('marketing_features_performance'),
+        t('marketing_features_mobile'),
+        t('marketing_features_cms'),
       ],
-      color: 'from-purple-500/10 to-purple-500/20',
-      iconColor: 'text-purple-500',
-      link: '/freelance',
-      comingSoon: true,
+      color: 'from-green-500/10 to-green-500/20',
+      iconColor: 'text-green-500',
+      link: '/bespoke-solutions',
+      comingSoon: false,
     },
     {
       icon: <FaDatabase className="h-16 w-16" />,
@@ -46,22 +46,21 @@ export function ServiceOfferingsSection() {
       comingSoon: true,
     },
     {
-      icon: <FaGlobe className="h-16 w-16" />,
-      title: t('marketing_title'),
-      description: t('marketing_description'),
+      icon: <FaCode className="h-16 w-16" />,
+      title: t('freelance_title'),
+      description: t('freelance_description'),
       features: [
-        t('marketing_features_design'),
-        t('marketing_features_i18n'),
-        t('marketing_features_performance'),
-        t('marketing_features_mobile'),
-        t('marketing_features_cms'),
+        t('freelance_features_react'),
+        t('freelance_features_fullstack'),
+        t('freelance_features_agile'),
+        t('freelance_features_team'),
+        t('freelance_features_onboarding'),
       ],
-      color: 'from-green-500/10 to-green-500/20',
-      iconColor: 'text-green-500',
-      link: '/bespoke-solutions',
-      comingSoon: false,
+      color: 'from-purple-500/10 to-purple-500/20',
+      iconColor: 'text-purple-500',
+      link: '/freelance',
+      comingSoon: true,
     },
-
   ];
 
   /**
@@ -84,8 +83,7 @@ export function ServiceOfferingsSection() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
           viewport={{ once: true }}
-          className="mb-8 text-center text-5xl font-bold"
-        >
+          className="mb-8 text-center text-5xl font-bold">
           {t('title')}
         </motion.h1>
         <div className="grid gap-0 sm:gap-8 xl:grid-cols-3">
@@ -128,7 +126,7 @@ export function ServiceOfferingsSection() {
                     size="lg"
                     disabled={service.comingSoon}
                     className={cn(
-                      'text-lg duration-500 font-semibold',
+                      'text-lg font-semibold duration-500',
                       'hover:bg-primary/30 hover:text-inherit',
                       'dark:hover:bg-accent/60 dark:hover:text-accent-foreground',
                       service.comingSoon && 'cursor-not-allowed',
@@ -142,10 +140,8 @@ export function ServiceOfferingsSection() {
                 </div>
               </Card>
               {service.comingSoon && (
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <span
-                    className="text-black dark:text-white font-digital tracking-widest text-6xl transform rotate-45 drop-shadow-[2px_2px_10px_rgba(0,0,0,1)]"
-                  >
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                  <span className="font-digital rotate-45 transform text-6xl tracking-widest text-black drop-shadow-[2px_2px_10px_rgba(0,0,0,1)] dark:text-white">
                     COMING SOON...
                   </span>
                 </div>
