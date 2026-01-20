@@ -46,7 +46,17 @@ WORKDIR /var/www/html
 # Copy our app files as www-data (33:33)
 COPY --chown=www-data:www-data ./apps/api/ /var/www/html
 
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-ansi
+RUN --mount=type=secret,id=APP_KEY,target=/run/secrets/APP_KEY,uid=82,gid=82 \
+    --mount=type=secret,id=DB_USERNAME,target=/run/secrets/DB_USERNAME,uid=82,gid=82 \
+    --mount=type=secret,id=DB_PASSWORD,target=/run/secrets/DB_PASSWORD,uid=82,gid=82 \
+    --mount=type=secret,id=REDIS_PASSWORD,target=/run/secrets/REDIS_PASSWORD,uid=82,gid=82 \
+    --mount=type=secret,id=RESEND_API_KEY,target=/run/secrets/RESEND_API_KEY,uid=82,gid=82 \
+    export APP_KEY="$(cat /run/secrets/APP_KEY)" && \
+    export DB_USERNAME="$(cat /run/secrets/DB_USERNAME)" && \
+    export DB_PASSWORD="$(cat /run/secrets/DB_PASSWORD)" && \
+    export REDIS_PASSWORD="$(cat /run/secrets/REDIS_PASSWORD)" && \
+    export RESEND_API_KEY="$(cat /run/secrets/RESEND_API_KEY)" && \
+    composer install --no-dev --optimize-autoloader --no-interaction --no-ansi
 
 USER root
 RUN chmod +x /var/www/html/custom-entrypoint.sh

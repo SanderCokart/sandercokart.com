@@ -16,6 +16,7 @@ services:
             - source: MARIADB_PASSWORD
               target: DB_PASSWORD
             - REDIS_PASSWORD
+            - RESEND_API_KEY
         build:
             dockerfile: apps/api/Dockerfile
             context: ../../
@@ -26,6 +27,7 @@ services:
                 - source: MARIADB_PASSWORD
                   target: DB_PASSWORD
                 - REDIS_PASSWORD
+                - RESEND_API_KEY
             target: production
             args:
                 USER_ID: ${USER_ID}
@@ -90,6 +92,8 @@ secrets:
         file: ./secrets/APP_KEY.secret
     REDIS_PASSWORD:
         file: ./secrets/REDIS_PASSWORD.secret
+    RESEND_API_KEY:
+        file: ./secrets/RESEND_API_KEY.secret
 volumes:
     sail-mariadb:
         driver: local
