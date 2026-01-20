@@ -38,6 +38,7 @@ services:
             - redis
         environment:
             AUTORUN_ENABLED: true
+            HEALTHCHECK_PATH: /health
     redis:
         secrets:
             - REDIS_PASSWORD
