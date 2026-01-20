@@ -25,7 +25,7 @@ class ContactController extends Controller
             'needsInternationalization' => 'required|boolean',
         ]);
 
-        Mail::to('anonymous@example.com')->send(new ContactFormMail($validatedData));
+        Mail::to($validatedData['email'])->send(new ContactFormMail($validatedData));
 
         return response()->noContent();
     }
