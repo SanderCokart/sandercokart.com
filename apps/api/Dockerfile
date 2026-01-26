@@ -27,11 +27,7 @@ RUN docker-php-serversideup-set-id www-data $USER_ID:$GROUP_ID  && \
     docker-php-serversideup-set-file-permissions --owner $USER_ID:$GROUP_ID --service nginx
 
 COPY --chown=www-data:www-data ./apps/api/ /var/www/html
-RUN chmod +x /var/www/html/custom-entrypoint.sh
 USER www-data
-
-ENTRYPOINT ["/var/www/html/custom-entrypoint.sh"]
-CMD ["/init"]
 
 ############################################
 # Production Image
@@ -51,16 +47,12 @@ RUN --mount=type=secret,id=APP_KEY,target=/run/secrets/APP_KEY,uid=82,gid=82 \
     --mount=type=secret,id=DB_PASSWORD,target=/run/secrets/DB_PASSWORD,uid=82,gid=82 \
     --mount=type=secret,id=REDIS_PASSWORD,target=/run/secrets/REDIS_PASSWORD,uid=82,gid=82 \
     --mount=type=secret,id=RESEND_API_KEY,target=/run/secrets/RESEND_API_KEY,uid=82,gid=82 \
-    export APP_KEY="$(cat /run/secrets/APP_KEY)" && \
-    export DB_USERNAME="$(cat /run/secrets/DB_USERNAME)" && \
-    export DB_PASSWORD="$(cat /run/secrets/DB_PASSWORD)" && \
-    export REDIS_PASSWORD="$(cat /run/secrets/REDIS_PASSWORD)" && \
-    export RESEND_API_KEY="$(cat /run/secrets/RESEND_API_KEY)" && \
-    composer install --no-dev --optimize-autoloader --no-interaction --no-ansi
+    echo "APP_KEY=\"$(cat /run/secrets/APP_KEY)\"" > /var/www/html/.env && \
+    echo "DB_USERNAME=\"$(cat /run/secrets/DB_USERNAME)\"" >> /var/www/html/.env && \
+    echo "DB_PASSWORD=\"$(cat /run/secrets/DB_PASSWORD)\"" >> /var/www/html/.env && \
+    echo "REDIS_PASSWORD=\"$(cat /run/secrets/REDIS_PASSWORD)\"" >> /var/www/html/.env && \
+    echo "RESEND_API_KEY=\"$(cat /run/secrets/RESEND_API_KEY)\"" >> /var/www/html/.env
 
-USER root
-RUN chmod +x /var/www/html/custom-entrypoint.sh
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-ansi
 
 USER www-data
-ENTRYPOINT ["/var/www/html/custom-entrypoint.sh"]
-CMD ["/init"]
