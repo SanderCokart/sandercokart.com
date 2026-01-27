@@ -10,25 +10,9 @@ services:
             - 'traefik.http.routers.api.tls.certresolver=myresolver'
         env_file:
             - .env
-        secrets:
-            - APP_KEY
-            - source: MARIADB_USER
-              target: DB_USERNAME
-            - source: MARIADB_PASSWORD
-              target: DB_PASSWORD
-            - REDIS_PASSWORD
-            - RESEND_API_KEY
         build:
             dockerfile: apps/api/Dockerfile
             context: ../../
-            secrets:
-                - APP_KEY
-                - source: MARIADB_USER
-                  target: DB_USERNAME
-                - source: MARIADB_PASSWORD
-                  target: DB_PASSWORD
-                - REDIS_PASSWORD
-                - RESEND_API_KEY
             target: production
             args:
                 USER_ID: ${USER_ID}
@@ -47,36 +31,29 @@ services:
             retries: 3
     redis:
         profiles: [development, production]
-        secrets:
-            - REDIS_PASSWORD
         restart: unless-stopped
         image: 'redis:8.4-alpine'
-        command: >
-            sh -c "redis-server --requirepass \"$(cat /run/secrets/REDIS_PASSWORD)\""
         healthcheck:
-            test: >
-                sh -c "redis-cli -a \"$(cat /run/secrets/REDIS_PASSWORD)\" ping"
+            test: ["CMD", "redis-cli", "ping"]
             interval: 30s
             timeout: 10s
             retries: 3
         volumes:
-            - 'sail-redis:/data'
+            - 'redis-data:/data'
     db:
         profiles: [development, production]
-        secrets:
-            - MARIADB_PASSWORD
-            - MARIADB_ROOT_PASSWORD
-            - MARIADB_USER
         restart: unless-stopped
         image: 'mariadb:11'
+        env_file:
+            - .env
         environment:
             MARIADB_ROOT_HOST: '%'
             MARIADB_DATABASE: '${DB_DATABASE}'
-            MARIADB_ROOT_PASSWORD_FILE: /run/secrets/MARIADB_ROOT_PASSWORD
-            MARIADB_USER_FILE: /run/secrets/MARIADB_USER
-            MARIADB_PASSWORD_FILE: /run/secrets/MARIADB_PASSWORD
+            MARIADB_USER: '${DB_USERNAME}'
+            MARIADB_PASSWORD: '${DB_PASSWORD}'
+            MARIADB_ROOT_PASSWORD: '${DB_PASSWORD}'
         volumes:
-            - 'sail-mariadb:/var/lib/mysql'
+            - 'mariadb-data:/var/lib/mysql'
             - './vendor/laravel/sail/database/mariadb/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
         healthcheck:
             test:
@@ -91,22 +68,9 @@ services:
         restart: unless-stopped
         image: 'axllent/mailpit:latest'
             
-secrets:
-    MARIADB_PASSWORD:
-        file: ./secrets/MARIADB_PASSWORD.secret
-    MARIADB_ROOT_PASSWORD:
-        file: ./secrets/MARIADB_ROOT_PASSWORD.secret
-    MARIADB_USER:
-        file: ./secrets/MARIADB_USER.secret
-    APP_KEY:
-        file: ./secrets/APP_KEY.secret
-    REDIS_PASSWORD:
-        file: ./secrets/REDIS_PASSWORD.secret
-    RESEND_API_KEY:
-        file: ./secrets/RESEND_API_KEY.secret
 volumes:
-    sail-mariadb:
+    mariadb-data:
         driver: local
-    sail-redis:
+    redis-data:
         driver: local
 
