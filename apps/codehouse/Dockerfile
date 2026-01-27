@@ -31,6 +31,9 @@ RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN --mount=type=secret,id=TURBO_TOKEN 
 
 FROM node:lts-alpine AS runner
 
+RUN apk update
+RUN apk add --no-cache ca-certificates libc6-compat
+
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 USER nextjs
@@ -39,7 +42,6 @@ COPY --from=builder --chown=nextjs:nodejs /app/apps/codehouse/.next/standalone .
 COPY --from=builder --chown=nextjs:nodejs /app/apps/codehouse/.next/static ./apps/codehouse/.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/apps/codehouse/public ./apps/codehouse/public
 
-RUN apk update
-RUN apk add --no-cache ca-certificates libc6-compat
+
 
 CMD ["node","apps/codehouse/server.js"]
