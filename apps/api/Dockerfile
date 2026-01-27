@@ -47,11 +47,11 @@ RUN --mount=type=secret,id=APP_KEY,target=/run/secrets/APP_KEY,uid=82,gid=82 \
     --mount=type=secret,id=DB_PASSWORD,target=/run/secrets/DB_PASSWORD,uid=82,gid=82 \
     --mount=type=secret,id=REDIS_PASSWORD,target=/run/secrets/REDIS_PASSWORD,uid=82,gid=82 \
     --mount=type=secret,id=RESEND_API_KEY,target=/run/secrets/RESEND_API_KEY,uid=82,gid=82 \
-    printf 'APP_KEY=%s\n' "$(cat /run/secrets/APP_KEY)" > /var/www/html/.env && \
-    printf 'DB_USERNAME=%s\n' "$(cat /run/secrets/DB_USERNAME)" >> /var/www/html/.env && \
-    printf 'DB_PASSWORD=%s\n' "$(cat /run/secrets/DB_PASSWORD)" >> /var/www/html/.env && \
-    printf 'REDIS_PASSWORD=%s\n' "$(cat /run/secrets/REDIS_PASSWORD)" >> /var/www/html/.env && \
-    printf 'RESEND_API_KEY=%s\n' "$(cat /run/secrets/RESEND_API_KEY)" >> /var/www/html/.env
+    printf 'APP_KEY="%s"\n' "$(cat /run/secrets/APP_KEY)" > /var/www/html/.env && \
+    printf 'DB_USERNAME="%s"\n' "$(cat /run/secrets/DB_USERNAME)" >> /var/www/html/.env && \
+    printf 'DB_PASSWORD="%s"\n' "$(cat /run/secrets/DB_PASSWORD)" >> /var/www/html/.env && \
+    printf 'REDIS_PASSWORD="%s"\n' "$(cat /run/secrets/REDIS_PASSWORD)" >> /var/www/html/.env && \
+    printf 'RESEND_API_KEY="%s"\n' "$(cat /run/secrets/RESEND_API_KEY)" >> /var/www/html/.env
 
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-ansi
 
