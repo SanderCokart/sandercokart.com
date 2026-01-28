@@ -17,7 +17,7 @@ class ContactFormMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'New Project Inquiry: '.$this->data['projectName'],
+            subject: 'New Contact Form Submission',
         );
     }
 
