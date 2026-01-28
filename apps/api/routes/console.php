@@ -11,7 +11,9 @@ Artisan::command('inspire', function () {
 
 Artisan::command('mail:test', function () {
     Mail::to('cokart32@gmail.com')->send(new ContactFormMail([
-        'projectName' => 'Test Project',
-        'projectDescription' => 'This is a test project',
+        'name' => 'John Doe',
+        'email' => 'john@example.com',
+        'phone' => '+1 234 567 8900',
+        'existingWebsite' => 'https://example.com',
     ]));
 })->purpose('Send a test email');

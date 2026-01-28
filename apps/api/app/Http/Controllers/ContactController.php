@@ -15,14 +15,7 @@ class ContactController extends Controller
             'name' => 'required|string|min:1|max:255',
             'email' => 'required|string|email|max:255',
             'phone' => 'nullable|string|max:255',
-            'projectName' => 'required|string|min:1|max:255',
-            'projectDescription' => 'required|string|min:1|max:3000',
-            'targetAudience' => 'nullable|string|max:500',
-            'budget' => 'nullable|string|max:255',
-            'timeline' => 'nullable|string|max:255',
-            'hasExistingWebsite' => 'required|boolean',
-            'existingWebsiteLink' => 'exclude_if:hasExistingWebsite,false|nullable|string|max:2048|url',
-            'needsInternationalization' => 'required|boolean',
+            'existingWebsite' => 'nullable|string|max:2048|url',
         ]);
 
         Mail::to(config('mail.to.address'), config('mail.to.name'))->send(new ContactFormMail($validatedData));

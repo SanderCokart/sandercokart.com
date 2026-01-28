@@ -26,7 +26,7 @@ export function ServiceOfferingsSection() {
       ],
       color: 'from-green-500/10 to-green-500/20',
       iconColor: 'text-green-500',
-      link: '/bespoke-solutions',
+      link: '/consumer',
       comingSoon: false,
     },
     {
@@ -42,7 +42,7 @@ export function ServiceOfferingsSection() {
       ],
       color: 'from-blue-500/10 to-blue-500/20',
       iconColor: 'text-blue-500',
-      link: '/web-application-development',
+      link: '/commercial',
       comingSoon: true,
     },
     {

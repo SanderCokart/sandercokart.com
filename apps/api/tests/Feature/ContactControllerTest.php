@@ -10,13 +10,8 @@ describe('ContactController', function () {
         $data = [
             'name' => 'John Doe',
             'email' => 'john@example.com',
-            'projectName' => 'Test Project',
-            'projectDescription' => 'This is a test project description.',
-            'targetAudience' => 'Developers',
-            'budget' => '$5000',
-            'timeline' => '3 months',
-            'hasExistingWebsite' => false,
-            'needsInternationalization' => true,
+            'phone' => '+31 6 12345678',
+            'existingWebsite' => 'https://example.com',
         ];
 
         $response = $this->postJson(route('v1.contact'), $data);
@@ -32,21 +27,19 @@ describe('ContactController', function () {
         $response = $this->postJson(route('v1.contact'), []);
 
         $response->assertStatus(422)
-            ->assertJsonValidationErrors(['projectName', 'projectDescription', 'hasExistingWebsite', 'needsInternationalization']);
+            ->assertJsonValidationErrors(['name', 'email']);
     });
 
-    it('validates existing website link when hasExistingWebsite is true', function () {
+    it('validates existing website URL when provided', function () {
         $data = [
-            'projectName' => 'Test Project',
-            'projectDescription' => 'Description',
-            'hasExistingWebsite' => true,
-            'existingWebsiteLink' => 'invalid-url',
-            'needsInternationalization' => false,
+            'name' => 'John Doe',
+            'email' => 'john@example.com',
+            'existingWebsite' => 'invalid-url',
         ];
 
         $response = $this->postJson(route('v1.contact'), $data);
 
         $response->assertStatus(422)
-            ->assertJsonValidationErrors(['existingWebsiteLink']);
+            ->assertJsonValidationErrors(['existingWebsite']);
     });
 });

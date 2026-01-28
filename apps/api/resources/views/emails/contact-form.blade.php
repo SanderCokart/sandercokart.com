@@ -7,7 +7,7 @@
   </head>
   <div
     style="display:none;overflow:hidden;line-height:1px;opacity:0;max-height:0;max-width:0">
-    New Project Inquiry: {{ $data['projectName'] ?? 'N/A' }}
+    New Contact Form Submission
     <div>
        ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿
     </div>
@@ -66,19 +66,8 @@
     &quot;email&quot;: &quot;<span style="color:rgb(255,255,255)">{{ $data['email'] ?? 'N/A' }}</span>&quot;</span><span style="color:rgb(191,219,254)">,
     &quot;phone&quot;: &quot;<span style="color:rgb(255,255,255)">{{ $data['phone'] ?? 'N/A' }}</span>&quot;</span><span style="color:rgb(191,219,254)">
   </span><span style="color:rgb(147,197,253)">}</span><span style="color:rgb(156,163,175)">,</span>
-<!-- -->  <span style="background-color:rgb(22,101,52);color:rgb(187,247,208);padding-left:0.25rem;padding-right:0.25rem;padding-top:0.125rem;padding-bottom:0.125rem;border-radius:0.25rem">&quot;info&quot;</span><span style="color:rgb(156,163,175)">: </span><span style="color:rgb(74,222,128)">{</span><span style="color:rgb(187,247,208)">
-    &quot;projectName&quot;: &quot;<span style="color:rgb(255,255,255)">{{ $data['projectName'] ?? 'N/A' }}</span>&quot;,</span><span style="color:rgb(187,247,208)">
-    &quot;projectDescription&quot;: &quot;<span style="color:rgb(255,255,255)">{{ $data['projectDescription'] ?? 'N/A' }}</span>&quot;</span><span style="color:rgb(187,247,208)">
-  </span><span style="color:rgb(74,222,128)">}</span><span style="color:rgb(156,163,175)">,</span>
-<!-- -->  <span style="background-color:rgb(107,33,168);color:rgb(233,213,255);padding-left:0.25rem;padding-right:0.25rem;padding-top:0.125rem;padding-bottom:0.125rem;border-radius:0.25rem">&quot;preferences&quot;</span><span style="color:rgb(156,163,175)">: </span><span style="color:rgb(168,85,247)">{</span><span style="color:rgb(233,213,255)">
-    &quot;targetAudience&quot;: &quot;<span style="color:rgb(255,255,255)">{{ $data['targetAudience'] ?? 'N/A' }}</span>&quot;<!-- -->,</span><span style="color:rgb(233,213,255)">
-    &quot;budget&quot;: &quot;<span style="color:rgb(255,255,255)">{{ $data['budget'] ?? 'N/A' }}</span>&quot;<!-- -->,</span><span style="color:rgb(233,213,255)">
-    &quot;timeline&quot;: &quot;<span style="color:rgb(255,255,255)">{{ $data['timeline'] ?? 'N/A' }}</span>&quot;</span><span style="color:rgb(233,213,255)">
-  </span><span style="color:rgb(168,85,247)">}</span><span style="color:rgb(156,163,175)">,</span>
-<!-- -->  <span style="background-color:rgb(146,64,14);color:rgb(254,243,199);padding-left:0.25rem;padding-right:0.25rem;padding-top:0.125rem;padding-bottom:0.125rem;border-radius:0.25rem">&quot;knownInformation&quot;</span><span style="color:rgb(156,163,175)">: </span><span style="color:rgb(251,191,36)">{</span><span style="color:rgb(254,243,199)">
-    &quot;hasExistingWebsite&quot;: <span style="color:rgb(245,158,11)">{{ $data['hasExistingWebsite'] ? 'true' : 'false' }}</span></span><span style="color:rgb(254,243,199)">,
-    &quot;existingWebsiteLink&quot;: &quot;<span style="color:rgb(255,255,255)">{{ $data['existingWebsiteLink'] ?? 'N/A' }}</span>&quot;</span><span style="color:rgb(254,243,199)">,
-    &quot;needsInternationalization&quot;: <span style="color:rgb(245,158,11)">{{ $data['needsInternationalization'] ? 'true' : 'false' }}</span></span><span style="color:rgb(254,243,199)">
+<!-- -->  <span style="background-color:rgb(146,64,14);color:rgb(254,243,199);padding-left:0.25rem;padding-right:0.25rem;padding-top:0.125rem;padding-bottom:0.125rem;border-radius:0.25rem">&quot;website&quot;</span><span style="color:rgb(156,163,175)">: </span><span style="color:rgb(251,191,36)">{</span><span style="color:rgb(254,243,199)">
+    &quot;existingWebsite&quot;: &quot;<span style="color:rgb(255,255,255)">{{ $data['existingWebsite'] ?? 'N/A' }}</span>&quot;</span><span style="color:rgb(254,243,199)">
   </span><span style="color:rgb(251,191,36)">}</span>
 <span style="color:rgb(156,163,175)">}</span></pre>
                   </td>
@@ -97,7 +86,7 @@
                 <tr>
                   <td>
                     <a
-                      href="mailto:{{ $data['email'] ?? 'N/A' }}?subject=Re: {{ urlencode($data['projectName'] ?? 'N/A') }}&amp;body=Hi {{ urlencode($data['name'] ?? 'N/A') }},%0D%0A%0D%0AThank you for your inquiry..."
+                      href="mailto:{{ $data['email'] ?? 'N/A' }}?subject=Re: Contact Form Submission&amp;body=Hi {{ urlencode($data['name'] ?? 'N/A') }},%0D%0A%0D%0AThank you for your inquiry..."
                       style="border-radius:0.5rem;background-color:rgb(76,29,149);padding-left:2rem;padding-right:2rem;padding-top:1rem;padding-bottom:1rem;font-size:1rem;line-height:1.5rem;font-weight:600;color:rgb(255,255,255);text-decoration-line:none;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;padding:16px 32px 16px 32px"
                       target="_blank"
                       ><span

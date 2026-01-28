@@ -7,7 +7,7 @@ import type { Testimonial } from '@/src/components/generic-testimonials-section'
 
 import { GenericTestimonialsSection } from '@/src/components/generic-testimonials-section';
 
-export const BespokeTestimonialsSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
+export const ConsumersTestimonialsSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
   const t = useTranslations('BespokeTestimonialsSection');
 
   const testimonials: Testimonial[] = [];
