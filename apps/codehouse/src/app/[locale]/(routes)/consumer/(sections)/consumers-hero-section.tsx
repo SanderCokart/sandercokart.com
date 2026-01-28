@@ -50,7 +50,7 @@ const item = {
   show: { opacity: 1 },
 };
 
-export function BespokeHeroSection() {
+export function ConsumersHeroSection() {
   const t = useTranslations('BespokeHeroSection');
 
   const service_features: FeatureProps[] = useMemo(

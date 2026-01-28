@@ -6,7 +6,7 @@ import { ComponentProps, FC, useState } from 'react';
 import { Checkbox } from '@repo/ui/components/shadcn/checkbox';
 import { Label } from '@repo/ui/components/shadcn/label'; 
 
-export const BespokePricingSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
+export const ConsumersPricingSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
   
   const t = useTranslations('BespokePricingSection');
  	const locale = useLocale();

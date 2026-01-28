@@ -4,11 +4,11 @@ import { useTranslations } from 'next-intl';
 
 import { ComponentProps, FC } from 'react';
 
-export const BespokeWhyChooseSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
+export const ConsumersWhyChooseSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
   const t = useTranslations('BespokeWhyChooseSection');
 
   return (
-    <section className={cn('container scroll-mt-16 sm:scroll-mt-16', className)} id="why-choose-bespoke" {...props}>
+    <section className={cn('container scroll-mt-16 sm:scroll-mt-16', className)} id="why-choose-consumers" {...props}>
       <h2 className="mb-8 text-center text-3xl font-bold uppercase sm:text-5xl">{t('title')}</h2>
       <p className="mb-8 text-balance text-center">
         {t.rich('description', {
