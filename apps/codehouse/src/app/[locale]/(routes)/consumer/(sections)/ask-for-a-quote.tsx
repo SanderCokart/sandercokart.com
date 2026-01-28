@@ -51,7 +51,6 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
     },
   });
 
-
   const handleSubmit = form.handleSubmit(async formData => {
     const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/v1/contact`, {
       method: 'POST',
@@ -71,7 +70,7 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
         <form
           noValidate
           onSubmit={handleSubmit}
-          className="bg-card text-card-foreground mx-auto rounded-lg border p-6 shadow-sm">
+          className="bg-card text-card-foreground border-primary mx-auto rounded-lg border p-6 shadow-sm">
           <h3 className="mb-4 text-center text-2xl font-bold">{t('form_title')}</h3>
           <p className="text-muted-foreground mb-6 text-balance text-center">{t('form_description')}</p>
 
@@ -135,7 +134,6 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
                 </FormItem>
               )}
             />
-
           </div>
 
           <Button type="submit" size="lg" className="mt-6 w-full">
