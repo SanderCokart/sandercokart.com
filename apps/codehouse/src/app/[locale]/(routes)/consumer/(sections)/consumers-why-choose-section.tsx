@@ -18,39 +18,63 @@ export const ConsumersWhyChooseSection: FC<ComponentProps<'section'>> = ({ class
       <div className="grid gap-8 md:grid-cols-2">
         <Card className="border-primary">
           <CardHeader>
-            <CardTitle className="dark:text-accent text-primary">{t('features_uniqueness_title')}</CardTitle>
+            <CardTitle>{t('features_uniqueness_title')}</CardTitle>
           </CardHeader>
-          <CardContent>{t('features_uniqueness_description')}</CardContent>
+          <CardContent>
+            {t.rich('features_uniqueness_description', {
+              highlight: chunks => <strong className="dark:text-accent text-primary">{chunks}</strong>,
+            })}
+          </CardContent>
         </Card>
         <Card className="border-primary">
           <CardHeader>
-            <CardTitle className="dark:text-accent text-primary">{t('features_scalability_title')}</CardTitle>
+            <CardTitle>{t('features_scalability_title')}</CardTitle>
           </CardHeader>
-          <CardContent>{t('features_scalability_description')}</CardContent>
+          <CardContent>
+            {t.rich('features_scalability_description', {
+              highlight: chunks => <strong className="dark:text-accent text-primary">{chunks}</strong>,
+            })}
+          </CardContent>
         </Card>
         <Card className="border-primary">
           <CardHeader>
-            <CardTitle className="dark:text-accent text-primary">{t('features_ownership_title')}</CardTitle>
+            <CardTitle>{t('features_ownership_title')}</CardTitle>
           </CardHeader>
-          <CardContent>{t('features_ownership_description')}</CardContent>
+          <CardContent>
+            {t.rich('features_ownership_description', {
+              highlight: chunks => <strong className="dark:text-accent text-primary">{chunks}</strong>,
+            })}
+          </CardContent>
         </Card>
         <Card className="border-primary">
           <CardHeader>
-            <CardTitle className="dark:text-accent text-primary">{t('features_performance_title')}</CardTitle>
+            <CardTitle>{t('features_performance_title')}</CardTitle>
           </CardHeader>
-          <CardContent>{t('features_performance_description')}</CardContent>
+          <CardContent>
+            {t.rich('features_performance_description', {
+              highlight: chunks => <strong className="dark:text-accent text-primary">{chunks}</strong>,
+            })}
+          </CardContent>
         </Card>
         <Card className="border-primary">
           <CardHeader>
-            <CardTitle className="dark:text-accent text-primary">{t('features_security_title')}</CardTitle>
+            <CardTitle>{t('features_security_title')}</CardTitle>
           </CardHeader>
-          <CardContent>{t('features_security_description')}</CardContent>
+          <CardContent>
+            {t.rich('features_security_description', {
+              highlight: chunks => <strong className="dark:text-accent text-primary">{chunks}</strong>,
+            })}
+          </CardContent>
         </Card>
         <Card className="border-primary">
           <CardHeader>
-            <CardTitle className="dark:text-accent text-primary">{t('features_support_title')}</CardTitle>
+            <CardTitle>{t('features_support_title')}</CardTitle>
           </CardHeader>
-          <CardContent>{t('features_support_description')}</CardContent>
+          <CardContent>
+            {t.rich('features_support_description', {
+              highlight: chunks => <strong className="dark:text-accent text-primary">{chunks}</strong>,
+            })}
+          </CardContent>
         </Card>
       </div>
     </section>
