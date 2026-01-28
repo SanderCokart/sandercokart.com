@@ -3,11 +3,6 @@ services:
         profiles: [development, production]
         tty: true
         image: 'api:latest'
-        labels:
-            - 'traefik.enable=true'
-            - 'traefik.http.routers.api.rule=Host(`api.sandercokart.com`)'
-            - 'traefik.http.routers.api.entrypoints=websecure'
-            - 'traefik.http.routers.api.tls.certresolver=myresolver'
         env_file:
             - .env
         build:

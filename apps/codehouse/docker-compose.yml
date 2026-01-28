@@ -2,14 +2,6 @@ services:
   codehouse:
     profiles: [production]
     image: codehouse:latest
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.codehouse.rule=Host(`codehouse.sandercokart.com`)'
-      - 'traefik.http.routers.codehouse.entrypoints=websecure'
-      - 'traefik.http.services.codehouse.loadbalancer.server.port=3000'
-      - 'traefik.http.routers.codehouse.tls.certresolver=myresolver'
-    deploy:
-      replicas: 1
     restart: unless-stopped
     env_file:
       - .env
