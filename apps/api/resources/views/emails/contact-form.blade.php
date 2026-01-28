@@ -67,8 +67,7 @@
     &quot;phone&quot;: &quot;<span style="color:rgb(255,255,255)">{{ $data['phone'] ?? 'N/A' }}</span>&quot;</span><span style="color:rgb(191,219,254)">
   </span><span style="color:rgb(147,197,253)">}</span><span style="color:rgb(156,163,175)">,</span>
 <!-- -->  <span style="background-color:rgb(146,64,14);color:rgb(254,243,199);padding-left:0.25rem;padding-right:0.25rem;padding-top:0.125rem;padding-bottom:0.125rem;border-radius:0.25rem">&quot;website&quot;</span><span style="color:rgb(156,163,175)">: </span><span style="color:rgb(251,191,36)">{</span><span style="color:rgb(254,243,199)">
-    &quot;existingWebsite&quot;: &quot;<span style="color:rgb(255,255,255)">{{ $data['existingWebsite'] ?? 'N/A' }}</span>&quot;</span><span style="color:rgb(254,243,199)">,
-    &quot;needsInternationalization&quot;: <span style="color:rgb(245,158,11)">{{ $data['needsInternationalization'] ? 'true' : 'false' }}</span></span><span style="color:rgb(254,243,199)">
+    &quot;existingWebsite&quot;: &quot;<span style="color:rgb(255,255,255)">{{ $data['existingWebsite'] ?? 'N/A' }}</span>&quot;</span><span style="color:rgb(254,243,199)">
   </span><span style="color:rgb(251,191,36)">}</span>
 <span style="color:rgb(156,163,175)">}</span></pre>
                   </td>

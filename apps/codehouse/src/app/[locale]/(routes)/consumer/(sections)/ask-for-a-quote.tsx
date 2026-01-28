@@ -13,7 +13,6 @@ import {
 } from '@repo/ui/components/shadcn/form';
 import { Input } from '@repo/ui/components/shadcn/input';
 import { Textarea } from '@repo/ui/components/shadcn/textarea';
-import { ToggleGroup, ToggleGroupItem } from '@repo/ui/components/shadcn/toggle-group';
 import { cn } from '@repo/ui/lib/utils';
 import { useTranslations } from 'next-intl';
 import { Resolver, useForm } from 'react-hook-form';
@@ -38,7 +37,6 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
       .email(tZod('errors.invalid_string.email', { name: tForm('email') })),
     phone: z.string().optional(),
     existingWebsite: z.string().optional(),
-    needsInternationalization: z.boolean(),
   });
 
   type AskForAQuoteFormValues = z.infer<typeof formSchema>;
@@ -50,7 +48,6 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
       email: '',
       phone: '',
       existingWebsite: '',
-      needsInternationalization: false,
     },
   });
 
@@ -119,7 +116,7 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
                   <FormControl>
                     <Input type="tel" placeholder="+31 6 12345678" {...field} />
                   </FormControl>
-                  <FormDynamicDescription>I will try to get back to you as fast as humanly possible.</FormDynamicDescription>
+                  <FormDynamicDescription>{t('questions_phone_description')}</FormDynamicDescription>
                 </FormItem>
               )}
             />
@@ -139,34 +136,6 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
               )}
             />
 
-            {/* Needs internationalization */}
-            <Card className="border-primary/50">
-              <CardContent>
-                <FormField
-                  control={form.control}
-                  name="needsInternationalization"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-center justify-between">
-                      <div className="space-y-0.5">
-                        <FormLabel className="text-base">{t('questions_needsInternationalization_label')}</FormLabel>
-                        <FormDynamicDescription>
-                          {t('questions_needsInternationalization_description')}
-                        </FormDynamicDescription>
-                      </div>
-                      <FormControl>
-                        <ToggleGroup
-                          type="single"
-                          onValueChange={value => value && field.onChange(value === 'yes')}
-                          value={field.value ? 'yes' : 'no'}>
-                          <ToggleGroupItem value="yes">{t('yes')}</ToggleGroupItem>
-                          <ToggleGroupItem value="no">{t('no')}</ToggleGroupItem>
-                        </ToggleGroup>
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </CardContent>
-            </Card>
           </div>
 
           <Button type="submit" size="lg" className="mt-6 w-full">

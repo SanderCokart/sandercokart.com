@@ -16,7 +16,6 @@ class ContactController extends Controller
             'email' => 'required|string|email|max:255',
             'phone' => 'nullable|string|max:255',
             'existingWebsite' => 'nullable|string|max:2048|url',
-            'needsInternationalization' => 'required|boolean',
         ]);
 
         Mail::to(config('mail.to.address'), config('mail.to.name'))->send(new ContactFormMail($validatedData));

@@ -12,7 +12,6 @@ describe('ContactController', function () {
             'email' => 'john@example.com',
             'phone' => '+31 6 12345678',
             'existingWebsite' => 'https://example.com',
-            'needsInternationalization' => true,
         ];
 
         $response = $this->postJson(route('v1.contact'), $data);
@@ -28,7 +27,7 @@ describe('ContactController', function () {
         $response = $this->postJson(route('v1.contact'), []);
 
         $response->assertStatus(422)
-            ->assertJsonValidationErrors(['name', 'email', 'needsInternationalization']);
+            ->assertJsonValidationErrors(['name', 'email']);
     });
 
     it('validates existing website URL when provided', function () {
@@ -36,7 +35,6 @@ describe('ContactController', function () {
             'name' => 'John Doe',
             'email' => 'john@example.com',
             'existingWebsite' => 'invalid-url',
-            'needsInternationalization' => false,
         ];
 
         $response = $this->postJson(route('v1.contact'), $data);
