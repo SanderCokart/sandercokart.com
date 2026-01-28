@@ -15,7 +15,6 @@ import { Input } from '@repo/ui/components/shadcn/input';
 import { Textarea } from '@repo/ui/components/shadcn/textarea';
 import { ToggleGroup, ToggleGroupItem } from '@repo/ui/components/shadcn/toggle-group';
 import { cn } from '@repo/ui/lib/utils';
-import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { Resolver, useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -31,27 +30,16 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
   const tZod = useTranslations('zod');
   const tForm = useTranslations('form');
 
-  const formSchema = z
-    .object({
-      name: z.string().min(1, tZod('errors.required', { name: tForm('name') })),
-      email: z
-        .string()
-        .min(1, tZod('errors.required', { name: tForm('email') }))
-        .email(tZod('errors.invalid_string.email', { name: tForm('email') })),
-      phone: z.string().optional(),
-      projectName: z.string().min(1, tZod('errors.required', { name: tForm('projectName') })),
-      projectDescription: z.string().min(1, tZod('errors.required', { name: tForm('projectDescription') })),
-      targetAudience: z.string(),
-      budget: z.string(),
-      timeline: z.string(),
-      hasExistingWebsite: z.boolean(),
-      existingWebsiteLink: z.string(),
-      needsInternationalization: z.boolean(),
-    })
-    .refine(data => Boolean(!data.hasExistingWebsite || data.existingWebsiteLink), {
-      message: tZod('errors.required', { name: tForm('existingWebsiteLink') }),
-      path: ['existingWebsiteLink'],
-    });
+  const formSchema = z.object({
+    name: z.string().min(1, tZod('errors.required', { name: tForm('name') })),
+    email: z
+      .string()
+      .min(1, tZod('errors.required', { name: tForm('email') }))
+      .email(tZod('errors.invalid_string.email', { name: tForm('email') })),
+    phone: z.string().optional(),
+    existingWebsite: z.string().optional(),
+    needsInternationalization: z.boolean(),
+  });
 
   type AskForAQuoteFormValues = z.infer<typeof formSchema>;
 
@@ -61,18 +49,11 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
       name: '',
       email: '',
       phone: '',
-      projectName: '',
-      projectDescription: '',
-      targetAudience: '',
-      budget: '',
-      timeline: '',
-      hasExistingWebsite: false,
-      existingWebsiteLink: '',
+      existingWebsite: '',
       needsInternationalization: false,
     },
   });
 
-  const hasExistingWebsite = form.watch('hasExistingWebsite');
 
   const handleSubmit = form.handleSubmit(async formData => {
     const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/v1/contact`, {
@@ -138,141 +119,25 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
                   <FormControl>
                     <Input type="tel" placeholder="+31 6 12345678" {...field} />
                   </FormControl>
-                  <FormDynamicDescription>{t('questions_phone_description')}</FormDynamicDescription>
+                  <FormDynamicDescription>I will try to get back to you as fast as humanly possible.</FormDynamicDescription>
                 </FormItem>
               )}
             />
 
-            {/* Project name */}
+            {/* Existing website */}
             <FormField
               control={form.control}
-              name="projectName"
+              name="existingWebsite"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('questions_projectName_label')}</FormLabel>
+                  <FormLabel>{t('questions_existingWebsite_label')}</FormLabel>
                   <FormControl>
-                    <Input required placeholder={t('questions_projectName_placeholder')} {...field} />
+                    <Input placeholder={t('questions_existingWebsite_placeholder')} {...field} />
                   </FormControl>
-                  <FormDynamicDescription>{t('questions_projectName_description')}</FormDynamicDescription>
+                  <FormDynamicDescription>{t('questions_existingWebsite_description')}</FormDynamicDescription>
                 </FormItem>
               )}
             />
-
-            {/* Project description */}
-            <FormField
-              control={form.control}
-              name="projectDescription"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('questions_projectDescription_label')}</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      required
-                      placeholder={t('questions_projectDescription_placeholder')}
-                      className="resize-y"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDynamicDescription>{t('questions_projectDescription_description')}</FormDynamicDescription>
-                </FormItem>
-              )}
-            />
-
-            {/* Target audience */}
-            <FormField
-              control={form.control}
-              name="targetAudience"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('questions_targetAudience_label')}</FormLabel>
-                  <FormControl>
-                    <Input placeholder={t('questions_targetAudience_placeholder')} {...field} />
-                  </FormControl>
-                  <FormDynamicDescription>{t('questions_targetAudience_description')}</FormDynamicDescription>
-                </FormItem>
-              )}
-            />
-
-            {/* Budget */}
-            <FormField
-              control={form.control}
-              name="budget"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('questions_budget_label')}</FormLabel>
-                  <FormControl>
-                    <Input placeholder={t('questions_budget_placeholder')} {...field} />
-                  </FormControl>
-                  <FormDynamicDescription>{t('questions_budget_description')}</FormDynamicDescription>
-                </FormItem>
-              )}
-            />
-            {/* Timeline */}
-            <FormField
-              control={form.control}
-              name="timeline"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('questions_timeline_label')}</FormLabel>
-                  <FormControl>
-                    <Input placeholder={t('questions_timeline_placeholder')} {...field} />
-                  </FormControl>
-                  <FormDynamicDescription>{t('questions_timeline_description')}</FormDynamicDescription>
-                </FormItem>
-              )}
-            />
-            {/* Has custom domain */}
-
-            <Card className="border-primary/50 overflow-hidden">
-              <CardContent>
-                <FormField
-                  control={form.control}
-                  name="hasExistingWebsite"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-center justify-between">
-                      <div className="space-y-0.5">
-                        <FormLabel className="text-base">{t('questions_hasExistingWebsite_label')}</FormLabel>
-                        <FormDynamicDescription>{t('questions_hasExistingWebsite_description')}</FormDynamicDescription>
-                      </div>
-                      <FormControl>
-                        <ToggleGroup
-                          type="single"
-                          onValueChange={value => value && field.onChange(value === 'yes')}
-                          value={field.value ? 'yes' : 'no'}>
-                          <ToggleGroupItem value="yes">{t('yes')}</ToggleGroupItem>
-                          <ToggleGroupItem value="no">{t('no')}</ToggleGroupItem>
-                        </ToggleGroup>
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-
-                <AnimatePresence mode="wait">
-                  {hasExistingWebsite && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0, marginTop: 0 }}
-                      animate={{ opacity: 1, height: 'auto', marginTop: '24px' }}
-                      exit={{ opacity: 0, height: 0, marginTop: 0 }}>
-                      <FormField
-                        control={form.control}
-                        name="existingWebsiteLink"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>{t('questions_existingWebsiteLink_label')}</FormLabel>
-                            <FormControl>
-                              <Input placeholder={t('questions_existingWebsiteLink_placeholder')} {...field} />
-                            </FormControl>
-                            <FormDynamicDescription>
-                              {t('questions_existingWebsiteLink_description')}
-                            </FormDynamicDescription>
-                          </FormItem>
-                        )}
-                      />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </CardContent>
-            </Card>
 
             {/* Needs internationalization */}
             <Card className="border-primary/50">
