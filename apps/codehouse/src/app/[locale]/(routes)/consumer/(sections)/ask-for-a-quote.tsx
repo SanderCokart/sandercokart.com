@@ -32,11 +32,10 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
   const formSchema = z.object({
     name: z.string().min(1, tZod('errors.required', { name: tForm('name') })),
     email: z
-      .string()
-      .min(1, tZod('errors.required', { name: tForm('email') }))
-      .email(tZod('errors.invalid_string.email', { name: tForm('email') })),
+      .email(tZod('errors.invalid_string.email', { name: tForm('email') }))
+      .min(1, tZod('errors.required', { name: tForm('email') })),
     phone: z.string().optional(),
-    existingWebsite: z.string().optional(),
+    existingWebsite: z.httpUrl().optional(),
   });
 
   type AskForAQuoteFormValues = z.infer<typeof formSchema>;
