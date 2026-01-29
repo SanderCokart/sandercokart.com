@@ -53,7 +53,7 @@ export const ContactFormEmail = ({ name, email, phone, website, message }: Conta
             </Section>
 
             <Section className="mt-4 px-4">
-              <pre className="border-primary overflow-x-auto whitespace-pre-wrap rounded-lg border-solid p-2 font-sans text-sm leading-relaxed">
+              <pre className="border-primary m-0 whitespace-pre-wrap rounded-lg border-solid p-2 font-sans text-sm leading-relaxed">
                 {message}
               </pre>
             </Section>
@@ -61,7 +61,7 @@ export const ContactFormEmail = ({ name, email, phone, website, message }: Conta
             {/* Quick Action Button */}
             <Section className="my-4 text-center">
               <Button
-                href={`mailto:${email}?subject=Re: Contact Form Submission&body=Hi ${name},%0D%0A%0D%0AThank you for your inquiry...`}
+                href={`https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=Re: Contact Form Submission&body=Hi ${name},%0D%0A%0D%0AThank you for your inquiry...`}
                 className="bg-primary rounded-lg px-8 py-4 text-base font-bold text-white no-underline">
                 REPLY TO {name}
               </Button>

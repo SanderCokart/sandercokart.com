@@ -11,7 +11,7 @@ describe('ContactController', function () {
             'name' => 'John Doe',
             'email' => 'john@example.com',
             'phone' => '+31 6 12345678',
-            'existingWebsite' => 'https://example.com',
+            'website' => 'https://example.com',
         ];
 
         $response = $this->postJson(route('v1.contact'), $data);
@@ -34,12 +34,12 @@ describe('ContactController', function () {
         $data = [
             'name' => 'John Doe',
             'email' => 'john@example.com',
-            'existingWebsite' => 'invalid-url',
+            'website' => 'invalid-url',
         ];
 
         $response = $this->postJson(route('v1.contact'), $data);
 
         $response->assertStatus(422)
-            ->assertJsonValidationErrors(['existingWebsite']);
+            ->assertJsonValidationErrors(['website']);
     });
 });

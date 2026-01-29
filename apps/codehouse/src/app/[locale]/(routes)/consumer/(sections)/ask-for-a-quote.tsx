@@ -36,7 +36,7 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
       .min(1, tZod('errors.required', { name: tForm('email') }))
       .email(tZod('errors.invalid_string.email', { name: tForm('email') })),
     phone: z.string().optional(),
-    existingWebsite: z.union([z.string().length(0), z.httpUrl()]),
+    website: z.union([z.string().length(0), z.httpUrl()]),
   });
 
   type AskForAQuoteFormValues = z.infer<typeof formSchema>;
@@ -47,7 +47,7 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
       name: '',
       email: '',
       phone: '',
-      existingWebsite: '',
+      website: '',
     },
   });
 
@@ -123,14 +123,14 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
             {/* Existing website */}
             <FormField
               control={form.control}
-              name="existingWebsite"
+              name="website"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('questions_existingWebsite_label')}</FormLabel>
+                  <FormLabel>{t('questions_website_label')}</FormLabel>
                   <FormControl>
-                    <Input placeholder={t('questions_existingWebsite_placeholder')} {...field} />
+                    <Input placeholder={t('questions_website_placeholder')} {...field} />
                   </FormControl>
-                  <FormDynamicDescription>{t('questions_existingWebsite_description')}</FormDynamicDescription>
+                  <FormDynamicDescription>{t('questions_website_description')}</FormDynamicDescription>
                 </FormItem>
               )}
             />

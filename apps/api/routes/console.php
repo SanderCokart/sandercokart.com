@@ -14,6 +14,6 @@ Artisan::command('mail:test', function () {
         'name' => 'John Doe',
         'email' => 'john@example.com',
         'phone' => '+1 234 567 8900',
-        'existingWebsite' => 'https://example.com',
+        'website' => 'https://example.com',
     ]));
 })->purpose('Send a test email');
