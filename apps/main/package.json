@@ -7,9 +7,8 @@
     "build": "next build",
     "start": "next start -p 3000 -H 0.0.0.0",
     "lint": "eslint .",
-    "article:create": "node src/scripts/create-article.js",
-    "article:publish": "node src/scripts/publish-article.js",
-    "script": "node src/scripts/main.js",
+    "article:create": "node src/scripts/create-article.mjs",
+    "article:publish": "node src/scripts/publish-article.mjs",
     "clean": "rm -rf node_modules"
   },
   "dependencies": {
