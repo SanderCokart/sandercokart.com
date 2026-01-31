@@ -1,4 +1,4 @@
-import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@repo/ui/table';
+import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@repo/ui/components/shadcn/table';
 import { transformerNotationFocus, transformerNotationHighlight } from '@shikijs/transformers';
 import { bundledLanguages, createHighlighter } from 'shiki/bundle/web';
 
