@@ -56,7 +56,7 @@ const getArticlesByType = async (type: 'general' | 'tips') => {
 const remarkPlugins: Options['remarkPlugins'] = [remarkGfm];
 const rehypePlugins: Options['rehypePlugins'] = [rehypeMdxCodeProps];
 
-const getArticleBySlug = async ({ slug }: { slug: string }) => {
+const getArticleBySlug = async ({ slug }: { slug: string }): Promise<{ code: string; frontmatter: ArticleAttributes }> => {
   const paths = (await fg(`src/app/articles/**/${slug}.mdx`)) as [string];
 
   if (!paths.length) {
