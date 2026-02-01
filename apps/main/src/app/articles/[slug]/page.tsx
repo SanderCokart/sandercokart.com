@@ -1,7 +1,9 @@
 import { YouTubeEmbed } from '@next/third-parties/google';
 import { cn } from '@repo/ui/lib/utils';
 import { format } from 'date-fns';
-import { getMDXComponent } from 'mdx-bundler/client';
+import { evaluate } from 'next-mdx-remote-client/rsc';
+
+import { Suspense } from 'react';
 
 import type { Page } from '@/types/common';
 
@@ -12,8 +14,22 @@ type PARAMS = { slug: string };
 type SEARCH_PARAMS = null;
 
 export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS>) {
-  const { frontmatter, code } = await getArticleBySlug(await params);
-  const Component = getMDXComponent(code);
+  const { source, options } = await getArticleBySlug(await params);
+
+  const { content, frontmatter, error } = await evaluate<{ videoId?: string; updatedAt: string; createdAt: string }>({
+    source,
+    options,
+    components,
+  });
+
+  if (error) {
+    return (
+      <article className="container py-16">
+        <h1>Error evaluating MDX</h1>
+        <pre>{error.message}</pre>
+      </article>
+    );
+  }
 
   return (
     <article
@@ -34,10 +50,8 @@ export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS
           <YouTubeEmbed videoid={frontmatter.videoId} />
         </div>
       )}
-      <Component components={components} />
-      <h1>Article temporarily disabled for debugging</h1>
-      <p>The MDX component rendering has been commented out to debug the error.</p>
-      <p>Title: {frontmatter.title}</p>
+
+      <Suspense fallback={<div>Loading article content...</div>}>{content}</Suspense>
     </article>
   );
 }

@@ -7,6 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from '@repo/ui/components/shadcn/table';
+import { YouTubeEmbed } from '@next/third-parties/google';
 import { transformerNotationFocus, transformerNotationHighlight } from '@shikijs/transformers';
 import { bundledLanguages, createHighlighter } from 'shiki/bundle/web';
 
@@ -23,6 +24,7 @@ export default {
   tfoot: TableFooter,
   pre: Pre,
   code: Code,
+  YouTubeEmbed,
 } as MDXComponents;
 
 type PreProps = ComponentPropsWithoutRef<'pre'>;
