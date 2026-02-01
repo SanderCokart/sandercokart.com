@@ -4,7 +4,6 @@ import path from 'path';
 import { Options } from '@mdx-js/loader';
 import fg from 'fast-glob';
 import frontMatter from 'front-matter';
-import { bundleMDX } from 'mdx-bundler';
 import rehypeMdxCodeProps from 'rehype-mdx-code-props';
 import remarkGfm from 'remark-gfm';
 
@@ -64,17 +63,18 @@ const getArticleBySlug = async ({ slug }: { slug: string }) => {
   }
 
   const firstResult = paths[0];
+  const content = await fs.promises.readFile(firstResult, 'utf-8');
 
-  return await bundleMDX<ArticleAttributes>({
-    file: path.relative(process.cwd(), firstResult),
-    cwd: process.cwd(),
-    mdxOptions: options => {
-      options.rehypePlugins = [...(options.rehypePlugins || []), ...rehypePlugins];
-      options.remarkPlugins = [...(options.remarkPlugins || []), ...remarkPlugins];
-
-      return options;
+  return {
+    source: content,
+    options: {
+      parseFrontmatter: true,
+      mdxOptions: {
+        rehypePlugins: [...rehypePlugins],
+        remarkPlugins: [...remarkPlugins],
+      },
     },
-  });
+  };
 };
 
 export { getArticlesByType, getArticleBySlug };
