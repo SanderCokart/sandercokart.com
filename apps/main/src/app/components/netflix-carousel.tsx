@@ -98,6 +98,7 @@ const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => (
       <figcaption className="absolute inset-0 flex flex-col justify-between p-3">
         {/* Time badge */}
         <span
+        suppressHydrationWarning
           className="w-fit rounded bg-accent px-2 py-0.5 text-xs font-medium text-accent-foreground"
           title={format(article.attributes.createdAt, 'PPPPpp')}
         >

@@ -34,19 +34,33 @@ export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS
   return (
     <article
       className={cn(
-        'prose dark:prose-invert container py-16',
-        'prose-h2:bg-accent prose-h2:text-accent-foreground prose-h2:px-2 prose-h2:py-1',
-        'prose-h3:border-l-8 prose-h3:border-accent prose-h3:px-2 prose-h3:py-1',
+        'prose prose-lg dark:prose-invert mx-auto max-w-3xl px-4 py-8 sm:px-6 md:py-12 lg:py-16',
+        // Prose color customizations for better contrast
+        'prose-headings:text-foreground prose-p:text-foreground/90 prose-strong:text-foreground',
+        'prose-a:text-primary prose-a:no-underline hover:prose-a:underline',
+        // H2 styling - subtle bottom border accent instead of full background
+        'prose-h2:border-b-2 prose-h2:border-accent prose-h2:pb-2 prose-h2:mt-12 prose-h2:mb-6',
+        // H3 styling - refined left border accent
+        'prose-h3:border-l-4 prose-h3:border-accent prose-h3:pl-4 prose-h3:mt-8 prose-h3:mb-4',
+        // List styling
+        'prose-li:marker:text-accent',
+        // Code styling
+        'prose-code:text-primary prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none',
+        // Blockquote styling
+        'prose-blockquote:border-l-accent prose-blockquote:bg-muted/50 prose-blockquote:py-1 prose-blockquote:not-italic',
       )}>
-      <p className="bg-accent px-2 py-1 font-semibold">
+      <p className="rounded-md bg-muted px-4 py-2 text-sm text-muted-foreground">
         Last updated{' '}
-        <time dateTime={frontmatter.updatedAt} title={format(frontmatter.createdAt, 'PPPPpp')}>
+        <time
+          className="font-medium text-foreground"
+          dateTime={frontmatter.updatedAt}
+          title={format(frontmatter.createdAt, 'PPPPpp')}>
           {format(frontmatter.updatedAt, 'PPPPpp')}
         </time>
       </p>
 
       {frontmatter.videoId && (
-        <div className="mb-8">
+        <div className="my-8">
           <YouTubeEmbed videoid={frontmatter.videoId} />
         </div>
       )}
