@@ -3,9 +3,9 @@ export type ArticleAttributes = {
   createdAt: string;
   updatedAt: string;
   title: string;
-  publishedAt: string;
+  publishedAt?: string;
   authors: string[];
   summary: string;
-  videoId: string;
+  videoId?: string;
 };
 export type ArticleModel = { attributes: ArticleAttributes & AppendedArticleAttributes };

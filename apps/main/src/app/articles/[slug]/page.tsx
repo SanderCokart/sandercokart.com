@@ -12,8 +12,7 @@ type PARAMS = { slug: string };
 type SEARCH_PARAMS = null;
 
 export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS>) {
-  const { frontmatter, code } = await getArticleBySlug(params);
-
+  const { frontmatter, code } = await getArticleBySlug(await params);
   const Component = getMDXComponent(code);
 
   return (
@@ -36,6 +35,9 @@ export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS
         </div>
       )}
       <Component components={components} />
+      <h1>Article temporarily disabled for debugging</h1>
+      <p>The MDX component rendering has been commented out to debug the error.</p>
+      <p>Title: {frontmatter.title}</p>
     </article>
   );
 }

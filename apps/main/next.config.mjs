@@ -1,14 +1,22 @@
-import withMdx from '@next/mdx'
+import withMdx from '@next/mdx';
 
-const withMDX = withMdx()
+const withMDX = withMdx();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    reactStrictMode: true,
-    pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
-
+  reactStrictMode: true,
+  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'img.youtube.com',
+        pathname: '/vi/**',
+      },
+    ],
+  },
 };
 
-const finalConfig = withMDX(nextConfig)
+const finalConfig = withMDX(nextConfig);
 
-export default finalConfig
+export default finalConfig;

@@ -1,0 +1,394 @@
+'use client';
+
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@repo/ui/components/shadcn/carousel';
+import { Switch } from '@repo/ui/components/shadcn/switch';
+import { cn } from '@repo/ui/lib/utils';
+import { format, formatDistanceToNow } from 'date-fns';
+import { Expand, Pause, Play, Tv, BookOpen } from 'lucide-react';
+
+import { ComponentProps, FC, useCallback, useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+
+import type { ArticleModel } from '@/types/model-types';
+
+import placeholder from '@/app/placeholder.webp';
+
+// Netflix-style carousel wrapper
+// Following 70/20/10 rule: 70% background, 20% primary, 10% accent
+const NetflixCarousel: FC<ComponentProps<typeof Carousel>> = ({ className, ...props }) => (
+  <Carousel
+    opts={{
+      align: 'start',
+      dragFree: true,
+    }}
+    className={cn('group/carousel relative w-full', className)}
+    {...props}
+  />
+);
+
+const NetflixCarouselContent: FC<ComponentProps<typeof CarouselContent>> = ({ className, ...props }) => (
+  <CarouselContent className={cn('-ml-2 md:-ml-4', className)} {...props} />
+);
+
+const NetflixCarouselItem: FC<ComponentProps<typeof CarouselItem>> = ({ className, ...props }) => (
+  <CarouselItem
+    className={cn(
+      'pl-2 md:pl-4',
+      // Responsive sizing for Netflix-style layout
+      'basis-[85%] sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6',
+      className,
+    )}
+    {...props}
+  />
+);
+
+const NetflixCarouselPrevious: FC<ComponentProps<typeof CarouselPrevious>> = ({ className, ...props }) => (
+  <CarouselPrevious
+    className={cn(
+      'absolute left-0 top-1/2 z-10 h-full -translate-y-1/2 rounded-none border-none',
+      'bg-primary/90 text-primary-foreground opacity-0 transition-all duration-300',
+      'hover:bg-primary group-hover/carousel:opacity-100',
+      'disabled:pointer-events-none disabled:opacity-0',
+      'w-10 md:w-14',
+      className,
+    )}
+    {...props}
+  />
+);
+
+const NetflixCarouselNext: FC<ComponentProps<typeof CarouselNext>> = ({ className, ...props }) => (
+  <CarouselNext
+    className={cn(
+      'absolute right-0 top-1/2 z-10 h-full -translate-y-1/2 rounded-none border-none',
+      'bg-primary/90 text-primary-foreground opacity-0 transition-all duration-300',
+      'hover:bg-primary group-hover/carousel:opacity-100',
+      'disabled:pointer-events-none disabled:opacity-0',
+      'w-10 md:w-14',
+      className,
+    )}
+    {...props}
+  />
+);
+
+// Blog card component
+const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => (
+  <Link
+    href={`/articles/${article.attributes.slug}`}
+    className="group/card relative block aspect-video overflow-hidden rounded-sm transition-transform duration-300 ease-out hover:z-10 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background"
+  >
+    <figure className="relative h-full w-full">
+      <Image
+        fill
+        alt={article.attributes.title}
+        className="object-cover transition-transform duration-500 group-hover/card:scale-110"
+        src={article.attributes.banner || placeholder}
+        sizes="(max-width: 640px) 85vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
+      />
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-60 transition-opacity group-hover/card:opacity-80" />
+      
+      {/* Content overlay */}
+      <figcaption className="absolute inset-0 flex flex-col justify-between p-3">
+        {/* Time badge */}
+        <span
+          className="w-fit rounded bg-accent px-2 py-0.5 text-xs font-medium text-accent-foreground"
+          title={format(article.attributes.createdAt, 'PPPPpp')}
+        >
+          {formatDistanceToNow(article.attributes.createdAt, { addSuffix: true })}
+        </span>
+        
+        {/* Title */}
+        <div className="space-y-1">
+          <h3 className="line-clamp-2 text-balance text-sm font-semibold text-foreground drop-shadow-md md:text-base">
+            {article.attributes.title}
+          </h3>
+          {/* Video indicator */}
+          {article.attributes.videoId && (
+            <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
+              <Tv className="h-3 w-3" />
+              Video available
+            </span>
+          )}
+        </div>
+      </figcaption>
+    </figure>
+  </Link>
+);
+
+// YouTube video player with controls
+const VideoCard: FC<{ article: ArticleModel }> = ({ article }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const videoId = article.attributes.videoId;
+
+  const handleMouseEnter = useCallback(() => {
+    hoverTimeoutRef.current = setTimeout(() => {
+      setIsHovered(true);
+    }, 300);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+    setIsHovered(false);
+    setIsPlaying(false);
+  }, []);
+
+  const togglePlay = useCallback(() => {
+    if (iframeRef.current?.contentWindow) {
+      const action = isPlaying ? 'pauseVideo' : 'playVideo';
+      iframeRef.current.contentWindow.postMessage(
+        JSON.stringify({ event: 'command', func: action, args: [] }),
+        '*'
+      );
+      setIsPlaying(!isPlaying);
+    }
+  }, [isPlaying]);
+
+  const handleFullscreen = useCallback(() => {
+    if (containerRef.current) {
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+        setIsFullscreen(false);
+      } else {
+        containerRef.current.requestFullscreen();
+        setIsFullscreen(true);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  return (
+    <div
+      ref={containerRef}
+      className={cn(
+        'group/video relative aspect-video overflow-hidden rounded-sm transition-all duration-300 ease-out',
+        isHovered && 'z-20 scale-110 shadow-2xl shadow-background/50',
+        isFullscreen && 'scale-100'
+      )}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {/* Thumbnail when not hovered */}
+      {!isHovered && (
+        <div className="relative h-full w-full">
+          <Image
+            fill
+            alt={article.attributes.title}
+            className="object-cover"
+            src={article.attributes.banner || `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+            sizes="(max-width: 640px) 85vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
+          />
+          {/* Play button overlay */}
+          <div className="absolute inset-0 flex items-center justify-center bg-background/30">
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-accent/90 text-accent-foreground shadow-lg transition-transform hover:scale-110">
+              <Play className="h-6 w-6 translate-x-0.5" fill="currentColor" />
+            </div>
+          </div>
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-80" />
+          {/* Title */}
+          <div className="absolute inset-x-0 bottom-0 p-3">
+            <h3 className="line-clamp-2 text-balance text-sm font-semibold text-foreground drop-shadow-md md:text-base">
+              {article.attributes.title}
+            </h3>
+          </div>
+        </div>
+      )}
+
+      {/* YouTube embed when hovered */}
+      {isHovered && (
+        <>
+          <iframe
+            ref={iframeRef}
+            className="h-full w-full"
+            src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&enablejsapi=1&controls=0&modestbranding=1&rel=0`}
+            title={article.attributes.title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+          
+          {/* Custom controls overlay */}
+          <div className="absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t from-background/90 to-transparent p-3 opacity-0 transition-opacity group-hover/video:opacity-100">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={togglePlay}
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-accent-foreground transition-colors hover:bg-accent/80"
+                aria-label={isPlaying ? 'Pause' : 'Play'}
+              >
+                {isPlaying ? (
+                  <Pause className="h-4 w-4" fill="currentColor" />
+                ) : (
+                  <Play className="h-4 w-4 translate-x-0.5" fill="currentColor" />
+                )}
+              </button>
+              <span className="text-xs font-medium text-foreground/80 line-clamp-1">
+                {article.attributes.title}
+              </span>
+            </div>
+            <button
+              onClick={handleFullscreen}
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground transition-colors hover:bg-primary/80"
+              aria-label="Fullscreen"
+            >
+              <Expand className="h-4 w-4" />
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
+// Mode toggle component (desktop only) - uses primary colors
+const ModeToggle: FC<{
+  isVideoMode: boolean;
+  onToggle: (checked: boolean) => void;
+  hasVideos: boolean;
+}> = ({ isVideoMode, onToggle, hasVideos }) => {
+  if (!hasVideos) return null;
+
+  return (
+    <div className="hidden items-center gap-3 rounded-full bg-muted px-4 py-2 md:flex">
+      <span className={cn(
+        'flex items-center gap-1.5 text-sm font-medium transition-colors duration-200',
+        !isVideoMode ? 'text-primary' : 'text-muted-foreground'
+      )}>
+        <BookOpen className="h-4 w-4" />
+        Blog
+      </span>
+      <Switch
+        checked={isVideoMode}
+        onCheckedChange={onToggle}
+        aria-label="Toggle video mode"
+      />
+      <span className={cn(
+        'flex items-center gap-1.5 text-sm font-medium transition-colors duration-200',
+        isVideoMode ? 'text-accent' : 'text-muted-foreground'
+      )}>
+        <Tv className="h-4 w-4" />
+        Video
+      </span>
+    </div>
+  );
+};
+
+// Section header component - accent used sparingly (10%)
+const SectionHeader: FC<{
+  title: string;
+  isVideoMode: boolean;
+  onToggle: (checked: boolean) => void;
+  hasVideos: boolean;
+}> = ({ title, isVideoMode, onToggle, hasVideos }) => (
+  <div className="flex items-center justify-between px-4 py-4 md:px-8">
+    <h2 className="font-digital text-2xl font-bold uppercase tracking-wide text-foreground md:text-3xl lg:text-4xl">
+      <span className="border-l-4 border-accent pl-3">{title}</span>
+    </h2>
+    <ModeToggle isVideoMode={isVideoMode} onToggle={onToggle} hasVideos={hasVideos} />
+  </div>
+);
+
+// Main carousel section component
+export const NetflixCarouselSection: FC<{
+  title: string;
+  articles: ArticleModel[];
+}> = ({ title, articles }) => {
+  const [isVideoMode, setIsVideoMode] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check for mobile and reset to blog mode
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      if (mobile && isVideoMode) {
+        setIsVideoMode(false);
+      }
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, [isVideoMode]);
+
+  // Filter articles with videos for video mode
+  const articlesWithVideos = articles.filter(article => article.attributes.videoId);
+  const hasVideos = articlesWithVideos.length > 0;
+  
+  // In video mode, only show articles with videos; in blog mode show all
+  const displayArticles = isVideoMode ? articlesWithVideos : articles;
+
+  // Force blog mode on mobile
+  const effectiveVideoMode = !isMobile && isVideoMode && hasVideos;
+
+  return (
+    <section className="relative py-6 md:py-8">
+      {/* Background - 70% of the visual weight */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/10 to-background" />
+      
+      <div className="relative">
+        <SectionHeader
+          title={title}
+          isVideoMode={effectiveVideoMode}
+          onToggle={setIsVideoMode}
+          hasVideos={hasVideos}
+        />
+        
+        <div className="px-4 md:px-8">
+          <NetflixCarousel>
+            <NetflixCarouselContent>
+              {displayArticles.map(article => (
+                <NetflixCarouselItem key={article.attributes.slug}>
+                  {effectiveVideoMode && article.attributes.videoId ? (
+                    <VideoCard article={article} />
+                  ) : (
+                    <BlogCard article={article} />
+                  )}
+                </NetflixCarouselItem>
+              ))}
+            </NetflixCarouselContent>
+            <NetflixCarouselPrevious />
+            <NetflixCarouselNext />
+          </NetflixCarousel>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export {
+  NetflixCarousel,
+  NetflixCarouselContent,
+  NetflixCarouselItem,
+  NetflixCarouselPrevious,
+  NetflixCarouselNext,
+  BlogCard,
+  VideoCard,
+  ModeToggle,
+};
