@@ -7,7 +7,10 @@
     "./postcss.config": "./postcss.config.mjs",
     "./lib/*": "./src/lib/*.ts",
     "./components/*": "./src/components/*.tsx",
-    "./hooks/*": "./src/hooks/*.ts"
+    "./hooks/*": "./src/hooks/*.ts",
+    "./themes/default.css": "./src/themes/default.css",
+    "./themes/codehouse.sandercokart.com.css": "./src/themes/codehouse.sandercokart.com.css",
+    "./themes/sandercokart.com.css": "./src/themes/sandercokart.com.css"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",

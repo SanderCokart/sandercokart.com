@@ -1,8 +1,12 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import './default.css';
 
-@layer base {
+:root {
+}
+
+.dark {
+}
+
+/* @layer base {
   :root {
     --background: 0 0% 98%;
     --foreground: 222.2 84% 4.9%;
@@ -64,46 +68,4 @@
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
   }
-}
-
-/* Added by shadcn-ui */
-@layer base {
-  body {
-    @apply bg-background text-foreground;
-  }
-
-  * {
-    @apply border-border;
-  }
-}
-
-/* Custom */
-@layer base {
-  html {
-    /* removes the tap highlight color on mobile */
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  body {
-    @apply overflow-y-scroll font-sans;
-  }
-
-  ::-webkit-scrollbar {
-    @apply h-1.5 w-1.5 md:h-3 md:w-3;
-  }
-
-  /* Track */
-  ::-webkit-scrollbar-track {
-    @apply bg-accent;
-  }
-
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    @apply bg-primary;
-  }
-
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-primary/50;
-  }
-}
+} */

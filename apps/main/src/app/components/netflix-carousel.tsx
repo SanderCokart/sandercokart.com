@@ -10,7 +10,8 @@ import {
 import { Switch } from '@repo/ui/components/shadcn/switch';
 import { cn } from '@repo/ui/lib/utils';
 import { format, formatDistanceToNow } from 'date-fns';
-import { Expand, Pause, Play, Tv, BookOpen } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { BookOpen, Expand, Pause, Play, Tv } from 'lucide-react';
 
 import { ComponentProps, FC, useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
@@ -78,49 +79,59 @@ const NetflixCarouselNext: FC<ComponentProps<typeof CarouselNext>> = ({ classNam
 );
 
 // Blog card component
-const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => (
-  <Link
-    href={`/articles/${article.attributes.slug}`}
-    className="group/card relative block aspect-video overflow-hidden rounded-sm transition-transform duration-300 ease-out hover:z-10 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background"
-  >
-    <figure className="relative h-full w-full">
-      <Image
-        fill
-        alt={article.attributes.title}
-        className="object-cover transition-transform duration-500 group-hover/card:scale-110"
-        src={article.attributes.banner || placeholder}
-        sizes="(max-width: 640px) 85vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
-      />
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-60 transition-opacity group-hover/card:opacity-80" />
-      
-      {/* Content overlay */}
-      <figcaption className="absolute inset-0 flex flex-col justify-between p-3">
-        {/* Time badge */}
+const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <Link
+      href={`/articles/${article.attributes.slug}`}
+      className="group/card focus:ring-accent focus:ring-offset-background relative block aspect-video overflow-hidden rounded-sm transition-transform duration-300 ease-out hover:z-10 focus:outline-none focus:ring-2 focus:ring-offset-2">
+      <figure
+        className="group/figure relative h-full w-full"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}>
+        <Image
+          fill
+          alt={article.attributes.title}
+          className="scale-110 object-cover transition-transform duration-500 group-hover/card:scale-100"
+          src={article.attributes.banner || placeholder}
+          sizes="(max-width: 640px) 85vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
+        />
+
         <span
-          className="w-fit rounded bg-accent px-2 py-0.5 text-xs font-medium text-accent-foreground"
-          title={format(article.attributes.createdAt, 'PPPPpp')}
-        >
+          className="bg-accent text-accent-foreground absolute left-3 top-3 w-fit rounded px-2 py-0.5 text-xs font-medium"
+          title={format(article.attributes.createdAt, 'PPPPpp')}>
           {formatDistanceToNow(article.attributes.createdAt, { addSuffix: true })}
         </span>
-        
-        {/* Title */}
-        <div className="space-y-1">
-          <h3 className="line-clamp-2 text-balance text-sm font-semibold text-foreground drop-shadow-md md:text-base">
-            {article.attributes.title}
-          </h3>
-          {/* Video indicator */}
-          {article.attributes.videoId && (
-            <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
-              <Tv className="h-3 w-3" />
-              Video available
-            </span>
-          )}
-        </div>
-      </figcaption>
-    </figure>
-  </Link>
-);
+
+        <figcaption className="absolute inset-0 flex flex-col justify-between p-3">
+          <div className="bg-card/80 text-card-foreground absolute inset-x-0 bottom-0">
+            <AnimatePresence>
+              {isHovered && (
+                <motion.div
+                  className="overflow-hidden"
+                  initial={{ height: 0 }}
+                  animate={{ height: 'auto' }}
+                  exit={{ height: 0 }}
+                  transition={{ duration: 0.5, ease: 'easeOut' }}>
+                  <h3 className="text-foreground line-clamp-2 text-balance text-sm font-semibold drop-shadow-md md:text-base">
+                    {article.attributes.title}
+                  </h3>
+                </motion.div>
+              )}
+            </AnimatePresence>
+            {article.attributes.videoId && (
+              <span className="text-muted-foreground inline-flex items-center gap-1 text-xs">
+                <Tv className="h-3 w-3" />
+                Video available
+              </span>
+            )}
+          </div>
+        </figcaption>
+      </figure>
+    </Link>
+  );
+};
 
 // YouTube video player with controls
 const VideoCard: FC<{ article: ArticleModel }> = ({ article }) => {
@@ -150,10 +161,7 @@ const VideoCard: FC<{ article: ArticleModel }> = ({ article }) => {
   const togglePlay = useCallback(() => {
     if (iframeRef.current?.contentWindow) {
       const action = isPlaying ? 'pauseVideo' : 'playVideo';
-      iframeRef.current.contentWindow.postMessage(
-        JSON.stringify({ event: 'command', func: action, args: [] }),
-        '*'
-      );
+      iframeRef.current.contentWindow.postMessage(JSON.stringify({ event: 'command', func: action, args: [] }), '*');
       setIsPlaying(!isPlaying);
     }
   }, [isPlaying]);
@@ -189,12 +197,11 @@ const VideoCard: FC<{ article: ArticleModel }> = ({ article }) => {
       ref={containerRef}
       className={cn(
         'group/video relative aspect-video overflow-hidden rounded-sm transition-all duration-300 ease-out',
-        isHovered && 'z-20 scale-110 shadow-2xl shadow-background/50',
-        isFullscreen && 'scale-100'
+        isHovered && 'shadow-background/50 z-20 scale-110 shadow-2xl',
+        isFullscreen && 'scale-100',
       )}
       onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
+      onMouseLeave={handleMouseLeave}>
       {/* Thumbnail when not hovered */}
       {!isHovered && (
         <div className="relative h-full w-full">
@@ -206,16 +213,16 @@ const VideoCard: FC<{ article: ArticleModel }> = ({ article }) => {
             sizes="(max-width: 640px) 85vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
           />
           {/* Play button overlay */}
-          <div className="absolute inset-0 flex items-center justify-center bg-background/30">
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-accent/90 text-accent-foreground shadow-lg transition-transform hover:scale-110">
+          <div className="bg-background/30 absolute inset-0 flex items-center justify-center">
+            <div className="bg-accent/90 text-accent-foreground flex h-14 w-14 items-center justify-center rounded-full shadow-lg transition-transform hover:scale-110">
               <Play className="h-6 w-6 translate-x-0.5" fill="currentColor" />
             </div>
           </div>
           {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-80" />
+          <div className="from-background absolute inset-0 bg-gradient-to-t via-transparent to-transparent opacity-80" />
           {/* Title */}
           <div className="absolute inset-x-0 bottom-0 p-3">
-            <h3 className="line-clamp-2 text-balance text-sm font-semibold text-foreground drop-shadow-md md:text-base">
+            <h3 className="text-foreground line-clamp-2 text-balance text-sm font-semibold drop-shadow-md md:text-base">
               {article.attributes.title}
             </h3>
           </div>
@@ -233,30 +240,26 @@ const VideoCard: FC<{ article: ArticleModel }> = ({ article }) => {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           />
-          
+
           {/* Custom controls overlay */}
-          <div className="absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t from-background/90 to-transparent p-3 opacity-0 transition-opacity group-hover/video:opacity-100">
+          <div className="from-background/90 absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t to-transparent p-3 opacity-0 transition-opacity group-hover/video:opacity-100">
             <div className="flex items-center gap-2">
               <button
                 onClick={togglePlay}
-                className="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-accent-foreground transition-colors hover:bg-accent/80"
-                aria-label={isPlaying ? 'Pause' : 'Play'}
-              >
+                className="bg-accent text-accent-foreground hover:bg-accent/80 flex h-8 w-8 items-center justify-center rounded-full transition-colors"
+                aria-label={isPlaying ? 'Pause' : 'Play'}>
                 {isPlaying ? (
                   <Pause className="h-4 w-4" fill="currentColor" />
                 ) : (
                   <Play className="h-4 w-4 translate-x-0.5" fill="currentColor" />
                 )}
               </button>
-              <span className="text-xs font-medium text-foreground/80 line-clamp-1">
-                {article.attributes.title}
-              </span>
+              <span className="text-foreground/80 line-clamp-1 text-xs font-medium">{article.attributes.title}</span>
             </div>
             <button
               onClick={handleFullscreen}
-              className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground transition-colors hover:bg-primary/80"
-              aria-label="Fullscreen"
-            >
+              className="bg-primary text-primary-foreground hover:bg-primary/80 flex h-8 w-8 items-center justify-center rounded-full transition-colors"
+              aria-label="Fullscreen">
               <Expand className="h-4 w-4" />
             </button>
           </div>
@@ -275,23 +278,21 @@ const ModeToggle: FC<{
   if (!hasVideos) return null;
 
   return (
-    <div className="hidden items-center gap-3 rounded-full bg-muted px-4 py-2 md:flex">
-      <span className={cn(
-        'flex items-center gap-1.5 text-sm font-medium transition-colors duration-200',
-        !isVideoMode ? 'text-primary' : 'text-muted-foreground'
-      )}>
+    <div className="bg-muted hidden items-center gap-3 rounded-full px-4 py-2 md:flex">
+      <span
+        className={cn(
+          'flex items-center gap-1.5 text-sm font-medium transition-colors duration-200',
+          !isVideoMode ? 'text-primary' : 'text-muted-foreground',
+        )}>
         <BookOpen className="h-4 w-4" />
         Blog
       </span>
-      <Switch
-        checked={isVideoMode}
-        onCheckedChange={onToggle}
-        aria-label="Toggle video mode"
-      />
-      <span className={cn(
-        'flex items-center gap-1.5 text-sm font-medium transition-colors duration-200',
-        isVideoMode ? 'text-accent' : 'text-muted-foreground'
-      )}>
+      <Switch checked={isVideoMode} onCheckedChange={onToggle} aria-label="Toggle video mode" />
+      <span
+        className={cn(
+          'flex items-center gap-1.5 text-sm font-medium transition-colors duration-200',
+          isVideoMode ? 'text-accent' : 'text-muted-foreground',
+        )}>
         <Tv className="h-4 w-4" />
         Video
       </span>
@@ -299,22 +300,14 @@ const ModeToggle: FC<{
   );
 };
 
-// Section header component - accent used sparingly (10%)
-const SectionHeader: FC<{
-  title: string;
-  isVideoMode: boolean;
-  onToggle: (checked: boolean) => void;
-  hasVideos: boolean;
-}> = ({ title, isVideoMode, onToggle, hasVideos }) => (
+const SectionHeader: FC<{ title: string }> = ({ title }) => (
   <div className="flex items-center justify-between px-4 py-4 md:px-8">
-    <h2 className="font-digital text-2xl font-bold uppercase tracking-wide text-foreground md:text-3xl lg:text-4xl">
-      <span className="border-l-4 border-accent pl-3">{title}</span>
+    <h2 className="font-digital text-foreground text-2xl font-bold uppercase tracking-wide md:text-3xl lg:text-4xl">
+      <span className="border-accent border-l-4 pl-3">{title}</span>
     </h2>
-    <ModeToggle isVideoMode={isVideoMode} onToggle={onToggle} hasVideos={hasVideos} />
   </div>
 );
 
-// Main carousel section component
 export const NetflixCarouselSection: FC<{
   title: string;
   articles: ArticleModel[];
@@ -340,7 +333,7 @@ export const NetflixCarouselSection: FC<{
   // Filter articles with videos for video mode
   const articlesWithVideos = articles.filter(article => article.attributes.videoId);
   const hasVideos = articlesWithVideos.length > 0;
-  
+
   // In video mode, only show articles with videos; in blog mode show all
   const displayArticles = isVideoMode ? articlesWithVideos : articles;
 
@@ -348,18 +341,10 @@ export const NetflixCarouselSection: FC<{
   const effectiveVideoMode = !isMobile && isVideoMode && hasVideos;
 
   return (
-    <section className="relative py-6 md:py-8">
-      {/* Background - 70% of the visual weight */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/10 to-background" />
-      
-      <div className="relative">
-        <SectionHeader
-          title={title}
-          isVideoMode={effectiveVideoMode}
-          onToggle={setIsVideoMode}
-          hasVideos={hasVideos}
-        />
-        
+    <section>
+      <div>
+        <SectionHeader title={title} />
+
         <div className="px-4 md:px-8">
           <NetflixCarousel>
             <NetflixCarouselContent>

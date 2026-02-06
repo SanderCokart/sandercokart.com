@@ -1,0 +1,25 @@
+@import './default.css';
+
+:root {
+  --primary: var(--color-violet-800);
+  --primary-foreground: var(--color-white);
+  --accent: var(--color-emerald-400);
+  --accent-foreground: var(--color-black);
+
+  --react: oklch(0.824 0.117 219.524);
+  --laravel: oklch(0.638 0.242 29.164);
+  --vue: oklch(0.699 0.132 160.322);
+}
+
+.dark {
+  --primary: var(--color-violet-950);
+  --primary-foreground: var(--color-white);
+  --accent: var(--color-emerald-400);
+  --accent-foreground: var(--color-black);
+}
+
+@theme inline {
+  --color-react: var(--react);
+  --color-laravel: var(--laravel);
+  --color-vue: var(--vue);
+}
