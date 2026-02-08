@@ -1,9 +1,17 @@
 @import './default.css';
 
 :root {
+  --primary: oklch(0.585 0.233 277.117);
+  --primary-foreground: oklch(0.985 0 0);
+  --accent: oklch(0.769 0.188 70.08);
+  --accent-foreground: oklch(1 0 0);
 }
 
 .dark {
+  --primary: oklch(0.359 0.144 278.697);
+  --primary-foreground: oklch(1 0 0);
+  --accent: oklch(0.666 0.179 58.318);
+  --accent-foreground: oklch(0.985 0 0);
 }
 
 /* @layer base {

@@ -1,4 +1,4 @@
-import { NetflixCarouselSection } from '@/app/components/netflix-carousel';
+import { CarouselSection } from '@/app/components/carousel';
 import { getArticlesByType } from '@/lib/actions/articles';
 
 export default async function LandingPage() {
@@ -7,8 +7,8 @@ export default async function LandingPage() {
 
   return (
     <main className="flex grow flex-col py-6">
-      <NetflixCarouselSection title="General" articles={generalArticles} />
-      <NetflixCarouselSection title="Tips" articles={tipsArticles} />
+      <CarouselSection title="General" articles={generalArticles} />
+      <CarouselSection title="Tips" articles={tipsArticles} />
     </main>
   );
 }
