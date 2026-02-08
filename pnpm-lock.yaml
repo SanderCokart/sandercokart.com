@@ -287,21 +287,9 @@ importers:
         specifier: 3.0.2
         version: 3.0.2
     devDependencies:
-      '@mdx-js/loader':
-        specifier: ^3
-        version: 3.1.1(webpack@5.104.1(esbuild@0.27.2))
-      '@mdx-js/react':
-        specifier: ^3
-        version: 3.1.1(@types/react@19.2.7)(react@19.0.0)
-      '@next/mdx':
-        specifier: ^14
-        version: 14.2.35(@mdx-js/loader@3.1.1(webpack@5.104.1(esbuild@0.27.2)))(@mdx-js/react@3.1.1(@types/react@19.2.7)(react@19.0.0))
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
-      '@types/mdx':
-        specifier: ^2
-        version: 2.0.13
       '@types/node':
         specifier: 20.17.24
         version: 20.17.24
@@ -1776,14 +1764,6 @@ packages:
     peerDependencies:
       react: ^18.x || ^19.x
 
-  '@mdx-js/loader@3.1.1':
-    resolution: {integrity: sha512-0TTacJyZ9mDmY+VefuthVshaNIyCGZHJG2fMnGaDttCt8HmjUF7SizlHJpaCDoGnN635nK1wpzfpx/Xx5S4WnQ==}
-    peerDependencies:
-      webpack: '>=5'
-    peerDependenciesMeta:
-      webpack:
-        optional: true
-
   '@mdx-js/mdx@3.1.1':
     resolution: {integrity: sha512-f6ZO2ifpwAQIpzGWaBQT2TXxPv6z3RBzQKpVftEWN78Vl/YweF1uwussDx8ECAXVtr3Rs89fKyG9YlzUs9DyGQ==}
 
@@ -1819,17 +1799,6 @@ packages:
 
   '@next/eslint-plugin-next@16.0.10':
     resolution: {integrity: sha512-b2NlWN70bbPLmfyoLvvidPKWENBYYIe017ZGUpElvQjDytCWgxPJx7L9juxHt0xHvNVA08ZHJdOyhGzon/KJuw==}
-
-  '@next/mdx@14.2.35':
-    resolution: {integrity: sha512-Pekqjb1Rm4mm0wJgRRmVIdN8eCEMMdDeCCa+REHYb8lZ9K7vYsEAVHJ8XBq8XaLKp110p8k6JdUT64sFE/y8Uw==}
-    peerDependencies:
-      '@mdx-js/loader': '>=0.15.0'
-      '@mdx-js/react': '>=0.15.0'
-    peerDependenciesMeta:
-      '@mdx-js/loader':
-        optional: true
-      '@mdx-js/react':
-        optional: true
 
   '@next/swc-darwin-arm64@15.1.2':
     resolution: {integrity: sha512-b9TN7q+j5/7+rGLhFAVZiKJGIASuo8tWvInGfAd8wsULjB1uNGRCj1z1WZwwPWzVQbIKWFYqc+9L7W09qwt52w==}
@@ -8975,15 +8944,6 @@ snapshots:
     dependencies:
       react: 19.2.3
 
-  '@mdx-js/loader@3.1.1(webpack@5.104.1(esbuild@0.27.2))':
-    dependencies:
-      '@mdx-js/mdx': 3.1.1
-      source-map: 0.7.6
-    optionalDependencies:
-      webpack: 5.104.1(esbuild@0.27.2)
-    transitivePeerDependencies:
-      - supports-color
-
   '@mdx-js/mdx@3.1.1':
     dependencies:
       '@types/estree': 1.0.8
@@ -9053,13 +9013,6 @@ snapshots:
   '@next/eslint-plugin-next@16.0.10':
     dependencies:
       fast-glob: 3.3.1
-
-  '@next/mdx@14.2.35(@mdx-js/loader@3.1.1(webpack@5.104.1(esbuild@0.27.2)))(@mdx-js/react@3.1.1(@types/react@19.2.7)(react@19.0.0))':
-    dependencies:
-      source-map: 0.7.6
-    optionalDependencies:
-      '@mdx-js/loader': 3.1.1(webpack@5.104.1(esbuild@0.27.2))
-      '@mdx-js/react': 3.1.1(@types/react@19.2.7)(react@19.0.0)
 
   '@next/swc-darwin-arm64@15.1.2':
     optional: true
@@ -12322,7 +12275,7 @@ snapshots:
       tinyglobby: 0.2.15
       unrs-resolver: 1.11.1
     optionalDependencies:
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.26.2-alpha.4(eslint@9.22.0(jiti@2.6.1))(typescript@5.8.2))(eslint@9.22.0(jiti@2.6.1))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.49.0(eslint@9.22.0(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.22.0(jiti@2.6.1))
     transitivePeerDependencies:
       - supports-color
 
@@ -15696,18 +15649,6 @@ snapshots:
       string-kit: 0.19.3
       tree-kit: 0.8.8
 
-  terser-webpack-plugin@5.3.16(esbuild@0.27.2)(webpack@5.104.1(esbuild@0.27.2)):
-    dependencies:
-      '@jridgewell/trace-mapping': 0.3.31
-      jest-worker: 27.5.1
-      schema-utils: 4.3.3
-      serialize-javascript: 6.0.2
-      terser: 5.46.0
-      webpack: 5.104.1(esbuild@0.27.2)
-    optionalDependencies:
-      esbuild: 0.27.2
-    optional: true
-
   terser-webpack-plugin@5.3.16(webpack@5.104.1):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
@@ -16239,39 +16180,6 @@ snapshots:
       - '@swc/core'
       - esbuild
       - uglify-js
-
-  webpack@5.104.1(esbuild@0.27.2):
-    dependencies:
-      '@types/eslint-scope': 3.7.7
-      '@types/estree': 1.0.8
-      '@types/json-schema': 7.0.15
-      '@webassemblyjs/ast': 1.14.1
-      '@webassemblyjs/wasm-edit': 1.14.1
-      '@webassemblyjs/wasm-parser': 1.14.1
-      acorn: 8.15.0
-      acorn-import-phases: 1.0.4(acorn@8.15.0)
-      browserslist: 4.28.1
-      chrome-trace-event: 1.0.4
-      enhanced-resolve: 5.18.4
-      es-module-lexer: 2.0.0
-      eslint-scope: 5.1.1
-      events: 3.3.0
-      glob-to-regexp: 0.4.1
-      graceful-fs: 4.2.11
-      json-parse-even-better-errors: 2.3.1
-      loader-runner: 4.3.1
-      mime-types: 2.1.35
-      neo-async: 2.6.2
-      schema-utils: 4.3.3
-      tapable: 2.3.0
-      terser-webpack-plugin: 5.3.16(esbuild@0.27.2)(webpack@5.104.1(esbuild@0.27.2))
-      watchpack: 2.5.1
-      webpack-sources: 3.3.3
-    transitivePeerDependencies:
-      - '@swc/core'
-      - esbuild
-      - uglify-js
-    optional: true
 
   whatwg-encoding@3.1.1:
     dependencies:
