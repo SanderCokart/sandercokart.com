@@ -65,7 +65,7 @@ export const CarouselSection: FC<{
               dragFree: true,
             }}
             className="group/carousel relative w-full">
-            <CarouselContent className="-ml-2 md:-ml-4">
+            <CarouselContent className="-ml-2 bg-neutral-200/25 md:-ml-4 dark:bg-black/25">
               {articles.map(article => (
                 <CarouselItem
                   key={article.attributes.slug}
@@ -74,8 +74,18 @@ export const CarouselSection: FC<{
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="bg-primary/90 text-primary-foreground hover:bg-primary absolute left-0 top-1/2 z-10 h-full w-10 -translate-y-1/2 rounded-none border-none opacity-0 transition-all duration-300 disabled:pointer-events-none disabled:opacity-0 group-hover/carousel:opacity-100 md:w-14" />
-            <CarouselNext className="bg-primary/90 text-primary-foreground hover:bg-primary absolute right-0 top-1/2 z-10 h-full w-10 -translate-y-1/2 rounded-none border-none opacity-0 transition-all duration-300 disabled:pointer-events-none disabled:opacity-0 group-hover/carousel:opacity-100 md:w-14" />
+            <CarouselPrevious
+              className={cn(
+                'absolute left-0 h-full',
+                'bg-accent text-accent-foreground rounded-none disabled:opacity-100',
+              )}
+            />
+            <CarouselNext
+              className={cn(
+                'absolute right-0 h-full',
+                'bg-accent text-accent-foreground rounded-none disabled:opacity-100',
+              )}
+            />
           </Carousel>
         </div>
       </div>
