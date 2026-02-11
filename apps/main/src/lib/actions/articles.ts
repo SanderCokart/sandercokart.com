@@ -1,13 +1,13 @@
 import fs from 'fs';
 import path from 'path';
 
-import { Options } from '@mdx-js/loader';
 import fg from 'fast-glob';
 import frontMatter from 'front-matter';
 import rehypeMdxCodeProps from 'rehype-mdx-code-props';
 import remarkGfm from 'remark-gfm';
 
 import type { ArticleAttributes, ArticleModel } from '@/types/model-types';
+import type { EvaluateOptions } from 'next-mdx-remote-client/rsc';
 
 const getBannerPath = async (slug: string) => {
   const files = await fs.promises.readdir('public/banners');
@@ -49,13 +49,18 @@ const getArticlesByType = async (type: 'general' | 'tips') => {
     }),
   );
 
+  // In development, show all articles; in production, only published articles
+  if (process.env.NODE_ENV === 'production') {
+    return articles.filter(article => article.attributes.publishedAt && article.attributes.publishedAt.trim() !== '');
+  }
+
   return articles;
 };
 
-const remarkPlugins: Options['remarkPlugins'] = [remarkGfm];
-const rehypePlugins: Options['rehypePlugins'] = [rehypeMdxCodeProps];
+const remarkPlugins = [remarkGfm];
+const rehypePlugins = [rehypeMdxCodeProps];
 
-const getArticleBySlug = async ({ slug }: { slug: string }) => {
+const getArticleBySlug = async ({ slug }: { slug: string }): Promise<{ source: string; options: EvaluateOptions }> => {
   const paths = (await fg(`src/app/articles/**/${slug}.mdx`)) as [string];
 
   if (!paths.length) {
@@ -70,8 +75,8 @@ const getArticleBySlug = async ({ slug }: { slug: string }) => {
     options: {
       parseFrontmatter: true,
       mdxOptions: {
-        rehypePlugins: [...rehypePlugins],
-        remarkPlugins: [...remarkPlugins],
+        rehypePlugins,
+        remarkPlugins,
       },
     },
   };
