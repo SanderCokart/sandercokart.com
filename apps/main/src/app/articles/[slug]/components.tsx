@@ -19,9 +19,11 @@ import {
   transformerNotationWordHighlight,
 } from '@shikijs/transformers';
 import { bundledLanguages, createHighlighter } from 'shiki/bundle/web';
+import { toJsxRuntime } from 'hast-util-to-jsx-runtime';
+import { Fragment, jsx, jsxs } from 'react/jsx-runtime';
 
 import type { ComponentPropsWithoutRef } from 'react';
-import type { HighlighterGeneric } from 'shiki';
+import type { HighlighterGeneric, BundledLanguage } from 'shiki';
 
 // Singleton highlighter instance to avoid creating multiple Shiki instances
 let highlighter: HighlighterGeneric<any, any> | null = null;
@@ -51,11 +53,12 @@ export default {
 
 type PreProps = ComponentPropsWithoutRef<'pre'>;
 
-function Pre({ ...props }: PreProps) {
+function Pre({ children, ...props }: PreProps) {
   return (
     <div className="not-prose flex flex-col">
-      <div className="bg-primary text-primary-foreground text-center font-semibold">something</div>
-      <pre {...props} />
+      <pre {...props} className={cn('overflow-x-auto', props.className)}>
+        {children}
+      </pre>
     </div>
   );
 }
@@ -84,8 +87,9 @@ async function Code({ children, ...props }: ComponentPropsWithoutRef<'code'>) {
     throw new Error('Failed to initialize syntax highlighter');
   }
 
-  const html = highlighter.codeToHtml(children as string, {
-    lang: props.className?.replace('language-', '') || 'plaintext',
+  const lang = (props.className?.replace('language-', '') || 'plaintext') as BundledLanguage;
+  const hast = highlighter.codeToHast(children as string, {
+    lang,
     transformers: [
       transformerNotationDiff(),
       transformerNotationFocus(),
@@ -101,5 +105,21 @@ async function Code({ children, ...props }: ComponentPropsWithoutRef<'code'>) {
     },
   });
 
-  return <code {...props} dangerouslySetInnerHTML={{ __html: html }} />;
+  return toJsxRuntime(hast, {
+    Fragment,
+    jsx,
+    jsxs,
+    components: {
+      pre: (preProps: any) => <Pre {...preProps} />,
+      code: (codeProps: any) => (
+        <code
+          {...codeProps}
+          className={cn(
+            'block p-4 text-sm leading-relaxed',
+            codeProps.className
+          )}
+        />
+      ),
+    },
+  }) as React.ReactElement;
 }
