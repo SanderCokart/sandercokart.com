@@ -1,6 +1,5 @@
 import { YouTubeEmbed } from '@next/third-parties/google';
 import { cn } from '@repo/ui/lib/utils';
-import { format } from 'date-fns';
 import { evaluate } from 'next-mdx-remote-client/rsc';
 
 import { Suspense } from 'react';
@@ -16,11 +15,13 @@ type SEARCH_PARAMS = null;
 export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS>) {
   const { source, options } = await getArticleBySlug(await params);
 
-  const { content, frontmatter, error } = await evaluate<{ videoId?: string; updatedAt: string; createdAt: string }>({
-    source,
-    options,
-    components,
-  });
+  const { content, frontmatter, error } = await evaluate<{ videoId?: string; updatedAt: string; publishedAt?: string }>(
+    {
+      source,
+      options,
+      components,
+    },
+  );
 
   if (error) {
     return (
@@ -52,13 +53,38 @@ export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS
         'prose-blockquote:border-l-primary dark:prose-blockquote:border-l-accent prose-blockquote:bg-muted/50 prose-blockquote:py-1 prose-blockquote:not-italic',
       )}>
       <header className="border-primary dark:border-accent mb-12 border-b pb-8">
-        <time
-          className="text-muted-foreground font-mono text-xs uppercase tracking-widest"
-          dateTime={frontmatter.updatedAt}
-          suppressHydrationWarning
-          title={format(frontmatter.createdAt, 'PPPPpp')}>
-          {format(frontmatter.updatedAt, 'MMMM d, yyyy')}
-        </time>
+        <div className="flex justify-between">
+          {frontmatter.publishedAt && (
+            <time
+              className="text-muted-foreground font-mono text-xs uppercase tracking-widest"
+              dateTime={frontmatter.publishedAt}
+              title={new Date(frontmatter.publishedAt).toLocaleString(navigator.language, {
+                dateStyle: 'long',
+                timeStyle: 'medium',
+              })}
+              suppressHydrationWarning>
+              Published on{' '}
+              {new Date(frontmatter.publishedAt).toLocaleDateString(navigator.language, {
+                dateStyle: 'long',
+              })}
+            </time>
+          )}
+          {frontmatter.updatedAt && frontmatter.updatedAt !== frontmatter.publishedAt && (
+            <time
+              className="text-muted-foreground font-mono text-xs uppercase tracking-widest"
+              dateTime={frontmatter.updatedAt}
+              title={new Date(frontmatter.updatedAt).toLocaleString(navigator.language, {
+                dateStyle: 'medium',
+                timeStyle: 'medium',
+              })}
+              suppressHydrationWarning>
+              Updated on{' '}
+              {new Date(frontmatter.updatedAt).toLocaleDateString(navigator.language, {
+                dateStyle: 'long',
+              })}
+            </time>
+          )}
+        </div>
       </header>
 
       {frontmatter.videoId && (

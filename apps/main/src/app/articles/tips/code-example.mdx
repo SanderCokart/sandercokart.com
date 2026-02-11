@@ -1,22 +1,358 @@
 ---
-createdAt: 2024-06-18T22:34:22.877Z
-updatedAt: 2024-06-18T22:34:22.877Z
-title: 'Coding Example'
+createdAt: 2026-02-11T10:00:00.000Z
+updatedAt: 2026-02-11T10:00:00.000Z
+title: 'React State Management and Providers Tutorial'
 publishedAt:
 authors: ['Sander Cokart']
-summary: 'Here is a code example'
+summary: 'A comprehensive guide to managing state in React applications using built-in hooks, Context API, and Provider patterns'
 ---
 
-# Code Example
+# React State Management and Providers Tutorial
 
-```js
-export default function App() {
-  console.log('Highlighted'); // [!code highlight]
-  console.log('focused'); // [!code focus]
+Managing state is a fundamental aspect of React development. This tutorial covers everything you need to know about state management in React, from basic hooks to advanced provider patterns.
+
+## useState Hook: The Basics
+
+The `useState` hook is the foundation of state management in functional React components. It allows you to add state to functional components.
+
+```tsx
+import { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0); // [!code focus]
+
   return (
     <div>
-      <h1>Hello World</h1>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button> // [!code focus]
     </div>
   );
 }
 ```
+
+Key points:
+
+- `useState` returns an array with the current state value and a setter function
+- The setter function can accept a new value or a function that receives the previous state
+- State updates are asynchronous and batched for performance
+
+## useEffect and Side Effects
+
+`useEffect` helps manage side effects that need to happen after render, like API calls or DOM manipulation.
+
+```tsx
+import { useEffect, useState } from 'react';
+
+function UserProfile({ userId }) {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchUser() {
+      setLoading(true);
+      try {
+        const response = await fetch(`/api/users/${userId}`);
+        const userData = await response.json();
+        setUser(userData);
+      } catch (error) {
+        console.error('Failed to fetch user:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    if (userId) {
+      fetchUser();
+    }
+  }, [userId]); // Dependency array
+
+  if (loading) return <div>Loading...</div>;
+  if (!user) return <div>User not found</div>;
+
+  return <div>Welcome, {user.name}!</div>;
+}
+```
+
+## Context API and Providers
+
+The Context API allows you to share state across the component tree without prop drilling. It's perfect for global state like themes, user authentication, or app settings.
+
+### Creating a Context
+
+```tsx
+import { createContext, useContext, useState } from 'react';
+
+// Create the context
+const ThemeContext = createContext();
+
+// Create a custom hook for using the context
+export function useTheme() {
+  const context = useContext(ThemeContext);
+  if (!context) {
+    throw new Error('useTheme must be used within a ThemeProvider');
+  }
+  return context;
+}
+
+// Create the provider component
+export function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState('light');
+
+  const toggleTheme = () => {
+    setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
+  };
+
+  const value = {
+    theme,
+    toggleTheme,
+  };
+
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
+}
+```
+
+### Using the Provider
+
+```tsx
+import { ThemeProvider, useTheme } from './ThemeContext';
+
+function App() {
+  return (
+    <ThemeProvider>
+      <Header />
+      <MainContent />
+      <Footer />
+    </ThemeProvider>
+  );
+}
+
+function Header() {
+  const { theme, toggleTheme } = useTheme();
+
+  return (
+    <header className={theme}>
+      <h1>My App</h1>
+      <button onClick={toggleTheme}>Switch to {theme === 'light' ? 'dark' : 'light'} mode</button>
+    </header>
+  );
+}
+```
+
+## useReducer for Complex State
+
+For complex state logic involving multiple sub-values or when the next state depends on the previous one, `useReducer` can be more appropriate than `useState`.
+
+```tsx
+import { useReducer } from 'react';
+
+// Define action types as constants
+const ACTIONS = {
+  INCREMENT: 'increment',
+  DECREMENT: 'decrement',
+  RESET: 'reset',
+};
+
+// Reducer function
+function counterReducer(state, action) {
+  switch (action.type) {
+    case ACTIONS.INCREMENT:
+      return { count: state.count + 1 };
+    case ACTIONS.DECREMENT:
+      return { count: state.count - 1 };
+    case ACTIONS.RESET:
+      return { count: 0 };
+    default:
+      return state;
+  }
+}
+
+function CounterWithReducer() {
+  const [state, dispatch] = useReducer(counterReducer, { count: 0 });
+
+  return (
+    <div>
+      <p>Count: {state.count}</p>
+      <button onClick={() => dispatch({ type: ACTIONS.INCREMENT })}>+</button>
+      <button onClick={() => dispatch({ type: ACTIONS.DECREMENT })}>-</button>
+      <button onClick={() => dispatch({ type: ACTIONS.RESET })}>Reset</button>
+    </div>
+  );
+}
+```
+
+## Combining Context and useReducer
+
+For global state that requires complex logic, combine Context with useReducer:
+
+```tsx
+import { createContext, useContext, useReducer } from 'react';
+
+const TodoContext = createContext();
+
+const ACTIONS = {
+  ADD_TODO: 'add_todo',
+  TOGGLE_TODO: 'toggle_todo',
+  DELETE_TODO: 'delete_todo',
+};
+
+function todoReducer(state, action) {
+  switch (action.type) {
+    case ACTIONS.ADD_TODO:
+      return [
+        ...state,
+        {
+          id: Date.now(),
+          text: action.payload,
+          completed: false,
+        },
+      ];
+    case ACTIONS.TOGGLE_TODO:
+      return state.map(todo => (todo.id === action.payload ? { ...todo, completed: !todo.completed } : todo));
+    case ACTIONS.DELETE_TODO:
+      return state.filter(todo => todo.id !== action.payload);
+    default:
+      return state;
+  }
+}
+
+export function TodoProvider({ children }) {
+  const [todos, dispatch] = useReducer(todoReducer, []);
+
+  const addTodo = text => {
+    dispatch({ type: ACTIONS.ADD_TODO, payload: text });
+  };
+
+  const toggleTodo = id => {
+    dispatch({ type: ACTIONS.TOGGLE_TODO, payload: id });
+  };
+
+  const deleteTodo = id => {
+    dispatch({ type: ACTIONS.DELETE_TODO, payload: id });
+  };
+
+  const value = {
+    todos,
+    addTodo,
+    toggleTodo,
+    deleteTodo,
+  };
+
+  return <TodoContext.Provider value={value}>{children}</TodoContext.Provider>;
+}
+
+export function useTodos() {
+  const context = useContext(TodoContext);
+  if (!context) {
+    throw new Error('useTodos must be used within a TodoProvider');
+  }
+  return context;
+}
+```
+
+## Custom Hooks for Reusable Logic
+
+Create custom hooks to encapsulate and reuse stateful logic:
+
+```tsx
+import { useEffect, useState } from 'react';
+
+function useLocalStorage(key, initialValue) {
+  // Get from local storage then parse stored json or return initialValue
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      console.error(`Error reading localStorage key "${key}":`, error);
+      return initialValue;
+    }
+  });
+
+  // Return a wrapped version of useState's setter function that persists the new value to localStorage
+  const setValue = value => {
+    try {
+      // Allow value to be a function so we have the same API as useState
+      const valueToStore = value instanceof Function ? value(storedValue) : value;
+      setStoredValue(valueToStore);
+      window.localStorage.setItem(key, JSON.stringify(valueToStore));
+    } catch (error) {
+      console.error(`Error setting localStorage key "${key}":`, error);
+    }
+  };
+
+  return [storedValue, setValue];
+}
+
+// Usage
+function App() {
+  const [name, setName] = useLocalStorage('name', 'John');
+
+  return (
+    <div>
+      <input type="text" value={name} onChange={e => setName(e.target.value)} />
+    </div>
+  );
+}
+```
+
+## Best Practices
+
+1. **Keep state local when possible** - Only lift state up when multiple components need it
+2. **Use custom hooks** for reusable stateful logic
+3. **Context + useReducer** for complex global state
+4. **Avoid prop drilling** by using Context appropriately
+5. **Consider state management libraries** (Zustand, Redux Toolkit) for very complex applications
+6. **Use proper dependency arrays** in useEffect to prevent infinite loops
+7. **Memoize expensive computations** with useMemo
+8. **Optimize re-renders** with React.memo and useCallback when necessary
+
+## Common Patterns
+
+### Provider Composition
+
+```tsx
+function AppProviders({ children }) {
+  return (
+    <ThemeProvider>
+      <AuthProvider>
+        <TodoProvider>{children}</TodoProvider>
+      </AuthProvider>
+    </ThemeProvider>
+  );
+}
+
+function App() {
+  return (
+    <AppProviders>
+      <MyApp />
+    </AppProviders>
+  );
+}
+```
+
+### Conditional Rendering Based on State
+
+```tsx
+function AuthenticatedApp({ user }) {
+  return (
+    <>
+      <Navigation />
+      <MainContent user={user} />
+    </>
+  );
+}
+
+function UnauthenticatedApp() {
+  return <LoginForm />;
+}
+
+function App() {
+  const { user, loading } = useAuth();
+
+  if (loading) return <LoadingSpinner />;
+
+  return user ? <AuthenticatedApp user={user} /> : <UnauthenticatedApp />;
+}
+```
+
+This tutorial covers the fundamental concepts of state management in React. Start with `useState` for simple cases, move to Context when you need to share state across components, and consider `useReducer` for complex state logic. Always think about where your state should live and how components should communicate.

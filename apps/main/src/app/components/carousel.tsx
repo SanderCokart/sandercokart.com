@@ -56,7 +56,7 @@ const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
             />
           </figure>
           <div
-            className="bg-accent text-accent-foreground absolute bottom-3 left-3 rounded px-2 py-1 text-sm font-medium opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+            className="bg-accent text-accent-foreground absolute bottom-3 left-3 rounded px-2 py-1 text-sm font-medium"
             title={
               publishedDate
                 ? publishedDate.toLocaleString(navigator.language, {
