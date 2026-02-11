@@ -10,6 +10,8 @@ import {
 } from '@repo/ui/components/shadcn/table';
 import { cn } from '@repo/ui/lib/utils';
 import {
+  transformerMetaHighlight,
+  transformerMetaWordHighlight,
   transformerNotationDiff,
   transformerNotationErrorLevel,
   transformerNotationFocus,
@@ -90,6 +92,8 @@ async function Code({ children, ...props }: ComponentPropsWithoutRef<'code'>) {
       transformerNotationHighlight(),
       transformerNotationWordHighlight(),
       transformerNotationErrorLevel(),
+      transformerMetaHighlight(),
+      transformerMetaWordHighlight(),
     ],
     themes: {
       dark: 'github-dark',
