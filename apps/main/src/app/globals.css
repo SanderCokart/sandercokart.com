@@ -29,30 +29,40 @@
 }
 
 .line.highlighted {
+  @apply bg-accent/20 -mx-6 inline-block w-full px-6;
+  width: calc(100% + 32px);
+}
+
+/*
+.line.highlighted {
   background-color: red;
 }
 
-/* html.dark .shiki,
+
+html.dark .shiki,
 html.dark .shiki span {
   color: var(--shiki-dark) !important;
   background-color: var(--shiki-dark-bg) !important;
   font-style: var(--shiki-dark-font-style) !important;
   font-weight: var(--shiki-dark-font-weight) !important;
   text-decoration: var(--shiki-dark-text-decoration) !important;
-} */
+}
 
-/*Outputs: <span class="line focused">
-The outer <pre> tag is modified: <pre class="has-focused">*/
 
-/*.has-focused-lines .line:not(.has-focus) {*/
-/*    filter: blur(0);*/
-/*    opacity: 1*/
-/*}*/
+Outputs: <span class="line focused">
+The outer <pre> tag is modified: <pre class="has-focused">
 
-/*.vp-doc [class*=language-]:hover .has-focused-lines .line:not(.has-focus) {
+
+.has-focused-lines .line:not(.has-focus) {
     filter: blur(0);
     opacity: 1
-}*/
+}
+
+
+.vp-doc [class*=language-]:hover .has-focused-lines .line:not(.has-focus) {
+    filter: blur(0);
+    opacity: 1
+}
 
 pre {
   &:hover .has-focused .line:not(.focused) {
@@ -81,8 +91,9 @@ pre {
       padding-inline: 0.5em;
     }
 
-    /* .line.highlighted {
+     .line.highlighted {
       background-color: red;
-    } */
+    } 
   }
 }
+*/
