@@ -1,10 +1,13 @@
 import { YouTubeEmbed } from '@next/third-parties/google';
 import { cn } from '@repo/ui/lib/utils';
 import { evaluate } from 'next-mdx-remote-client/rsc';
+import rehypeMdxCodeProps from 'rehype-mdx-code-props';
+import remarkGfm from 'remark-gfm';
 
 import { Suspense } from 'react';
 
 import type { Page } from '@/types/common';
+import type { EvaluateOptions } from 'next-mdx-remote-client/rsc';
 
 import components from '@/app/articles/[slug]/components';
 import { getArticleBySlug } from '@/lib/actions/articles';
@@ -12,8 +15,22 @@ import { getArticleBySlug } from '@/lib/actions/articles';
 type PARAMS = { slug: string };
 type SEARCH_PARAMS = null;
 
+const remarkPlugins = [remarkGfm];
+// Plugin must be passed as [plugin, options] so it receives correct `this` from the processor
+const rehypePlugins = [[rehypeMdxCodeProps, { tagName: 'code' }]] as NonNullable<
+  EvaluateOptions['mdxOptions']
+>['rehypePlugins'];
+
+const options: EvaluateOptions = {
+  parseFrontmatter: true,
+  mdxOptions: {
+    rehypePlugins,
+    remarkPlugins,
+  },
+};
+
 export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS>) {
-  const { source, options } = await getArticleBySlug(await params);
+  const source = await getArticleBySlug(await params);
 
   const { content, frontmatter, error } = await evaluate<{ videoId?: string; updatedAt: string; publishedAt?: string }>(
     {

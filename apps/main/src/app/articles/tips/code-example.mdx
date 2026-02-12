@@ -15,19 +15,9 @@ Managing state is a fundamental aspect of React development. This tutorial cover
 
 The `useState` hook is the foundation of state management in functional React components. It allows you to add state to functional components.
 
-```tsx
-import { useState } from 'react';
-
-function Counter() {
-  const [count, setCount] = useState(0);
-
-  return (
-    <div>
-      <p>Count: {count}</p>
-      <button onClick={() => setCount(count + 1)}>Increment</button> {/* [!code focus] */}
-    </div>
-  );
-}
+```js meta="{1}"
+const variable1 = 'value';
+const variable2 = 'value2';
 ```
 
 Key points:

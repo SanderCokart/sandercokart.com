@@ -9,61 +9,25 @@ import {
   TableRow,
 } from '@repo/ui/components/shadcn/table';
 import { cn } from '@repo/ui/lib/utils';
-import {
-  transformerMetaHighlight,
-  transformerMetaWordHighlight,
-  transformerNotationDiff,
-  transformerNotationErrorLevel,
-  transformerNotationFocus,
-  transformerNotationHighlight,
-  transformerNotationWordHighlight,
-} from '@shikijs/transformers';
-import { bundledLanguages, createHighlighter } from 'shiki/bundle/web';
-import { toJsxRuntime } from 'hast-util-to-jsx-runtime';
-import { Fragment, jsx, jsxs } from 'react/jsx-runtime';
 
 import type { ComponentPropsWithoutRef } from 'react';
-import type { HighlighterGeneric, BundledLanguage } from 'shiki';
 
-// Singleton highlighter instance to avoid creating multiple Shiki instances
-let highlighter: HighlighterGeneric<any, any> | null = null;
-
-const getHighlighter = async () => {
-  if (!highlighter) {
-    highlighter = await createHighlighter({
-      themes: ['github-dark', 'github-light'],
-      langs: [...Object.keys(bundledLanguages)],
-    });
-  }
-  return highlighter;
-};
-
-export default {
-  table: (props: ComponentPropsWithoutRef<'table'>) => <Table className="not-prose" {...props} />,
-  tr: TableRow,
-  tbody: TableBody,
-  td: TableCell,
-  th: TableHead,
-  thead: TableHeader,
-  tfoot: TableFooter,
-  pre: Pre,
-  code: Code,
-  YouTubeEmbed,
-};
+import { highlightCode } from '@/lib/highlight';
 
 type PreProps = ComponentPropsWithoutRef<'pre'>;
 
-function Pre({ children, ...props }: PreProps) {
+type CodeProps = ComponentPropsWithoutRef<'code'> & { meta?: string };
+
+function Pre({ ...props }: PreProps) {
   return (
     <div className="not-prose flex flex-col">
-      <pre {...props} className={cn('overflow-x-auto', props.className)}>
-        {children}
-      </pre>
+      <div className="bg-primary text-primary-foreground text-center font-semibold">something</div>
+      <pre {...props} />
     </div>
   );
 }
 
-async function Code({ children, ...props }: ComponentPropsWithoutRef<'code'>) {
+async function Code({ children, meta, ...props }: CodeProps) {
   // Check if this is a code block (has language class) or inline code
   const isCodeBlock = props.className?.startsWith('language-');
 
@@ -81,45 +45,23 @@ async function Code({ children, ...props }: ComponentPropsWithoutRef<'code'>) {
     );
   }
 
-  // Code block - apply syntax highlighting using singleton highlighter
-  const highlighter = await getHighlighter();
-  if (!highlighter) {
-    throw new Error('Failed to initialize syntax highlighter');
-  }
+  // Code block: pass meta (for Shiki transformer) to highlightCode; other props reserved for component UI
+  const metaString = typeof meta === 'string' ? meta : undefined;
+  const lang = props.className?.replace('language-', '') || 'plaintext';
+  const html = await highlightCode(children as string, lang, metaString);
 
-  const lang = (props.className?.replace('language-', '') || 'plaintext') as BundledLanguage;
-  const hast = highlighter.codeToHast(children as string, {
-    lang,
-    transformers: [
-      transformerNotationDiff(),
-      transformerNotationFocus(),
-      transformerNotationHighlight(),
-      transformerNotationWordHighlight(),
-      transformerNotationErrorLevel(),
-      transformerMetaHighlight(),
-      transformerMetaWordHighlight(),
-    ],
-    themes: {
-      dark: 'github-dark',
-      light: 'github-light',
-    },
-  });
-
-  return toJsxRuntime(hast, {
-    Fragment,
-    jsx,
-    jsxs,
-    components: {
-      pre: (preProps: any) => <Pre {...preProps} />,
-      code: (codeProps: any) => (
-        <code
-          {...codeProps}
-          className={cn(
-            'block p-4 text-sm leading-relaxed',
-            codeProps.className
-          )}
-        />
-      ),
-    },
-  }) as React.ReactElement;
+  return <code {...props} dangerouslySetInnerHTML={{ __html: html }} />;
 }
+
+export default {
+  table: (props: ComponentPropsWithoutRef<'table'>) => <Table className="not-prose" {...props} />,
+  tr: TableRow,
+  tbody: TableBody,
+  td: TableCell,
+  th: TableHead,
+  thead: TableHeader,
+  tfoot: TableFooter,
+  pre: Pre,
+  code: Code,
+  YouTubeEmbed,
+};
