@@ -3,11 +3,8 @@ import path from 'path';
 
 import fg from 'fast-glob';
 import frontMatter from 'front-matter';
-import rehypeMdxCodeProps from 'rehype-mdx-code-props';
-import remarkGfm from 'remark-gfm';
 
 import type { ArticleAttributes, ArticleModel } from '@/types/model-types';
-import type { EvaluateOptions } from 'next-mdx-remote-client/rsc';
 
 const getBannerPath = async (slug: string) => {
   const files = await fs.promises.readdir('public/banners');
@@ -57,10 +54,7 @@ const getArticlesByType = async (type: 'general' | 'tips') => {
   return articles;
 };
 
-const remarkPlugins = [remarkGfm];
-const rehypePlugins = [rehypeMdxCodeProps];
-
-const getArticleBySlug = async ({ slug }: { slug: string }): Promise<{ source: string; options: EvaluateOptions }> => {
+const getArticleBySlug = async ({ slug }: { slug: string }): Promise<string> => {
   const paths = (await fg(`src/app/articles/**/${slug}.mdx`)) as [string];
 
   if (!paths.length) {
@@ -70,16 +64,7 @@ const getArticleBySlug = async ({ slug }: { slug: string }): Promise<{ source: s
   const firstResult = paths[0];
   const content = await fs.promises.readFile(firstResult, 'utf-8');
 
-  return {
-    source: content,
-    options: {
-      parseFrontmatter: true,
-      mdxOptions: {
-        rehypePlugins,
-        remarkPlugins,
-      },
-    },
-  };
+  return content;
 };
 
 export { getArticlesByType, getArticleBySlug };
