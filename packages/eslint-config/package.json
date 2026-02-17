@@ -1,6 +1,7 @@
 {
   "name": "@repo/eslint-config",
   "version": "0.0.0",
+  "type": "module",
   "private": true,
   "exports": {
     "./base": "./base.js",
@@ -11,6 +12,7 @@
     "clean": "rm -rf node_modules"
   },
   "devDependencies": {
+    "@eslint/js": "^9.20.1",
     "@next/eslint-plugin-next": "^15.1.7",
     "@typescript-eslint/eslint-plugin": "^8.24.1",
     "@typescript-eslint/parser": "^8.24.1",
