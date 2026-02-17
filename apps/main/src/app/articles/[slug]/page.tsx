@@ -1,4 +1,5 @@
 import { YouTubeEmbed } from '@next/third-parties/google';
+import { Button } from '@repo/ui/components/shadcn/button';
 import { cn } from '@repo/ui/lib/utils';
 import { evaluate } from 'next-mdx-remote-client/rsc';
 import rehypeMdxCodeProps from 'rehype-mdx-code-props';
@@ -11,6 +12,8 @@ import type { EvaluateOptions } from 'next-mdx-remote-client/rsc';
 
 import components from '@/app/articles/[slug]/components';
 import { getArticleBySlug } from '@/lib/actions/articles';
+
+import BackToTopButton from './back-to-top-button';
 
 type PARAMS = { slug: string };
 type SEARCH_PARAMS = null;
@@ -53,11 +56,13 @@ export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS
     <article
       className={cn(
         // Overall article styling and layout
-        'prose prose-lg dark:prose-invert mx-auto max-w-3xl px-4 py-8 sm:px-6 md:py-12 lg:py-16',
+        'prose prose-sm sm:prose-base dark:prose-invert mx-auto max-w-full px-4 py-8 sm:px-6 md:py-12 lg:max-w-4xl lg:py-16',
         // Heading text color, paragraph text color, strong text color
         'prose-headings:text-foreground prose-p:text-foreground/90 prose-strong:text-foreground',
         // Link styling
         'prose-a:text-primary prose-a:no-underline hover:prose-a:underline',
+        // H1 styling
+        'prose-h1:text-center prose-h1:text-balance',
         // H2 styling
         'prose-h2:border-b-2 prose-h2:border-primary dark:prose-h2:border-accent prose-h2:pb-2 prose-h2:mt-12 prose-h2:mb-6',
         // H3 styling
@@ -109,6 +114,8 @@ export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS
           <YouTubeEmbed videoid={frontmatter.videoId} />
         </div>
       )}
+
+      <BackToTopButton />
 
       <Suspense fallback={<div>Loading article content...</div>}>{content}</Suspense>
     </article>

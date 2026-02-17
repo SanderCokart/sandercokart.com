@@ -1,5 +1,6 @@
 import { YouTubeEmbed } from '@next/third-parties/google';
 import { Button } from '@repo/ui/components/shadcn/button';
+import { ScrollArea, ScrollBar } from '@repo/ui/components/shadcn/scroll-area';
 import {
   Table,
   TableBody,
@@ -61,29 +62,22 @@ const getHighlighter = async () => {
 };
 
 async function Code({ children, meta, className, ...props }: CodeProps) {
-  // Check if this is a code block (has language class) or inline code
-  // const isCodeBlock = props.className?.startsWith('language-');
+  const isCodeBlock = className?.startsWith('language-');
 
-  // if (!isCodeBlock) {
-  //   // Inline code - just return regular styled code element
-  //   return (
-  //     <code
-  //       {...props}
-  //       className={cn(
-  //         'text-accent bg-muted rounded px-1.5 py-0.5 before:content-none after:content-none',
-  //         props.className,
-  //       )}>
-  //       {children}
-  //     </code>
-  //   );
-  // }
+  if (!isCodeBlock) {
+    return (
+      <code
+        {...props}
+        className={cn('text-accent bg-muted rounded px-1.5 py-0.5 before:content-none after:content-none', className)}>
+        {children}
+      </code>
+    );
+  }
 
   // Code block: pass meta (for Shiki transformer) to highlightCode; other props reserved for component UI
   const lang = className?.replace('language-', '') || 'plaintext';
 
   const highlighter = await getHighlighter();
-
-  console.log({ ...props, meta, className });
 
   const out = highlighter.codeToHast(children.trim(), {
     lang,
@@ -101,23 +95,19 @@ async function Code({ children, meta, className, ...props }: CodeProps) {
     ],
   });
 
-  const pre = ({ className, children, ...props }: ComponentProps<'pre'>) => {
+  const pre = ({ className, children, ...props }: ComponentProps<typeof ScrollArea>) => {
     //make client component
     return (
-      <pre
-        {...props}
-        className={cn(
-          'not-prose border-accent relative overflow-x-auto rounded-md border pb-2 pt-6 text-sm [white-space-collapse:preserve]',
-          className,
-        )}>
+      <ScrollArea {...props} className={cn('not-prose border-accent relative rounded-md border pb-2 pt-6', className)}>
         <Button
           variant="outline"
           size="icon"
           className="dark:bg-input dark:hover:bg-accent dark:hover:text-accent-foreground absolute right-2 top-2">
           <Copy />
         </Button>
-        {children}
-      </pre>
+        <pre className="[white-space-collapse:preserve]">{children}</pre>
+        <ScrollBar className="z-10" orientation="horizontal" />
+      </ScrollArea>
     );
   };
 
