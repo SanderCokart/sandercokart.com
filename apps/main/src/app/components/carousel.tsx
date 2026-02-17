@@ -106,7 +106,7 @@ export const CarouselSection: FC<{
             className="group/carousel relative w-full"
             aria-label={`${title} carousel`}>
             <CarouselContent>
-              {articles.map((article, index) => (
+              {articles.map(article => (
                 <BlogCard key={article.attributes.slug} article={article} />
               ))}
             </CarouselContent>

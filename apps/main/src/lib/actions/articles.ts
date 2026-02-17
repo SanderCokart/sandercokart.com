@@ -70,4 +70,26 @@ const getArticleBySlug = async ({ slug }: { slug: string }): Promise<string> => 
   return content;
 };
 
-export { getArticlesByType, getArticleBySlug };
+const getAllArticleSlugs = async (): Promise<string[]> => {
+  const paths = await fg(`src/app/articles/**/*.mdx`);
+
+  // In development, return all slugs; in production, only published articles
+  if (process.env.NODE_ENV === 'production') {
+    const publishedSlugs = await Promise.all(
+      paths.map(async articlePath => {
+        const content = await fs.promises.readFile(articlePath, 'utf-8');
+        const matter = frontMatter<ArticleAttributes>(content);
+        const publishedAt = matter.attributes.publishedAt;
+        const slug = path.basename(articlePath).replace(/\.mdx$/, '');
+
+        return publishedAt && String(publishedAt).trim() !== '' ? slug : null;
+      }),
+    );
+
+    return publishedSlugs.filter((slug): slug is string => slug !== null);
+  }
+
+  return paths.map(articlePath => path.basename(articlePath).replace(/\.mdx$/, ''));
+};
+
+export { getArticlesByType, getArticleBySlug, getAllArticleSlugs };

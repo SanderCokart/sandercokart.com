@@ -12,7 +12,7 @@ import { cn } from '@repo/ui/lib/utils';
 
 import type { ComponentPropsWithoutRef } from 'react';
 
-import { ClientCodeBlock } from './components/client-code-block';
+import { AsyncCodeBlock } from './components/async-code-block';
 
 type CodeProps = ComponentPropsWithoutRef<'code'> & { meta?: string; children: string };
 
@@ -31,10 +31,10 @@ function Code({ children, meta, className, ...props }: CodeProps) {
 
   const lang = className?.replace('language-', '') || 'plaintext';
 
-  // For static generation, delegate async highlighting to client component
+  // Use AsyncCodeBlock directly for server-side rendering
   const originalCode = children.trim();
 
-  return <ClientCodeBlock code={originalCode} lang={lang} meta={meta} className={className} {...props} />;
+  return <AsyncCodeBlock code={originalCode} lang={lang} meta={meta} className={className} {...props} />;
 }
 
 export default {

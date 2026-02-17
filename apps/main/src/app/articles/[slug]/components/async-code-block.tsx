@@ -10,12 +10,11 @@ import {
 } from '@shikijs/transformers';
 import { toJsxRuntime } from 'hast-util-to-jsx-runtime';
 
-import { Fragment, Suspense } from 'react';
 import { jsx, jsxs } from 'react/jsx-runtime';
 
 import type { ComponentProps, ComponentPropsWithoutRef, ReactNode } from 'react';
 
-import { getHighlighterSync } from '@/lib/shiki-highlighter';
+import { getHighlighter } from '@/lib/shiki-highlighter';
 
 import { languageIconMap } from '../utils/language-icons';
 import { CopyCodeButton } from './copy-code-button';
@@ -53,7 +52,7 @@ export async function AsyncCodeBlock({
   meta?: string;
   className?: string;
 } & ComponentPropsWithoutRef<'code'>) {
-  const highlighter = await getHighlighterSync();
+  const highlighter = await getHighlighter();
 
   const out = highlighter.codeToHast(code, {
     lang,
@@ -73,10 +72,7 @@ export async function AsyncCodeBlock({
 
   const getLanguageIcon = (lang: string) => {
     const IconComponent = languageIconMap[lang];
-
-    return (
-      <Suspense fallback={<span>{lang}</span>}>{IconComponent ? <IconComponent className="size-6" /> : lang}</Suspense>
-    );
+    return IconComponent ? <IconComponent className="size-6" /> : lang;
   };
 
   const pre = ({ className, children, ...props }: ComponentProps<typeof ScrollArea>) => {
