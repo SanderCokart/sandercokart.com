@@ -1,10 +1,8 @@
 import { YouTubeEmbed } from '@next/third-parties/google';
-import { Button } from '@repo/ui/components/shadcn/button';
 import { cn } from '@repo/ui/lib/utils';
 import { evaluate } from 'next-mdx-remote-client/rsc';
 import rehypeMdxCodeProps from 'rehype-mdx-code-props';
 import remarkGfm from 'remark-gfm';
-
 
 import type { Page } from '@/types/common';
 import type { EvaluateOptions } from 'next-mdx-remote-client/rsc';
@@ -12,36 +10,30 @@ import type { EvaluateOptions } from 'next-mdx-remote-client/rsc';
 import components from '@/app/articles/[slug]/components';
 import { getArticleBySlug } from '@/lib/actions/articles';
 
-import BackToTopButton from './back-to-top-button';
+import BackToTopButton from './components/back-to-top-button';
 
 type PARAMS = { slug: string };
 type SEARCH_PARAMS = null;
 
-const remarkPlugins = [remarkGfm];
-// Plugin must be passed as [plugin, options] so it receives correct `this` from the processor
-const rehypePlugins = [[rehypeMdxCodeProps, { tagName: 'code' }]] as NonNullable<
-  EvaluateOptions['mdxOptions']
->['rehypePlugins'];
-
 const options: EvaluateOptions = {
   parseFrontmatter: true,
   mdxOptions: {
-    rehypePlugins,
-    remarkPlugins,
+    rehypePlugins: [rehypeMdxCodeProps],
+    remarkPlugins: [remarkGfm],
   },
 };
+
+type ArticleMetaType = { videoId?: string; updatedAt: string; publishedAt?: string };
 
 export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS>) {
   const resolvedParams = await params;
   const source = await getArticleBySlug(resolvedParams);
 
-  const { content, frontmatter, error } = await evaluate<{ videoId?: string; updatedAt: string; publishedAt?: string }>(
-    {
-      source,
-      options,
-      components,
-    },
-  );
+  const { content, frontmatter, error } = await evaluate<ArticleMetaType>({
+    source,
+    options,
+    components,
+  });
 
   if (error) {
     return (

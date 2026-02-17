@@ -12,7 +12,7 @@ import { cn } from '@repo/ui/lib/utils';
 
 import type { ComponentPropsWithoutRef } from 'react';
 
-import { ClientCodeBlock } from './client-code-block';
+import { ClientCodeBlock } from './components/client-code-block';
 
 type CodeProps = ComponentPropsWithoutRef<'code'> & { meta?: string; children: string };
 

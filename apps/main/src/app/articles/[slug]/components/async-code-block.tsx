@@ -15,9 +15,10 @@ import { jsx, jsxs } from 'react/jsx-runtime';
 
 import type { ComponentProps, ComponentPropsWithoutRef, ReactNode } from 'react';
 
-import { getHighlighterSync } from '../../../lib/shiki-highlighter';
+import { getHighlighterSync } from '@/lib/shiki-highlighter';
+
+import { languageIconMap } from '../utils/language-icons';
 import { CopyCodeButton } from './copy-code-button';
-import { languageIconMap } from './language-icons';
 
 /**
  * Async component that performs syntax highlighting using Shiki and renders code blocks.
@@ -46,8 +47,6 @@ export async function AsyncCodeBlock({
   code,
   lang,
   meta,
-  className,
-  ...props
 }: {
   code: string;
   lang: string;
