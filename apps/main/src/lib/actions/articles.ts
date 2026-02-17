@@ -48,7 +48,10 @@ const getArticlesByType = async (type: 'general' | 'tips') => {
 
   // In development, show all articles; in production, only published articles
   if (process.env.NODE_ENV === 'production') {
-    return articles.filter(article => article.attributes.publishedAt && article.attributes.publishedAt.trim() !== '');
+    return articles.filter(article => {
+      const publishedAt = article.attributes.publishedAt;
+      return publishedAt && String(publishedAt).trim() !== '';
+    });
   }
 
   return articles;

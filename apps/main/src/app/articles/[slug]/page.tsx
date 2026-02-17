@@ -5,7 +5,6 @@ import { evaluate } from 'next-mdx-remote-client/rsc';
 import rehypeMdxCodeProps from 'rehype-mdx-code-props';
 import remarkGfm from 'remark-gfm';
 
-import { Suspense } from 'react';
 
 import type { Page } from '@/types/common';
 import type { EvaluateOptions } from 'next-mdx-remote-client/rsc';
@@ -33,7 +32,8 @@ const options: EvaluateOptions = {
 };
 
 export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS>) {
-  const source = await getArticleBySlug(await params);
+  const resolvedParams = await params;
+  const source = await getArticleBySlug(resolvedParams);
 
   const { content, frontmatter, error } = await evaluate<{ videoId?: string; updatedAt: string; publishedAt?: string }>(
     {
@@ -56,7 +56,9 @@ export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS
     <article
       className={cn(
         // Overall article styling and layout
-        'prose prose-sm sm:prose-base dark:prose-invert mx-auto max-w-full px-4 py-8 sm:px-6 md:py-12 lg:max-w-4xl lg:py-16',
+        'mx-auto max-w-full px-4 py-4 sm:px-6 md:py-6 lg:max-w-4xl lg:py-16',
+        // Prose classes
+        'prose prose-sm sm:prose-base dark:prose-invert',
         // Heading text color, paragraph text color, strong text color
         'prose-headings:text-foreground prose-p:text-foreground/90 prose-strong:text-foreground',
         // Link styling
@@ -74,8 +76,12 @@ export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS
         // Blockquote styling
         'prose-blockquote:border-l-primary dark:prose-blockquote:border-l-accent prose-blockquote:bg-muted/50 prose-blockquote:py-1 prose-blockquote:not-italic',
       )}>
-      <header className="border-primary dark:border-accent mb-12 border-b pb-8">
-        <div className="flex justify-between">
+      <header className="border-primary dark:border-accent mb-8 border-b pb-4">
+        <div
+          className={cn(
+            'flex flex-col gap-4 sm:flex-row sm:justify-between sm:gap-0',
+            !frontmatter.updatedAt && 'items-center',
+          )}>
           {frontmatter.publishedAt && (
             <time
               className="text-muted-foreground font-mono text-xs uppercase tracking-widest"
@@ -91,9 +97,9 @@ export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS
               })}
             </time>
           )}
-          {frontmatter.updatedAt && frontmatter.updatedAt !== frontmatter.publishedAt && (
+          {frontmatter.updatedAt && (
             <time
-              className="text-muted-foreground font-mono text-xs uppercase tracking-widest"
+              className="text-muted-foreground self-end font-mono text-xs uppercase tracking-widest"
               dateTime={frontmatter.updatedAt}
               title={new Date(frontmatter.updatedAt).toLocaleString(navigator.language, {
                 dateStyle: 'medium',
@@ -117,7 +123,7 @@ export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS
 
       <BackToTopButton />
 
-      <Suspense fallback={<div>Loading article content...</div>}>{content}</Suspense>
+      {content}
     </article>
   );
 }
