@@ -14,7 +14,6 @@
   "dependencies": {
     "@hookform/resolvers": "^5.1.0",
     "@mantine/hooks": "^8.0.1",
-    "@repo/i18n": "workspace:*",
     "@repo/runtime-env": "workspace:*",
     "@repo/ui": "workspace:*",
     "@sentry/nextjs": "^10.8.0",

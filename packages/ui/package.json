@@ -19,7 +19,6 @@
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
-    "@repo/i18n": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "4.0.14",
     "@turbo/gen": "^2.4.4",
