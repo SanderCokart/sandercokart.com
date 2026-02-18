@@ -16,7 +16,7 @@ const getBannerPath = async (slug: string) => {
   return filePath;
 };
 
-const getArticlesByType = async (type: 'general' | 'tips') => {
+const getArticlesByType = async (type: string) => {
   const articlePaths = await fg(`src/app/articles/${type}/*.mdx`);
 
   /**
@@ -57,6 +57,19 @@ const getArticlesByType = async (type: 'general' | 'tips') => {
   return articles;
 };
 
+/**
+ * Gets all the folder names except [slug] from the articles folder and returns them as an array of strings
+ */
+const getArticleTypes = async () => {
+  const articleTypePaths = await fg(`src/app/articles/*`, { onlyDirectories: true });
+
+  const articleTypes = articleTypePaths
+    .map(articleTypePath => path.basename(articleTypePath))
+    .filter(articleType => articleType !== '[slug]');
+
+  return articleTypes;
+};
+
 const getArticleBySlug = async ({ slug }: { slug: string }): Promise<string> => {
   const paths = (await fg(`src/app/articles/**/${slug}.mdx`)) as [string];
 
@@ -92,4 +105,4 @@ const getAllArticleSlugs = async (): Promise<string[]> => {
   return paths.map(articlePath => path.basename(articlePath).replace(/\.mdx$/, ''));
 };
 
-export { getArticlesByType, getArticleBySlug, getAllArticleSlugs };
+export { getArticlesByType, getArticleBySlug, getAllArticleSlugs, getArticleTypes };
