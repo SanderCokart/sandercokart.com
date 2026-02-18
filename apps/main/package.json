@@ -10,6 +10,7 @@
     "lint": "eslint",
     "article:create": "node src/scripts/create-article.js",
     "article:publish": "node src/scripts/publish-article.js",
+    "add": "pnpm dlx shadcn@latest add",
     "clean": "rm -rf node_modules"
   },
   "dependencies": {
@@ -38,7 +39,8 @@
     "sharp": "0.33.5",
     "shiki": "^3",
     "slugify": "^1",
-    "tailwind-merge": "3.0.2"
+    "tailwind-merge": "3.0.2",
+    "radix-ui": "latest"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

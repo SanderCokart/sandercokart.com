@@ -1,5 +1,6 @@
 'use client';
 
+import { YouTubeEmbed } from '@next/third-parties/google';
 import {
   Carousel,
   CarouselContent,
@@ -18,7 +19,9 @@ import type { ArticleModel } from '@/types/model-types';
 
 import placeholder from '@/app/placeholder.webp';
 
-const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
+type ModeType = 'video' | 'blog';
+
+const BlogCard: FC<{ article: ArticleModel; mode: ModeType }> = ({ article, mode }) => {
   const publishedDate = article.attributes.publishedAt ? new Date(article.attributes.publishedAt) : null;
 
   const timeAgo = publishedDate ? formatDistanceToNow(publishedDate, { addSuffix: true }) : 'DRAFT';
@@ -35,26 +38,34 @@ const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
       // Padding increases on larger screens (pl-2 on mobile, pl-4 on md+)
       className="basis-[85%] pl-2 sm:basis-1/2 md:basis-1/3 md:pl-4 lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6">
       <article className="group relative">
-        <Link
-          href={`/articles/${article.attributes.slug}`}
-          className={cn(
-            'relative block aspect-video overflow-hidden rounded-sm',
-            'focus:ring-accent focus:ring-offset-background focus:scale-90 focus:outline-none focus:ring-2 focus:ring-offset-2',
-            'hover:ring-accent hover:ring-offset-background hover:scale-90 hover:ring-2 hover:ring-offset-2',
-            'transition-all duration-200',
-            'group-hover:shadow-lg',
+        <div className="relative aspect-video overflow-hidden rounded-sm">
+          {mode === 'video' && article.attributes.videoId ? (
+            <YouTubeEmbed videoid={article.attributes.videoId} />
+          ) : (
+            <Link
+              href={`/articles/${article.attributes.slug}`}
+              className={cn(
+                'relative block h-full w-full',
+                'focus:ring-accent focus:ring-offset-background focus:scale-90 focus:outline-none focus:ring-2 focus:ring-offset-2',
+                'hover:ring-accent hover:ring-offset-background hover:scale-90 hover:ring-2 hover:ring-offset-2',
+                'transition-all duration-200',
+                'group-hover:shadow-lg',
+              )}
+              aria-label={`Read article: ${article.attributes.title}${publishedDate ? `, published ${timeAgo}` : ', draft'}`}
+              title={article.attributes.title}>
+              <figure className="h-full w-full">
+                <Image
+                  fill
+                  alt={article.attributes.title}
+                  className="object-cover transition-transform duration-200"
+                  src={article.attributes.banner || placeholder}
+                  sizes="(max-width: 640px) 85vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
+                />
+              </figure>
+            </Link>
           )}
-          aria-label={`Read article: ${article.attributes.title}${publishedDate ? `, published ${timeAgo}` : ', draft'}`}
-          title={article.attributes.title}>
-          <figure className="h-full w-full">
-            <Image
-              fill
-              alt={article.attributes.title}
-              className="object-cover transition-transform duration-200"
-              src={article.attributes.banner || placeholder}
-              sizes="(max-width: 640px) 85vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
-            />
-          </figure>
+
+          {/* Date overlay - positioned over both video and image content */}
           <div
             className="bg-accent text-accent-foreground absolute bottom-3 left-3 rounded px-2 py-1 text-sm font-medium"
             title={
@@ -67,7 +78,7 @@ const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
             }>
             {timeAgo}
           </div>
-        </Link>
+        </div>
       </article>
     </CarouselItem>
   );
@@ -89,7 +100,8 @@ const SectionHeader: FC<{ title: string }> = ({ title }) => (
 export const CarouselSection: FC<{
   title: string;
   articles: ArticleModel[];
-}> = ({ title, articles }) => {
+  mode: 'video' | 'blog';
+}> = ({ title, articles, mode }) => {
   return (
     <section>
       <div>
@@ -107,7 +119,7 @@ export const CarouselSection: FC<{
             aria-label={`${title} carousel`}>
             <CarouselContent>
               {articles.map(article => (
-                <BlogCard key={article.attributes.slug} article={article} />
+                <BlogCard mode={mode} key={article.attributes.slug} article={article} />
               ))}
             </CarouselContent>
 
