@@ -10,7 +10,7 @@ import {
 } from '@shikijs/transformers';
 import { toJsxRuntime } from 'hast-util-to-jsx-runtime';
 
-import { jsx, jsxs } from 'react/jsx-runtime';
+import { Fragment, jsx, jsxs } from 'react/jsx-runtime';
 
 import type { ComponentProps, ComponentPropsWithoutRef, ReactNode } from 'react';
 

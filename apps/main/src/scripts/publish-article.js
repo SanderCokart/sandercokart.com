@@ -1,14 +1,19 @@
-const fs = require('fs');
-const path = require('path');
-const readline = require('readline');
-const fg = require('fast-glob');
+import fs from 'node:fs';
+import path from 'node:path';
+import readline from 'node:readline';
+import { fileURLToPath } from 'node:url';
+
+import fg from 'fast-glob';
+
+const currentFilename = fileURLToPath(import.meta.url);
+const currentDirname = path.dirname(currentFilename);
 const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
+  input: globalThis.process.stdin,
+  output: globalThis.process.stdout,
 });
 
 async function publishArticle() {
-  const files = await fg('**/app/articles/*/*.mdx', { cwd: path.join(__dirname, '..') });
+  const files = await fg('**/app/articles/*/*.mdx', { cwd: path.join(currentDirname, '..') });
   const articles = files.map((file, index) => {
     const match = file.match(/app\/articles\/(.+)\/(.+)\.mdx/);
     return {
@@ -32,7 +37,7 @@ async function publishArticle() {
       return;
     }
 
-    const filePath = path.join(__dirname, '..', chosenArticle.path);
+    const filePath = path.join(currentDirname, '..', chosenArticle.path);
     fs.readFile(filePath, 'utf8', (err, data) => {
       if (err) {
         console.error(`Error reading file: ${err}`);
