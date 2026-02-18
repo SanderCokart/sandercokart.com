@@ -52,8 +52,8 @@
       "core-js-pure",
       "es5-ext",
       "esbuild",
-      "sharp",
-      "unrs-resolver"
+      "msw",
+      "sharp"
     ]
   },
   "volta": {

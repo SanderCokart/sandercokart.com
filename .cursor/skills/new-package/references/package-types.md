@@ -9,6 +9,7 @@ A pure TypeScript library with no React dependencies.
 ### Example: `packages/i18n`
 
 **package.json:**
+
 ```json
 {
   "name": "@repo/i18n",
@@ -39,6 +40,7 @@ A pure TypeScript library with no React dependencies.
 ```
 
 **tsconfig.json:**
+
 ```json
 {
   "extends": "@repo/typescript-config/react-library.json",
@@ -54,6 +56,7 @@ A pure TypeScript library with no React dependencies.
 ```
 
 **Characteristics:**
+
 - May not need a build step if using TypeScript directly
 - Exports TypeScript files or compiled JavaScript
 - Can include React components but doesn't require React as a dependency
@@ -66,13 +69,13 @@ A package that exports React components and hooks.
 ### Example: `packages/ui`
 
 **package.json:**
+
 ```json
 {
   "name": "@repo/ui",
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./globals.css": "./src/styles/globals.css",
     "./postcss.config": "./postcss.config.mjs",
     "./lib/*": "./src/lib/*.ts",
     "./components/*": "./src/components/*.tsx",
@@ -115,6 +118,7 @@ A package that exports React components and hooks.
 ```
 
 **tsconfig.json:**
+
 ```json
 {
   "extends": "@repo/typescript-config/react-library.json",
@@ -130,6 +134,7 @@ A package that exports React components and hooks.
 ```
 
 **eslint.config.js:**
+
 ```javascript
 import { config } from '@repo/eslint-config/react-internal';
 
@@ -138,6 +143,7 @@ export default config;
 ```
 
 **Characteristics:**
+
 - Exports React components, hooks, and utilities
 - Uses React and React DOM as dependencies
 - May include CSS/styling (Tailwind, etc.)
@@ -151,6 +157,7 @@ A package that includes custom build scripts or tooling.
 ### Example: `packages/mail`
 
 **Characteristics:**
+
 - Uses `react-library.json` TypeScript config
 - Has custom build script (e.g., `email build`)
 - Build outputs need to be added to `turbo.json` outputs
@@ -163,6 +170,7 @@ A package that provides shared configuration.
 ### Example: `packages/typescript-config`
 
 **Characteristics:**
+
 - Exports TypeScript configuration files
 - Used by other packages via `extends`
 - Minimal dependencies
@@ -171,6 +179,7 @@ A package that provides shared configuration.
 ### Example: `packages/eslint-config`
 
 **Characteristics:**
+
 - Exports ESLint configuration
 - Used by other packages
 - Minimal dependencies
@@ -179,21 +188,25 @@ A package that provides shared configuration.
 ## Choosing the Right Type
 
 ### Use TypeScript Library when:
+
 - Package doesn't need React
 - Exports utilities, types, or pure functions
 - May be used in Node.js or browser contexts
 
 ### Use React Component Library when:
+
 - Package exports React components
 - Needs React and React DOM
 - Includes UI components or hooks
 
 ### Use Build Tool Package when:
+
 - Package has custom build processes
 - Uses specialized build tools
 - Produces build artifacts
 
 ### Use Configuration Package when:
+
 - Package provides shared configs
 - Used by other packages via `extends`
 - No runtime code needed

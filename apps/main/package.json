@@ -10,7 +10,6 @@
     "lint": "eslint",
     "article:create": "node src/scripts/create-article.js",
     "article:publish": "node src/scripts/publish-article.js",
-    "add": "pnpm dlx shadcn@latest add",
     "clean": "rm -rf node_modules"
   },
   "dependencies": {
