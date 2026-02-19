@@ -1,58 +1,89 @@
 'use client';
 
+import { MoonIcon, SunIcon } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useTheme } from 'next-themes';
-import { FaMoon, FaSun } from 'react-icons/fa';
 
 import { useEffect, useState } from 'react';
 
-export const ascensionAnimation = {
-  initial: 'hidden',
-  animate: 'visible',
-  exit: 'exit',
-  variants: {
-    hidden: { opacity: 0, y: 100, transition: { duration: 0.25, y: { duration: 0.5 } } },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.25, y: { duration: 0.5 } } },
-    exit: { opacity: 0, y: 100, transition: { duration: 0.25, y: { duration: 0.5 } } },
-  },
+const MotionMoonIcon = motion.create(MoonIcon);
+const MotionSunIcon = motion.create(SunIcon);
+
+const moonIconVariants = {
+  initial: { rotate: -360, filter: 'blur(2px)' },
+  animate: { rotate: 0, filter: 'blur(0px)' },
+  exit: { rotate: 360, filter: 'blur(2px)' },
 };
 
-export function ThemeToggle() {
-  const { setTheme, theme, systemTheme } = useTheme();
+const sunIconVariants = {
+  initial: { rotate: 360, filter: 'blur(2px)' },
+  animate: { rotate: 0, filter: 'blur(0px)' },
+  exit: { rotate: -360, filter: 'blur(2px)' },
+};
 
+const iconTransition = { duration: 0.3 };
+
+export function ThemeToggle() {
+  const { setTheme, theme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  if (!mounted) return <div className="h-6 w-6" />;
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
+
+  // Prevents flash of unstyled content
+  if (!mounted) {
+    return (
+      <div className="grid h-full place-items-center overflow-hidden">
+        <button className="size-8" disabled>
+          <span className="sr-only dark:hidden"> Switch to light mode</span>
+          <span className="sr-only hidden dark:inline"> Switch to dark mode</span>
+          <MoonIcon className="hidden size-8 dark:block" />
+          <SunIcon className="block size-8 dark:hidden" />
+        </button>
+      </div>
+    );
+  }
 
   return (
-    <div className={'relative grid h-full place-items-center overflow-hidden text-2xl'}>
-      <AnimatePresence initial={false} mode="wait">
-        {(theme === 'dark' || (theme === 'system' && systemTheme === 'dark')) && (
-          <motion.div key="light" {...ascensionAnimation}>
-            <FaSun
-              className="hover:text-accent h-6 w-6 cursor-pointer transition-colors"
-              title="Switch to light mode"
-              onClick={() => setTheme('light')}
+    <div className="grid h-full place-items-center overflow-hidden">
+      <button
+        onClick={toggleTheme}
+        suppressHydrationWarning
+        title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}>
+        <span suppressHydrationWarning className="sr-only">
+          {theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+        </span>
+        <AnimatePresence mode="wait" initial={false}>
+          {theme === 'dark' ? (
+            <MotionMoonIcon
+              key={`theme-${theme}`}
+              variants={moonIconVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              transition={iconTransition}
+              className="size-8"
+              suppressHydrationWarning
             />
-            <span className="sr-only">Switch to light mode</span>
-          </motion.div>
-        )}
-
-        {(theme === 'light' || (theme === 'system' && systemTheme === 'light')) && (
-          <motion.div key="dark" {...ascensionAnimation}>
-            <FaMoon
-              className="hover:text-accent h-6 w-6 cursor-pointer transition-colors"
-              title="Switch to dark mode"
-              onClick={() => setTheme('dark')}
+          ) : (
+            <MotionSunIcon
+              key={`theme-${theme}`}
+              variants={sunIconVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              transition={iconTransition}
+              className="size-8"
+              suppressHydrationWarning
             />
-            <span className="sr-only">Switch to dark mode</span>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
+      </button>
     </div>
   );
 }
