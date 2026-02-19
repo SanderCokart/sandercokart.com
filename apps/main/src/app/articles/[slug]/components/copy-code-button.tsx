@@ -1,17 +1,21 @@
 'use client';
 
-import { buttonVariants } from '@repo/ui/components/shadcn/button';
+import { Button } from '@repo/ui/components/shadcn/button';
 import { cn } from '@repo/ui/lib/utils';
 import { CheckCircle, Copy } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useClipboard } from 'react-haiku';
 
 import type { ComponentProps, FC } from 'react';
-const MotionCheckCircle = motion.create(CheckCircle);
+import type { MotionProps } from 'motion/react';
 
-type CopyCodeButtonProps = ComponentProps<typeof motion.button> & {
+const MotionCheckCircle = motion.create(CheckCircle);
+const MotionButton = motion.create(Button);
+
+type CopyCodeButtonProps = {
   copyValue?: string;
-};
+} & ComponentProps<typeof Button> &
+  MotionProps;
 
 export const CopyCodeButton: FC<CopyCodeButtonProps> = ({ copyValue, ...props }) => {
   const clipboard = useClipboard({ timeout: 2000 });
@@ -42,17 +46,19 @@ export const CopyCodeButton: FC<CopyCodeButtonProps> = ({ copyValue, ...props })
           className="absolute right-10 top-2 size-6 text-green-400"
         />
       ) : (
-        <motion.button
+        <MotionButton
           key="copy"
           variants={copyVariants}
+          variant="ghost"
+          size="icon"
           initial="hidden"
           animate="visible"
           exit="hidden"
-          className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }), 'absolute right-10 top-2 size-6 disabled:opacity-100')}
+          className={cn('absolute right-10 top-2 size-6 disabled:opacity-100')}
           onClick={copyToClipboard}
           {...props}>
           <Copy className="size-4" />
-        </motion.button>
+        </MotionButton>
       )}
     </AnimatePresence>
   );
