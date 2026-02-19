@@ -4,7 +4,7 @@ import { Label as LabelPrimitive, Slot as SlotPrimitive } from 'radix-ui';
 
 import { Label } from '@repo/ui/components/shadcn/label';
 import { cn } from '@repo/ui/lib/utils';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'motion/react';
 import { Controller, FormProvider, useFormContext, useFormState } from 'react-hook-form';
 
 import * as React from 'react';

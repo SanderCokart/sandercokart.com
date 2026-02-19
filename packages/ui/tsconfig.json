@@ -1,6 +1,7 @@
 {
   "extends": "@repo/typescript-config/react-library.json",
   "compilerOptions": {
+    "composite": false,
     "baseUrl": ".",
     "paths": {
       "@repo/ui/*": ["./src/*"]

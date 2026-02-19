@@ -1,6 +1,6 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'motion/react';
 import { useTheme } from 'next-themes';
 import { FaMoon, FaSun } from 'react-icons/fa';
 

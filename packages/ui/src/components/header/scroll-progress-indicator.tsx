@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@repo/ui/lib/utils';
-import { motion, useScroll } from 'framer-motion';
+import { motion, useScroll } from 'motion/react';
 
 export function ScrollProgressIndicator({ className }: { className?: string }) {
   const { scrollYProgress } = useScroll();

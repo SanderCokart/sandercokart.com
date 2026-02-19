@@ -24,7 +24,7 @@
     "country-flag-icons": "1.5.18",
     "embla-carousel-react": "^8.6.0",
     "fast-glob": "^3.3.3",
-    "framer-motion": "12.23.12",
+    "motion": "^12.0.0",
     "geist": "1.3.1",
     "import-in-the-middle": "2.0.4",
     "jiti": "^2.4.2",

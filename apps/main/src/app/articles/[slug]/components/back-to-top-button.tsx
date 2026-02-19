@@ -2,7 +2,7 @@
 
 import { Button } from '@repo/ui/components/shadcn/button';
 import { cn } from '@repo/ui/lib/utils';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'motion/react';
 import { ArrowUp } from 'lucide-react';
 
 export default function BackToTopButton() {
