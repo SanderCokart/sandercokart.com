@@ -19,12 +19,29 @@ import type { ArticleModel } from '@/types/model-types';
 
 import placeholder from '@/app/placeholder.webp';
 
-type ModeType = 'video' | 'blog';
+import { useBlogView } from './blog-view-switch';
 
-const BlogCard: FC<{ article: ArticleModel; mode: ModeType }> = ({ article, mode }) => {
+const TimeOverlay: FC<{ timeAgo: string; publishedDate: Date | null }> = ({ timeAgo, publishedDate }) => (
+  <div
+    className="bg-accent text-accent-foreground absolute bottom-3 left-3 rounded px-2 py-1 text-sm font-medium"
+    title={
+      publishedDate
+        ? publishedDate.toLocaleString(navigator.language, {
+            dateStyle: 'long',
+            timeStyle: 'medium',
+          })
+        : 'Draft article'
+    }>
+    {timeAgo}
+  </div>
+);
+
+const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
   const publishedDate = article.attributes.publishedAt ? new Date(article.attributes.publishedAt) : null;
 
   const timeAgo = publishedDate ? formatDistanceToNow(publishedDate, { addSuffix: true }) : 'DRAFT';
+
+  const { view } = useBlogView();
 
   return (
     <CarouselItem
@@ -39,16 +56,19 @@ const BlogCard: FC<{ article: ArticleModel; mode: ModeType }> = ({ article, mode
       className="basis-[85%] pl-2 sm:basis-1/2 md:basis-1/3 md:pl-4 lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6">
       <article className="group relative">
         <div className="relative aspect-video overflow-hidden rounded-sm">
-          {mode === 'video' && article.attributes.videoId ? (
-            <YouTubeEmbed videoid={article.attributes.videoId} />
+          {view === 'video' && article.attributes.videoId ? (
+            <>
+              <YouTubeEmbed videoid={article.attributes.videoId} />
+              <TimeOverlay timeAgo={timeAgo} publishedDate={publishedDate} />
+            </>
           ) : (
             <Link
               href={`/articles/${article.attributes.slug}`}
               className={cn(
-                'relative block h-full w-full',
-                'focus:ring-accent focus:ring-offset-background focus:scale-90 focus:outline-none focus:ring-2 focus:ring-offset-2',
-                'hover:ring-accent hover:ring-offset-background hover:scale-90 hover:ring-2 hover:ring-offset-2',
-                'transition-all duration-200',
+                'relative block h-full w-full overflow-hidden rounded-sm',
+                'focus:border-accent focus:scale-95 focus:border-2 focus:outline-none',
+                'hover:border-accent hover:scale-95 hover:border-2',
+                'transition-all duration-150',
                 'group-hover:shadow-lg',
               )}
               aria-label={`Read article: ${article.attributes.title}${publishedDate ? `, published ${timeAgo}` : ', draft'}`}
@@ -62,22 +82,9 @@ const BlogCard: FC<{ article: ArticleModel; mode: ModeType }> = ({ article, mode
                   sizes="(max-width: 640px) 85vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
                 />
               </figure>
+              <TimeOverlay timeAgo={timeAgo} publishedDate={publishedDate} />
             </Link>
           )}
-
-          {/* Date overlay - positioned over both video and image content */}
-          <div
-            className="bg-accent text-accent-foreground absolute bottom-3 left-3 rounded px-2 py-1 text-sm font-medium"
-            title={
-              publishedDate
-                ? publishedDate.toLocaleString(navigator.language, {
-                    dateStyle: 'long',
-                    timeStyle: 'medium',
-                  })
-                : 'Draft article'
-            }>
-            {timeAgo}
-          </div>
         </div>
       </article>
     </CarouselItem>
@@ -85,7 +92,7 @@ const BlogCard: FC<{ article: ArticleModel; mode: ModeType }> = ({ article, mode
 };
 
 const SectionHeader: FC<{ title: string }> = ({ title }) => (
-  <div className="px-4 py-4 md:px-8">
+  <div className="py-4">
     <h2
       className={cn(
         'border-accent border-l-4 pl-3',
@@ -100,14 +107,13 @@ const SectionHeader: FC<{ title: string }> = ({ title }) => (
 export const CarouselSection: FC<{
   title: string;
   articles: ArticleModel[];
-  mode: 'video' | 'blog';
-}> = ({ title, articles, mode }) => {
+}> = ({ title, articles }) => {
   return (
     <section>
       <div>
         <SectionHeader title={title} />
 
-        <div className="px-4 md:px-8">
+        <div>
           <Carousel
             opts={{
               align: 'start',
@@ -119,7 +125,7 @@ export const CarouselSection: FC<{
             aria-label={`${title} carousel`}>
             <CarouselContent>
               {articles.map(article => (
-                <BlogCard mode={mode} key={article.attributes.slug} article={article} />
+                <BlogCard key={article.attributes.slug} article={article} />
               ))}
             </CarouselContent>
 

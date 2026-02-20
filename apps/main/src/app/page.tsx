@@ -1,6 +1,8 @@
 import { CarouselSection } from '@/app/components/carousel';
 import { getArticlesByType, getArticleTypes } from '@/lib/actions/articles';
 
+import { BlogViewProvider, BlogViewSwitch } from './components/blog-view-switch';
+
 export default async function LandingPage() {
   const articleTypes = await getArticleTypes();
 
@@ -20,13 +22,17 @@ export default async function LandingPage() {
   });
 
   return (
-    <main className="flex grow flex-col py-6">
-      <div className="flex justify-end"></div>
-      {sortedArticleTypes.map(async articleType => {
-        const titleCase = articleType.charAt(0).toUpperCase() + articleType.slice(1);
-        const articles = await getArticlesByType(articleType);
-        return <CarouselSection mode="video" key={articleType} title={titleCase} articles={articles} />;
-      })}
+    <main className="flex grow flex-col px-4 py-6 md:px-8">
+      <BlogViewProvider>
+        <div className="top-22 sticky flex justify-end">
+          <BlogViewSwitch />
+        </div>
+        {sortedArticleTypes.map(async articleType => {
+          const titleCase = articleType.charAt(0).toUpperCase() + articleType.slice(1);
+          const articles = await getArticlesByType(articleType);
+          return <CarouselSection key={articleType} title={titleCase} articles={articles} />;
+        })}
+      </BlogViewProvider>
     </main>
   );
 }
