@@ -20,7 +20,7 @@ import type { ArticleModel } from '@/types/model-types';
 
 import placeholder from '@/app/placeholder.webp';
 
-import { useBlogView } from './blog-view-context';
+import { useBlogView } from './blog-view-switch';
 
 const TimeOverlay: FC<{ timeAgo: string; publishedDate: Date | null }> = ({ timeAgo, publishedDate }) => (
   <div
@@ -45,7 +45,7 @@ const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
 
   const timeAgo = publishedDate ? formatDistanceToNow(publishedDate, { addSuffix: true }) : 'DRAFT';
 
-  const { view } = useBlogView();
+  const { view, isInitializing } = useBlogView();
 
   return (
     <CarouselItem
@@ -63,7 +63,7 @@ const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
           {article.attributes.videoId ? (
             <MotionDiv
               className="preserve-3d relative h-full w-full"
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.3, delay: isInitializing ? 1 : 0 }}
               initial={{ rotateY: view === 'video' ? 180 : 0 }}
               animate={{ rotateY: view === 'video' ? 180 : 0 }}
               style={{ transformStyle: 'preserve-3d' }}>
