@@ -47,10 +47,6 @@ const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
 
   const { view } = useBlogView();
 
-  // Only animate items that have a video - others stay static
-  const hasVideo = Boolean(article.attributes.videoId);
-  const shouldAnimate = hasVideo;
-
   return (
     <CarouselItem
       // Responsive width control using flex-basis:
@@ -64,7 +60,7 @@ const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
       className="basis-[85%] pl-2 sm:basis-1/2 md:basis-1/3 md:pl-4 lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6">
       <article className="group relative">
         <div className="relative aspect-video overflow-hidden rounded-sm">
-          {shouldAnimate ? (
+          {article.attributes.videoId ? (
             <MotionDiv
               className="preserve-3d relative h-full w-full"
               transition={{ duration: 0.3 }}
@@ -98,7 +94,7 @@ const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
 
               {/* Back side - Video view */}
               <MotionDiv className="backface-hidden absolute inset-0" style={{ transform: 'rotateY(180deg)' }}>
-                <YouTubeEmbed videoid={article.attributes.videoId!} />
+                <YouTubeEmbed videoid={article.attributes.videoId} />
                 <TimeOverlay timeAgo={timeAgo} publishedDate={publishedDate} />
               </MotionDiv>
             </MotionDiv>
