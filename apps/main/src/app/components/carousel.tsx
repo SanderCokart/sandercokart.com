@@ -10,6 +10,7 @@ import {
 } from '@repo/ui/components/shadcn/carousel';
 import { cn } from '@repo/ui/lib/utils';
 import { formatDistanceToNow } from 'date-fns';
+import { motion } from 'motion/react';
 
 import { FC } from 'react';
 import Image from 'next/image';
@@ -19,7 +20,7 @@ import type { ArticleModel } from '@/types/model-types';
 
 import placeholder from '@/app/placeholder.webp';
 
-import { useBlogView } from './blog-view-switch';
+import { useBlogView } from './blog-view-context';
 
 const TimeOverlay: FC<{ timeAgo: string; publishedDate: Date | null }> = ({ timeAgo, publishedDate }) => (
   <div
@@ -36,12 +37,19 @@ const TimeOverlay: FC<{ timeAgo: string; publishedDate: Date | null }> = ({ time
   </div>
 );
 
+const MotionLink = motion.create(Link);
+const MotionDiv = motion.create('div');
+
 const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
   const publishedDate = article.attributes.publishedAt ? new Date(article.attributes.publishedAt) : null;
 
   const timeAgo = publishedDate ? formatDistanceToNow(publishedDate, { addSuffix: true }) : 'DRAFT';
 
   const { view } = useBlogView();
+
+  // Only animate items that have a video - others stay static
+  const hasVideo = Boolean(article.attributes.videoId);
+  const shouldAnimate = hasVideo;
 
   return (
     <CarouselItem
@@ -56,13 +64,47 @@ const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
       className="basis-[85%] pl-2 sm:basis-1/2 md:basis-1/3 md:pl-4 lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6">
       <article className="group relative">
         <div className="relative aspect-video overflow-hidden rounded-sm">
-          {view === 'video' && article.attributes.videoId ? (
-            <>
-              <YouTubeEmbed videoid={article.attributes.videoId} />
-              <TimeOverlay timeAgo={timeAgo} publishedDate={publishedDate} />
-            </>
+          {shouldAnimate ? (
+            <MotionDiv
+              className="preserve-3d relative h-full w-full"
+              transition={{ duration: 0.3 }}
+              initial={{ rotateY: view === 'video' ? 180 : 0 }}
+              animate={{ rotateY: view === 'video' ? 180 : 0 }}
+              style={{ transformStyle: 'preserve-3d' }}>
+              {/* Front side - Article view */}
+              <MotionLink
+                href={`/articles/${article.attributes.slug}`}
+                className={cn(
+                  'backface-hidden absolute inset-0',
+                  'focus:border-accent focus:scale-95 focus:border-2 focus:outline-none',
+                  'hover:border-accent hover:scale-95 hover:border-2',
+                  'transition-all duration-150',
+                  'group-hover:shadow-lg',
+                )}
+                aria-label={`Read article: ${article.attributes.title}${publishedDate ? `, published ${timeAgo}` : ', draft'}`}
+                title={article.attributes.title}
+                style={{ transform: 'rotateY(0deg)' }}>
+                <figure className="h-full w-full">
+                  <Image
+                    fill
+                    alt={article.attributes.title}
+                    className="object-cover transition-transform duration-200"
+                    src={article.attributes.banner || placeholder}
+                    sizes="(max-width: 640px) 85vw, (max-width: 768px) 50vw, (max-width: 1280px) 25vw, 20vw"
+                  />
+                </figure>
+                <TimeOverlay timeAgo={timeAgo} publishedDate={publishedDate} />
+              </MotionLink>
+
+              {/* Back side - Video view */}
+              <MotionDiv className="backface-hidden absolute inset-0" style={{ transform: 'rotateY(180deg)' }}>
+                <YouTubeEmbed videoid={article.attributes.videoId!} />
+                <TimeOverlay timeAgo={timeAgo} publishedDate={publishedDate} />
+              </MotionDiv>
+            </MotionDiv>
           ) : (
-            <Link
+            // Static content for items without video - no animation, no unmounting
+            <MotionLink
               href={`/articles/${article.attributes.slug}`}
               className={cn(
                 'relative block h-full w-full overflow-hidden rounded-sm',
@@ -83,7 +125,7 @@ const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
                 />
               </figure>
               <TimeOverlay timeAgo={timeAgo} publishedDate={publishedDate} />
-            </Link>
+            </MotionLink>
           )}
         </div>
       </article>
