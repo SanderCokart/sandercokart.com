@@ -71,7 +71,7 @@ const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
               <MotionLink
                 href={`/articles/${article.attributes.slug}`}
                 className={cn(
-                  'backface-hidden absolute inset-0',
+                  'backface-hidden absolute inset-0 overflow-hidden rounded-sm',
                   'focus:border-accent focus:scale-95 focus:border-2 focus:outline-none',
                   'hover:border-accent hover:scale-95 hover:border-2',
                   'transition-all duration-150',
