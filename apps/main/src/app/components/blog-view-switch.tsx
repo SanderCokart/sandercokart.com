@@ -11,7 +11,7 @@ import type { FC, ReactNode } from 'react';
 export type BlogView = 'video' | 'blog';
 
 export const BlogViewSwitch: FC = () => {
-  const { view, setView, isInitializing: isLoading } = useBlogView();
+  const { view, setView, isInitializing } = useBlogView();
 
   const handleViewChange = (value: string[]) => {
     if (value.length > 0 && value[0] !== view) {
@@ -19,7 +19,7 @@ export const BlogViewSwitch: FC = () => {
     }
   };
 
-  if (isLoading) {
+  if (isInitializing) {
     return <Skeleton className="w-18 h-9" />;
   }
 
