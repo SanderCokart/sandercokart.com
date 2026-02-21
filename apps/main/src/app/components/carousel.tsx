@@ -12,7 +12,7 @@ import { cn } from '@repo/ui/lib/utils';
 import { formatDistanceToNow } from 'date-fns';
 import { motion } from 'motion/react';
 
-import { FC } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -37,15 +37,16 @@ const TimeOverlay: FC<{ timeAgo: string; publishedDate: Date | null }> = ({ time
   </div>
 );
 
-const MotionLink = motion.create(Link);
-const MotionDiv = motion.create('div');
-
 const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
   const publishedDate = article.attributes.publishedAt ? new Date(article.attributes.publishedAt) : null;
 
   const timeAgo = publishedDate ? formatDistanceToNow(publishedDate, { addSuffix: true }) : 'DRAFT';
 
   const { view, isInitializing } = useBlogView();
+
+  const hasVideo = Boolean(article.attributes.videoId);
+
+  const videoEmbedRef = useRef<HTMLDivElement>(null);
 
   return (
     <CarouselItem
@@ -58,29 +59,30 @@ const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
       // - 2XL+: 16.7% width (6 items visible)
       // Padding increases on larger screens (pl-2 on mobile, pl-4 on md+)
       className="basis-[85%] pl-2 sm:basis-1/2 md:basis-1/3 md:pl-4 lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6">
-      <article className="group relative">
-        <div className="relative aspect-video overflow-hidden rounded-sm">
-          {article.attributes.videoId ? (
-            <MotionDiv
-              className="preserve-3d relative h-full w-full"
-              transition={{ duration: 0.3, delay: isInitializing ? 1 : 0 }}
-              initial={{ rotateY: view === 'video' ? 180 : 0 }}
-              animate={{ rotateY: view === 'video' ? 180 : 0 }}
-              style={{ transformStyle: 'preserve-3d' }}>
-              {/* Front side - Article view */}
-              <MotionLink
+      <motion.article
+        className={cn(
+          'relative aspect-video overflow-hidden rounded-sm',
+          'focus-within:border-accent transition-[scale,border] focus-within:scale-95 focus-within:border-2',
+          'hover:border-accent transition-[scale,border] hover:scale-95 hover:border-2',
+        )}>
+        {hasVideo ? (
+          <motion.div // This motion.div creates a 3D space for the flip animation.
+            className="preserve-3d relative h-full w-full"
+            transition={{ duration: 0.3, delay: isInitializing ? 1 : 0 }}
+            initial={{ rotateY: view === 'blog' ? 0 : 180 }}
+            animate={{ rotateY: view === 'blog' ? 0 : 180 }}
+            style={{ transformStyle: 'preserve-3d' }} // transformStyle: 'preserve-3d' makes the children inherit the 3D transform
+          >
+            <div className="backface-hidden absolute inset-0">
+              <Link
+                inert={view === 'video'}
                 href={`/articles/${article.attributes.slug}`}
-                className={cn(
-                  'backface-hidden absolute inset-0 overflow-hidden rounded-sm',
-                  'focus:border-accent focus:scale-95 focus:border-2 focus:outline-none',
-                  'hover:border-accent hover:scale-95 hover:border-2',
-                  'transition-all duration-150',
-                  'group-hover:shadow-lg',
-                )}
-                aria-label={`Read article: ${article.attributes.title}${publishedDate ? `, published ${timeAgo}` : ', draft'}`}
-                title={article.attributes.title}
-                style={{ transform: 'rotateY(0deg)' }}>
-                <figure className="h-full w-full">
+                className="backface-hidden" // backface-visibility: hidden; hides the back side when rotated
+                aria-label={`Read article: ${article.attributes.title}${
+                  publishedDate ? `, published ${timeAgo}` : ', draft'
+                }`}
+                title={article.attributes.title}>
+                <figure className="relative h-full w-full">
                   <Image
                     fill
                     alt={article.attributes.title}
@@ -90,56 +92,53 @@ const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
                   />
                 </figure>
                 <TimeOverlay timeAgo={timeAgo} publishedDate={publishedDate} />
-              </MotionLink>
-
-              {/* Back side - Video view */}
-              <MotionDiv className="backface-hidden absolute inset-0" style={{ transform: 'rotateY(180deg)' }}>
-                <YouTubeEmbed videoid={article.attributes.videoId} />
-                <TimeOverlay timeAgo={timeAgo} publishedDate={publishedDate} />
-              </MotionDiv>
-            </MotionDiv>
-          ) : (
-            // Static content for items without video - no animation, no unmounting
-            <MotionLink
-              href={`/articles/${article.attributes.slug}`}
-              className={cn(
-                'relative block h-full w-full overflow-hidden rounded-sm',
-                'focus:border-accent focus:scale-95 focus:border-2 focus:outline-none',
-                'hover:border-accent hover:scale-95 hover:border-2',
-                'transition-all duration-150',
-                'group-hover:shadow-lg',
-              )}
-              aria-label={`Read article: ${article.attributes.title}${publishedDate ? `, published ${timeAgo}` : ', draft'}`}
-              title={article.attributes.title}>
-              <figure className="h-full w-full">
-                <Image
-                  fill
-                  alt={article.attributes.title}
-                  className="object-cover transition-transform duration-200"
-                  src={article.attributes.banner || placeholder}
-                  sizes="(max-width: 640px) 85vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
-                />
-              </figure>
+              </Link>
+            </div>
+            {/* Back side - Video view */}
+            <motion.div
+              ref={videoEmbedRef}
+              className="backface-hidden [&_button]:user-select-none absolute inset-0 [&_button:focus-visible]:outline-none" // backface-visibility: hidden; hides the back side when rotated
+              style={{ transform: 'rotateY(180deg)' }} // Rotates the back side to face forward initially
+            >
+              {/* @ts-expect-error - inert is not a registered prop but it works */}
+              <YouTubeEmbed inert={view === 'blog'} videoid={article.attributes.videoId!} />
               <TimeOverlay timeAgo={timeAgo} publishedDate={publishedDate} />
-            </MotionLink>
-          )}
-        </div>
-      </article>
+            </motion.div>
+          </motion.div>
+        ) : (
+          // Static content for items without video - no animation, no unmounting
+          <Link
+            href={`/articles/${article.attributes.slug}`}
+            aria-label={`Read article: ${article.attributes.title}${publishedDate ? `, published ${timeAgo}` : ', draft'}`}
+            title={article.attributes.title}>
+            <figure className="relative h-full w-full">
+              <Image
+                fill
+                alt={article.attributes.title}
+                className="object-cover transition-transform duration-200"
+                src={article.attributes.banner || placeholder}
+                sizes="(max-width: 640px) 85vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
+              />
+            </figure>
+            <TimeOverlay timeAgo={timeAgo} publishedDate={publishedDate} />
+          </Link>
+        )}
+      </motion.article>
     </CarouselItem>
   );
 };
 
 const SectionHeader: FC<{ title: string }> = ({ title }) => (
-  <div className="py-4">
+  <header className="py-4">
     <h2
       className={cn(
         'border-accent border-l-4 pl-3',
         'font-digital text-foreground font-bold uppercase tracking-wide',
-        'text-2xl md:text-3xl lg:text-4xl',
+        'text-3xl md:text-4xl',
       )}>
       {title}
     </h2>
-  </div>
+  </header>
 );
 
 export const CarouselSection: FC<{
@@ -148,40 +147,36 @@ export const CarouselSection: FC<{
 }> = ({ title, articles }) => {
   return (
     <section>
+      <SectionHeader title={title} />
+
       <div>
-        <SectionHeader title={title} />
+        <Carousel
+          opts={{
+            align: 'start',
+            dragFree: true,
+            skipSnaps: false,
+            containScroll: 'trimSnaps',
+          }}
+          className="group/carousel relative w-full"
+          aria-label={`${title} carousel`}>
+          <CarouselContent>
+            {articles.map(article => (
+              <BlogCard key={article.attributes.slug} article={article} />
+            ))}
+          </CarouselContent>
 
-        <div>
-          <Carousel
-            opts={{
-              align: 'start',
-              dragFree: true,
-              skipSnaps: false,
-              containScroll: 'trimSnaps',
-            }}
-            className="group/carousel relative w-full"
-            aria-label={`${title} carousel`}>
-            <CarouselContent>
-              {articles.map(article => (
-                <BlogCard key={article.attributes.slug} article={article} />
-              ))}
-            </CarouselContent>
-
-            <CarouselPrevious
-              variant="default"
-              className={cn('absolute left-0 h-full', 'bg-accent text-accent-foreground rounded-none disabled:hidden')}
-              aria-label={`Previous ${title.toLowerCase()}`}
-            />
-            <CarouselNext
-              variant="default"
-              className={cn('absolute right-0 h-full', 'bg-accent text-accent-foreground rounded-none disabled:hidden')}
-              aria-label={`Next ${title.toLowerCase()}`}
-            />
-          </Carousel>
-        </div>
+          <CarouselPrevious
+            variant="default"
+            className={cn('absolute left-0 h-full', 'bg-accent text-accent-foreground rounded-none disabled:hidden')}
+            aria-label={`Previous ${title.toLowerCase()}`}
+          />
+          <CarouselNext
+            variant="default"
+            className={cn('absolute right-0 h-full', 'bg-accent text-accent-foreground rounded-none disabled:hidden')}
+            aria-label={`Next ${title.toLowerCase()}`}
+          />
+        </Carousel>
       </div>
     </section>
   );
 };
-
-export { BlogCard };

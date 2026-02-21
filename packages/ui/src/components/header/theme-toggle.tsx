@@ -53,6 +53,7 @@ export function ThemeToggle() {
     <div className="grid h-full place-items-center overflow-hidden">
       <button
         onClick={toggleTheme}
+        className="focus-visible:text-accent hover:text-accent transition-colors"
         suppressHydrationWarning
         title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}>
         <span suppressHydrationWarning className="sr-only">

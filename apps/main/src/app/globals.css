@@ -59,6 +59,15 @@
   animation: skeleton-shimmer 1.5s ease-in-out infinite;
 }
 
+/* 3D Flip Animation Styles */
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
 /*
 .line.highlighted {
   background-color: red;

@@ -24,7 +24,7 @@ export default async function LandingPage() {
   return (
     <main className="flex grow flex-col px-4 py-6 md:px-8">
       <BlogViewProvider>
-        <div className="top-22 sticky flex justify-end">
+        <div className="flex justify-center">
           <BlogViewSwitch />
         </div>
         {sortedArticleTypes.map(async articleType => {
