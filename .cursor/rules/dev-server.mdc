@@ -1,0 +1,6 @@
+---
+description: 
+alwaysApply: true
+---
+
+Do not run pnpm dev, assume apps already running on localhost on assigned ports,
