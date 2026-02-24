@@ -12,6 +12,7 @@ import { cn } from '@repo/ui/lib/utils';
 
 import * as React from 'react';
 
+import { CodeGroup } from './components/code-group';
 import { MdxCodeBlocks } from './components/mdx-code-blocks';
 
 type CodeProps = React.ComponentProps<'code'> & { meta?: string; children: string };
@@ -57,4 +58,5 @@ export default {
   code: Code,
   pre: Pre,
   YouTubeEmbed,
+  CodeGroup,
 };

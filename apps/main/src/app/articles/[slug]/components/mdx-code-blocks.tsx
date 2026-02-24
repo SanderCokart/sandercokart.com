@@ -13,7 +13,7 @@ import { toJsxRuntime } from 'hast-util-to-jsx-runtime';
 
 import { Fragment, jsx, jsxs } from 'react/jsx-runtime';
 
-import type { ComponentProps, ReactNode } from 'react';
+import type { ComponentProps } from 'react';
 
 import { getHighlighter } from '@/lib/shiki-highlighter';
 
@@ -42,20 +42,25 @@ import { CopyCodeButton } from './copy-code-button';
  * @param mdxCodeBlocksProps - Additional props to customise the code block, passed via rehypeMdxCodeProps
  * @returns Promise resolving to a ReactNode containing the code blocks
  */
-export async function MdxCodeBlocks(mdxProps: {
+export async function MdxCodeBlocks(props: {
   code: string;
   lang: string;
   shiki?: string;
   name?: string;
+  overflow?: boolean;
+  height?: number;
+  isGrouped?: boolean;
   [key: string]: unknown;
 }) {
   const highlighter = await getHighlighter();
 
-  const out = highlighter.codeToHast(mdxProps.code, {
-    lang: mdxProps.lang,
+  const { code, lang, shiki, name, isGrouped, overflow, height = 300, ...mdxProps } = props;
+
+  const out = highlighter.codeToHast(code, {
+    lang,
     theme: 'css-variables',
     meta: {
-      __raw: mdxProps.shiki,
+      __raw: shiki,
     },
     transformers: [
       transformerMetaHighlight(),
@@ -76,15 +81,12 @@ export async function MdxCodeBlocks(mdxProps: {
 
   const pre = ({ className, ...props }: PreProps) => {
     return (
-      <ScrollArea className={cn('not-prose border-accent relative overflow-hidden rounded-md border pb-2', className)}>
+      <ScrollArea className={cn('not-prose border-accent relative overflow-hidden rounded-md border', className)}>
         <div className="flex flex-col">
-          <div className="flex items-center justify-end gap-2 p-2">
-            <span className="text-accent size-6">{getLanguageIcon(mdxProps.lang)}</span>
-            <Badge className="empty:hidden" variant="default">
-              {mdxProps.name}
-            </Badge>
-            {/* <span className="grow text-xs font-semibold empty:hidden"></span> */}
-            <CopyCodeButton copyValue={mdxProps.code} />
+          <div className="flex items-center justify-between gap-2 p-2">
+            <span className="text-accent size-6">{getLanguageIcon(lang)}</span>
+            {!isGrouped && name && <span className="text-base font-semibold">{name}</span>}
+            <CopyCodeButton copyValue={code} />
           </div>
           <pre className={cn('[white-space-collapse:preserve]', className)} {...mdxProps} {...props} />
         </div>

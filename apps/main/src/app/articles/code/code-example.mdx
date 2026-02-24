@@ -35,7 +35,7 @@ function Counter() {
 
 As state logic becomes more complex (e.g., multiple sub-values or complex transitions), `useState` can become messy. `useReducer` centralizes state transitions into a single function, making your logic predictable and easier to test.
 
-```javascript
+```javascript name="counter.tsx"
 const initialState = { count: 0 };
 
 function counterReducer(state, action) {
@@ -58,7 +58,7 @@ The Context API allows you to "broadcast" data to an entire component tree. When
 
 ### Step A: Creating the Context & Provider
 
-```javascript
+```javascript overflow height={200}
 import { createContext, useContext, useReducer } from 'react';
 
 const StateContext = createContext();
@@ -117,3 +117,24 @@ XState is for **State Machines**. If your app has complex flows (e.g., a multi-s
 Mastering the **Provider pattern** is essential, but knowing its limits is equally important. Start with `useState`, scale to `Context + useReducer` for global settings, and reach for **Zustand** or **Redux** when performance and complex state-sharing become a bottleneck.
 
 Would you like me to generate a specific comparison code snippet between a Context implementation and a Zustand store?
+
+---
+
+## 6. Code Group Example
+
+Here is an example of the new `<CodeGroup>` component in action:
+
+<CodeGroup>
+```tsx name="preview.tsx"
+export default function Preview() {
+  return <div>Preview</div>;
+}
+```
+
+```tsx name="code.tsx"
+export default function Code() {
+  return <div>Code</div>;
+}
+```
+
+</CodeGroup>
