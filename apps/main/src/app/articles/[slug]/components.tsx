@@ -10,11 +10,11 @@ import {
 } from '@repo/ui/components/shadcn/table';
 import { cn } from '@repo/ui/lib/utils';
 
-import type { ComponentPropsWithoutRef } from 'react';
+import * as React from 'react';
 
-import { AsyncCodeBlock } from './components/async-code-block';
+import { MdxCodeBlocks } from './components/mdx-code-blocks';
 
-type CodeProps = ComponentPropsWithoutRef<'code'> & { meta?: string; children: string };
+type CodeProps = React.ComponentProps<'code'> & { meta?: string; children: string };
 
 function Code({ children, meta, className, ...props }: CodeProps) {
   const isCodeBlock = className?.startsWith('language-');
@@ -34,11 +34,20 @@ function Code({ children, meta, className, ...props }: CodeProps) {
   // Use AsyncCodeBlock directly for server-side rendering
   const originalCode = children.trim();
 
-  return <AsyncCodeBlock code={originalCode} lang={lang} meta={meta} className={className} {...props} />;
+  return <MdxCodeBlocks code={originalCode} lang={lang} shiki={meta} {...props} />;
 }
 
+// Intercept the MDX <pre> tag to pass its props down to the <code> tag
+const Pre = ({ children, ...props }: React.ComponentProps<'pre'>) => {
+  if (React.isValidElement(children)) {
+    // Forward props (like filename) to the Code component and remove the extra outer <pre> wrapper
+    return React.cloneElement(children as React.ReactElement, { ...props });
+  }
+  return <pre {...props}>{children}</pre>;
+};
+
 export default {
-  table: (props: ComponentPropsWithoutRef<'table'>) => <Table className="not-prose" {...props} />,
+  table: (props: React.ComponentProps<'table'>) => <Table className="not-prose" {...props} />,
   tr: TableRow,
   tbody: TableBody,
   td: TableCell,
@@ -46,5 +55,6 @@ export default {
   thead: TableHeader,
   tfoot: TableFooter,
   code: Code,
+  pre: Pre,
   YouTubeEmbed,
 };

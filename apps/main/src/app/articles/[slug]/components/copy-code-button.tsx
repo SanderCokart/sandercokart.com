@@ -43,7 +43,7 @@ export const CopyCodeButton: FC<CopyCodeButtonProps> = ({ copyValue, ...props })
           initial="hidden"
           animate="visible"
           exit="hidden"
-          className="absolute right-10 top-2 size-6 text-green-400"
+          className="size-6 text-green-400"
         />
       ) : (
         <MotionButton
@@ -54,7 +54,7 @@ export const CopyCodeButton: FC<CopyCodeButtonProps> = ({ copyValue, ...props })
           initial="hidden"
           animate="visible"
           exit="hidden"
-          className={cn('absolute right-10 top-2 size-6 disabled:opacity-100')}
+          className={cn('size-6 disabled:opacity-100')}
           onClick={copyToClipboard}
           {...props}>
           <Copy className="size-4" />

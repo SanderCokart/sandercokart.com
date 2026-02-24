@@ -6,6 +6,7 @@ import remarkGfm from 'remark-gfm';
 
 import type { Page } from '@/types/common';
 import type { EvaluateOptions } from 'next-mdx-remote-client/rsc';
+import type { RehypeMdxCodePropsOptions } from 'rehype-mdx-code-props';
 
 import components from '@/app/articles/[slug]/components';
 import { getArticleBySlug } from '@/lib/actions/articles';
@@ -18,7 +19,7 @@ type SEARCH_PARAMS = null;
 const options: EvaluateOptions = {
   parseFrontmatter: true,
   mdxOptions: {
-    rehypePlugins: [rehypeMdxCodeProps],
+    rehypePlugins: [[rehypeMdxCodeProps, { tagName: 'pre' } as RehypeMdxCodePropsOptions]],
     remarkPlugins: [remarkGfm],
   },
 };

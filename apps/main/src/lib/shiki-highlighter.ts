@@ -19,14 +19,16 @@ export const cssVariableTheme = createCssVariablesTheme({
   fontStyle: true,
 });
 
-let highlighterInstance: Highlighter | null = null;
+const globalForShiki = globalThis as unknown as {
+  highlighter: Highlighter | undefined;
+};
 
 export const getHighlighter = async (): Promise<Highlighter> => {
-  if (!highlighterInstance) {
-    highlighterInstance = await createHighlighter({
+  if (!globalForShiki.highlighter) {
+    globalForShiki.highlighter = await createHighlighter({
       themes: [cssVariableTheme],
       langs: [...Object.keys(bundledLanguages)],
     });
   }
-  return highlighterInstance;
+  return globalForShiki.highlighter;
 };

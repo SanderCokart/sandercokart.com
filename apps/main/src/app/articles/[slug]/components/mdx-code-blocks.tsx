@@ -1,3 +1,4 @@
+import { Badge } from '@repo/ui/components/shadcn/badge';
 import { ScrollArea, ScrollBar } from '@repo/ui/components/shadcn/scroll-area';
 import { cn } from '@repo/ui/lib/utils';
 import {
@@ -12,7 +13,7 @@ import { toJsxRuntime } from 'hast-util-to-jsx-runtime';
 
 import { Fragment, jsx, jsxs } from 'react/jsx-runtime';
 
-import type { ComponentProps, ComponentPropsWithoutRef, ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 
 import { getHighlighter } from '@/lib/shiki-highlighter';
 
@@ -37,28 +38,24 @@ import { CopyCodeButton } from './copy-code-button';
  *
  * @param code - The source code content to highlight
  * @param lang - Programming language identifier for syntax highlighting
- * @param meta - Optional metadata string for advanced highlighting features
- * @param className - Optional CSS class for additional styling
- * @param props - Additional HTML element properties
- * @returns Promise resolving to a ReactNode containing the highlighted code
+ * @param shiki - Optional metadata string for advanced highlighting features
+ * @param mdxCodeBlocksProps - Additional props to customise the code block, passed via rehypeMdxCodeProps
+ * @returns Promise resolving to a ReactNode containing the code blocks
  */
-export async function AsyncCodeBlock({
-  code,
-  lang,
-  meta,
-}: {
+export async function MdxCodeBlocks(mdxProps: {
   code: string;
   lang: string;
-  meta?: string;
-  className?: string;
-} & ComponentPropsWithoutRef<'code'>) {
+  shiki?: string;
+  name?: string;
+  [key: string]: unknown;
+}) {
   const highlighter = await getHighlighter();
 
-  const out = highlighter.codeToHast(code, {
-    lang,
+  const out = highlighter.codeToHast(mdxProps.code, {
+    lang: mdxProps.lang,
     theme: 'css-variables',
     meta: {
-      __raw: meta,
+      __raw: mdxProps.shiki,
     },
     transformers: [
       transformerMetaHighlight(),
@@ -72,17 +69,25 @@ export async function AsyncCodeBlock({
 
   const getLanguageIcon = (lang: string) => {
     const IconComponent = languageIconMap[lang];
-    return IconComponent ? <IconComponent className="size-6" /> : lang;
+    return IconComponent ? <IconComponent className="size-full" /> : lang;
   };
 
-  const pre = ({ className, children, ...props }: ComponentProps<typeof ScrollArea>) => {
+  type PreProps = ComponentProps<'pre'> & { name?: string };
+
+  const pre = ({ className, ...props }: PreProps) => {
     return (
-      <ScrollArea
-        {...props}
-        className={cn('not-prose border-accent relative overflow-hidden rounded-md border pb-2 pt-6', className)}>
-        <CopyCodeButton copyValue={code} />
-        <span className="text-accent absolute right-0 top-0 mr-2 mt-2">{getLanguageIcon(lang)}</span>
-        <pre className="[white-space-collapse:preserve]">{children}</pre>
+      <ScrollArea className={cn('not-prose border-accent relative overflow-hidden rounded-md border pb-2', className)}>
+        <div className="flex flex-col">
+          <div className="flex items-center justify-end gap-2 p-2">
+            <span className="text-accent size-6">{getLanguageIcon(mdxProps.lang)}</span>
+            <Badge className="empty:hidden" variant="default">
+              {mdxProps.name}
+            </Badge>
+            {/* <span className="grow text-xs font-semibold empty:hidden"></span> */}
+            <CopyCodeButton copyValue={mdxProps.code} />
+          </div>
+          <pre className={cn('[white-space-collapse:preserve]', className)} {...mdxProps} {...props} />
+        </div>
         <ScrollBar className="z-10" orientation="horizontal" />
       </ScrollArea>
     );
@@ -100,5 +105,5 @@ export async function AsyncCodeBlock({
       pre,
       code: codeEl,
     },
-  }) as ReactNode;
+  });
 }
