@@ -11,14 +11,22 @@ import {
 } from '@shikijs/transformers';
 import { toJsxRuntime } from 'hast-util-to-jsx-runtime';
 
+
+
 import { Fragment, jsx, jsxs } from 'react/jsx-runtime';
 
 import type { ComponentProps } from 'react';
 
 import { getHighlighter } from '@/lib/shiki-highlighter';
 
+
+
 import { languageIconMap } from '../utils/language-icons';
 import { CopyCodeButton } from './copy-code-button';
+
+
+
+
 
 /**
  * Async component that performs syntax highlighting using Shiki and renders code blocks.
@@ -81,7 +89,12 @@ export async function MdxCodeBlocks(props: {
 
   const pre = ({ className, ...props }: PreProps) => {
     return (
-      <ScrollArea className={cn('not-prose border-accent relative overflow-hidden rounded-md border', className)}>
+      <ScrollArea
+        className={cn(
+          'not-prose border-accent relative overflow-hidden rounded-md border',
+          isGrouped && 'rounded-t-none',
+          className,
+        )}>
         <div className="flex flex-col">
           <div className="flex items-center justify-between gap-2 p-2">
             <span className="text-accent size-6">{getLanguageIcon(lang)}</span>
@@ -91,6 +104,7 @@ export async function MdxCodeBlocks(props: {
           <pre className={cn('[white-space-collapse:preserve]', className)} {...mdxProps} {...props} />
         </div>
         <ScrollBar className="z-10" orientation="horizontal" />
+        <ScrollBar className="z-10" orientation="vertical" />
       </ScrollArea>
     );
   };

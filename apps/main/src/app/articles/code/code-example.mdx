@@ -7,134 +7,50 @@ authors: ['Sander Cokart']
 summary: 'A comprehensive guide to managing state in React applications using built-in hooks, Context API, and external libraries like Zustand and Redux.'
 ---
 
-# React State Management and Providers Tutorial
+# Code Example
 
-In the early days of React, "prop drilling"—passing data through multiple layers of components—was the primary way to manage state. Today, React provides powerful built-in tools like the Context API, but as applications grow, external libraries like **Zustand**, **Redux**, and **XState** become essential.
+## Example without name
 
-This tutorial explores how to manage state effectively using built-in hooks and when to reach for specialized external tools.
+```tsx
+import React from 'react';
 
----
-
-## 1. Local State with `useState`
-
-Local state is the foundation of React. It is best used for data that stays within a single component, such as a toggle switch or a form input.
-
-```ts shiki="{1,3}" name="counter.tsx"
-import { useState } from 'react';
-
-function Counter() {
-  const [count, setCount] = useState(0);
-
-  return <button onClick={() => setCount(count + 1)}>Count is: {count}</button>;
+function MyComponent() {
+  return <div>Hello, world!</div>;
 }
 ```
 
----
+## Example with name
 
-## 2. Scaling Logic with `useReducer`
+```tsx name="my-component.tsx"
+import React from 'react';
 
-As state logic becomes more complex (e.g., multiple sub-values or complex transitions), `useState` can become messy. `useReducer` centralizes state transitions into a single function, making your logic predictable and easier to test.
-
-```javascript name="counter.tsx"
-const initialState = { count: 0 };
-
-function counterReducer(state, action) {
-  switch (action.type) {
-    case 'increment':
-      return { count: state.count + 1 };
-    case 'decrement':
-      return { count: state.count - 1 };
-    default:
-      return state;
-  }
+function MyComponent() {
+  return <div>Hello, world!</div>;
 }
 ```
 
----
-
-## 3. The Context API and Provider Pattern
-
-The Context API allows you to "broadcast" data to an entire component tree. When paired with `useReducer`, you create a powerful architecture without external dependencies.
-
-### Step A: Creating the Context & Provider
-
-```javascript overflow height={200}
-import { createContext, useContext, useReducer } from 'react';
-
-const StateContext = createContext();
-
-export function StateProvider({ children }) {
-  const [state, dispatch] = useReducer(counterReducer, initialState);
-
-  return <StateContext.Provider value={{ state, dispatch }}>{children}</StateContext.Provider>;
-}
-
-// Custom hook for consumption
-export const useGlobalState = () => useContext(StateContext);
-```
-
-### Step B: Consuming the Provider
-
-```javascript
-function CounterButton() {
-  const { state, dispatch } = useGlobalState();
-  return <button onClick={() => dispatch({ type: 'increment' })}>Global Count: {state.count}</button>;
-}
-```
-
----
-
-## 4. When Built-in Tools Aren't Enough
-
-While Context is great for low-frequency updates (like themes or auth), it has a major downside: **every time the provider value changes, every component consuming that context re-renders.** This is why external libraries exist:
-
-### **Zustand / Redux**
-
-These are "Store-based" managers. They allow for **selective subscriptions**. A component can listen to one specific slice of state without re-rendering when other parts of the store change.
-
-- **Zustand:** Minimalist, no boilerplate, uses hooks directly.
-- **Redux (Toolkit):** Robust, great dev tools, best for massive teams and complex data caching.
-
-### **XState**
-
-XState is for **State Machines**. If your app has complex flows (e.g., a multi-step checkout where you can't go from 'Success' back to 'Loading'), XState prevents impossible states by explicitly defining transitions.
-
----
-
-## 5. Choosing the Right Tool
-
-| Feature         | Context API            | Zustand / Redux          | XState                |
-| --------------- | ---------------------- | ------------------------ | --------------------- |
-| **Setup**       | Zero/Low               | Moderate                 | High (Learning curve) |
-| **Performance** | Basic (Re-renders all) | High (Selective updates) | High                  |
-| **Logic Type**  | Simple Data Sharing    | Global Stores            | Finite State Machines |
-| **Best For**    | Themes, User Auth      | Dashboards, E-commerce   | Multi-step workflows  |
-
----
-
-## Conclusion
-
-Mastering the **Provider pattern** is essential, but knowing its limits is equally important. Start with `useState`, scale to `Context + useReducer` for global settings, and reach for **Zustand** or **Redux** when performance and complex state-sharing become a bottleneck.
-
-Would you like me to generate a specific comparison code snippet between a Context implementation and a Zustand store?
-
----
-
-## 6. Code Group Example
-
-Here is an example of the new `<CodeGroup>` component in action:
+## Example with Tabs
 
 <CodeGroup>
-```tsx name="preview.tsx"
-export default function Preview() {
-  return <div>Preview</div>;
+```tsx name="my-component.tsx"
+import * as React from 'react';
+
+export const MyComponent: React.FC = () => {
+  return <div>Hello, world!</div>;
 }
 ```
 
-```tsx name="code.tsx"
-export default function Code() {
-  return <div>Code</div>;
+```jsx name="my-component.jsx"
+import React from 'react';
+
+function MyComponent() {
+  return <div>Hello, world!</div>;
 }
 ```
 
 </CodeGroup>
+
+
+
+
+

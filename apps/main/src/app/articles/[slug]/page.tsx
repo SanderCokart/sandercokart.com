@@ -49,7 +49,7 @@ export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS
     <article
       className={cn(
         // Overall article styling and layout
-        'mx-auto max-w-full px-4 py-4 sm:px-6 md:py-6 lg:max-w-4xl lg:py-16',
+        'mx-auto w-full max-w-full px-4 py-4 sm:px-6 md:py-6 lg:max-w-4xl lg:py-16',
         // Prose classes
         'prose prose-sm sm:prose-base dark:prose-invert',
         // Heading text color, paragraph text color, strong text color

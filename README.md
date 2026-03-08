@@ -29,6 +29,7 @@ sandercokart.com/
    - Docker and Docker Compose
 
 2. **Installation**
+
    ```bash
    # Install dependencies
    pnpm install
@@ -57,6 +58,7 @@ FROM serversideup/php:8.3-fpm-nginx-alpine AS base
 ```
 
 Key features of our Docker setup:
+
 - Uses Alpine-based images for smaller footprint
 - Includes PHP-FPM and Nginx in a single container
 - Optimized for Laravel applications
@@ -67,6 +69,7 @@ Key features of our Docker setup:
 ### Development vs Production
 
 - **Development**: Uses `compose.override.yml` to expose ports directly so we can access the apps via localhost instead of using docker container hostnames.
+
   ```yaml
   services:
     api:
@@ -96,6 +99,7 @@ Each app has its own `.env` file with specific configurations:
 Each app also has a `.env.example` file with the required environment variables.
 
 Important environment variables:
+
 - `ENV` - Environment (development/production)
 - `DATABASE_URL` - Database connection string
 - `REDIS_URL` - Redis connection string
@@ -113,11 +117,13 @@ The project uses a shared i18n package (`@repo/i18n`) for consistent translation
 ## 🛠️ Development Tools
 
 ### Package Management
+
 - Uses `pnpm` for efficient package management
 - Workspace dependencies are managed through Turborepo
 - Package versions are locked in `pnpm-lock.yaml`
 
 ### Code Quality
+
 - **ESLint**: Shared configuration in `packages/eslint-config`
 - **Prettier**: Code formatting with custom plugins:
   - `@ianvs/prettier-plugin-sort-imports`
@@ -126,15 +132,19 @@ The project uses a shared i18n package (`@repo/i18n`) for consistent translation
 - **lint-staged**: Runs linters on staged files
 
 ### Automation Scripts
+
 Located in `scripts/`:
+
 - `publish-article.js` - Publish articles
 
 Each app can also have its own `scripts/` directory for app-specific automation tasks:
+
 - `apps/main/scripts/` - Scripts for the main website
 - `apps/codehouse/scripts/` - Scripts for the business website
 - `apps/api/scripts/` - Scripts for the API
 
 These app-specific scripts can be used for:
+
 - Post-commit hooks and automation
 - Data migration and seeding
 - Content generation and management
@@ -143,6 +153,7 @@ These app-specific scripts can be used for:
 - Cache management
 
 To run an app-specific script, use:
+
 ```bash
 # From the root directory
 pnpm --filter @repo/main run script:your-script-name
@@ -156,6 +167,7 @@ When creating new scripts that should run automatically on commit:
 
 1. **Register in package.json**
    For scripts that you want to run manually, add them to the app's `package.json`:
+
    ```json
    {
      "scripts": {
@@ -165,13 +177,14 @@ When creating new scripts that should run automatically on commit:
    ```
 
    For automated scripts that run via lint-staged, you can reference them directly by relative path:
+
    ```json
    {
      "lint-staged": {
        "apps/your-app/**/*.{js,jsx,ts,tsx}": [
          "eslint --fix",
          "prettier --write",
-         "node ./scripts/automated-task.js"  // Direct path reference
+         "node ./scripts/automated-task.js" // Direct path reference
        ]
      }
    }
@@ -185,10 +198,10 @@ When creating new scripts that should run automatically on commit:
        "apps/your-app/**/*.{js,jsx,ts,tsx}": [
          "eslint --fix",
          "prettier --write",
-         "node ./scripts/automated-task.js"  // For automated scripts
+         "node ./scripts/automated-task.js" // For automated scripts
        ],
        "apps/your-app/**/*.mdx": [
-         "node ./scripts/article-update.js"   // Example of existing automated script
+         "node ./scripts/article-update.js" // Example of existing automated script
        ]
      }
    }
@@ -217,13 +230,16 @@ pnpm clean
 The project uses Turborepo for efficient monorepo management:
 
 ### Task Configuration
+
 Tasks are defined in `turbo.json` and can be run using `turbo run`. Each task can have:
+
 - Dependencies on other tasks using `dependsOn`
 - Output caching configuration
 - Parallel execution settings
 - Persistent mode for long-running tasks (like dev servers)
 
 Example task configuration:
+
 ```json
 {
   "$schema": "https://turbo.build/schema.json",
@@ -249,9 +265,11 @@ Example task configuration:
 ```
 
 ### Running Tasks
+
 Tasks can be run in several ways:
 
 1. **Using root package.json scripts**:
+
    ```json
    {
      "scripts": {
@@ -264,24 +282,27 @@ Tasks can be run in several ways:
    ```
 
 2. **Direct turbo commands**:
+
    ```bash
    # Run multiple tasks
    turbo run build lint test
-   
+
    # Run tasks in specific workspaces
    turbo run build --filter=@repo/ui
-   
+
    # Run tasks for changed packages
    turbo run build --filter=...[origin/main]
    ```
 
 ### Caching
+
 - Build outputs are cached by default
 - Cache is stored in `.turbo` directory (gitignored)
 - Cache is keyed by task name, dependencies, and file contents
 - Use `turbo run build --force` to bypass cache
 
 ### Development Workflow
+
 - When you run `pnpm dev` in the root directory:
   1. It executes `turbo run dev` (defined in root package.json)
   2. Turborepo then runs `pnpm run dev` in each workspace (unless filtered)
@@ -289,6 +310,7 @@ Tasks can be run in several ways:
   4. All servers run in parallel by default
 
 Example command chain:
+
 ```bash
 # In root directory
 pnpm dev
@@ -302,6 +324,7 @@ php artisan serve  # for Laravel API
 ```
 
 You can target specific apps using filters:
+
 ```bash
 # Run dev only for the main website
 pnpm dev --filter=@repo/main
@@ -314,7 +337,9 @@ pnpm dev --filter=@repo/main --filter=@repo/api
 - Development tasks typically have `cache: false`
 
 ### Package Manager
+
 The project uses pnpm as the package manager, specified in root `package.json`:
+
 ```json
 {
   "packageManager": "pnpm@10.6.3"
@@ -331,4 +356,4 @@ The project uses pnpm as the package manager, specified in root `package.json`:
 
 ## 📝 License
 
-Private repository - All rights reserved 
+Private repository - All rights reserved
