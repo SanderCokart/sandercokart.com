@@ -46,7 +46,7 @@ import {
   BiLogoYoutube,
 } from 'react-icons/bi';
 
-import type { ComponentType, SVGProps } from 'react';
+import type { ReactNode } from 'react';
 
 /**
  * Server-rendered language icon mapping for static generation.
@@ -56,222 +56,222 @@ import type { ComponentType, SVGProps } from 'react';
  * No lazy loading is used to guarantee server-side rendering compatibility.
  */
 
-export const languageIconMap: Record<string, ComponentType<SVGProps<SVGSVGElement>>> = {
+export const languageIconMap: Record<string, ReactNode> = {
   // TypeScript variants
-  'ts': BiLogoTypescript,
-  'tsx': BiLogoTypescript,
-  'typescript': BiLogoTypescript,
+  'ts': <BiLogoTypescript className="text-blue-500" />,
+  'tsx': <BiLogoTypescript className="text-blue-500" />,
+  'typescript': <BiLogoTypescript className="text-blue-500" />,
 
   // JavaScript variants
-  'js': BiLogoJavascript,
-  'jsx': BiLogoJavascript,
-  'javascript': BiLogoJavascript,
-  'mjs': BiLogoJavascript,
+  'js': <BiLogoJavascript className="text-yellow-400" />,
+  'jsx': <BiLogoJavascript className="text-yellow-400" />,
+  'javascript': <BiLogoJavascript className="text-yellow-400" />,
+  'mjs': <BiLogoJavascript className="text-yellow-400" />,
 
   // HTML variants
-  'html': BiLogoHtml5,
-  'html-derivative': BiLogoHtml5,
+  'html': <BiLogoHtml5 className="text-orange-600" />,
+  'html-derivative': <BiLogoHtml5 className="text-orange-600" />,
 
   // CSS variants
-  'css': BiLogoCss3,
-  'scss': BiLogoCss3,
-  'sass': BiLogoCss3,
-  'less': BiLogoCss3,
+  'css': <BiLogoCss3 className="text-blue-600" />,
+  'scss': <BiLogoCss3 className="text-pink-600" />,
+  'sass': <BiLogoCss3 className="text-pink-600" />,
+  'less': <BiLogoCss3 className="text-blue-800" />,
 
   // C/C++ variants
-  'c': BiLogoCPlusPlus,
-  'c++': BiLogoCPlusPlus,
-  'cpp': BiLogoCPlusPlus,
-  'cxx': BiLogoCPlusPlus,
+  'c': <BiLogoCPlusPlus className="text-blue-700" />,
+  'c++': <BiLogoCPlusPlus className="text-blue-700" />,
+  'cpp': <BiLogoCPlusPlus className="text-blue-700" />,
+  'cxx': <BiLogoCPlusPlus className="text-blue-700" />,
 
   // Python
-  'py': BiLogoPython,
-  'python': BiLogoPython,
+  'py': <BiLogoPython className="text-blue-400" />,
+  'python': <BiLogoPython className="text-blue-400" />,
 
   // Java
-  'java': BiLogoJava,
+  'java': <BiLogoJava className="text-red-600" />,
 
   // PHP
-  'php': BiLogoPhp,
+  'php': <BiLogoPhp className="text-indigo-400" />,
 
   // Go
-  'go': BiLogoGoLang,
+  'go': <BiLogoGoLang className="text-cyan-500" />,
 
   // React
-  'react': BiLogoReact,
+  'react': <BiLogoReact className="text-cyan-400" />,
 
   // Vue.js
-  'vue': BiLogoVuejs,
-  'vue-html': BiLogoVuejs,
+  'vue': <BiLogoVuejs className="text-emerald-500" />,
+  'vue-html': <BiLogoVuejs className="text-emerald-500" />,
 
   // Angular
-  'angular': BiLogoAngular,
-  'angular-html': BiLogoAngular,
-  'angular-ts': BiLogoAngular,
+  'angular': <BiLogoAngular className="text-red-600" />,
+  'angular-html': <BiLogoAngular className="text-red-600" />,
+  'angular-ts': <BiLogoAngular className="text-red-600" />,
 
   // Node.js
-  'nodejs': BiLogoNodejs,
+  'nodejs': <BiLogoNodejs className="text-green-600" />,
 
   // Docker
-  'docker': BiLogoDocker,
-  'dockerfile': BiLogoDocker,
+  'docker': <BiLogoDocker className="text-blue-500" />,
+  'dockerfile': <BiLogoDocker className="text-blue-500" />,
 
   // Kubernetes
-  'kubernetes': BiLogoKubernetes,
+  'kubernetes': <BiLogoKubernetes className="text-blue-600" />,
 
   // Git
-  'git': BiLogoGit,
-  'git-commit': BiLogoGit,
-  'git-rebase': BiLogoGit,
+  'git': <BiLogoGit className="text-orange-600" />,
+  'git-commit': <BiLogoGit className="text-orange-600" />,
+  'git-rebase': <BiLogoGit className="text-orange-600" />,
 
   // GraphQL
-  'gql': BiLogoGraphql,
-  'graphql': BiLogoGraphql,
+  'gql': <BiLogoGraphql className="text-pink-600" />,
+  'graphql': <BiLogoGraphql className="text-pink-600" />,
 
   // Markdown
-  'md': BiLogoMarkdown,
-  'markdown': BiLogoMarkdown,
-  'mdx': BiLogoMarkdown,
+  'md': <BiLogoMarkdown className="text-blue-400" />,
+  'markdown': <BiLogoMarkdown className="text-blue-400" />,
+  'mdx': <BiLogoMarkdown className="text-blue-400" />,
 
   // PostgreSQL
-  'postgresql': BiLogoPostgresql,
+  'postgresql': <BiLogoPostgresql className="text-blue-500" />,
 
   // MongoDB
-  'mongodb': BiLogoMongodb,
+  'mongodb': <BiLogoMongodb className="text-green-500" />,
 
   // JSON
-  'json': BiLogoJavascript, // Using JS icon as fallback
-  'json5': BiLogoJavascript,
-  'jsonc': BiLogoJavascript,
-  'jsonl': BiLogoJavascript,
+  'json': <BiLogoJavascript className="text-yellow-400" />, // Using JS icon as fallback
+  'json5': <BiLogoJavascript className="text-yellow-400" />,
+  'jsonc': <BiLogoJavascript className="text-yellow-400" />,
+  'jsonl': <BiLogoJavascript className="text-yellow-400" />,
 
   // YAML
-  'yaml': BiLogoPython, // Using Python icon as fallback
-  'yml': BiLogoPython,
+  'yaml': <BiLogoPython className="text-blue-400" />, // Using Python icon as fallback
+  'yml': <BiLogoPython className="text-blue-400" />,
 
   // XML
-  'xml': BiLogoHtml5, // Using HTML icon as fallback
+  'xml': <BiLogoHtml5 className="text-orange-600" />, // Using HTML icon as fallback
 
   // Shell/Bash
-  'sh': BiLogoTux, // Using Linux icon as fallback
-  'shell': BiLogoTux,
-  'bash': BiLogoTux,
-  'shellscript': BiLogoTux,
-  'zsh': BiLogoTux,
+  'sh': <BiLogoTux className="text-slate-400" />, // Using Linux icon as fallback
+  'shell': <BiLogoTux className="text-slate-400" />,
+  'bash': <BiLogoTux className="text-slate-400" />,
+  'shellscript': <BiLogoTux className="text-slate-400" />,
+  'zsh': <BiLogoTux className="text-slate-400" />,
 
   // SQL
-  'sql': BiLogoPostgresql, // Using PostgreSQL icon as fallback
+  'sql': <BiLogoPostgresql className="text-blue-500" />, // Using PostgreSQL icon as fallback
 
   // Ruby
-  'rb': BiLogoReddit, // Using Reddit icon as Ruby-like color scheme
-  'ruby': BiLogoReddit,
+  'rb': <BiLogoReddit className="text-red-600" />, // Using Reddit icon as Ruby-like color scheme
+  'ruby': <BiLogoReddit className="text-red-600" />,
 
   // Rust
-  'rs': BiLogoReddit, // Using Reddit icon as orange/rust-like color
-  'rust': BiLogoReddit,
+  'rs': <BiLogoReddit className="text-orange-700" />, // Using Reddit icon as orange/rust-like color
+  'rust': <BiLogoReddit className="text-orange-700" />,
 
   // Swift
-  'swift': BiLogoApple, // Using Apple icon
+  'swift': <BiLogoApple className="text-slate-400" />, // Using Apple icon
 
   // Kotlin
-  'kt': BiLogoAndroid, // Using Android icon
-  'kts': BiLogoAndroid,
-  'kotlin': BiLogoAndroid,
+  'kt': <BiLogoAndroid className="text-green-500" />, // Using Android icon
+  'kts': <BiLogoAndroid className="text-green-500" />,
+  'kotlin': <BiLogoAndroid className="text-green-500" />,
 
   // Dart
-  'dart': BiLogoFlutter, // Using Flutter icon
+  'dart': <BiLogoFlutter className="text-cyan-400" />, // Using Flutter icon
 
   // Scala
-  'scala': BiLogoJava, // Using Java icon as fallback
+  'scala': <BiLogoJava className="text-red-600" />, // Using Java icon as fallback
 
   // Haskell
-  'hs': BiLogoGithub, // Using GitHub icon as fallback
-  'haskell': BiLogoGithub,
+  'hs': <BiLogoGithub className="text-slate-400" />, // Using GitHub icon as fallback
+  'haskell': <BiLogoGithub className="text-slate-400" />,
 
   // Clojure
-  'clj': BiLogoJava, // Using Java icon as fallback
-  'clojure': BiLogoJava,
+  'clj': <BiLogoJava className="text-red-600" />, // Using Java icon as fallback
+  'clojure': <BiLogoJava className="text-red-600" />,
 
   // Elixir
-  'elixir': BiLogoHeroku, // Using Heroku icon as fallback
+  'elixir': <BiLogoHeroku className="text-purple-600" />, // Using Heroku icon as fallback
 
   // Erlang
-  'erl': BiLogoJavascript, // Using JS icon as fallback
-  'erlang': BiLogoJavascript,
+  'erl': <BiLogoJavascript className="text-yellow-400" />, // Using JS icon as fallback
+  'erlang': <BiLogoJavascript className="text-yellow-400" />,
 
   // R
-  'r': BiLogoPython, // Using Python icon as fallback
+  'r': <BiLogoPython className="text-blue-400" />, // Using Python icon as fallback
 
   // Julia
-  'jl': BiLogoPython, // Using Python icon as fallback
-  'julia': BiLogoPython,
+  'jl': <BiLogoPython className="text-blue-400" />, // Using Python icon as fallback
+  'julia': <BiLogoPython className="text-blue-400" />,
 
   // Lua
-  'lua': BiLogoPython, // Using Python icon as fallback
-  'luau': BiLogoPython,
+  'lua': <BiLogoPython className="text-blue-400" />, // Using Python icon as fallback
+  'luau': <BiLogoPython className="text-blue-400" />,
 
   // Perl
-  'perl': BiLogoPython, // Using Python icon as fallback
-  'perl6': BiLogoPython,
+  'perl': <BiLogoPython className="text-blue-400" />, // Using Python icon as fallback
+  'perl6': <BiLogoPython className="text-blue-400" />,
 
   // Other languages with reasonable fallbacks
-  'c#': BiLogoMicrosoft,
-  'csharp': BiLogoMicrosoft,
-  'cs': BiLogoMicrosoft,
+  'c#': <BiLogoMicrosoft className="text-blue-600" />,
+  'csharp': <BiLogoMicrosoft className="text-blue-600" />,
+  'cs': <BiLogoMicrosoft className="text-blue-600" />,
 
-  'fsharp': BiLogoMicrosoft,
-  'fs': BiLogoMicrosoft,
+  'fsharp': <BiLogoMicrosoft className="text-blue-600" />,
+  'fs': <BiLogoMicrosoft className="text-blue-600" />,
 
-  'vb': BiLogoMicrosoft,
+  'vb': <BiLogoMicrosoft className="text-blue-600" />,
 
-  'powershell': BiLogoMicrosoft,
-  'ps1': BiLogoMicrosoft,
+  'powershell': <BiLogoMicrosoft className="text-blue-600" />,
+  'ps1': <BiLogoMicrosoft className="text-blue-600" />,
 
-  'latex': BiLogoPython, // Using Python icon as fallback
-  'tex': BiLogoPython,
+  'latex': <BiLogoPython className="text-blue-400" />, // Using Python icon as fallback
+  'tex': <BiLogoPython className="text-blue-400" />,
 
   // Web technologies
-  'http': BiLogoHtml5,
-  'rest': BiLogoHtml5,
+  'http': <BiLogoHtml5 className="text-orange-600" />,
+  'rest': <BiLogoHtml5 className="text-orange-600" />,
 
   // Configuration files
-  'toml': BiLogoPython,
-  'ini': BiLogoWindows,
-  'properties': BiLogoJava,
+  'toml': <BiLogoPython className="text-blue-400" />,
+  'ini': <BiLogoWindows className="text-blue-600" />,
+  'properties': <BiLogoJava className="text-red-600" />,
 
   // Database
-  'mysql': BiLogoPostgresql,
-  'sqlite': BiLogoPostgresql,
+  'mysql': <BiLogoPostgresql className="text-blue-500" />,
+  'sqlite': <BiLogoPostgresql className="text-blue-500" />,
 
   // Cloud
-  'aws': BiLogoAws,
-  'azure': BiLogoMicrosoft,
-  'gcp': BiLogoGoogleCloud,
+  'aws': <BiLogoAws className="text-orange-500" />,
+  'azure': <BiLogoMicrosoft className="text-blue-600" />,
+  'gcp': <BiLogoGoogleCloud className="text-blue-500" />,
 
   // Frameworks
-  'django': BiLogoDjango,
-  'flask': BiLogoFlask,
-  'spring-boot': BiLogoSpringBoot,
-  'bootstrap': BiLogoBootstrap,
-  'tailwindcss': BiLogoTailwindCss,
-  'redux': BiLogoRedux,
+  'django': <BiLogoDjango className="text-green-800" />,
+  'flask': <BiLogoFlask className="text-slate-400" />,
+  'spring-boot': <BiLogoSpringBoot className="text-green-600" />,
+  'bootstrap': <BiLogoBootstrap className="text-purple-600" />,
+  'tailwindcss': <BiLogoTailwindCss className="text-cyan-400" />,
+  'redux': <BiLogoRedux className="text-purple-600" />,
 
   // Tools
-  'makefile': BiLogoTux,
-  'cmake': BiLogoCPlusPlus,
+  'makefile': <BiLogoTux className="text-slate-400" />,
+  'cmake': <BiLogoCPlusPlus className="text-blue-700" />,
 
   // Other
-  'diff': BiLogoGit,
-  'log': BiLogoPython,
-  'plaintext': BiLogoMarkdown,
+  'diff': <BiLogoGit className="text-orange-600" />,
+  'log': <BiLogoPython className="text-blue-400" />,
+  'plaintext': <BiLogoMarkdown className="text-blue-400" />,
 
   // Additional languages not in original mapping but commonly used
-  'unity': BiLogoUnity,
-  'wordpress': BiLogoWordpress,
-  'youtube': BiLogoYoutube,
-  'firebase': BiLogoFirebase,
-  'adobe': BiLogoAdobe,
-  '500px': BiLogo500Px,
-  '99designs': BiLogo99Designs,
-  'gitlab': BiLogoGitlab,
+  'unity': <BiLogoUnity className="text-slate-400" />,
+  'wordpress': <BiLogoWordpress className="text-blue-400" />,
+  'youtube': <BiLogoYoutube className="text-red-600" />,
+  'firebase': <BiLogoFirebase className="text-orange-400" />,
+  'adobe': <BiLogoAdobe className="text-red-600" />,
+  '500px': <BiLogo500Px className="text-slate-400" />,
+  '99designs': <BiLogo99Designs className="text-slate-400" />,
+  'gitlab': <BiLogoGitlab className="text-orange-600" />,
 } as const;

@@ -81,8 +81,8 @@ export async function MdxCodeBlocks(props: {
   });
 
   const getLanguageIcon = (lang: string) => {
-    const IconComponent = languageIconMap[lang];
-    return IconComponent ? <IconComponent className="size-full" /> : lang;
+    const icon = languageIconMap[lang];
+    return icon ? <span className="size-full">{icon}</span> : lang;
   };
 
   type PreProps = ComponentProps<'pre'> & { name?: string };
