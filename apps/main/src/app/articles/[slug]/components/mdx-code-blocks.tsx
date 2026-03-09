@@ -1,21 +1,18 @@
 import { Badge } from '@repo/ui/components/shadcn/badge';
 import { ScrollArea, ScrollBar } from '@repo/ui/components/shadcn/scroll-area';
 import { cn } from '@repo/ui/lib/utils';
-import {
-  transformerMetaHighlight,
-  transformerNotationDiff,
-  transformerNotationErrorLevel,
-  transformerNotationFocus,
-  transformerNotationHighlight,
-  transformerNotationWordHighlight,
-} from '@shikijs/transformers';
+import { transformerMetaHighlight, transformerNotationDiff, transformerNotationErrorLevel, transformerNotationFocus, transformerNotationHighlight, transformerNotationWordHighlight } from '@shikijs/transformers';
 import { toJsxRuntime } from 'hast-util-to-jsx-runtime';
 
 
 
 import { Fragment, jsx, jsxs } from 'react/jsx-runtime';
 
+
+
 import type { ComponentProps } from 'react';
+
+
 
 import { getHighlighter } from '@/lib/shiki-highlighter';
 
@@ -82,7 +79,7 @@ export async function MdxCodeBlocks(props: {
 
   const getLanguageIcon = (lang: string) => {
     const icon = languageIconMap[lang];
-    return icon ? <span className="size-full">{icon}</span> : lang;
+    return icon ? icon : lang;
   };
 
   type PreProps = ComponentProps<'pre'> & { name?: string };

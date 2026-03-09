@@ -1,13 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@repo/ui/components/shadcn/tabs';
 import { FileIcon } from 'lucide-react';
 
-
-
 import React from 'react';
-
-
-
-
 
 export function CodeGroup({ children }: { children: React.ReactNode }) {
   const blocks = React.Children.toArray(children).filter(React.isValidElement) as React.ReactElement<{
