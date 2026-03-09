@@ -3,9 +3,12 @@ import { FileIcon } from 'lucide-react';
 
 import React from 'react';
 
+import { languageIconMap } from '../utils/language-icons';
+
 export function CodeGroup({ children }: { children: React.ReactNode }) {
   const blocks = React.Children.toArray(children).filter(React.isValidElement) as React.ReactElement<{
     name?: string;
+    className?: string;
     isGrouped?: boolean;
   }>[];
 
@@ -14,6 +17,19 @@ export function CodeGroup({ children }: { children: React.ReactNode }) {
 
   const defaultTab = blocks[0]?.props?.name || 'tab-0';
 
+  const getLanguageIcon = (block: (typeof blocks)[0]) => {
+    const name = block.props?.name ?? '';
+    const ext = name.includes('.') ? name.split('.').at(-1)?.toLowerCase() : null;
+    if (ext && languageIconMap[ext]) return languageIconMap[ext];
+
+    const className = block.props?.className ?? '';
+    const lang = className.replace(/^language-/, '') || 'plaintext';
+    const icon = languageIconMap[lang];
+    if (icon) return icon;
+
+    return <FileIcon className="size-4" />;
+  };
+
   return (
     <Tabs defaultValue={defaultTab} className="not-prose">
       <TabsList variant="editor">
@@ -21,7 +37,9 @@ export function CodeGroup({ children }: { children: React.ReactNode }) {
           const name = block.props.name || `Tab ${index + 1}`;
           return (
             <TabsTrigger key={name} value={name}>
-              <FileIcon className="mr-2 h-4 w-4" />
+              <span className="text-accent mr-2 flex size-4 shrink-0 items-center justify-center">
+                {getLanguageIcon(block)}
+              </span>
               {name}
             </TabsTrigger>
           );
