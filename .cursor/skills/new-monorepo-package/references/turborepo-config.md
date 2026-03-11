@@ -2,6 +2,10 @@
 
 Complete guide for configuring packages in Turborepo, including task configuration, caching, and dependencies.
 
+## Scripts and CI
+
+Use `turbo run <task>` (not `turbo <task>`) in root `package.json` scripts and in CI so Turbo orchestrates correctly. Example: `"build": "turbo run build"`.
+
 ## Understanding Turborepo Tasks
 
 Turborepo runs tasks defined in `package.json` scripts across the monorepo. Tasks are configured in the root `turbo.json` file.
