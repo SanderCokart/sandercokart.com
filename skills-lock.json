@@ -1,6 +1,11 @@
 {
   "version": 1,
   "skills": {
+    "date-fns": {
+      "source": "wottpal/skills",
+      "sourceType": "github",
+      "computedHash": "ba6642e34867d64bbdb93d685e58003020482c08bb74a3563b9aa93a28587a31"
+    },
     "shadcn": {
       "source": "shadcn/ui",
       "sourceType": "github",
