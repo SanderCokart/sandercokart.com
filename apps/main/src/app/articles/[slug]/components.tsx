@@ -47,7 +47,13 @@ const Pre = ({ children, ...props }: React.ComponentProps<'pre'>) => {
   return <pre {...props}>{children}</pre>;
 };
 
+// Links in articles open in a new tab for better UX when leaving the site
+const Anchor = (props: React.ComponentProps<'a'>) => (
+  <a {...props} target="_blank" rel="noopener noreferrer" />
+);
+
 export default {
+  a: Anchor,
   table: (props: React.ComponentProps<'table'>) => <Table className="not-prose" {...props} />,
   tr: TableRow,
   tbody: TableBody,

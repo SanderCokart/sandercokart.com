@@ -4,8 +4,6 @@ import { evaluate } from 'next-mdx-remote-client/rsc';
 import rehypeMdxCodeProps from 'rehype-mdx-code-props';
 import remarkGfm from 'remark-gfm';
 
-
-
 import type { Page } from '@/types/common';
 import type { EvaluateOptions } from 'next-mdx-remote-client/rsc';
 import type { RehypeMdxCodePropsOptions } from 'rehype-mdx-code-props';
@@ -14,10 +12,6 @@ import components from '@/app/articles/[slug]/components';
 import { getArticleBySlug } from '@/lib/actions/articles';
 
 import BackToTopButton from './components/back-to-top-button';
-
-
-
-
 
 type PARAMS = { slug: string };
 type SEARCH_PARAMS = null;
@@ -61,7 +55,7 @@ export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS
         // Heading text color, paragraph text color, strong text color
         'prose-headings:text-foreground prose-p:text-foreground/90 prose-strong:text-foreground',
         // Link styling
-        'prose-a:text-primary prose-a:no-underline hover:prose-a:underline',
+        'prose-a:text-accent prose-a:visited:text-green-400',
         // H1 styling
         'prose-h1:text-center prose-h1:text-balance',
         // H2 styling
