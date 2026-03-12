@@ -121,7 +121,6 @@ export function ServiceOfferingsSection() {
                 </CardContent>
                 <div className="flex items-center justify-center p-4">
                   <Button
-                    asChild={!service.comingSoon}
                     variant="ghost"
                     size="lg"
                     disabled={service.comingSoon}
