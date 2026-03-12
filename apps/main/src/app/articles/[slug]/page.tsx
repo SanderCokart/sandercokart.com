@@ -4,6 +4,8 @@ import { evaluate } from 'next-mdx-remote-client/rsc';
 import rehypeMdxCodeProps from 'rehype-mdx-code-props';
 import remarkGfm from 'remark-gfm';
 
+
+
 import type { Page } from '@/types/common';
 import type { EvaluateOptions } from 'next-mdx-remote-client/rsc';
 import type { RehypeMdxCodePropsOptions } from 'rehype-mdx-code-props';
@@ -12,6 +14,10 @@ import components from '@/app/articles/[slug]/components';
 import { getArticleBySlug } from '@/lib/actions/articles';
 
 import BackToTopButton from './components/back-to-top-button';
+
+
+
+
 
 type PARAMS = { slug: string };
 type SEARCH_PARAMS = null;
@@ -107,12 +113,6 @@ export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS
           )}
         </div>
       </header>
-
-      {frontmatter.videoId && (
-        <div className="my-8 [&_lite-youtube]:mx-auto [&_lite-youtube]:w-full">
-          <YouTubeEmbed videoid={frontmatter.videoId} />
-        </div>
-      )}
 
       <BackToTopButton />
 

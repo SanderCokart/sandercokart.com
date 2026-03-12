@@ -1,19 +1,19 @@
 import { YouTubeEmbed } from '@next/third-parties/google';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@repo/ui/components/shadcn/table';
+import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@repo/ui/components/shadcn/table';
 import { cn } from '@repo/ui/lib/utils';
+
+
 
 import * as React from 'react';
 
+
+
 import { CodeGroup } from './components/code-group';
 import { MdxCodeBlocks } from './components/mdx-code-blocks';
+
+
+
+
 
 type CodeProps = React.ComponentProps<'code'> & { meta?: string; children: string };
 
@@ -48,9 +48,7 @@ const Pre = ({ children, ...props }: React.ComponentProps<'pre'>) => {
 };
 
 // Links in articles open in a new tab for better UX when leaving the site
-const Anchor = (props: React.ComponentProps<'a'>) => (
-  <a {...props} target="_blank" rel="noopener noreferrer" />
-);
+const Anchor = (props: React.ComponentProps<'a'>) => <a {...props} target="_blank" rel="noopener noreferrer" />;
 
 export default {
   a: Anchor,
@@ -63,6 +61,10 @@ export default {
   tfoot: TableFooter,
   code: Code,
   pre: Pre,
-  YouTubeEmbed,
+  YouTube: (props: React.ComponentProps<typeof YouTubeEmbed>) => (
+    <div className="my-8 [&_lite-youtube]:mx-auto [&_lite-youtube]:w-full">
+      <YouTubeEmbed {...props} />
+    </div>
+  ),
   CodeGroup,
 };
