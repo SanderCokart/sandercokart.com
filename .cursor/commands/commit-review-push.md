@@ -1,57 +1,68 @@
 ---
 agent: agent
 ---
-Use `git status` and `git diff` to gather all changes. **Split the changes into logical commits** (group by feature, fix, refactor, docs, etc.). Create one Conventional Commits–style message per group. Present the list of commits (files per commit + message) for review. Ask the user to approve (Y) or reject (N). Upon approval, **output a single copy-pasteable terminal block** containing all commands and messages so the user can run them in one go.
+Follow these steps in order. Do not skip steps or reorder them.
 
-## Splitting into commits
+## Step 1: Gather changes
 
-- **Group by intent**: one commit per logical change (e.g. “add back-to-top button” vs “tweak article layout”).
-- **Order**: foundational/refactor first, then features/fixes, then docs/chore.
-- **Scope**: prefer smaller, focused commits over one large commit when changes are unrelated.
-- If there is only one logical group, output a single commit.
+Run `git status` and `git diff` to see all changes.
 
-## Conventional Commits Specification
+## Step 2: Plan commits
 
-The commit message should be structured as follows:
+Split changes into logical commits (one per intent: feature, fix, refactor, docs, etc.). Order: refactor first, then features/fixes, then docs/chore. Use Conventional Commits for each message: `type(scope): description` (e.g. feat, fix, refactor, docs).
 
-```
-<type>[optional scope]: <description>
+- Group by intent; prefer smaller, focused commits when changes are unrelated.
+- If everything is one logical change, use one commit.
 
-[optional body]
+## Step 3: Show a readable summary
 
-[optional footer(s)]
-```
+Output a **nicely formatted summary** so the user can review the commits before copying or running. For each commit, show:
 
-### Types
-- **feat**: a commit introducing a new feature (correlates with MINOR in SemVer)
-- **fix**: a commit patching a bug (correlates with PATCH in SemVer)
-- Other types: build, chore, ci, docs, style, refactor, perf, test, etc.
+- The commit message (readable, not escaped).
+- The files included in that commit (paths only).
 
-### Scope
-An optional scope can be added to provide additional context, e.g., `feat(api): add user authentication`.
+Example format:
 
-### Breaking Changes
-- Indicate with `!` after type/scope: `feat(api)!: remove deprecated endpoint`
-- Or use footer: `BREAKING CHANGE: description`
+- **feat(articles): add back-to-top button** — `back-to-top-button.tsx`
+- **refactor(articles): simplify article page layout** — `page.tsx`
 
-### Body and Footers
-- Body: Additional contextual information, separated by a blank line.
-- Footers: For metadata like `Reviewed-by:`, `Refs:`, or `BREAKING CHANGE:`.
+Keep this short and scannable. No code block in this step.
 
-## Output format after approval
+## Step 4: Output the copy-paste code block
 
-Output **one copy-pasteable code block** the user can run in the terminal. For each commit: `git add <paths>`, then `git commit -m "<message>"`. Chain with ` && ` (and ` \` for line continuation if desired). End with `git push` so the full sequence runs in one paste.
+**Directly under the summary**, output **exactly one** copy-pasteable bash code block. It must contain:
 
-Example (two commits):
+- For each commit: `git add <paths>` then `git commit -m "<message>"`, chained with ` && `.
+- Line continuation with ` \` if you use multiple lines.
+- End with `git push`.
+
+Example shape (replace with real paths and messages):
 
 ```bash
-git add apps/main/src/app/articles/\[slug\]/components/back-to-top-button.tsx && git commit -m "feat(articles): add back-to-top button" && \
-git add apps/main/src/app/articles/\[slug\]/page.tsx && git commit -m "refactor(articles): simplify article page layout" && \
+git add path/to/file1 path/to/file2 && git commit -m "feat(scope): add thing" && \
+git add path/to/file3 && git commit -m "refactor(scope): simplify other" && \
 git push
 ```
 
-- Use one `git add` per commit with only the paths that belong to that commit.
-- Quote commit messages so they paste safely; escape internal double quotes in the shell (e.g. `-m \"feat: add thing\""` or use single-quoted messages where appropriate).
-- Include `git push` only when the user has approved pushing.
+- One `git add` per commit, only the paths for that commit.
+- Quote messages so they paste safely; escape internal double quotes or use single-quoted `-m 'message'`.
+- Include `git push` in the block.
 
-Ensure each commit message accurately describes its grouped changes and follows the Conventional Commits format.
+## Step 5: Ask Y or N
+
+Immediately after the code block, ask exactly:
+
+**Run this? (Y / N)**
+
+## Step 6: Act on answer
+
+- **Y** — Run the same command sequence in the terminal (the exact commands from the code block).
+- **N** — Do nothing. Do not run any git commands.
+
+---
+
+## Conventional Commits (reference)
+
+- Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore.
+- Optional scope: `feat(articles): add back-to-top`.
+- Breaking: `feat(api)!: remove endpoint` or footer `BREAKING CHANGE: …`.
