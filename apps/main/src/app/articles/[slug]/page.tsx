@@ -4,8 +4,6 @@ import { evaluate } from 'next-mdx-remote-client/rsc';
 import rehypeMdxCodeProps from 'rehype-mdx-code-props';
 import remarkGfm from 'remark-gfm';
 
-
-
 import type { Page } from '@/types/common';
 import type { EvaluateOptions } from 'next-mdx-remote-client/rsc';
 import type { RehypeMdxCodePropsOptions } from 'rehype-mdx-code-props';
@@ -14,10 +12,6 @@ import components from '@/app/articles/[slug]/components';
 import { getArticleBySlug } from '@/lib/actions/articles';
 
 import BackToTopButton from './components/back-to-top-button';
-
-
-
-
 
 type PARAMS = { slug: string };
 type SEARCH_PARAMS = null;
@@ -61,7 +55,7 @@ export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS
         // Heading text color, paragraph text color, strong text color
         'prose-headings:text-foreground prose-p:text-foreground/90 prose-strong:text-foreground',
         // Link styling
-        'prose-a:text-accent prose-a:visited:text-green-400',
+        'prose-a:text-accent prose-a:visited:text-foreground',
         // H1 styling
         'prose-h1:text-center prose-h1:text-balance',
         // H2 styling
@@ -114,7 +108,11 @@ export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS
         </div>
       </header>
 
-      <BackToTopButton />
+      <div className="pointer-events-none fixed bottom-4 left-0 right-0 z-10">
+        <div className="mx-auto flex w-full max-w-full justify-end px-4 sm:px-6 lg:max-w-5xl">
+          <BackToTopButton className="pointer-events-auto" />
+        </div>
+      </div>
 
       {content}
     </article>
