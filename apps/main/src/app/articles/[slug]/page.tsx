@@ -24,7 +24,7 @@ const options: EvaluateOptions = {
   },
 };
 
-type ArticleMetaType = { videoId?: string; updatedAt: string; publishedAt?: string };
+type ArticleMetaType = { videoId?: string; updatedAt: string; publishedAt?: string; authors: string[] };
 
 export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS>) {
   const resolvedParams = await params;
@@ -90,6 +90,7 @@ export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS
               })}
             </time>
           )}
+
           {frontmatter.updatedAt && (
             <time
               className="text-muted-foreground self-end font-mono text-xs uppercase tracking-widest"
@@ -99,12 +100,16 @@ export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS
                 timeStyle: 'medium',
               })}
               suppressHydrationWarning>
-              Updated on{' '}
+              Last updated on{' '}
               {new Date(frontmatter.updatedAt).toLocaleDateString(navigator.language, {
                 dateStyle: 'long',
               })}
             </time>
           )}
+
+          <span className="text-muted-foreground font-mono text-xs uppercase tracking-widest">
+            Written by {frontmatter.authors.join(', ')}
+          </span>
         </div>
       </header>
 
