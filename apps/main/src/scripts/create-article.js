@@ -1,12 +1,17 @@
-const fs = require('fs').promises;
-const path = require('path');
-const readline = require('readline');
-const slugify = require('slugify');
-const fg = require('fast-glob');
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import readline from 'node:readline';
+import { fileURLToPath } from 'node:url';
+
+import fg from 'fast-glob';
+import slugify from 'slugify';
+
+const currentFilename = fileURLToPath(import.meta.url);
+const currentDirname = path.dirname(currentFilename);
 
 const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
+  input: globalThis.process.stdin,
+  output: globalThis.process.stdout,
 });
 
 function question(query) {
@@ -16,7 +21,7 @@ function question(query) {
 }
 
 async function getArticleTypes() {
-  const articlesPath = path.join(__dirname, '../app/articles');
+  const articlesPath = path.join(currentDirname, '../app/articles');
   const directories = await fg('*/', { cwd: articlesPath, onlyDirectories: true });
   return directories.map(dir => dir.replace(/\/$/, ''));
 }
@@ -40,7 +45,7 @@ async function createArticle() {
 
     const slug = slugify(title, { lower: true });
     const filename = `${slug}.mdx`;
-    const filepath = path.join(__dirname, `../app/articles/${type}`, filename);
+    const filepath = path.join(currentDirname, `../app/articles/${type}`, filename);
 
     const frontMatter = `---
 createdAt: ${new Date().toISOString()}

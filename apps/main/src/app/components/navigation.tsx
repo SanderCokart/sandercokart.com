@@ -10,14 +10,15 @@ export function Navigation() {
   return (
     <>
       <DesktopNavigation />
-      <MobileNavigation />
+      {/* <MobileNavigation /> */}
     </>
   );
 }
 
 function DesktopNavigation() {
   return (
-    <nav className={cn('hidden flex-wrap justify-center gap-x-8 gap-y-1 justify-self-center text-2xl md:flex')}>
+    <nav
+      className={cn('relative hidden flex-wrap justify-center gap-x-8 gap-y-1 justify-self-center text-2xl md:flex')}>
       {links.map(link => (
         <Link
           key={link.href}

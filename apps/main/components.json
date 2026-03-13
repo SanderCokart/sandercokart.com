@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "base-nova",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "../../packages/ui/src/themes/sandercokart.com.css",
+    "baseColor": "zinc",
+    "cssVariables": true
+  },
+  "iconLibrary": "lucide",
+  "aliases": {
+    "components": "@/src/components",
+    "hooks": "@/src/hooks",
+    "lib": "@/src/lib",
+    "utils": "@repo/ui/lib/utils",
+    "ui": "@repo/ui/components/shadcn"
+  },
+  "registries": {
+    "@acme": "https://acme.com/r/{name}.json"
+  }
+}

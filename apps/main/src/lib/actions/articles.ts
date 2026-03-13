@@ -1,12 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
-import { Options } from '@mdx-js/loader';
 import fg from 'fast-glob';
 import frontMatter from 'front-matter';
-import { bundleMDX } from 'mdx-bundler';
-import rehypeMdxCodeProps from 'rehype-mdx-code-props';
-import remarkGfm from 'remark-gfm';
 
 import type { ArticleAttributes, ArticleModel } from '@/types/model-types';
 
@@ -20,7 +16,7 @@ const getBannerPath = async (slug: string) => {
   return filePath;
 };
 
-const getArticlesByType = async (type: 'general' | 'tips') => {
+const getArticlesByType = async (type: string) => {
   const articlePaths = await fg(`src/app/articles/${type}/*.mdx`);
 
   /**
@@ -50,13 +46,31 @@ const getArticlesByType = async (type: 'general' | 'tips') => {
     }),
   );
 
+  // In development, show all articles; in production, only published articles
+  if (process.env.NODE_ENV === 'production') {
+    return articles.filter(article => {
+      const publishedAt = article.attributes.publishedAt;
+      return publishedAt && String(publishedAt).trim() !== '';
+    });
+  }
+
   return articles;
 };
 
-const remarkPlugins: Options['remarkPlugins'] = [remarkGfm];
-const rehypePlugins: Options['rehypePlugins'] = [rehypeMdxCodeProps];
+/**
+ * Gets all the folder names except [slug] from the articles folder and returns them as an array of strings
+ */
+const getArticleTypes = async () => {
+  const articleTypePaths = await fg(`src/app/articles/*`, { onlyDirectories: true });
 
-const getArticleBySlug = async ({ slug }: { slug: string }) => {
+  const articleTypes = articleTypePaths
+    .map(articleTypePath => path.basename(articleTypePath))
+    .filter(articleType => articleType !== '[slug]');
+
+  return articleTypes;
+};
+
+const getArticleBySlug = async ({ slug }: { slug: string }): Promise<string> => {
   const paths = (await fg(`src/app/articles/**/${slug}.mdx`)) as [string];
 
   if (!paths.length) {
@@ -64,17 +78,31 @@ const getArticleBySlug = async ({ slug }: { slug: string }) => {
   }
 
   const firstResult = paths[0];
+  const content = await fs.promises.readFile(firstResult, 'utf-8');
 
-  return await bundleMDX<ArticleAttributes>({
-    file: path.relative(process.cwd(), firstResult),
-    cwd: process.cwd(),
-    mdxOptions: options => {
-      options.rehypePlugins = [...(options.rehypePlugins || []), ...rehypePlugins];
-      options.remarkPlugins = [...(options.remarkPlugins || []), ...remarkPlugins];
-
-      return options;
-    },
-  });
+  return content;
 };
 
-export { getArticlesByType, getArticleBySlug };
+const getAllArticleSlugs = async (): Promise<string[]> => {
+  const paths = await fg(`src/app/articles/**/*.mdx`);
+
+  // In development, return all slugs; in production, only published articles
+  if (process.env.NODE_ENV === 'production') {
+    const publishedSlugs = await Promise.all(
+      paths.map(async articlePath => {
+        const content = await fs.promises.readFile(articlePath, 'utf-8');
+        const matter = frontMatter<ArticleAttributes>(content);
+        const publishedAt = matter.attributes.publishedAt;
+        const slug = path.basename(articlePath).replace(/\.mdx$/, '');
+
+        return publishedAt && String(publishedAt).trim() !== '' ? slug : null;
+      }),
+    );
+
+    return publishedSlugs.filter((slug): slug is string => slug !== null);
+  }
+
+  return paths.map(articlePath => path.basename(articlePath).replace(/\.mdx$/, ''));
+};
+
+export { getArticlesByType, getArticleBySlug, getAllArticleSlugs, getArticleTypes };

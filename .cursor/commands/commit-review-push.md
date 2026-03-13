@@ -1,77 +1,68 @@
 ---
 agent: agent
 ---
-Create a commit message following the Conventional Commits specification (https://www.conventionalcommits.org/en/v1.0.0/). Use git status and git diff to gather information about the changes. Present the commit message for review. Ask the user to approve (Y) or reject (N). Upon approval, push the changes.
+Follow these steps in order. Do not skip steps or reorder them.
 
-## Conventional Commits Specification
+## Step 1: Gather changes
 
-The commit message should be structured as follows:
+Run `git status` and `git diff` to see all changes.
 
-```
-<type>[optional scope]: <description>
+## Step 2: Plan commits
 
-[optional body]
+Split changes into logical commits (one per intent: feature, fix, refactor, docs, etc.). Order: refactor first, then features/fixes, then docs/chore. Use Conventional Commits for each message: `type(scope): description` (e.g. feat, fix, refactor, docs).
 
-[optional footer(s)]
-```
+- Group by intent; prefer smaller, focused commits when changes are unrelated.
+- If everything is one logical change, use one commit.
 
-### Types
-- **feat**: a commit introducing a new feature (correlates with MINOR in SemVer)
-- **fix**: a commit patching a bug (correlates with PATCH in SemVer)
-- Other types: build, chore, ci, docs, style, refactor, perf, test, etc.
+## Step 3: Show a readable summary
 
-### Scope
-An optional scope can be added to provide additional context, e.g., `feat(api): add user authentication`.
+Output a **nicely formatted summary** so the user can review the commits before copying or running. For each commit, show:
 
-### Breaking Changes
-- Indicate with `!` after type/scope: `feat(api)!: remove deprecated endpoint`
-- Or use footer: `BREAKING CHANGE: description`
+- The commit message (readable, not escaped).
+- The files included in that commit (paths only).
 
-### Body and Footers
-- Body: Additional contextual information, separated by a blank line.
-- Footers: For metadata like `Reviewed-by:`, `Refs:`, or `BREAKING CHANGE:`.
+Example format:
 
-## Examples
+- **feat(articles): add back-to-top button** — `back-to-top-button.tsx`
+- **refactor(articles): simplify article page layout** — `page.tsx`
 
-### Simple feature commit
-```
-feat: add user authentication
-```
+Keep this short and scannable. No code block in this step.
 
-### Bug fix with scope
-```
-fix(auth): resolve login timeout issue
-```
+## Step 4: Output the copy-paste code block
 
-### Breaking change with !
-```
-feat(api)!: remove deprecated endpoint
+**Directly under the summary**, output **exactly one** copy-pasteable bash code block. It must contain:
+
+- For each commit: `git add <paths>` then `git commit -m "<message>"`, chained with ` && `.
+- Line continuation with ` \` if you use multiple lines.
+- End with `git push`.
+
+Example shape (replace with real paths and messages):
+
+```bash
+git add path/to/file1 path/to/file2 && git commit -m "feat(scope): add thing" && \
+git add path/to/file3 && git commit -m "refactor(scope): simplify other" && \
+git push
 ```
 
-### Breaking change with footer
-```
-feat: allow config object to extend other configs
+- One `git add` per commit, only the paths for that commit.
+- Quote messages so they paste safely; escape internal double quotes or use single-quoted `-m 'message'`.
+- Include `git push` in the block.
 
-BREAKING CHANGE: `extends` key in config file is now used for extending other config files
-```
+## Step 5: Ask Y or N
 
-### Commit with body and footers
-```
-fix: prevent racing of requests
+Immediately after the code block, ask exactly:
 
-Introduce a request id and a reference to latest request. Dismiss
-incoming responses other than from latest request.
+**Run this? (Y / N)**
 
-Remove timeouts which were used to mitigate the racing issue but are
-obsolete now.
+## Step 6: Act on answer
 
-Reviewed-by: Z
-Refs: #123
-```
+- **Y** — Run the same command sequence in the terminal (the exact commands from the code block).
+- **N** — Do nothing. Do not run any git commands.
 
-### Documentation update
-```
-docs: correct spelling of CHANGELOG
-```
+---
 
-Ensure the commit message accurately describes the changes made and follows this format.
+## Conventional Commits (reference)
+
+- Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore.
+- Optional scope: `feat(articles): add back-to-top`.
+- Breaking: `feat(api)!: remove endpoint` or footer `BREAKING CHANGE: …`.

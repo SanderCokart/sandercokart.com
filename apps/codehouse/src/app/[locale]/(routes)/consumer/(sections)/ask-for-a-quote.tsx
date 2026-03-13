@@ -2,20 +2,11 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@repo/ui/components/shadcn/button';
-import { Card, CardContent } from '@repo/ui/components/shadcn/card';
-import {
-  Form,
-  FormControl,
-  FormDynamicDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-} from '@repo/ui/components/shadcn/form';
+import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from '@repo/ui/components/shadcn/field';
 import { Input } from '@repo/ui/components/shadcn/input';
-import { Textarea } from '@repo/ui/components/shadcn/textarea';
 import { cn } from '@repo/ui/lib/utils';
 import { useTranslations } from 'next-intl';
-import { Resolver, useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import type { ComponentProps, FC } from 'react';
@@ -23,6 +14,8 @@ import type { ComponentProps, FC } from 'react';
 import { env } from '@/src/env';
 
 import { FormStatus } from './components/form-status';
+
+const formId = 'ask-for-a-quote';
 
 export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
   const t = useTranslations('AskForAQuote');
@@ -66,81 +59,106 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
       <FormStatus form={form} />
       <h2 className="mb-4 text-center text-3xl font-bold uppercase sm:text-5xl">{t('title')}</h2>
       <p className="text-muted-foreground mb-8 text-center">{t('description')}</p>
-      <Form {...form}>
-        <form
-          noValidate
-          onSubmit={handleSubmit}
-          className="bg-card text-card-foreground border-primary mx-auto rounded-lg border p-6 shadow-sm">
-          <h3 className="mb-4 text-center text-2xl font-bold">{t('form_title')}</h3>
-          <p className="text-muted-foreground mb-6 text-balance text-center">{t('form_description')}</p>
+      <form
+        id={formId}
+        noValidate
+        onSubmit={handleSubmit}
+        className="bg-card text-card-foreground border-primary mx-auto rounded-lg border p-6 shadow-sm">
+        <h3 className="mb-4 text-center text-2xl font-bold">{t('form_title')}</h3>
+        <p className="text-muted-foreground mb-6 text-balance text-center">{t('form_description')}</p>
 
-          <div className="flex flex-col gap-8">
-            {/* Name */}
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('questions_name_label')}</FormLabel>
-                  <FormControl>
-                    <Input required placeholder={t('questions_name_placeholder')} {...field} />
-                  </FormControl>
-                  <FormDynamicDescription>{t('questions_name_description')}</FormDynamicDescription>
-                </FormItem>
-              )}
-            />
+        <FieldGroup className="flex flex-col gap-8">
+          <Controller
+            name="name"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor={`${formId}-name`}>{t('questions_name_label')}</FieldLabel>
+                <Input
+                  {...field}
+                  id={`${formId}-name`}
+                  aria-invalid={fieldState.invalid}
+                  placeholder={t('questions_name_placeholder')}
+                />
+                {fieldState.invalid ? (
+                  <FieldError errors={[fieldState.error]} />
+                ) : (
+                  <FieldDescription>{t('questions_name_description')}</FieldDescription>
+                )}
+              </Field>
+            )}
+          />
 
-            {/* Email */}
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('questions_email_label')}</FormLabel>
-                  <FormControl>
-                    <Input required type="email" placeholder={t('questions_email_placeholder')} {...field} />
-                  </FormControl>
-                  <FormDynamicDescription>{t('questions_email_description')}</FormDynamicDescription>
-                </FormItem>
-              )}
-            />
+          <Controller
+            name="email"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor={`${formId}-email`}>{t('questions_email_label')}</FieldLabel>
+                <Input
+                  {...field}
+                  id={`${formId}-email`}
+                  type="email"
+                  aria-invalid={fieldState.invalid}
+                  placeholder={t('questions_email_placeholder')}
+                />
+                {fieldState.invalid ? (
+                  <FieldError errors={[fieldState.error]} />
+                ) : (
+                  <FieldDescription>{t('questions_email_description')}</FieldDescription>
+                )}
+              </Field>
+            )}
+          />
 
-            {/* Phone */}
-            <FormField
-              control={form.control}
-              name="phone"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('questions_phone_label')}</FormLabel>
-                  <FormControl>
-                    <Input type="tel" placeholder="+31 6 12345678" {...field} />
-                  </FormControl>
-                  <FormDynamicDescription>{t('questions_phone_description')}</FormDynamicDescription>
-                </FormItem>
-              )}
-            />
+          <Controller
+            name="phone"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor={`${formId}-phone`}>{t('questions_phone_label')}</FieldLabel>
+                <Input
+                  {...field}
+                  id={`${formId}-phone`}
+                  type="tel"
+                  aria-invalid={fieldState.invalid}
+                  placeholder="+31 6 12345678"
+                />
+                {fieldState.invalid ? (
+                  <FieldError errors={[fieldState.error]} />
+                ) : (
+                  <FieldDescription>{t('questions_phone_description')}</FieldDescription>
+                )}
+              </Field>
+            )}
+          />
 
-            {/* Existing website */}
-            <FormField
-              control={form.control}
-              name="website"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('questions_website_label')}</FormLabel>
-                  <FormControl>
-                    <Input placeholder={t('questions_website_placeholder')} {...field} />
-                  </FormControl>
-                  <FormDynamicDescription>{t('questions_website_description')}</FormDynamicDescription>
-                </FormItem>
-              )}
-            />
-          </div>
+          <Controller
+            name="website"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor={`${formId}-website`}>{t('questions_website_label')}</FieldLabel>
+                <Input
+                  {...field}
+                  id={`${formId}-website`}
+                  aria-invalid={fieldState.invalid}
+                  placeholder={t('questions_website_placeholder')}
+                />
+                {fieldState.invalid ? (
+                  <FieldError errors={[fieldState.error]} />
+                ) : (
+                  <FieldDescription>{t('questions_website_description')}</FieldDescription>
+                )}
+              </Field>
+            )}
+          />
+        </FieldGroup>
 
-          <Button type="submit" size="lg" className="mt-6 w-full">
-            {t('submit_button')}
-          </Button>
-        </form>
-      </Form>
+        <Button type="submit" size="lg" className="mt-6 w-full">
+          {t('submit_button')}
+        </Button>
+      </form>
     </section>
   );
 };

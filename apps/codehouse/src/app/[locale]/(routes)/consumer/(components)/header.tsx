@@ -11,11 +11,7 @@ export function Header() {
     <BrandHeader
       localeSwitcher={<LocaleSwitcher />}
       navigation={<NavigationHeader />}
-      namedLogo={
-        <Link href="/">
-          <NamedLogo name="Sander's Codehouse" slogan="Let's code..." />
-        </Link>
-      }
+      namedLogo={<NamedLogo href="/" Component={Link} name="Sander's Codehouse" slogan="Let's code..." />}
     />
   );
 }

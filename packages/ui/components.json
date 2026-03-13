@@ -5,7 +5,7 @@
   "tsx": true,
   "tailwind": {
     "config": "",
-    "css": "src/styles/globals.css",
+    "css": "src/themes/default.css",
     "baseColor": "zinc",
     "cssVariables": true
   },
@@ -15,7 +15,7 @@
     "utils": "@repo/ui/lib/utils",
     "hooks": "@repo/ui/hooks",
     "lib": "@repo/ui/lib",
-    "ui": "@repo/ui/components"
+    "ui": "@repo/ui/components/shadcn"
   },
   "registries": {
     "@acme": "https://acme.com/r/{name}.json"

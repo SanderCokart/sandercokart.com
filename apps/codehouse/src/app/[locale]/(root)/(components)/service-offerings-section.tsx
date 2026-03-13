@@ -3,7 +3,7 @@
 import { Button } from '@repo/ui/components/shadcn/button';
 import { Card, CardContent, CardHeader } from '@repo/ui/components/shadcn/card';
 import { cn } from '@repo/ui/lib/utils';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import { FaCode, FaDatabase, FaGlobe } from 'react-icons/fa';
 
@@ -121,7 +121,6 @@ export function ServiceOfferingsSection() {
                 </CardContent>
                 <div className="flex items-center justify-center p-4">
                   <Button
-                    asChild={!service.comingSoon}
                     variant="ghost"
                     size="lg"
                     disabled={service.comingSoon}

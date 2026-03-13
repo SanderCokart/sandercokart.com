@@ -1,0 +1,122 @@
+---
+createdAt: 2024-06-18T22:34:22.877Z
+updatedAt: 2024-06-18T22:34:22.877Z
+title: 'Optimizing Laptop Performance with ThrottleStop: A Comprehensive Guide'
+publishedAt: 2026-02-11T13:39:07.803Z
+authors: ['Sander Cokart']
+summary: "Learn how to optimize your laptop's performance and power consumption using ThrottleStop. This guide covers setup, profiles, Speed Shift, undervolting (FIVR), and running ThrottleStop at startup with Task Scheduler."
+videoId: 'V_2b5M0J8SM'
+---
+
+# Optimizing Laptop Performance with ThrottleStop
+
+> **Note:** This article is based on a video from **June 23, 2019**. ThrottleStop, Windows, and Intel’s behavior have changed since then (e.g. newer versions, different CPU support, and in some cases locked undervolting on 10th gen and later). Use this as a conceptual guide and always check [ThrottleStop on TechPowerUp](https://www.techpowerup.com/download/techpowerup-throttlestop/) and the [TechPowerUp forums](https://www.techpowerup.com/forums/forums/throttlestop.158/) for your specific hardware and OS.
+
+[ThrottleStop](https://www.techpowerup.com/download/techpowerup-throttlestop/) is a free Windows utility by Kevin Glynn, published by TechPowerUp. It lets you monitor and control CPU throttling, power limits, and—on supported Intel CPUs—undervolting via FIVR. It’s especially useful on laptops to reduce heat, extend battery life, and avoid performance drops from thermal throttling.
+
+## Download and install
+
+Download ThrottleStop from its official page on TechPowerUp:
+
+- **Official download:** [ThrottleStop on TechPowerUp](https://www.techpowerup.com/download/techpowerup-throttlestop/)
+
+Pick the version that matches your Windows (32-bit or 64-bit). ThrottleStop is portable: extract the ZIP and run the executable; no installer is required. For stability and feature support, use the latest version from the link above.
+
+## Initial setup
+
+When you first run ThrottleStop, you’ll see four default profiles: **Performance**, **Game**, **Internet**, and **Battery**. You can rename and tweak each profile for different use cases.
+
+Practical options in the main window:
+
+- **Minimize on Close** — Closing the window keeps ThrottleStop running in the system tray instead of exiting.
+- **Start Minimized** — Useful if you add ThrottleStop to startup; it will run in the background without opening a window.
+
+That way ThrottleStop can stay active without cluttering the taskbar.
+
+## Power profiles and plug-in state
+
+You can tie profiles to whether the laptop is on AC or battery. For example:
+
+- **On battery:** Use a profile tuned for efficiency (e.g. lower power limits, higher Speed Shift EPP).
+- **Plugged in:** Use a profile aimed at performance (e.g. higher limits, lower EPP).
+
+Switching profiles automatically when you plug or unplug helps balance battery life and performance without manual changes.
+
+## Clock modulation
+
+**Clock Modulation** scales down the CPU’s maximum frequency. For example, at 50% modulation, a CPU that would run at 3.2 GHz is capped at 1.6 GHz. That reduces power and heat but noticeably limits performance, so it’s mainly useful for low-power or quiet use on battery.
+
+Use it sparingly; Speed Shift (below) usually gives a better balance.
+
+## Set Multiplier and Speed Shift
+
+- **Set Multiplier** — Intended for **unlocked** (K/X series) desktop CPUs where the multiplier can be set directly. On most laptops and locked CPUs, leave this alone.
+
+- **Speed Shift** — Intel’s mechanism for the CPU to choose its own frequency based on load and power policy. ThrottleStop can control the **EPP (Energy Performance Preference)** value:
+
+  - **0** — Prefer maximum frequency (performance).
+  - **255** — Prefer minimum power (battery saving).
+  - **128** — Roughly in the middle.
+
+  Enabling Speed Shift in ThrottleStop (and setting EPP per profile) gives more predictable behavior than leaving everything to Windows power plans.
+
+## Turbo Power Limits (TPL) and Speed Shift
+
+In the **TPL (Turbo Power Limits)** window you can:
+
+- Set **PL1** and **PL2** (sustained and short-burst power limits).
+- **Enable Speed Shift** and set the EPP range for the current profile.
+
+Example: for a battery profile, a Speed Shift EPP around **128** balances responsiveness and power; **255** saves more power but makes the system feel slower. These values are per profile, so you can have different behavior on AC vs battery.
+
+## Disabling turbo
+
+Turning **Turbo** off caps the CPU at its base frequency (no boost). That avoids short bursts of high power and temperature spikes, which can help with thermals and fan noise when you don’t need maximum speed. Use this for quiet or battery-focused profiles rather than for gaming or heavy workloads.
+
+## FIVR and undervolting
+
+The **FIVR (Fully Integrated Voltage Regulator)** window is where you adjust CPU voltage offsets (undervolting). **FIVR is available on Intel 4th generation (Haswell) and newer** that expose the interface; exact support depends on the CPU and OEM.
+
+**Undervolting** lowers the voltage supplied to the CPU. Many chips can run stably at a slight negative offset, which reduces heat and power and can reduce throttling. Important points:
+
+- Adjust **both CPU Core and CPU Cache** offsets; they often need to match or be set together to avoid instability.
+- Use **small steps** (e.g. 10 mV at a time), apply, then test.
+- A typical stable starting point for older mobile CPUs might be around **-50 mV to -80 mV** on core and cache; your chip may allow more or less. **Never assume someone else’s values are safe for your system.**
+
+**Stability:** Undervolting too much can cause crashes, freezes, or blue screens. If that happens, reduce the offset or clear it and test again.
+
+**Newer CPUs (10th gen and later):** After the [Plundervolt](https://plundervolt.com/) security disclosure, Intel and OEMs disabled or restricted undervolting on many 10th gen and newer systems. On such machines, the FIVR window may be read-only or undervolting may be blocked in firmware. If you don’t see changes taking effect or options are grayed out, your hardware may no longer allow it; in that case, focus on power limits and Speed Shift instead.
+
+## Testing stability (TS Bench)
+
+ThrottleStop includes **TS Bench**, a built-in stress test. After changing FIVR offsets or power limits:
+
+1. Apply your settings.
+2. Run TS Bench and let it complete.
+3. If the system crashes or reports errors, relax the undervolt or power limits and test again.
+
+Run your normal workloads as well; TS Bench is a quick check, not a full guarantee of stability.
+
+## Starting ThrottleStop with Windows (Task Scheduler)
+
+To run ThrottleStop automatically at logon:
+
+1. Open **Task Scheduler** (e.g. `taskschd.msc` or search “Task Scheduler”).
+2. **Create Basic Task** — Name it e.g. “ThrottleStop”.
+3. **Trigger:** “When I log on”.
+4. **Action:** “Start a program” — Browse to your ThrottleStop executable (e.g. `ThrottleStop.exe`).
+5. Finish the wizard.
+
+After that, ThrottleStop will start when you log in. With “Start Minimized” and “Minimize on Close” enabled, it will stay in the tray.
+
+## Summary
+
+ThrottleStop gives you direct control over:
+
+- **Profiles** — Different behavior for AC vs battery and for gaming vs browsing.
+- **Clock modulation** — Cap max frequency to save power (at the cost of speed).
+- **Speed Shift (EPP)** — Influence how aggressively the CPU boosts (0 = performance, 255 = power saving).
+- **Turbo Power Limits (TPL)** — Set PL1/PL2 to avoid excessive heat and throttling.
+- **FIVR** — Undervolt on supported Intel 4th gen and newer CPUs (where not locked by OEM/firmware).
+
+Start with conservative values, test with TS Bench and real use, and adjust step by step. For up-to-date compatibility and community tips for your CPU and laptop model, see the [ThrottleStop forum on TechPowerUp](https://www.techpowerup.com/forums/forums/throttlestop.158/).

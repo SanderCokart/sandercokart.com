@@ -8,11 +8,7 @@ import { Navigation } from './navigation';
 export function Header() {
   return (
     <BrandHeader
-      namedLogo={
-        <Link href="/">
-          <NamedLogo name="sandercokart.com" slogan="Let's learn..." />
-        </Link>
-      }
+      namedLogo={<NamedLogo href="/" Component={Link} name="sandercokart.com" slogan="Let's learn..." />}
       navigation={<Navigation />}
     />
   );

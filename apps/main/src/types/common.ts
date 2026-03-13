@@ -6,6 +6,6 @@ export type Layout<PARAMS = unknown> = {
 };
 
 export type Page<PARAMS = unknown, SEARCH_PARAMS = unknown> = {
-  params: PARAMS;
-  searchParams: SEARCH_PARAMS;
+  params: Promise<PARAMS>;
+  searchParams: Promise<SEARCH_PARAMS>;
 };

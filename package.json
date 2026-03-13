@@ -43,8 +43,7 @@
   },
   "pnpm": {
     "overrides": {
-      "@types/react": "19.2.7",
-      "@types/react-dom": "19.2.3"
+      "zod": "^4"
     },
     "onlyBuiltDependencies": [
       "@sentry/cli",
@@ -52,8 +51,8 @@
       "core-js-pure",
       "es5-ext",
       "esbuild",
-      "sharp",
-      "unrs-resolver"
+      "msw",
+      "sharp"
     ]
   },
   "volta": {

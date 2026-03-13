@@ -1,38 +1,31 @@
 ---
 name: env-nextjs
-description: Guidelines for working with environment variables in Next.js applications using @t3-oss/env-nextjs
+description: Validates and types environment variables in Next.js using @t3-oss/env-nextjs and Zod. Use when adding or changing env vars, configuring server vs client vars, or when the user mentions .env, NEXT_PUBLIC_, or env validation in Next.js.
 ---
 
 # Environment Variables with @t3-oss/env-nextjs
 
-This guide covers how to work with environment variables in Next.js applications using `@t3-oss/env-nextjs` for type-safe validation.
+Type-safe env validation: define `server`, `client`, and `shared` with Zod; map all keys in `runtimeEnv`. Server-only vars must not be accessed on the client (runtime error). Client-visible vars must use the `NEXT_PUBLIC_` prefix.
 
-## Overview
+## Setup
 
-`@t3-oss/env-nextjs` provides type-safe environment variable validation using Zod schemas. It separates server-side and client-side variables, preventing accidental exposure of sensitive data.
-
-## Basic Setup
-
-Create an `env.ts` file (typically in `src/env.ts`) with the following structure:
+Create `env.ts` (e.g. `src/env.ts`):
 
 ```typescript
 import { createEnv } from '@t3-oss/env-nextjs';
 import { z } from 'zod';
 
 const server = {
-  // Server-side variables (not exposed to client)
   DATABASE_URL: z.string().url(),
   API_SECRET: z.string().min(1),
 };
 
 const client = {
-  // Client-side variables (must be prefixed with NEXT_PUBLIC_)
   NEXT_PUBLIC_API_URL: z.string().url().optional(),
   NEXT_PUBLIC_ENV: z.enum(['development', 'production']).default('development'),
 };
 
 const shared = {
-  // Variables available on both server and client
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
 };
 
@@ -41,7 +34,6 @@ export const env = createEnv({
   server,
   shared,
   runtimeEnv: {
-    // Map all variables to process.env
     DATABASE_URL: process.env.DATABASE_URL,
     API_SECRET: process.env.API_SECRET,
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
@@ -51,93 +43,33 @@ export const env = createEnv({
 });
 ```
 
-## Key Concepts
+## Rules
 
-### Server vs Client Variables
-
-- **Server variables**: Only available on the server. Accessing them on the client throws a runtime error.
-- **Client variables**: Must be prefixed with `NEXT_PUBLIC_` and are available on both server and client.
-- **Shared variables**: Available on both server and client (e.g., `NODE_ENV`).
-
-### Zod Validation
-
-Use Zod schemas to validate and transform environment variables:
-
-```typescript
-const server = {
-  // String validation
-  API_KEY: z.string().min(1),
-  
-  // URL validation
-  API_URL: z.string().url(),
-  
-  // Enum validation
-  ENVIRONMENT: z.enum(['development', 'production']),
-  
-  // Optional variables
-  OPTIONAL_VAR: z.string().optional(),
-  
-  // Default values
-  PORT: z.coerce.number().default(3000),
-  
-  // Transformations
-  ENABLED: z
-    .enum(['true', 'false'])
-    .default('false')
-    .transform(s => s === 'true'),
-};
-```
+1. **Every key in `server`, `client`, or `shared` must appear in `runtimeEnv`** — otherwise validation will fail.
+2. **Server variables** — Only on server. Accessing them in client code throws at runtime.
+3. **Client variables** — Use `NEXT_PUBLIC_` prefix; available on server and client.
+4. **Shared** — Same value on both (e.g. `NODE_ENV`).
+5. Use Zod for validation and transforms (e.g. `z.coerce.number()`, `.transform(s => s === 'true')` for booleans).
 
 ## Usage
-
-Import and use the validated environment variables:
 
 ```typescript
 import { env } from '@/env';
 
-// Server-side usage (in API routes, server components, etc.)
-const dbUrl = env.DATABASE_URL; // ✅ Works
-const apiSecret = env.API_SECRET; // ✅ Works
+// Server: all vars available
+const dbUrl = env.DATABASE_URL;
 
-// Client-side usage (in client components)
-const apiUrl = env.NEXT_PUBLIC_API_URL; // ✅ Works
-const dbUrl = env.DATABASE_URL; // ❌ Runtime error!
+// Client: only NEXT_PUBLIC_* and shared
+const apiUrl = env.NEXT_PUBLIC_API_URL;
+// env.DATABASE_URL → runtime error on client
 ```
 
-## Best Practices
+## Options
 
-1. **Always include in `runtimeEnv`**: Every variable defined in `server`, `client`, or `shared` must be mapped in `runtimeEnv`.
+- **emptyStringAsUndefined**: `createEnv({ emptyStringAsUndefined: true, ... })` — treats `""` as undefined.
+- **Coercion**: `z.coerce.number()`, `z.coerce.boolean()` for string envs that should be numbers/booleans.
 
-2. **Use appropriate validation**: Choose Zod schemas that match your variable's expected type and format.
+## Additional resources
 
-3. **Separate concerns**: Keep server variables separate from client variables to prevent accidental exposure.
-
-4. **Use defaults when appropriate**: Provide sensible defaults for optional variables.
-
-5. **Transform when needed**: Use Zod's `transform` method to convert string environment variables to other types (booleans, numbers, etc.).
-
-## Common Patterns
-
-### Empty String as Undefined
-
-```typescript
-export const env = createEnv({
-  emptyStringAsUndefined: true, // Treats empty strings as undefined
-  // ... rest of config
-});
-```
-
-### Type Coercion
-
-```typescript
-const server = {
-  PORT: z.coerce.number(), // Converts string to number
-  ENABLED: z.coerce.boolean(), // Converts string to boolean
-};
-```
-
-## References
-
-- [T3 Stack Documentation](https://create.t3.gg/en/usage/env-variables)
-- [@t3-oss/env-nextjs GitHub](https://github.com/t3-oss/env-nextjs)
-- Example: `apps/codehouse/src/env.ts`
+- Zod patterns, external docs, and monorepo/runtime-env usage: [reference.md](reference.md)
+- In-repo example: `apps/codehouse/src/env.ts`

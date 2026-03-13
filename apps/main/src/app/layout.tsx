@@ -1,4 +1,4 @@
-import '@repo/ui/globals.css';
+import './globals.css';
 
 import { cn } from '@repo/ui/lib/utils';
 import { GeistMono } from 'geist/font/mono';
@@ -24,6 +24,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html suppressHydrationWarning className="scroll-smooth" lang="en">
       <head>
+        <script async crossOrigin="anonymous" src="https://tweakcn.com/live-preview.min.js" />
         <title>Sander's CodeHouse</title>
       </head>
       <body
