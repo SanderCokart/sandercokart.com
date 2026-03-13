@@ -1,7 +1,14 @@
 ---
 agent: agent
 ---
-Create a commit message following the Conventional Commits specification (https://www.conventionalcommits.org/en/v1.0.0/). Use git status and git diff to gather information about the changes. Present the commit message for review. Ask the user to approve (Y) or reject (N). Upon approval, push the changes.
+Use `git status` and `git diff` to gather all changes. **Split the changes into logical commits** (group by feature, fix, refactor, docs, etc.). Create one Conventional Commits–style message per group. Present the list of commits (files per commit + message) for review. Ask the user to approve (Y) or reject (N). Upon approval, **output a single copy-pasteable terminal block** containing all commands and messages so the user can run them in one go.
+
+## Splitting into commits
+
+- **Group by intent**: one commit per logical change (e.g. “add back-to-top button” vs “tweak article layout”).
+- **Order**: foundational/refactor first, then features/fixes, then docs/chore.
+- **Scope**: prefer smaller, focused commits over one large commit when changes are unrelated.
+- If there is only one logical group, output a single commit.
 
 ## Conventional Commits Specification
 
@@ -31,47 +38,20 @@ An optional scope can be added to provide additional context, e.g., `feat(api): 
 - Body: Additional contextual information, separated by a blank line.
 - Footers: For metadata like `Reviewed-by:`, `Refs:`, or `BREAKING CHANGE:`.
 
-## Examples
+## Output format after approval
 
-### Simple feature commit
-```
-feat: add user authentication
-```
+Output **one copy-pasteable code block** the user can run in the terminal. For each commit: `git add <paths>`, then `git commit -m "<message>"`. Chain with ` && ` (and ` \` for line continuation if desired). End with `git push` so the full sequence runs in one paste.
 
-### Bug fix with scope
-```
-fix(auth): resolve login timeout issue
-```
+Example (two commits):
 
-### Breaking change with !
-```
-feat(api)!: remove deprecated endpoint
+```bash
+git add apps/main/src/app/articles/\[slug\]/components/back-to-top-button.tsx && git commit -m "feat(articles): add back-to-top button" && \
+git add apps/main/src/app/articles/\[slug\]/page.tsx && git commit -m "refactor(articles): simplify article page layout" && \
+git push
 ```
 
-### Breaking change with footer
-```
-feat: allow config object to extend other configs
+- Use one `git add` per commit with only the paths that belong to that commit.
+- Quote commit messages so they paste safely; escape internal double quotes in the shell (e.g. `-m \"feat: add thing\""` or use single-quoted messages where appropriate).
+- Include `git push` only when the user has approved pushing.
 
-BREAKING CHANGE: `extends` key in config file is now used for extending other config files
-```
-
-### Commit with body and footers
-```
-fix: prevent racing of requests
-
-Introduce a request id and a reference to latest request. Dismiss
-incoming responses other than from latest request.
-
-Remove timeouts which were used to mitigate the racing issue but are
-obsolete now.
-
-Reviewed-by: Z
-Refs: #123
-```
-
-### Documentation update
-```
-docs: correct spelling of CHANGELOG
-```
-
-Ensure the commit message accurately describes the changes made and follows this format.
+Ensure each commit message accurately describes its grouped changes and follows the Conventional Commits format.
