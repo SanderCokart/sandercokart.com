@@ -2,10 +2,12 @@
 
 import { Button } from '@repo/ui/components/shadcn/button';
 import { cn } from '@repo/ui/lib/utils';
-import { motion, useScroll, useTransform } from 'motion/react';
 import { ArrowUp } from 'lucide-react';
+import { motion, MotionProps, useScroll, useTransform } from 'motion/react';
 
-export default function BackToTopButton() {
+import * as React from 'react';
+
+export default function BackToTopButton({ className, ...props }: React.ComponentProps<typeof Button> & MotionProps) {
   const MotionButton = motion.create(Button);
 
   const { scrollYProgress } = useScroll();
@@ -15,11 +17,11 @@ export default function BackToTopButton() {
 
   return (
     <MotionButton
+      {...props}
       style={{ opacity, y }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
-      variant="outline"
       size="icon"
-      className={cn('fixed bottom-4 right-4 z-50')}
+      className={cn('size-10', className)}
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
       <ArrowUp />
     </MotionButton>
