@@ -51,7 +51,7 @@ const client = {
   /** The API URL */
   NEXT_PUBLIC_API_URL: z.url().optional(),
   /** The app environment */
-  NEXT_PUBLIC_ENV: z.enum(['development', 'production']).default('development'),
+  NEXT_PUBLIC_ENV: z.enum(['development', 'production', 'staging']).default('development'),
   /** Enable Sentry */
   NEXT_PUBLIC_SENTRY_ENABLED: z
     .enum(['true', 'false'])
