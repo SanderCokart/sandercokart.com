@@ -14,7 +14,7 @@
   "scripts": {
     "lint": "eslint . --max-warnings 0",
     "generate:component": "turbo gen react-component",
-    "clean": "rm -rf node_modules"
+    "clean": "rm -rf node_modules .next .turbo dist"
   },
   "dependencies": {
     "@base-ui/react": "1.2.0",

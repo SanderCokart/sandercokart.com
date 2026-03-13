@@ -10,7 +10,7 @@
     "lint": "eslint",
     "article:create": "node src/scripts/create-article.js",
     "article:publish": "node src/scripts/publish-article.js",
-    "clean": "rm -rf node_modules"
+    "clean": "rm -rf node_modules .next .turbo dist"
   },
   "dependencies": {
     "@next/third-parties": "16.1.6",

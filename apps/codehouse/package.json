@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start -p 3001",
     "lint": "eslint .",
-    "clean": "rm -rf node_modules",
+    "clean": "rm -rf node_modules .next .turbo dist",
     "i18n:check:en": "i18n-check --source en --locales messages",
     "i18n:check:nl": "i18n-check --source nl --locales messages"
   },

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "tsdown",
-    "clean": "rm -rf node_modules dist .turbo .cache"
+    "clean": "rm -rf node_modules .next .turbo dist .cache"
   },
   "type": "module",
   "files": [

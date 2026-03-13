@@ -9,7 +9,7 @@
     "./react-internal": "./react-internal.js"
   },
   "scripts": {
-    "clean": "rm -rf node_modules"
+    "clean": "rm -rf node_modules .next .turbo dist"
   },
   "devDependencies": {
     "@eslint/js": "^9.20.1",

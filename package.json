@@ -8,7 +8,7 @@
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky",
-    "clean": "turbo clean && echo 'Deleting root node_modules...' && rm -rf node_modules"
+    "clean": "turbo clean && echo 'Deleting root node_modules...' && rm -rf node_modules .next .turbo dist"
   },
   "husky": {
     "hooks": {
@@ -46,13 +46,15 @@
       "zod": "^4"
     },
     "onlyBuiltDependencies": [
+      "@parcel/watcher",
       "@sentry/cli",
       "@swc/core",
       "core-js-pure",
       "es5-ext",
       "esbuild",
       "msw",
-      "sharp"
+      "sharp",
+      "unrs-resolver"
     ]
   },
   "volta": {

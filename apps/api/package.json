@@ -4,7 +4,7 @@
     "type": "module",
     "scripts": {
         "dev": "concurrently \"@php artisan serve\" \"vite\"",
-        "clean": "rm -rf node_modules",
+        "clean": "rm -rf node_modules .next .turbo dist",
         "build": "vite build"
     },
     "devDependencies": {
