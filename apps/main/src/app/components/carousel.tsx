@@ -8,11 +8,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@repo/ui/components/shadcn/carousel';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@repo/ui/components/shadcn/tooltip';
 import { cn } from '@repo/ui/lib/utils';
 import { formatDistanceToNow } from 'date-fns';
 import { motion } from 'motion/react';
 
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -25,6 +26,7 @@ import { useBlogView } from './blog-view-switch';
 const TimeOverlay: FC<{ timeAgo: string; publishedDate: Date | null }> = ({ timeAgo, publishedDate }) => (
   <div
     className="bg-accent text-accent-foreground absolute bottom-3 left-3 rounded px-2 py-1 text-sm font-medium"
+    suppressHydrationWarning
     title={
       publishedDate
         ? publishedDate.toLocaleString(navigator.language, {
@@ -48,6 +50,12 @@ const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
 
   const videoEmbedRef = useRef<HTMLDivElement>(null);
 
+  const articleClassName = cn(
+    'relative aspect-video overflow-hidden rounded-sm',
+    'focus-within:border-accent transition-[scale,border] focus-within:scale-95 focus-within:border-2',
+    'hover:border-accent transition-[scale,border] hover:scale-95 hover:border-2',
+  );
+
   return (
     <CarouselItem
       // Responsive width control using flex-basis:
@@ -59,71 +67,69 @@ const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
       // - 2XL+: 16.7% width (6 items visible)
       // Padding increases on larger screens (pl-2 on mobile, pl-4 on md+)
       className="basis-[85%] pl-2 sm:basis-1/2 md:basis-1/3 md:pl-4 lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6">
-      <motion.article
-        className={cn(
-          'relative aspect-video overflow-hidden rounded-sm',
-          'focus-within:border-accent transition-[scale,border] focus-within:scale-95 focus-within:border-2',
-          'hover:border-accent transition-[scale,border] hover:scale-95 hover:border-2',
-        )}>
-        {hasVideo ? (
-          <motion.div // This motion.div creates a 3D space for the flip animation.
-            className="preserve-3d relative h-full w-full"
-            transition={{ duration: 0.3, delay: isInitializing ? 1 : 0 }}
-            initial={{ rotateY: view === 'blog' ? 0 : 180 }}
-            animate={{ rotateY: view === 'blog' ? 0 : 180 }}
-            style={{ transformStyle: 'preserve-3d' }} // transformStyle: 'preserve-3d' makes the children inherit the 3D transform
-          >
-            <div className="backface-hidden absolute inset-0">
-              <Link
-                inert={view === 'video'}
-                href={`/articles/${article.attributes.slug}`}
-                className="backface-hidden" // backface-visibility: hidden; hides the back side when rotated
-                aria-label={`Read article: ${article.attributes.title}${
-                  publishedDate ? `, published ${timeAgo}` : ', draft'
-                }`}
-                title={article.attributes.title}>
-                <figure className="relative h-full w-full">
-                  <Image
-                    fill
-                    alt={article.attributes.title}
-                    className="object-cover transition-transform duration-200"
-                    src={article.attributes.banner || placeholder}
-                    sizes="(max-width: 640px) 85vw, (max-width: 768px) 50vw, (max-width: 1280px) 25vw, 20vw"
-                  />
-                </figure>
-                <TimeOverlay timeAgo={timeAgo} publishedDate={publishedDate} />
-              </Link>
-            </div>
-            {/* Back side - Video view */}
-            <motion.div
-              ref={videoEmbedRef}
-              className="backface-hidden [&_button]:user-select-none absolute inset-0 [&_button:focus-visible]:outline-none" // backface-visibility: hidden; hides the back side when rotated
-              style={{ transform: 'rotateY(180deg)' }} // Rotates the back side to face forward initially
+      <Tooltip>
+        <TooltipTrigger render={<motion.article className={articleClassName} />}>
+          {hasVideo ? (
+            <motion.div // This motion.div creates a 3D space for the flip animation.
+              className="preserve-3d relative h-full w-full"
+              transition={{ duration: 0.3, delay: isInitializing ? 1 : 0 }}
+              initial={{ rotateY: view === 'blog' ? 0 : 180 }}
+              animate={{ rotateY: view === 'blog' ? 0 : 180 }}
+              style={{ transformStyle: 'preserve-3d' }} // transformStyle: 'preserve-3d' makes the children inherit the 3D transform
             >
-              {/* @ts-expect-error - inert is not a registered prop but it works */}
-              <YouTubeEmbed inert={view === 'blog'} videoid={article.attributes.videoId!} />
-              <TimeOverlay timeAgo={timeAgo} publishedDate={publishedDate} />
+              <div className="backface-hidden absolute inset-0">
+                <Link
+                  inert={view === 'video'}
+                  href={`/articles/${article.attributes.slug}`}
+                  className="backface-hidden" // backface-visibility: hidden; hides the back side when rotated
+                  aria-label={`Read article: ${article.attributes.title}${
+                    publishedDate ? `, published ${timeAgo}` : ', draft'
+                  }`}
+                  title={article.attributes.title}>
+                  <figure className="relative h-full w-full">
+                    <Image
+                      fill
+                      alt={article.attributes.title}
+                      className="object-cover transition-transform duration-200"
+                      src={article.attributes.banner || placeholder}
+                      sizes="(max-width: 640px) 85vw, (max-width: 768px) 50vw, (max-width: 1280px) 25vw, 20vw"
+                    />
+                  </figure>
+                  <TimeOverlay timeAgo={timeAgo} publishedDate={publishedDate} />
+                </Link>
+              </div>
+              {/* Back side - Video view */}
+              <motion.div
+                ref={videoEmbedRef}
+                className="backface-hidden [&_button]:user-select-none absolute inset-0 [&_button:focus-visible]:outline-none" // backface-visibility: hidden; hides the back side when rotated
+                style={{ transform: 'rotateY(180deg)' }} // Rotates the back side to face forward initially
+              >
+                {/* @ts-expect-error - inert is not a registered prop but it works */}
+                <YouTubeEmbed inert={view === 'blog'} videoid={article.attributes.videoId!} />
+                <TimeOverlay timeAgo={timeAgo} publishedDate={publishedDate} />
+              </motion.div>
             </motion.div>
-          </motion.div>
-        ) : (
-          // Static content for items without video - no animation, no unmounting
-          <Link
-            href={`/articles/${article.attributes.slug}`}
-            aria-label={`Read article: ${article.attributes.title}${publishedDate ? `, published ${timeAgo}` : ', draft'}`}
-            title={article.attributes.title}>
-            <figure className="relative h-full w-full">
-              <Image
-                fill
-                alt={article.attributes.title}
-                className="object-cover transition-transform duration-200"
-                src={article.attributes.banner || placeholder}
-                sizes="(max-width: 640px) 85vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
-              />
-            </figure>
-            <TimeOverlay timeAgo={timeAgo} publishedDate={publishedDate} />
-          </Link>
-        )}
-      </motion.article>
+          ) : (
+            // Static content for items without video - no animation, no unmounting
+            <Link
+              href={`/articles/${article.attributes.slug}`}
+              aria-label={`Read article: ${article.attributes.title}${publishedDate ? `, published ${timeAgo}` : ', draft'}`}
+              title={article.attributes.title}>
+              <figure className="relative h-full w-full">
+                <Image
+                  fill
+                  alt={article.attributes.title}
+                  className="object-cover transition-transform duration-200"
+                  src={article.attributes.banner || placeholder}
+                  sizes="(max-width: 640px) 85vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
+                />
+              </figure>
+              <TimeOverlay timeAgo={timeAgo} publishedDate={publishedDate} />
+            </Link>
+          )}
+        </TooltipTrigger>
+        <TooltipContent side="bottom">{article.attributes.summary}</TooltipContent>
+      </Tooltip>
     </CarouselItem>
   );
 };
@@ -149,7 +155,7 @@ export const CarouselSection: FC<{
     <section>
       <SectionHeader title={title} />
 
-      <div>
+      <TooltipProvider delay={1000}>
         <Carousel
           opts={{
             align: 'start',
@@ -176,7 +182,7 @@ export const CarouselSection: FC<{
             aria-label={`Next ${title.toLowerCase()}`}
           />
         </Carousel>
-      </div>
+      </TooltipProvider>
     </section>
   );
 };

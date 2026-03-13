@@ -44,7 +44,45 @@ sandercokart.com/
    - API: http://localhost:8080
    - Database: localhost:3306
    - Redis: localhost:6379
-   - Mailp
+   - Mailpit: localhost:1025 (SMTP), localhost:8025 (UI)
+
+## 📱 Exposing dev servers to LAN (WSL2)
+
+The most reliable way to access WSL2 dev servers from your phone or LAN is to use **Mirrored Networking** (requires Windows 11 22H2 or higher). This avoids issues with WSL's IP changing on restart.
+
+**1. Enable Mirrored Networking:**
+In Windows, create or edit the file `%USERPROFILE%\.wslconfig` (e.g., `C:\Users\YourName\.wslconfig`) and add:
+```ini
+[wsl2]
+networkingMode=mirrored
+```
+
+**2. Restart WSL:**
+Open a standard PowerShell or Command Prompt and run:
+```powershell
+wsl --shutdown
+```
+*(Then open your WSL terminal again to restart it).*
+
+**3. Allow Inbound Traffic (Run in PowerShell as Administrator):**
+Run these commands to configure the Hyper-V and Windows firewalls to allow external traffic on your dev ports:
+
+```powershell
+# Allow inbound traffic to the WSL VM
+Set-NetFirewallHyperVVMSetting -Name '{40E0AC32-46A5-438A-A0B2-2B479E8F2E90}' -DefaultInboundAction Allow
+
+# Allow traffic through Windows Firewall for your dev ports
+$ports = @(3000, 3001, 8080)
+foreach ($port in $ports) {
+  netsh advfirewall firewall add rule name="WSL Dev $port" dir=in action=allow protocol=TCP localport=$port
+}
+```
+
+**4. Access from your phone:**
+Find your Windows LAN IP by running `ipconfig` in PowerShell (look for the IPv4 Address under your Wi-Fi or Ethernet adapter, e.g., `192.168.2.5`).
+Open `http://<YOUR_WINDOWS_IP>:3000` (main), `:3001` (codehouse), or `:8080` (API).
+
+*(Note: If you previously used `netsh interface portproxy`, you can clear those old rules with `netsh interface portproxy reset`)*
 
 ## 🐳 Docker & Environment
 

@@ -1,19 +1,19 @@
 import { YouTubeEmbed } from '@next/third-parties/google';
-import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@repo/ui/components/shadcn/table';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@repo/ui/components/shadcn/table';
 import { cn } from '@repo/ui/lib/utils';
-
-
 
 import * as React from 'react';
 
-
-
 import { CodeGroup } from './components/code-group';
 import { MdxCodeBlocks } from './components/mdx-code-blocks';
-
-
-
-
 
 type CodeProps = React.ComponentProps<'code'> & { meta?: string; children: string };
 
@@ -50,6 +50,10 @@ const Pre = ({ children, ...props }: React.ComponentProps<'pre'>) => {
 // Links in articles open in a new tab for better UX when leaving the site
 const Anchor = (props: React.ComponentProps<'a'>) => <a {...props} target="_blank" rel="noopener noreferrer" />;
 
+const Blockquote = ({ className, ...props }: React.ComponentProps<'blockquote'>) => (
+  <blockquote className={cn('[&>p]:pr-4', className)} {...props} />
+);
+
 export default {
   a: Anchor,
   table: (props: React.ComponentProps<'table'>) => <Table className="not-prose" {...props} />,
@@ -61,6 +65,7 @@ export default {
   tfoot: TableFooter,
   code: Code,
   pre: Pre,
+  blockquote: Blockquote,
   YouTube: (props: React.ComponentProps<typeof YouTubeEmbed>) => (
     <div className="my-8 [&_lite-youtube]:mx-auto [&_lite-youtube]:w-full">
       <YouTubeEmbed {...props} />

@@ -10,7 +10,7 @@ export function Navigation() {
   return (
     <>
       <DesktopNavigation />
-      <MobileNavigation />
+      {/* <MobileNavigation /> */}
     </>
   );
 }
