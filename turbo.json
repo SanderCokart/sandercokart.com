@@ -21,6 +21,7 @@
       "dependsOn": ["^lint"]
     },
     "dev": {
+      "dependsOn": ["^build"],
       "cache": false,
       "persistent": true,
       "env": ["DOTENV_PRIVATE_KEY*"]
