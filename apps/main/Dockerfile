@@ -26,9 +26,11 @@ RUN pnpm install --offline
 ENV NEXT_OUTPUT=standalone
 
 COPY --from=pruner /app/out/pnpm-lock.yaml /app/out/full/ ./
-RUN --mount=type=secret,id=DOTENV_PRIVATE_KEY_PRODUCTION \
-	export DOTENV_PRIVATE_KEY_PRODUCTION="$(cat /run/secrets/DOTENV_PRIVATE_KEY_PRODUCTION)" && \
-	pnpm dlx turbo build
+
+# Map build secrets to environment and run build (mapping is in apps/main/scripts/docker-build.sh)
+RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN,required=false \
+	--mount=type=secret,id=TURBO_TOKEN,required=false \
+	sh ./apps/main/scripts/docker-build.sh
 
 FROM node:lts-alpine AS runner
 
@@ -42,6 +44,5 @@ USER nextjs
 COPY --from=builder --chown=nextjs:nodejs /app/apps/main/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/apps/main/.next/static ./apps/main/.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/apps/main/public ./apps/main/public
-COPY --from=builder --chown=nextjs:nodejs /app/apps/main/.envx.production ./.envx.production
 
-CMD ["npx", "@dotenvx/dotenvx", "run", "-f", ".envx.production", "--", "node", "apps/main/server.js"]
+CMD ["node", "apps/main/server.js"]

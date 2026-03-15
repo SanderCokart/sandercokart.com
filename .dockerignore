@@ -26,6 +26,7 @@ apps/api/public/storage
 # Files
 **.DS_Store
 **.editorconfig
+**.env*
 **.github
 **.md
 **node_modules
