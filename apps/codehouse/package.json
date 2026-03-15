@@ -10,10 +10,10 @@
     "clean": "rm -rf node_modules .next .turbo dist",
     "i18n:check:en": "i18n-check --source en --locales messages",
     "i18n:check:nl": "i18n-check --source nl --locales messages",
-    "env:use:local": "npx @dotenvx/dotenvx decrypt -f .envx.local --stdout > .env",
-    "env:use:prod": "npx @dotenvx/dotenvx decrypt -f .envx.production --stdout > .env",
-    "env:encrypt:local": "npx @dotenvx/dotenvx encrypt -f .envx.local",
-    "env:encrypt:prod": "npx @dotenvx/dotenvx encrypt -f .envx.production"
+    "env:use:local": "dotenvx decrypt -f .envx.local --stdout > .env",
+    "env:use:prod": "dotenvx decrypt -f .envx.production --stdout > .env",
+    "env:encrypt:local": "dotenvx encrypt -f .envx.local",
+    "env:encrypt:prod": "dotenvx encrypt -f .envx.production"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.0",

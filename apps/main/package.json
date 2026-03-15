@@ -11,10 +11,10 @@
     "article:create": "node src/scripts/create-article.js",
     "article:publish": "node src/scripts/publish-article.js",
     "clean": "rm -rf node_modules .next .turbo dist",
-    "env:use:local": "npx @dotenvx/dotenvx decrypt -f .envx.local --stdout > .env",
-    "env:use:prod": "npx @dotenvx/dotenvx decrypt -f .envx.production --stdout > .env",
-    "env:encrypt:local": "npx @dotenvx/dotenvx encrypt -f .envx.local",
-    "env:encrypt:prod": "npx @dotenvx/dotenvx encrypt -f .envx.production"
+    "env:use:local": "dotenvx decrypt -f .envx.local --stdout > .env",
+    "env:use:prod": "dotenvx decrypt -f .envx.production --stdout > .env",
+    "env:encrypt:local": "dotenvx encrypt -f .envx.local",
+    "env:encrypt:prod": "dotenvx encrypt -f .envx.production"
   },
   "dependencies": {
     "@next/third-parties": "16.1.6",
