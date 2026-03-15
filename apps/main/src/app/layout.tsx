@@ -1,5 +1,6 @@
 import './globals.css';
 
+import { EnvScript } from '@repo/runtime-env/env-script';
 import { cn } from '@repo/ui/lib/utils';
 import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
@@ -20,10 +21,11 @@ const LetsGoDigital = localFont({
   preload: true,
 });
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html suppressHydrationWarning className="scroll-smooth" lang="en">
       <head>
+        <EnvScript />
         <script async crossOrigin="anonymous" src="https://tweakcn.com/live-preview.min.js" />
         <title>Sander's CodeHouse</title>
       </head>
