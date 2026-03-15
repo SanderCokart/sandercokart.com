@@ -4,10 +4,10 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3000 -H 0.0.0.0 --turbo",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint",
+    "dev": "dotenvx run -f .envx.local -- next dev -p 3000 -H 0.0.0.0 --turbo",
+    "build": "dotenvx run -f .envx.local -- next build",
+    "start": "dotenvx run -f .envx.local -- next start",
+    "lint": "dotenvx run -f .envx.local -- eslint",
     "article:create": "node src/scripts/create-article.js",
     "article:publish": "node src/scripts/publish-article.js",
     "clean": "rm -rf node_modules .next .turbo dist"

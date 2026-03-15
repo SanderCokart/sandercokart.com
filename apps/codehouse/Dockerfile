@@ -26,8 +26,8 @@ RUN pnpm install --offline
 ENV NEXT_OUTPUT=standalone
 
 COPY --from=pruner /app/out/pnpm-lock.yaml /app/out/full/ ./
-RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN --mount=type=secret,id=TURBO_TOKEN \
-	export SENTRY_AUTH_TOKEN="$(cat /run/secrets/SENTRY_AUTH_TOKEN)" TURBO_TOKEN="$(cat /run/secrets/TURBO_TOKEN)" && \
+RUN --mount=type=secret,id=DOTENV_PRIVATE_KEY_PRODUCTION \
+	export DOTENV_PRIVATE_KEY_PRODUCTION="$(cat /run/secrets/DOTENV_PRIVATE_KEY_PRODUCTION)" && \
 	pnpm dlx turbo build
 
 FROM node:lts-alpine AS runner
@@ -42,7 +42,6 @@ USER nextjs
 COPY --from=builder --chown=nextjs:nodejs /app/apps/codehouse/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/apps/codehouse/.next/static ./apps/codehouse/.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/apps/codehouse/public ./apps/codehouse/public
+COPY --from=builder --chown=nextjs:nodejs /app/apps/codehouse/.envx.production ./.envx.production
 
-
-
-CMD ["node","apps/codehouse/server.js"]
+CMD ["npx", "@dotenvx/dotenvx", "run", "-f", ".envx.production", "--", "node", "apps/codehouse/server.js"]

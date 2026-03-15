@@ -8,6 +8,7 @@
         "NODE_ENV",
         "NEXT_PUBLIC_*",
         "VITE_*",
+        "DOTENV_PRIVATE_KEY_PRODUCTION",
         "SENTRY_AUTH_TOKEN",
         "TURBO_TEAM",
         "TURBO_TOKEN",
