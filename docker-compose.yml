@@ -1,3 +1,4 @@
 include:
   - ./apps/codehouse/docker-compose.yml
   - ./apps/api/docker-compose.yml
+  - ./apps/main/docker-compose.yml
