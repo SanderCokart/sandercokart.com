@@ -28,11 +28,11 @@
     ]
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "^1.51.4",
-    "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
+    "@dotenvx/dotenvx": "^1.55.1",
+    "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
     "husky": "^9.1.7",
     "lint-staged": "^15.5.2",
-    "prettier": "^3.7.4",
+    "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.6.14",
     "turbo": "2.7.4",
     "typescript": "5.8.2"
