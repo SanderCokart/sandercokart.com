@@ -1,3 +1,4 @@
+;
 /**
  * This is used to validate environment variables.
  * You can use the `env` object to access the environment variables.
@@ -7,6 +8,10 @@
 import { getRuntimeEnv } from '@repo/runtime-env';
 import { createEnv } from '@t3-oss/env-nextjs';
 import { z } from 'zod';
+
+
+
+
 
 const server = {
   /** CI Mode */
@@ -52,7 +57,7 @@ const client = {
   NEXT_PUBLIC_API_URL: z.url().optional(),
   /** The app environment */
   NEXT_PUBLIC_ENV: z.enum(['development', 'production', 'staging']).default('development'),
-  /** Enable Sentry */
+  NEXT_PUBLIC_SENTRY_DSN: z.url().optional(),
   NEXT_PUBLIC_SENTRY_ENABLED: z
     .enum(['true', 'false'])
     .default('false')
@@ -80,6 +85,7 @@ export const env = createEnv({
     // Client variables (use getRuntimeEnv() to read from window.__ENV on client or process.env on server)
     NEXT_PUBLIC_API_URL: getRuntimeEnv().NEXT_PUBLIC_API_URL,
     NEXT_PUBLIC_ENV: getRuntimeEnv().NEXT_PUBLIC_ENV,
+    NEXT_PUBLIC_SENTRY_DSN: getRuntimeEnv().NEXT_PUBLIC_SENTRY_DSN,
     NEXT_PUBLIC_SENTRY_ENABLED: getRuntimeEnv().NEXT_PUBLIC_SENTRY_ENABLED,
     // Shared variables
     NODE_ENV: getRuntimeEnv().NODE_ENV,
