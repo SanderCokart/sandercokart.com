@@ -1,4 +1,3 @@
-import { YouTubeEmbed } from '@next/third-parties/google';
 import { cn } from '@repo/ui/lib/utils';
 import { evaluate } from 'next-mdx-remote-client/rsc';
 import rehypeMdxCodeProps from 'rehype-mdx-code-props';
@@ -11,6 +10,7 @@ import type { RehypeMdxCodePropsOptions } from 'rehype-mdx-code-props';
 import components from '@/app/articles/[slug]/components';
 import { getArticleBySlug } from '@/lib/actions/articles';
 
+import ArticleMeta from './components/article-meta';
 import BackToTopButton from './components/back-to-top-button';
 
 type PARAMS = { slug: string };
@@ -24,7 +24,14 @@ const options: EvaluateOptions = {
   },
 };
 
-type ArticleMetaType = { videoId?: string; updatedAt: string; publishedAt?: string; authors: string[] };
+type ArticleMetaType = {
+  videoId?: string;
+  updatedAt?: string;
+  publishedAt?: string;
+  authors: string[];
+  videoPublishedAt?: string;
+  createdAt: string;
+};
 
 export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS>) {
   const resolvedParams = await params;
@@ -69,49 +76,7 @@ export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS
         // Blockquote styling
         'prose-blockquote:border-l-primary dark:prose-blockquote:border-l-accent prose-blockquote:bg-muted/50 prose-blockquote:py-1 prose-blockquote:not-italic',
       )}>
-      <header className="border-primary dark:border-accent mb-8 border-b pb-4">
-        <div
-          className={cn(
-            'flex flex-col gap-4 sm:flex-row sm:justify-between sm:gap-0',
-            !frontmatter.updatedAt && 'items-center',
-          )}>
-          {frontmatter.publishedAt && (
-            <time
-              className="text-muted-foreground font-mono text-xs uppercase tracking-widest"
-              dateTime={frontmatter.publishedAt}
-              title={new Date(frontmatter.publishedAt).toLocaleString(navigator.language, {
-                dateStyle: 'long',
-                timeStyle: 'medium',
-              })}
-              suppressHydrationWarning>
-              Published on{' '}
-              {new Date(frontmatter.publishedAt).toLocaleDateString(navigator.language, {
-                dateStyle: 'long',
-              })}
-            </time>
-          )}
-
-          {frontmatter.updatedAt && (
-            <time
-              className="text-muted-foreground self-end font-mono text-xs uppercase tracking-widest"
-              dateTime={frontmatter.updatedAt}
-              title={new Date(frontmatter.updatedAt).toLocaleString(navigator.language, {
-                dateStyle: 'medium',
-                timeStyle: 'medium',
-              })}
-              suppressHydrationWarning>
-              Last updated on{' '}
-              {new Date(frontmatter.updatedAt).toLocaleDateString(navigator.language, {
-                dateStyle: 'long',
-              })}
-            </time>
-          )}
-
-          <span className="text-muted-foreground font-mono text-xs uppercase tracking-widest">
-            Written by {frontmatter.authors.join(', ')}
-          </span>
-        </div>
-      </header>
+      <ArticleMeta frontmatter={frontmatter} />
 
       <div className="pointer-events-none fixed bottom-4 left-0 right-0 z-10">
         <div className="mx-auto flex w-full max-w-full justify-end px-4 sm:px-6 lg:max-w-5xl">
