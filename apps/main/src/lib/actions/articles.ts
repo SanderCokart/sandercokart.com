@@ -6,6 +6,8 @@ import frontMatter from 'front-matter';
 
 import type { ArticleAttributes, ArticleModel } from '@/types/model-types';
 
+import { env } from '@/env';
+
 const getBannerPath = async (slug: string) => {
   const files = await fs.promises.readdir('public/banners');
 
@@ -47,7 +49,7 @@ const getArticlesByType = async (type: string) => {
   );
 
   // In development, show all articles; in production, only published articles
-  if (process.env.NODE_ENV === 'production') {
+  if (env.NEXT_PUBLIC_ENV === 'production') {
     return articles.filter(article => {
       const publishedAt = article.attributes.publishedAt;
       return publishedAt && String(publishedAt).trim() !== '';
@@ -87,7 +89,7 @@ const getAllArticleSlugs = async (): Promise<string[]> => {
   const paths = await fg(`src/app/articles/**/*.mdx`);
 
   // In development, return all slugs; in production, only published articles
-  if (process.env.NODE_ENV === 'production') {
+  if (env.NEXT_PUBLIC_ENV === 'production') {
     const publishedSlugs = await Promise.all(
       paths.map(async articlePath => {
         const content = await fs.promises.readFile(articlePath, 'utf-8');
