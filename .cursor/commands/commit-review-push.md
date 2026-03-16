@@ -9,7 +9,7 @@ Run `git status` and `git diff` to see all changes.
 
 ## Step 2: Plan commits
 
-Split changes into logical commits (one per intent: feature, fix, refactor, docs, etc.). Order: refactor first, then features/fixes, then docs/chore. Use Conventional Commits for each message: `type(scope): description` (e.g. feat, fix, refactor, docs).
+Split changes into logical commits (one per intent). Order: refactor first, then features/fixes, then docs/chore. Use the project’s commit format for each message (see reference below).
 
 - Group by intent; prefer smaller, focused commits when changes are unrelated.
 - If everything is one logical change, use one commit.
@@ -23,8 +23,8 @@ Output a **nicely formatted summary** so the user can review the commits before 
 
 Example format:
 
-- **feat(articles): add back-to-top button** — `back-to-top-button.tsx`
-- **refactor(articles): simplify article page layout** — `page.tsx`
+- **FEAT | Add back-to-top button** — `back-to-top-button.tsx`
+- **REFACTOR | Simplify article page layout** — `page.tsx`
 
 Keep this short and scannable. No code block in this step.
 
@@ -39,12 +39,13 @@ Keep this short and scannable. No code block in this step.
 Example shape (replace with real paths and messages):
 
 ```bash
-git add path/to/file1 path/to/file2 && git commit -m "feat(scope): add thing" && \
-git add path/to/file3 && git commit -m "refactor(scope): simplify other" && \
+git add path/to/file1 path/to/file2 && git commit -m "FEAT | Add thing" && \
+git add path/to/file3 && git commit -m "REFACTOR | Simplify other" && \
 git push
 ```
 
 - One `git add` per commit, only the paths for that commit.
+- Use the project’s commit format (e.g. `#123 | FEAT | Add thing` if there’s an issue; add `! ` prefix for breaking changes). For multi-line bodies, use `-m "TAG | Summary" -m "- Bullet one" -m "- Bullet two"` or a single `-m` with the full message.
 - Quote messages so they paste safely; escape internal double quotes or use single-quoted `-m 'message'`.
 - Include `git push` in the block.
 
@@ -61,8 +62,19 @@ Immediately after the code block, ask exactly:
 
 ---
 
-## Conventional Commits (reference)
+## Commit message format (reference)
 
-- Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore.
-- Optional scope: `feat(articles): add back-to-top`.
-- Breaking: `feat(api)!: remove endpoint` or footer `BREAKING CHANGE: …`.
+First line: optional `! ` (breaking change), optional `#<issue> | ` (from branch), then `TAG | Short description`. Separate sections with ` | `.
+
+**Tags (capitalized):** FEAT, FIX, DOCS, FORMAT, REFACTOR, PERF, TEST, DOCKER, CI, CHORE, REVERT.
+
+**Optional body:** Empty line, then bullet points with a literal, direct description.
+
+Example:
+
+```
+! | #123 | FEAT | Add new feature
+
+- Add new feature
+- Add new test
+```
