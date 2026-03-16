@@ -8,7 +8,14 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@repo/ui/components/shadcn/carousel';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@repo/ui/components/shadcn/tooltip';
+import {
+  Popover,
+  PopoverContent,
+  PopoverDescription,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger,
+} from '@repo/ui/components/shadcn/popover';
 import { cn } from '@repo/ui/lib/utils';
 import { formatDistanceToNow } from 'date-fns';
 import { motion } from 'motion/react';
@@ -67,8 +74,8 @@ const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
       // - 2XL+: 16.7% width (6 items visible)
       // Padding increases on larger screens (pl-2 on mobile, pl-4 on md+)
       className="basis-[85%] pl-2 sm:basis-1/2 md:basis-1/3 md:pl-4 lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6">
-      <Tooltip>
-        <TooltipTrigger render={<motion.article className={articleClassName} />}>
+      <Popover>
+        <PopoverTrigger openOnHover nativeButton={false} render={<motion.article className={articleClassName} />}>
           {hasVideo ? (
             <motion.div // This motion.div creates a 3D space for the flip animation.
               className="preserve-3d relative h-full w-full"
@@ -84,8 +91,7 @@ const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
                   className="backface-hidden" // backface-visibility: hidden; hides the back side when rotated
                   aria-label={`Read article: ${article.attributes.title}${
                     publishedDate ? `, published ${timeAgo}` : ', draft'
-                  }`}
-                  title={article.attributes.title}>
+                  }`}>
                   <figure className="relative h-full w-full">
                     <Image
                       fill
@@ -113,8 +119,7 @@ const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
             // Static content for items without video - no animation, no unmounting
             <Link
               href={`/articles/${article.attributes.slug}`}
-              aria-label={`Read article: ${article.attributes.title}${publishedDate ? `, published ${timeAgo}` : ', draft'}`}
-              title={article.attributes.title}>
+              aria-label={`Read article: ${article.attributes.title}${publishedDate ? `, published ${timeAgo}` : ', draft'}`}>
               <figure className="relative h-full w-full">
                 <Image
                   fill
@@ -127,9 +132,14 @@ const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
               <TimeOverlay timeAgo={timeAgo} publishedDate={publishedDate} />
             </Link>
           )}
-        </TooltipTrigger>
-        <TooltipContent side="bottom">{article.attributes.summary}</TooltipContent>
-      </Tooltip>
+        </PopoverTrigger>
+        <PopoverContent side="right">
+          <PopoverHeader>
+            <PopoverTitle>{article.attributes.title}</PopoverTitle>
+            <PopoverDescription>{article.attributes.summary}</PopoverDescription>
+          </PopoverHeader>
+        </PopoverContent>
+      </Popover>
     </CarouselItem>
   );
 };
@@ -155,34 +165,32 @@ export const CarouselSection: FC<{
     <section>
       <SectionHeader title={title} />
 
-      <TooltipProvider delay={1000}>
-        <Carousel
-          opts={{
-            align: 'start',
-            dragFree: true,
-            skipSnaps: false,
-            containScroll: 'trimSnaps',
-          }}
-          className="group/carousel relative w-full"
-          aria-label={`${title} carousel`}>
-          <CarouselContent>
-            {articles.map(article => (
-              <BlogCard key={article.attributes.slug} article={article} />
-            ))}
-          </CarouselContent>
+      <Carousel
+        opts={{
+          align: 'start',
+          dragFree: true,
+          skipSnaps: false,
+          containScroll: 'trimSnaps',
+        }}
+        className="group/carousel relative w-full"
+        aria-label={`${title} carousel`}>
+        <CarouselContent>
+          {articles.map(article => (
+            <BlogCard key={article.attributes.slug} article={article} />
+          ))}
+        </CarouselContent>
 
-          <CarouselPrevious
-            variant="default"
-            className={cn('absolute left-0 h-full', 'bg-accent text-accent-foreground rounded-none disabled:hidden')}
-            aria-label={`Previous ${title.toLowerCase()}`}
-          />
-          <CarouselNext
-            variant="default"
-            className={cn('absolute right-0 h-full', 'bg-accent text-accent-foreground rounded-none disabled:hidden')}
-            aria-label={`Next ${title.toLowerCase()}`}
-          />
-        </Carousel>
-      </TooltipProvider>
+        <CarouselPrevious
+          variant="default"
+          className={cn('absolute left-0 h-full', 'bg-accent text-accent-foreground rounded-none disabled:hidden')}
+          aria-label={`Previous ${title.toLowerCase()}`}
+        />
+        <CarouselNext
+          variant="default"
+          className={cn('absolute right-0 h-full', 'bg-accent text-accent-foreground rounded-none disabled:hidden')}
+          aria-label={`Next ${title.toLowerCase()}`}
+        />
+      </Carousel>
     </section>
   );
 };
