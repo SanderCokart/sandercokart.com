@@ -21,7 +21,7 @@ function question(query) {
 }
 
 async function getArticleTypes() {
-  const articlesPath = path.join(currentDirname, '../app/articles');
+  const articlesPath = path.join(currentDirname, '../../articles');
   const directories = await fg('*/', { cwd: articlesPath, onlyDirectories: true });
   return directories.map(dir => dir.replace(/\/$/, ''));
 }
@@ -45,7 +45,7 @@ async function createArticle() {
 
     const slug = slugify(title, { lower: true });
     const filename = `${slug}.mdx`;
-    const filepath = path.join(currentDirname, `../app/articles/${type}`, filename);
+    const filepath = path.join(currentDirname, `../../articles/${type}`, filename);
 
     const frontMatter = `---
 createdAt: ${new Date().toISOString()}

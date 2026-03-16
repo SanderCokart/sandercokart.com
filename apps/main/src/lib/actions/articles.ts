@@ -19,7 +19,7 @@ const getBannerPath = async (slug: string) => {
 };
 
 const getArticlesByType = async (type: string) => {
-  const articlePaths = await fg(`src/app/articles/${type}/*.mdx`);
+  const articlePaths = await fg(`articles/${type}/*.mdx`);
 
   /**
    * Resolve banner for article
@@ -60,20 +60,16 @@ const getArticlesByType = async (type: string) => {
 };
 
 /**
- * Gets all the folder names except [slug] from the articles folder and returns them as an array of strings
+ * Gets all the folder names from the articles folder and returns them as an array of strings
  */
 const getArticleTypes = async () => {
-  const articleTypePaths = await fg(`src/app/articles/*`, { onlyDirectories: true });
+  const articleTypePaths = await fg(`articles/*`, { onlyDirectories: true });
 
-  const articleTypes = articleTypePaths
-    .map(articleTypePath => path.basename(articleTypePath))
-    .filter(articleType => articleType !== '[slug]');
-
-  return articleTypes;
+  return articleTypePaths.map(articleTypePath => path.basename(articleTypePath));
 };
 
 const getArticleBySlug = async ({ slug }: { slug: string }): Promise<string> => {
-  const paths = (await fg(`src/app/articles/**/${slug}.mdx`)) as [string];
+  const paths = (await fg(`articles/**/${slug}.mdx`)) as [string];
 
   if (!paths.length) {
     throw new Error('Article not found');
@@ -86,7 +82,7 @@ const getArticleBySlug = async ({ slug }: { slug: string }): Promise<string> => 
 };
 
 const getAllArticleSlugs = async (): Promise<string[]> => {
-  const paths = await fg(`src/app/articles/**/*.mdx`);
+  const paths = await fg(`articles/**/*.mdx`);
 
   // In development, return all slugs; in production, only published articles
   if (env.NEXT_PUBLIC_ENV === 'production') {

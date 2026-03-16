@@ -13,9 +13,10 @@ const rl = readline.createInterface({
 });
 
 async function publishArticle() {
-  const files = await fg('**/app/articles/*/*.mdx', { cwd: path.join(currentDirname, '..') });
+  const appRoot = path.join(currentDirname, '../..');
+  const files = await fg('articles/*/*.mdx', { cwd: appRoot });
   const articles = files.map((file, index) => {
-    const match = file.match(/app\/articles\/(.+)\/(.+)\.mdx/);
+    const match = file.match(/articles\/(.+)\/(.+)\.mdx/);
     return {
       index: index + 1,
       type: match[1],
@@ -37,7 +38,7 @@ async function publishArticle() {
       return;
     }
 
-    const filePath = path.join(currentDirname, '..', chosenArticle.path);
+    const filePath = path.join(appRoot, chosenArticle.path);
     fs.readFile(filePath, 'utf8', (err, data) => {
       if (err) {
         console.error(`Error reading file: ${err}`);

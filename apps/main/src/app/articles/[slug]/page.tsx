@@ -77,13 +77,11 @@ export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS
         'prose-blockquote:border-l-primary dark:prose-blockquote:border-l-accent prose-blockquote:bg-muted/50 prose-blockquote:py-1 prose-blockquote:not-italic',
       )}>
       <ArticleMeta frontmatter={frontmatter} />
-
       <div className="pointer-events-none fixed bottom-4 left-0 right-0 z-10">
         <div className="mx-auto flex w-full max-w-full justify-end px-4 sm:px-6 lg:max-w-5xl">
           <BackToTopButton className="pointer-events-auto" />
         </div>
       </div>
-
       {content}
     </article>
   );
