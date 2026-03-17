@@ -18,6 +18,7 @@ export function Navigation() {
 function DesktopNavigation() {
   return (
     <nav
+      aria-label="Primary"
       className={cn('relative hidden flex-wrap justify-center gap-x-8 gap-y-1 justify-self-center text-2xl md:flex')}>
       {links.map(link => (
         <Link
