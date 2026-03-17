@@ -20,16 +20,21 @@ export const BlogViewSwitch: FC = () => {
   };
 
   if (isInitializing) {
-    return <Skeleton className="w-18 h-9" />;
+    return (
+      <>
+        <span className="sr-only">Loading view options</span>
+        <Skeleton aria-hidden="true" className="w-18 h-9" />
+      </>
+    );
   }
 
   return (
-    <ToggleGroup size="lg" variant="outline" value={[view]} onValueChange={handleViewChange}>
-      <ToggleGroupItem title="Switch to blog view" value="blog" aria-label="Switch to blog view">
-        <NewspaperIcon className="size-4" />
+    <ToggleGroup aria-label="Post view" size="lg" variant="outline" value={[view]} onValueChange={handleViewChange}>
+      <ToggleGroupItem title="Blog" value="blog" aria-label="Blog">
+        <NewspaperIcon aria-hidden="true" className="size-4" />
       </ToggleGroupItem>
-      <ToggleGroupItem title="Switch to video view" value="video" aria-label="Switch to video view">
-        <VideoIcon className="size-4" />
+      <ToggleGroupItem title="Video" value="video" aria-label="Video">
+        <VideoIcon aria-hidden="true" className="size-4" />
       </ToggleGroupItem>
     </ToggleGroup>
   );
