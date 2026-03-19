@@ -20,6 +20,28 @@ export type BlogCardProps = {
   publishedDate: Date | null;
 };
 
+type TimeOverlayProps = Pick<BlogCardProps, 'timeAgo' | 'publishedDate'>;
+
+function articleLinkAriaLabel({ article, timeAgo, publishedDate }: BlogCardProps): string {
+  return `Read article: ${article.attributes.title}${publishedDate ? `, published ${timeAgo}` : ', draft'}`;
+}
+
+const TimeOverlay: React.FC<TimeOverlayProps> = ({ timeAgo, publishedDate }) => (
+  <div
+    className="bg-accent text-accent-foreground absolute bottom-3 left-3 rounded px-2 py-1 text-sm font-medium"
+    suppressHydrationWarning
+    title={
+      publishedDate
+        ? publishedDate.toLocaleString(navigator.language, {
+            dateStyle: 'long',
+            timeStyle: 'medium',
+          })
+        : 'Draft article'
+    }>
+    {timeAgo}
+  </div>
+);
+
 export const BlogCard: React.FC<BlogCardProps & React.ComponentProps<'div'>> = ({
   article,
   timeAgo,
@@ -31,7 +53,7 @@ export const BlogCard: React.FC<BlogCardProps & React.ComponentProps<'div'>> = (
     <div className={cn('relative h-full w-full', className)} {...props}>
       <Link
         href={`/articles/${article.attributes.slug}`}
-        aria-label={`Read article: ${article.attributes.title}${publishedDate ? `, published ${timeAgo}` : ', draft'}`}>
+        aria-label={articleLinkAriaLabel({ article, timeAgo, publishedDate })}>
         <figure className="relative h-full w-full">
           <Image
             fill
@@ -55,11 +77,9 @@ export const VideoCard: React.FC<BlogCardProps & React.ComponentProps<'div'>> = 
   ...props
 }) => {
   const { view } = useBlogView();
-  const videoEmbedRef = React.useRef<HTMLDivElement>(null);
 
   return (
     <div
-      ref={videoEmbedRef}
       className={cn(
         'backface-hidden [&_button]:user-select-none absolute inset-0 [&_button:focus-visible]:outline-none',
         className,
@@ -81,7 +101,8 @@ export const FlippableCard: React.FC<BlogCardProps & React.ComponentProps<typeof
   ...motionDivProps
 }) => {
   const { view, isInitializing } = useBlogView();
-  const faceProps = { article, timeAgo, publishedDate };
+  const cardProps: BlogCardProps = { article, timeAgo, publishedDate };
+  const cardFaceClipClassName = 'overflow-hidden rounded-sm';
 
   return (
     <motion.div
@@ -91,50 +112,34 @@ export const FlippableCard: React.FC<BlogCardProps & React.ComponentProps<typeof
       animate={{ rotateY: view === 'blog' ? 0 : 180 }}
       style={{ transformStyle: 'preserve-3d' }}
       {...motionDivProps}>
-      <div className="backface-hidden absolute inset-0 overflow-hidden rounded-sm">
-        <BlogCard {...faceProps} />
+      <div className={cn('backface-hidden absolute inset-0', cardFaceClipClassName)}>
+        <BlogCard {...cardProps} />
       </div>
-      <VideoCard {...faceProps} className="overflow-hidden rounded-sm" />
+      <VideoCard {...cardProps} className={cardFaceClipClassName} />
     </motion.div>
   );
 };
 
-const TimeOverlay: React.FC<{ timeAgo: string; publishedDate: Date | null }> = ({ timeAgo, publishedDate }) => (
-  <div
-    className="bg-accent text-accent-foreground absolute bottom-3 left-3 rounded px-2 py-1 text-sm font-medium"
-    suppressHydrationWarning
-    title={
-      publishedDate
-        ? publishedDate.toLocaleString(navigator.language, {
-            dateStyle: 'long',
-            timeStyle: 'medium',
-          })
-        : 'Draft article'
-    }>
-    {timeAgo}
-  </div>
-);
-
-const interactiveCardClassName = cn(
-  'rounded-sm',
-  'focus-within:border-accent transition-[scale,border] focus-within:scale-95 focus-within:border-2',
-  'hover:border-accent transition-[scale,border] hover:scale-95 hover:border-2',
-);
-
 export const BlogCardItem: React.FC<BlogCardProps> = props => {
+  /** YouTube posts use a 3D flip; static posts are a single image/link surface. */
   const hasVideo = Boolean(props.article.attributes.videoId);
 
-  if (hasVideo) {
-    return (
-      <article className="relative aspect-video">
-        <FlippableCard {...props} className={interactiveCardClassName} />
-      </article>
-    );
-  }
+  /** Shared hover/focus treatment (scale + accent border). Applied where the visible card “shell” lives for each variant. */
+  const cardHoverFocusClassName = cn(
+    'rounded-sm',
+    'focus-within:border-accent transition-[scale,border] focus-within:scale-95 focus-within:border-2',
+    'hover:border-accent transition-[scale,border] hover:scale-95 hover:border-2',
+  );
+
+  /**
+   * Static cards: clip the image to `rounded-sm` and attach hover/focus here so the whole tile responds (BlogCard has no outer wrapper class).
+   * Video cards: only `aspect-video` + positioning on `<article>` — overflow and hover/focus stay on `FlippableCard` so preserve-3d / flip layout is not clipped or scaled at the wrong level.
+   */
+  const rootArticleClassName = cn('relative aspect-video', !hasVideo && ['overflow-hidden', cardHoverFocusClassName]);
 
   return (
-    <article className={cn('relative aspect-video overflow-hidden', interactiveCardClassName)}>
-      <BlogCard {...props} />
+    <article className={rootArticleClassName}>
+      {hasVideo ? <FlippableCard {...props} className={cardHoverFocusClassName} /> : <BlogCard {...props} />}
     </article>
   );
 };
