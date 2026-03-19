@@ -1,7 +1,5 @@
 'use client';
 
-import { YouTubeEmbed } from '@next/third-parties/google';
-import { Button } from '@repo/ui/components/shadcn/button';
 import {
   Carousel,
   CarouselContent,
@@ -9,165 +7,25 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@repo/ui/components/shadcn/carousel';
-import {
-  Popover,
-  PopoverContent,
-  PopoverDescription,
-  PopoverHeader,
-  PopoverTitle,
-  PopoverTrigger,
-} from '@repo/ui/components/shadcn/popover';
 import { cn } from '@repo/ui/lib/utils';
 import { formatDistanceToNow } from 'date-fns';
-import { Info } from 'lucide-react';
 import { motion } from 'motion/react';
 
-import { FC, useRef } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+import { FC } from 'react';
 
 import type { ArticleModel } from '@/types/model-types';
 
-import placeholder from '@/app/placeholder.webp';
-
-import { useBlogView } from './blog-view-switch';
-
-const TimeOverlay: FC<{ timeAgo: string; publishedDate: Date | null }> = ({ timeAgo, publishedDate }) => (
-  <div
-    className="bg-accent text-accent-foreground absolute bottom-3 left-3 rounded px-2 py-1 text-sm font-medium"
-    suppressHydrationWarning
-    title={
-      publishedDate
-        ? publishedDate.toLocaleString(navigator.language, {
-            dateStyle: 'long',
-            timeStyle: 'medium',
-          })
-        : 'Draft article'
-    }>
-    {timeAgo}
-  </div>
-);
-
-const MobileBlogCard: FC<{
-  articleClassName: string;
-  cardBody: React.ReactNode;
-  popoverContent: React.ReactNode;
-}> = ({ articleClassName, cardBody, popoverContent }) => {
-  return (
-    <motion.article className={cn(articleClassName, 'md:hidden')}>
-      {cardBody}
-
-      <Popover>
-        <PopoverTrigger
-          className="absolute right-2 top-2 z-10"
-          render={<Button variant="ghost" size="icon" />}
-          aria-label="More info">
-          <Info aria-hidden="true" className="h-4 w-4" />
-        </PopoverTrigger>
-        {popoverContent}
-      </Popover>
-    </motion.article>
-  );
-};
-
-const DesktopBlogCard: FC<{
-  articleClassName: string;
-  cardBody: React.ReactNode;
-  popoverContent: React.ReactNode;
-}> = ({ articleClassName, cardBody, popoverContent }) => {
-  return (
-    <Popover>
-      <PopoverTrigger
-        openOnHover
-        nativeButton={false}
-        className="hidden md:block"
-        render={<motion.article className={articleClassName} />}>
-        {cardBody}
-      </PopoverTrigger>
-      {popoverContent}
-    </Popover>
-  );
-};
+import { BlogCardItem } from './blog-card-item';
 
 const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
   const publishedDate = article.attributes.publishedAt ? new Date(article.attributes.publishedAt) : null;
 
   const timeAgo = publishedDate ? formatDistanceToNow(publishedDate, { addSuffix: true }) : 'DRAFT';
 
-  const { view, isInitializing } = useBlogView();
-
-  const hasVideo = Boolean(article.attributes.videoId);
-
-  const videoEmbedRef = useRef<HTMLDivElement>(null);
-
   const articleClassName = cn(
     'relative aspect-video overflow-hidden rounded-sm',
     'focus-within:border-accent transition-[scale,border] focus-within:scale-95 focus-within:border-2',
     'hover:border-accent transition-[scale,border] hover:scale-95 hover:border-2',
-  );
-
-  const popoverContent = (
-    <PopoverContent side="right">
-      <PopoverHeader>
-        <PopoverTitle>{article.attributes.title}</PopoverTitle>
-        <PopoverDescription>{article.attributes.summary}</PopoverDescription>
-      </PopoverHeader>
-    </PopoverContent>
-  );
-
-  const cardBody = hasVideo ? (
-    <motion.div // This motion.div creates a 3D space for the flip animation.
-      className="preserve-3d relative h-full w-full"
-      transition={{ duration: 0.3, delay: isInitializing ? 1 : 0 }}
-      initial={{ rotateY: view === 'blog' ? 0 : 180 }}
-      animate={{ rotateY: view === 'blog' ? 0 : 180 }}
-      style={{ transformStyle: 'preserve-3d' }} // transformStyle: 'preserve-3d' makes the children inherit the 3D transform
-    >
-      <div className="backface-hidden absolute inset-0">
-        <Link
-          inert={view === 'video'}
-          href={`/articles/${article.attributes.slug}`}
-          className="backface-hidden" // backface-visibility: hidden; hides the back side when rotated
-          aria-label={`Read article: ${article.attributes.title}${publishedDate ? `, published ${timeAgo}` : ', draft'}`}>
-          <figure className="relative h-full w-full">
-            <Image
-              fill
-              alt={article.attributes.title}
-              className="object-cover transition-transform duration-200"
-              src={article.attributes.banner || placeholder}
-              sizes="(max-width: 640px) 85vw, (max-width: 768px) 50vw, (max-width: 1280px) 25vw, 20vw"
-            />
-          </figure>
-          <TimeOverlay timeAgo={timeAgo} publishedDate={publishedDate} />
-        </Link>
-      </div>
-      {/* Back side - Video view */}
-      <motion.div
-        ref={videoEmbedRef}
-        className="backface-hidden [&_button]:user-select-none absolute inset-0 [&_button:focus-visible]:outline-none" // backface-visibility: hidden; hides the back side when rotated
-        style={{ transform: 'rotateY(180deg)' }} // Rotates the back side to face forward initially
-      >
-        {/* @ts-expect-error - inert is not a registered prop but it works */}
-        <YouTubeEmbed inert={view === 'blog'} videoid={article.attributes.videoId!} />
-        <TimeOverlay timeAgo={timeAgo} publishedDate={publishedDate} />
-      </motion.div>
-    </motion.div>
-  ) : (
-    // Static content for items without video - no animation, no unmounting
-    <Link
-      href={`/articles/${article.attributes.slug}`}
-      aria-label={`Read article: ${article.attributes.title}${publishedDate ? `, published ${timeAgo}` : ', draft'}`}>
-      <figure className="relative h-full w-full">
-        <Image
-          fill
-          alt={article.attributes.title}
-          className="object-cover transition-transform duration-200"
-          src={article.attributes.banner || placeholder}
-          sizes="(max-width: 640px) 85vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
-        />
-      </figure>
-      <TimeOverlay timeAgo={timeAgo} publishedDate={publishedDate} />
-    </Link>
   );
 
   return (
@@ -181,8 +39,9 @@ const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
       // - 2XL+: 16.7% width (6 items visible)
       // Padding increases on larger screens (pl-2 on mobile, pl-4 on md+)
       className="basis-[85%] pl-2 sm:basis-1/2 md:basis-1/3 md:pl-4 lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6">
-      <MobileBlogCard articleClassName={articleClassName} cardBody={cardBody} popoverContent={popoverContent} />
-      <DesktopBlogCard articleClassName={articleClassName} cardBody={cardBody} popoverContent={popoverContent} />
+      <motion.article className={articleClassName}>
+        <BlogCardItem article={article} timeAgo={timeAgo} publishedDate={publishedDate} />
+      </motion.article>
     </CarouselItem>
   );
 };
