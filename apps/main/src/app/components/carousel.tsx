@@ -9,7 +9,6 @@ import {
 } from '@repo/ui/components/shadcn/carousel';
 import { cn } from '@repo/ui/lib/utils';
 import { formatDistanceToNow } from 'date-fns';
-import { motion } from 'motion/react';
 
 import { FC } from 'react';
 
@@ -22,12 +21,6 @@ const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
 
   const timeAgo = publishedDate ? formatDistanceToNow(publishedDate, { addSuffix: true }) : 'DRAFT';
 
-  const articleClassName = cn(
-    'relative aspect-video overflow-hidden rounded-sm',
-    'focus-within:border-accent transition-[scale,border] focus-within:scale-95 focus-within:border-2',
-    'hover:border-accent transition-[scale,border] hover:scale-95 hover:border-2',
-  );
-
   return (
     <CarouselItem
       // Responsive width control using flex-basis:
@@ -39,9 +32,7 @@ const BlogCard: FC<{ article: ArticleModel }> = ({ article }) => {
       // - 2XL+: 16.7% width (6 items visible)
       // Padding increases on larger screens (pl-2 on mobile, pl-4 on md+)
       className="basis-[85%] pl-2 sm:basis-1/2 md:basis-1/3 md:pl-4 lg:basis-1/4 xl:basis-1/5 2xl:basis-1/6">
-      <motion.article className={articleClassName}>
-        <BlogCardItem article={article} timeAgo={timeAgo} publishedDate={publishedDate} />
-      </motion.article>
+      <BlogCardItem article={article} timeAgo={timeAgo} publishedDate={publishedDate} />
     </CarouselItem>
   );
 };
