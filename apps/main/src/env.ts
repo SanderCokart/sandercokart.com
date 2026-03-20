@@ -46,6 +46,11 @@ const server = {
    * To generate a token visit: https://vercel.com/account/settings/tokens.
    */
   TURBO_TOKEN: z.string().optional(),
+  /**
+   * Canonical origin for SEO metadata, sitemap, and robots (no trailing slash).
+   * Defaults to production when unset.
+   */
+  SITE_URL: z.string().url().default('https://sandercokart.com'),
 };
 const client = {
   /** The app environment */
@@ -74,6 +79,7 @@ export const env = createEnv({
     SENTRY_AUTH_TOKEN: process.env.SENTRY_AUTH_TOKEN,
     TURBO_TEAM: process.env.TURBO_TEAM,
     TURBO_TOKEN: process.env.TURBO_TOKEN,
+    SITE_URL: process.env.SITE_URL,
     // Client variables (use getRuntimeEnv() to read from window.__ENV on client or process.env on server)
     NEXT_PUBLIC_ENV: getRuntimeEnv().NEXT_PUBLIC_ENV,
     NEXT_PUBLIC_SENTRY_DSN: getRuntimeEnv().NEXT_PUBLIC_SENTRY_DSN,
