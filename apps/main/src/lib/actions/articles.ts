@@ -103,4 +103,68 @@ const getAllArticleSlugs = async (): Promise<string[]> => {
   return paths.map(articlePath => path.basename(articlePath).replace(/\.mdx$/, ''));
 };
 
-export { getArticlesByType, getArticleBySlug, getAllArticleSlugs, getArticleTypes };
+type ArticleSeoModel = {
+  slug: string;
+  attributes: ArticleAttributes;
+  banner: string | null;
+};
+
+const getArticleSeoBySlug = async (slug: string): Promise<ArticleSeoModel | null> => {
+  const paths = await fg(`articles/**/${slug}.mdx`);
+
+  if (!paths.length) {
+    return null;
+  }
+
+  const articlePath = paths[0] as string;
+  const content = await fs.promises.readFile(articlePath, 'utf-8');
+  const matter = frontMatter<ArticleAttributes>(content);
+
+  const publishedAt = matter.attributes.publishedAt;
+  const isPublished = publishedAt && String(publishedAt).trim() !== '';
+
+  if (env.NEXT_PUBLIC_ENV === 'production' && !isPublished) {
+    return null;
+  }
+
+  return {
+    slug,
+    attributes: matter.attributes,
+    banner: await getBannerPath(slug),
+  };
+};
+
+const getAllArticleSeoData = async (): Promise<ArticleSeoModel[]> => {
+  const paths = await fg(`articles/**/*.mdx`);
+
+  const records = await Promise.all(
+    paths.map(async articlePath => {
+      const content = await fs.promises.readFile(articlePath, 'utf-8');
+      const matter = frontMatter<ArticleAttributes>(content);
+      const slug = path.basename(articlePath).replace(/\.mdx$/, '');
+      const publishedAt = matter.attributes.publishedAt;
+      const isPublished = publishedAt && String(publishedAt).trim() !== '';
+
+      if (env.NEXT_PUBLIC_ENV === 'production' && !isPublished) {
+        return null;
+      }
+
+      return {
+        slug,
+        attributes: matter.attributes,
+        banner: await getBannerPath(slug),
+      };
+    }),
+  );
+
+  return records.filter(record => record !== null) as ArticleSeoModel[];
+};
+
+export {
+  getArticlesByType,
+  getArticleBySlug,
+  getAllArticleSlugs,
+  getArticleTypes,
+  getArticleSeoBySlug,
+  getAllArticleSeoData,
+};
