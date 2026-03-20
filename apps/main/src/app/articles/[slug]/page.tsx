@@ -5,10 +5,12 @@ import remarkGfm from 'remark-gfm';
 
 import type { Page } from '@/types/common';
 import type { EvaluateOptions } from 'next-mdx-remote-client/rsc';
+import type { Metadata } from 'next';
 import type { RehypeMdxCodePropsOptions } from 'rehype-mdx-code-props';
 
 import components from '@/app/articles/[slug]/components';
-import { getArticleBySlug } from '@/lib/actions/articles';
+import { env } from '@/env';
+import { getArticleBySlug, getArticleSeoBySlug } from '@/lib/actions/articles';
 
 import ArticleMeta from './components/article-meta';
 import BackToTopButton from './components/back-to-top-button';
@@ -32,6 +34,66 @@ type ArticleMetaType = {
   videoPublishedAt?: string;
   createdAt: string;
 };
+
+export async function generateMetadata({ params }: Page<PARAMS, SEARCH_PARAMS>): Promise<Metadata> {
+  const { slug } = await params;
+  const article = await getArticleSeoBySlug(slug);
+
+  if (!article) {
+    return {
+      title: 'Article Not Found',
+      description: 'The requested article could not be found.',
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
+
+  const canonicalPath = `/articles/${article.slug}`;
+  const articleUrl = `${env.SITE_URL}${canonicalPath}`;
+  const title = article.attributes.title;
+  const description = article.attributes.summary;
+  const publishedTime = article.attributes.publishedAt || article.attributes.createdAt;
+  const modifiedTime = article.attributes.updatedAt || undefined;
+  const image = article.banner ? `${env.SITE_URL}${article.banner}` : undefined;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: canonicalPath,
+    },
+    openGraph: {
+      type: 'article',
+      siteName: 'sandercokart.com',
+      url: articleUrl,
+      title,
+      description,
+      publishedTime,
+      modifiedTime,
+      authors: article.attributes.authors,
+      images: image
+        ? [
+            {
+              url: image,
+              alt: title,
+            },
+          ]
+        : undefined,
+    },
+    twitter: {
+      card: image ? 'summary_large_image' : 'summary',
+      title,
+      description,
+      images: image ? [image] : undefined,
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
 
 export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS>) {
   const resolvedParams = await params;
