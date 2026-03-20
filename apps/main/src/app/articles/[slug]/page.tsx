@@ -62,7 +62,7 @@ export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS
         // Heading text color, paragraph text color, strong text color
         'prose-headings:text-foreground prose-p:text-foreground/90 prose-strong:text-foreground',
         // Link styling
-        'prose-a:text-accent prose-a:visited:text-foreground',
+        'prose-a:text-accent prose-a:visited:text-amber-100',
         // H1 styling
         'prose-h1:text-center prose-h1:text-balance',
         // H2 styling
