@@ -55,6 +55,7 @@
   },
   "devDependencies": {
     "@lingual/i18n-check": "^0.8.19",
+    "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "4.0.14",
     "@types/node": "20.17.24",
