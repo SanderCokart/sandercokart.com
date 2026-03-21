@@ -50,7 +50,7 @@ const server = {
    * Canonical origin for SEO metadata, sitemap, and robots (no trailing slash).
    * Defaults to production when unset.
    */
-  SITE_URL: z.string().url().default('https://sandercokart.com'),
+  SITE_URL: z.url().default('https://sandercokart.com'),
 };
 const client = {
   /** The app environment */
