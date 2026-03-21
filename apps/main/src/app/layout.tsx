@@ -26,14 +26,29 @@ const LetsGoDigital = localFont({
 
 const DEFAULT_SOCIAL_IMAGE = '/icon.png';
 
+const YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/sandercokart';
+
+const SITE_DESCRIPTION = `Article database paired with Sander Cokart's YouTube videos: guides, reviews, code walkthroughs, and tips for developers. Companion write-ups to the channel at ${YOUTUBE_CHANNEL_URL}.`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(env.SITE_URL),
   title: {
     default: 'sandercokart.com',
     template: '%s | sandercokart.com',
   },
-  description:
-    'Guides, reviews, tips, and code-focused articles from sandercokart.com for developers and tech enthusiasts.',
+  description: SITE_DESCRIPTION,
+  keywords: [
+    'articles',
+    'blog',
+    'developers',
+    'guides',
+    'reviews',
+    'code',
+    'YouTube',
+    'sandercokart',
+  ],
+  authors: [{ name: 'Sander Cokart', url: YOUTUBE_CHANNEL_URL }],
+  creator: 'Sander Cokart',
   alternates: {
     canonical: '/',
   },
@@ -41,19 +56,19 @@ export const metadata: Metadata = {
     type: 'website',
     url: env.SITE_URL,
     siteName: 'sandercokart.com',
-    title: 'sandercokart.com',
-    description: 'Guides, reviews, tips, and code-focused articles for developers and tech enthusiasts.',
+    title: 'sandercokart.com — articles linked to YouTube',
+    description: SITE_DESCRIPTION,
     images: [
       {
         url: DEFAULT_SOCIAL_IMAGE,
-        alt: 'sandercokart.com',
+        alt: 'sandercokart.com — developer articles and YouTube companions',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'sandercokart.com',
-    description: 'Guides, reviews, tips, and code-focused articles for developers and tech enthusiasts.',
+    title: 'sandercokart.com — articles linked to YouTube',
+    description: SITE_DESCRIPTION,
     images: [DEFAULT_SOCIAL_IMAGE],
   },
   robots: {
