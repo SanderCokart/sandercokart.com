@@ -5,10 +5,11 @@ import { cn } from '@repo/ui/lib/utils';
 import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
 
+import { Suspense } from 'react';
 import localFont from 'next/font/local';
 
+import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
-import { Suspense, type ReactNode } from 'react';
 
 import { env } from '@/env';
 import { GlobalProviders } from '@/providers/global-providers';
@@ -22,6 +23,8 @@ const LetsGoDigital = localFont({
   style: 'normal',
   preload: true,
 });
+
+const DEFAULT_SOCIAL_IMAGE = '/icon.png';
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.SITE_URL),
@@ -39,14 +42,19 @@ export const metadata: Metadata = {
     url: env.SITE_URL,
     siteName: 'sandercokart.com',
     title: 'sandercokart.com',
-    description:
-      'Guides, reviews, tips, and code-focused articles for developers and tech enthusiasts.',
+    description: 'Guides, reviews, tips, and code-focused articles for developers and tech enthusiasts.',
+    images: [
+      {
+        url: DEFAULT_SOCIAL_IMAGE,
+        alt: 'sandercokart.com',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'sandercokart.com',
-    description:
-      'Guides, reviews, tips, and code-focused articles for developers and tech enthusiasts.',
+    description: 'Guides, reviews, tips, and code-focused articles for developers and tech enthusiasts.',
+    images: [DEFAULT_SOCIAL_IMAGE],
   },
   robots: {
     index: true,
