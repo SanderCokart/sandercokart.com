@@ -1,0 +1,16 @@
+#/-------------------[DOTENV_PUBLIC_KEY]--------------------/
+#/            public-key encryption for .env files          /
+#/       [how it works](https://dotenvx.com/encryption)     /
+#/----------------------------------------------------------/
+DOTENV_PUBLIC_KEY_LOCAL="032436aa586891a87ad720e7402c30332a0b71b253e78a39b405c69422e5be11d0"
+
+# REQUIRED
+NEXT_PUBLIC_ENV=encrypted:BERKGgIWS1Jn0eGGsOXxnWl9vKP5KK5CJizxkwwM1Sh9IYZlgUUremOl88I5Lz6JljOoUp6C9nVv6OOiXxwwWfv5/pjyAcbuz5ph6Oi/ugSM1qajoZ51RztXwZMnvCWNfhcIwp9K7VczfRvz
+
+# OPTIONAL
+NEXT_PUBLIC_SENTRY_DSN=encrypted:BPergbAuPaaKpNFNGo3B8ew5bK+fc97oBdT+Wa8QPsmuaiHMBaUIgCJRVA688i746JOWH4/h5RFertItN8fV7jJQOnc79RKdie+aAPngl8J7x8+GJp4hweKfTufa5HUMeeEL0tmCm6t4v7X25Js8E4yTVA8nP8WPba4kr0DlCEAZ/StfwTFkr+v3TqyfXoG73ARQNuv7sv6j8WQHGtyUgswW1FmE8pf76UvnRB4KwJ8FRxRVmVxzvEljma5EnXrv
+NEXT_PUBLIC_SENTRY_ENABLED=encrypted:BOh2ca9MJNGit9xWZa8DYOaHAV7u4fpeM01968011pDfvFDkYDklLI3vnU3SOzt0AWn0/38smvCkzCQUJvX8sTWUzfRKen5TtXsXh6lSgWVNURVyHTLcQ4TcEVDAooFGTFIvscJa
+SENTRY_AUTH_TOKEN="encrypted:BKtNFZVMT/clRI5wzJI2VSQdwIsoKkBi1iX30qSfz+wxjTmaa8ipOHs0qMpUkRPxqbTBZMTxKpFmZQ4zvseXwdhWN/6YT1Mp7uTsRtJz443LTQHVP7mC+GD8a4H/PaAdjcdyIBuxcgXwPwuow/lGG6kqKGREmN+1WfTQnMFLyHT4OzD7A3ZEPP1p/afmyv13S6znLoID6QuPBXPl36ymiMQdiTRDqolH0snHJlOhuXUe0LwKecfuiYmo5NCoRgdGpHyWhiW3U28o4kRSnibg0Kq7VvIJDHUsytqGqvUPPX69YgTRjlD8wPfjvdnSAlJp6pYEi1YZqudypUo5bi4tyinpW+TTvYhM1dFZUGs+6Rn2olCmNn/KS3wLz1/A9yXuJLW1t3VHJVV/q6eW"
+TURBO_TEAM=encrypted:BGYge+l/CBmjK3yD+doiJuZfZoWayYEiT7ISxI2bs1sWuCygfeLqj/rLhrElAm372dW9Bu3eLRq4zthF1kpt56fhpat6ftiZkOopKnLZUs7kmXc6ZopVHSGGlUEG30Qo4cz1/UoF/gC3I29qiGs=
+TURBO_TOKEN="encrypted:BEo7SEhmRvBv0YheouhPMtvJ2ZQ//z4vIYLFWgffecE/AhsEmEjI5YK0ECgK0Mixqqv/heNxvUiwdW7nkh50VhCWehbP3DWiq6HvPWsdVU7xbJ9TLE6tf/BHBh6CDS4PLsCDZMM8RpaSyuBVF3ISHhpV5kvqPajeRQ=="
+SITE_URL="encrypted:BBhtjEnfCrViED1XQCwexg3pSaSCgiw3qWrWwVazHTkV+YmX9p6s1UL88p/emtJ1BTcdxHplOOuCpRwz9L8NKUa508+KIYmI96iZf1s4je3+1s4NQ2q84cnA2r0U1dMr8qddbgyHFVifB82ReTZYAR9krXUpFw=="
