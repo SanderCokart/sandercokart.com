@@ -1,7 +1,5 @@
 import { useTranslations } from 'next-intl';
 
-import { useMemo } from 'react';
-
 import { GenericTestimonialsSection } from '@/src/components/generic-testimonials-section';
 import { Line } from '@/src/components/line';
 

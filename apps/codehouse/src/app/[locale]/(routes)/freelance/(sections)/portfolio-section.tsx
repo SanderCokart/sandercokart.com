@@ -14,7 +14,7 @@ import Image from 'next/image';
 import NaWijzerAdmin from '@/public/static/images/portfolio/nawijzer-admin.png';
 import NaWijzerQuestionnaire from '@/public/static/images/portfolio/nawijzer-questionnaire.png';
 
-interface PortfolioSectionProps extends ComponentProps<'section'> {}
+type PortfolioSectionProps = ComponentProps<'section'>;
 
 export const PortfolioSection: FC<PortfolioSectionProps> = async ({ className, ...props }) => {
   const t = await getTranslations('PortfolioSection');

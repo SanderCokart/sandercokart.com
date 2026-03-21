@@ -14,8 +14,6 @@ import { useTranslations } from 'next-intl';
 import { useMemo } from 'react';
 import Image from 'next/image';
 
-import type { ReactNode } from 'react';
-
 import LogoINV from '@/public/static/images/logo/Logo-INV.png';
 import Logo from '@/public/static/images/logo/Logo.png';
 
@@ -138,7 +136,7 @@ export function ConsumersHeroSection() {
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4 xl:gap-8">
           {/* First 4 features with staggerDirection: 1 */}
           <MotionUl className="contents" variants={container} initial="hidden" animate="show">
-            {service_features.slice(0, 4).map((feature, idx) => (
+            {service_features.slice(0, 4).map(feature => (
               <MotionLi key={`first-${feature.label}`} variants={item}>
                 <ServiceFeature className={cn('h-full w-full', 'border-primary')} feature={feature} />
               </MotionLi>
@@ -146,7 +144,7 @@ export function ConsumersHeroSection() {
           </MotionUl>
           {/* Last 4 features with staggerDirection: -1 */}
           <MotionUl className="contents" variants={reverseContainer} initial="hidden" animate="show">
-            {service_features.slice(-4).map((feature, idx) => (
+            {service_features.slice(-4).map(feature => (
               <MotionLi key={`last-${feature.label}`} variants={item}>
                 <ServiceFeature className={cn('h-full w-full', 'border-primary')} feature={feature} />
               </MotionLi>

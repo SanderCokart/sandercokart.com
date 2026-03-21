@@ -4,8 +4,8 @@ import rehypeMdxCodeProps from 'rehype-mdx-code-props';
 import remarkGfm from 'remark-gfm';
 
 import type { Page } from '@/types/common';
-import type { EvaluateOptions } from 'next-mdx-remote-client/rsc';
 import type { Metadata } from 'next';
+import type { EvaluateOptions } from 'next-mdx-remote-client/rsc';
 import type { RehypeMdxCodePropsOptions } from 'rehype-mdx-code-props';
 
 import components from '@/app/articles/[slug]/components';

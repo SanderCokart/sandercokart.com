@@ -1,8 +1,8 @@
 'use client';
 
 import { cn } from '@repo/ui/lib/utils';
-import { AnimatePresence, motion } from 'motion/react';
 import { LucideCheckCircle2, LucideLoaderCircle } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 
 import { useEffect, useState } from 'react';
