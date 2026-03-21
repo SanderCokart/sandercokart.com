@@ -21,16 +21,20 @@ export default async function LandingPage() {
     return a.localeCompare(b);
   });
 
+  const carousels = await Promise.all(
+    sortedArticleTypes.map(async articleType => {
+      const titleCase = articleType.charAt(0).toUpperCase() + articleType.slice(1);
+      const articles = await getArticlesByType(articleType);
+      return <CarouselSection key={articleType} title={titleCase} articles={articles} />;
+    }),
+  );
+
   return (
     <main className="flex grow flex-col px-4 py-6 md:px-8">
       <div className="flex justify-center">
         <BlogViewSwitch />
       </div>
-      {sortedArticleTypes.map(async articleType => {
-        const titleCase = articleType.charAt(0).toUpperCase() + articleType.slice(1);
-        const articles = await getArticlesByType(articleType);
-        return <CarouselSection key={articleType} title={titleCase} articles={articles} />;
-      })}
+      {carousels}
     </main>
   );
 }

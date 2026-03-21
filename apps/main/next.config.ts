@@ -7,6 +7,9 @@ import { env } from '@/env';
 let finalConfig: NextConfig;
 
 const nextConfig: NextConfig = {
+  // Enables Partial Prerendering (PPR) and Cache Components; replaces deprecated experimental.ppr.
+  // @see https://nextjs.org/docs/app/api-reference/config/next-config-js/cacheComponents
+  cacheComponents: true,
   ...(env.NEXT_OUTPUT && { output: env.NEXT_OUTPUT }),
   images: {
     remotePatterns: [

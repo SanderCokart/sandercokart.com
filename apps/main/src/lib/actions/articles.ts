@@ -4,6 +4,8 @@ import path from 'path';
 import fg from 'fast-glob';
 import frontMatter from 'front-matter';
 
+import { cacheLife } from 'next/cache';
+
 import type { ArticleAttributes, ArticleModel } from '@/types/model-types';
 
 import { env } from '@/env';
@@ -19,6 +21,9 @@ const getBannerPath = async (slug: string) => {
 };
 
 const getArticlesByType = async (type: string) => {
+  'use cache';
+  cacheLife('max');
+
   const articlePaths = await fg(`articles/${type}/*.mdx`);
 
   /**
@@ -63,12 +68,18 @@ const getArticlesByType = async (type: string) => {
  * Gets all the folder names from the articles folder and returns them as an array of strings
  */
 const getArticleTypes = async () => {
+  'use cache';
+  cacheLife('max');
+
   const articleTypePaths = await fg(`articles/*`, { onlyDirectories: true });
 
   return articleTypePaths.map(articleTypePath => path.basename(articleTypePath));
 };
 
 const getArticleBySlug = async ({ slug }: { slug: string }): Promise<string> => {
+  'use cache';
+  cacheLife('max');
+
   const paths = (await fg(`articles/**/${slug}.mdx`)) as [string];
 
   if (!paths.length) {
@@ -82,6 +93,9 @@ const getArticleBySlug = async ({ slug }: { slug: string }): Promise<string> => 
 };
 
 const getAllArticleSlugs = async (): Promise<string[]> => {
+  'use cache';
+  cacheLife('max');
+
   const paths = await fg(`articles/**/*.mdx`);
 
   // In development, return all slugs; in production, only published articles
@@ -110,6 +124,9 @@ type ArticleSeoModel = {
 };
 
 const getArticleSeoBySlug = async (slug: string): Promise<ArticleSeoModel | null> => {
+  'use cache';
+  cacheLife('max');
+
   const paths = await fg(`articles/**/${slug}.mdx`);
 
   if (!paths.length) {
@@ -135,6 +152,9 @@ const getArticleSeoBySlug = async (slug: string): Promise<ArticleSeoModel | null
 };
 
 const getAllArticleSeoData = async (): Promise<ArticleSeoModel[]> => {
+  'use cache';
+  cacheLife('max');
+
   const paths = await fg(`articles/**/*.mdx`);
 
   const records = await Promise.all(

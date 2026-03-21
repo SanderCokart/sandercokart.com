@@ -8,7 +8,7 @@ import { GeistSans } from 'geist/font/sans';
 import localFont from 'next/font/local';
 
 import type { Metadata } from 'next';
-import type { ReactNode } from 'react';
+import { Suspense, type ReactNode } from 'react';
 
 import { env } from '@/env';
 import { GlobalProviders } from '@/providers/global-providers';
@@ -54,11 +54,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html suppressHydrationWarning className="scroll-smooth" lang="en">
       <head>
-        <EnvScript />
+        <Suspense fallback={null}>
+          <EnvScript />
+        </Suspense>
         <script async crossOrigin="anonymous" src="https://tweakcn.com/live-preview.min.js" />
       </head>
       <body
