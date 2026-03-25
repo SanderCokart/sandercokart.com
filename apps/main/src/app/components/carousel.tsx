@@ -42,7 +42,7 @@ const SectionHeader: FC<{ title: string }> = ({ title }) => (
     <h2
       className={cn(
         'border-accent border-l-4 pl-3',
-        'font-digital text-foreground font-bold uppercase tracking-wide',
+        'font-digital text-foreground font-bold tracking-wide uppercase',
         'text-3xl md:text-4xl',
       )}>
       {title}
