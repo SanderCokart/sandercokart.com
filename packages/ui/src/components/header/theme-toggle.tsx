@@ -24,18 +24,18 @@ const sunIconVariants = {
 const iconTransition = { duration: 0.3 };
 
 export function ThemeToggle() {
-  const { setTheme, theme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
-  };
+  const isDark = resolvedTheme === 'dark';
 
-  const nextThemeLabel = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
+  const toggleTheme = () => {
+    setTheme(isDark ? 'light' : 'dark');
+  };
 
   // Prevents flash of unstyled content
   if (!mounted) {
@@ -58,12 +58,12 @@ export function ThemeToggle() {
         suppressHydrationWarning
         role="switch"
         aria-label="Dark mode"
-        aria-checked={theme === 'dark'}
-        title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}>
+        aria-checked={isDark}
+        title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}>
         <AnimatePresence mode="wait" initial={false}>
-          {theme === 'dark' ? (
+          {isDark ? (
             <MotionMoonIcon
-              key={`theme-${theme}`}
+              key={`resolved-${resolvedTheme}`}
               variants={moonIconVariants}
               initial="initial"
               animate="animate"
@@ -76,7 +76,7 @@ export function ThemeToggle() {
             />
           ) : (
             <MotionSunIcon
-              key={`theme-${theme}`}
+              key={`resolved-${resolvedTheme}`}
               variants={sunIconVariants}
               initial="initial"
               animate="animate"
