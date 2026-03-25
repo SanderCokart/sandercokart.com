@@ -1,6 +1,5 @@
 'use client';
 
-import { Skeleton } from '@repo/ui/components/shadcn/skeleton';
 import { ToggleGroup, ToggleGroupItem } from '@repo/ui/components/shadcn/toggle-group';
 import { NewspaperIcon, VideoIcon } from 'lucide-react';
 
@@ -11,7 +10,12 @@ import type { FC, ReactNode } from 'react';
 export type BlogView = 'video' | 'blog';
 
 export const BlogViewSwitch: FC = () => {
-  const { view, setView, isInitializing } = useBlogView();
+  const { view, setView } = useBlogView();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleViewChange = (value: string[]) => {
     if (value.length > 0 && value[0] !== view) {
@@ -19,12 +23,24 @@ export const BlogViewSwitch: FC = () => {
     }
   };
 
-  if (isInitializing) {
+  if (!mounted) {
     return (
-      <>
-        <span className="sr-only">Loading view options</span>
-        <Skeleton aria-hidden="true" className="w-18 h-9" />
-      </>
+      <ToggleGroup aria-label="Post view" size="lg" variant="outline" value={[]}>
+        <ToggleGroupItem
+          title="Blog"
+          value="blog"
+          aria-label="Blog"
+          className="[html[data-blog-view='blog']_&]:bg-accent [html[data-blog-view='blog']_&]:text-accent-foreground">
+          <NewspaperIcon aria-hidden="true" className="size-4" />
+        </ToggleGroupItem>
+        <ToggleGroupItem
+          title="Video"
+          value="video"
+          aria-label="Video"
+          className="[html[data-blog-view='video']_&]:bg-accent [html[data-blog-view='video']_&]:text-accent-foreground">
+          <VideoIcon aria-hidden="true" className="size-4" />
+        </ToggleGroupItem>
+      </ToggleGroup>
     );
   }
 
@@ -43,7 +59,6 @@ export const BlogViewSwitch: FC = () => {
 type BlogViewContextType = {
   view: BlogView;
   setView: (view: BlogView) => void;
-  isInitializing: boolean;
 };
 
 const BlogViewContext = createContext<BlogViewContextType | null>(null);
@@ -51,25 +66,23 @@ const BlogViewContext = createContext<BlogViewContextType | null>(null);
 const BLOG_VIEW_COOKIE = 'blog-view-preference';
 export const BlogViewProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [view, setView] = useState<BlogView>('blog');
-  const [isInitializing, setIsInitializing] = useState(true);
 
-  const handleViewChange = (view: BlogView) => {
-    setView(view);
-    localStorage.setItem(BLOG_VIEW_COOKIE, view);
+  const handleViewChange = (newView: BlogView) => {
+    setView(newView);
+    localStorage.setItem(BLOG_VIEW_COOKIE, newView);
+    document.documentElement.setAttribute('data-blog-view', newView);
   };
 
   useEffect(() => {
     const preference = localStorage.getItem(BLOG_VIEW_COOKIE) || 'blog';
-    if (preference === 'video') setView('video');
-
-    setTimeout(() => setIsInitializing(false), 1000);
+    if (preference === 'video') {
+      setView('video');
+    }
+    // Ensure the data attribute is set correctly on mount just in case
+    document.documentElement.setAttribute('data-blog-view', preference);
   }, []);
 
-  return (
-    <BlogViewContext.Provider value={{ view, setView: handleViewChange, isInitializing }}>
-      {children}
-    </BlogViewContext.Provider>
-  );
+  return <BlogViewContext.Provider value={{ view, setView: handleViewChange }}>{children}</BlogViewContext.Provider>;
 };
 
 export const useBlogView = () => {

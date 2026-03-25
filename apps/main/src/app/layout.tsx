@@ -37,16 +37,7 @@ export const metadata: Metadata = {
     template: '%s | sandercokart.com',
   },
   description: SITE_DESCRIPTION,
-  keywords: [
-    'articles',
-    'blog',
-    'developers',
-    'guides',
-    'reviews',
-    'code',
-    'YouTube',
-    'sandercokart',
-  ],
+  keywords: ['articles', 'blog', 'developers', 'guides', 'reviews', 'code', 'YouTube', 'sandercokart'],
   authors: [{ name: 'Sander Cokart', url: YOUTUBE_CHANNEL_URL }],
   creator: 'Sander Cokart',
   alternates: {
@@ -81,6 +72,16 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html suppressHydrationWarning className="scroll-smooth" lang="en">
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                var view = localStorage.getItem('blog-view-preference') || 'blog';
+                document.documentElement.setAttribute('data-blog-view', view);
+              } catch (e) {}
+            `,
+          }}
+        />
         <Suspense fallback={null}>
           <EnvScript />
         </Suspense>

@@ -2,7 +2,6 @@
 
 import { YouTubeEmbed } from '@next/third-parties/google';
 import { cn } from '@repo/ui/lib/utils';
-import { motion } from 'motion/react';
 
 import * as React from 'react';
 import Image from 'next/image';
@@ -56,6 +55,7 @@ export const BlogCard: React.FC<BlogCardProps & React.ComponentProps<'div'>> = (
         aria-label={articleLinkAriaLabel({ article, timeAgo, publishedDate })}>
         <figure className="relative h-full w-full">
           <Image
+            priority
             fill
             alt={article.attributes.title}
             className="object-cover transition-transform duration-200"
@@ -81,7 +81,7 @@ export const VideoCard: React.FC<BlogCardProps & React.ComponentProps<'div'>> = 
   return (
     <div
       className={cn(
-        'backface-hidden [&_button]:user-select-none absolute inset-0 [&_button:focus-visible]:outline-none',
+        '[&_button]:user-select-none absolute inset-0 backface-hidden [&_button:focus-visible]:outline-none',
         className,
       )}
       {...props}
@@ -93,30 +93,26 @@ export const VideoCard: React.FC<BlogCardProps & React.ComponentProps<'div'>> = 
   );
 };
 
-export const FlippableCard: React.FC<BlogCardProps & React.ComponentProps<typeof motion.div>> = ({
+export const FlippableCard: React.FC<BlogCardProps & React.ComponentProps<'div'>> = ({
   article,
   timeAgo,
   publishedDate,
   className,
-  ...motionDivProps
+  ...divProps
 }) => {
-  const { view, isInitializing } = useBlogView();
   const cardProps: BlogCardProps = { article, timeAgo, publishedDate };
   const cardFaceClipClassName = 'overflow-hidden rounded-sm';
 
   return (
-    <motion.div
-      className={cn('preserve-3d relative h-full w-full', className)}
-      transition={{ duration: 0.3, delay: isInitializing ? 1 : 0 }}
-      initial={{ rotateY: view === 'blog' ? 0 : 180 }}
-      animate={{ rotateY: view === 'blog' ? 0 : 180 }}
+    <div
+      className={cn('preserve-3d flippable-card relative h-full w-full', className)}
       style={{ transformStyle: 'preserve-3d' }}
-      {...motionDivProps}>
-      <div className={cn('backface-hidden absolute inset-0', cardFaceClipClassName)}>
+      {...divProps}>
+      <div className={cn('absolute inset-0 backface-hidden', cardFaceClipClassName)}>
         <BlogCard {...cardProps} />
       </div>
       <VideoCard {...cardProps} className={cardFaceClipClassName} />
-    </motion.div>
+    </div>
   );
 };
 

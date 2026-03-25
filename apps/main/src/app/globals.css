@@ -1,5 +1,14 @@
 @import '@repo/ui/themes/sandercokart.com.css';
 
+.flippable-card {
+  transform: rotateY(0deg);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html[data-blog-view='video'] .flippable-card {
+  transform: rotateY(180deg);
+}
+
 :root {
   --shiki-foreground: #24292e;
   --shiki-background: #ffffff;
