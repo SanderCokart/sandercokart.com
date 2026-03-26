@@ -10,10 +10,14 @@ import type { ArticleAttributes, ArticleModel } from '@/types/model-types';
 
 import { env } from '@/env';
 
-const getBannerPath = async (slug: string) => {
+const getBannerPath = async (slug: string): Promise<string | null> => {
   const files = await fs.promises.readdir('public/banners');
 
-  const pathname = files.find(file => file.startsWith(slug)) as string;
+  const pathname = files.find(file => file.startsWith(slug));
+
+  if (!pathname) {
+    return null;
+  }
 
   const filePath = `/banners/${pathname}`;
 
@@ -83,7 +87,7 @@ const getArticleBySlug = async ({ slug }: { slug: string }): Promise<string> => 
   const paths = (await fg(`articles/**/${slug}.mdx`)) as [string];
 
   if (!paths.length) {
-    throw new Error('Article not found');
+    return '';
   }
 
   const firstResult = paths[0];

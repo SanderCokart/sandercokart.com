@@ -48,7 +48,18 @@ const Pre = ({ children, ...props }: React.ComponentProps<'pre'>) => {
 };
 
 // Links in articles open in a new tab for better UX when leaving the site
-const Anchor = (props: React.ComponentProps<'a'>) => <a {...props} target="_blank" rel="noopener noreferrer" />;
+const Anchor = ({ href, ...props }: React.ComponentProps<'a'>) => {
+  const isExternal = typeof href === 'string' && /^https?:\/\//i.test(href);
+
+  return (
+    <a
+      {...props}
+      href={href}
+      rel={isExternal ? 'noopener noreferrer' : props.rel}
+      target={isExternal ? '_blank' : props.target}
+    />
+  );
+};
 
 const Blockquote = ({ className, ...props }: React.ComponentProps<'blockquote'>) => (
   <blockquote className={cn('[&>p]:pr-4', className)} {...props} />

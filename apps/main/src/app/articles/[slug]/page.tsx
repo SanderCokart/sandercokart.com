@@ -14,6 +14,7 @@ import { getArticleBySlug, getArticleSeoBySlug } from '@/lib/actions/articles';
 
 import ArticleMeta from './components/article-meta';
 import BackToTopButton from './components/back-to-top-button';
+import { notFound } from 'next/navigation';
 
 type PARAMS = { slug: string };
 type SEARCH_PARAMS = null;
@@ -98,6 +99,10 @@ export async function generateMetadata({ params }: Page<PARAMS, SEARCH_PARAMS>):
 export default async function ArticlePage({ params }: Page<PARAMS, SEARCH_PARAMS>) {
   const resolvedParams = await params;
   const source = await getArticleBySlug(resolvedParams);
+
+  if (!source) {
+    notFound();
+  }
 
   const { content, frontmatter, error } = await evaluate<ArticleMetaType>({
     source,
