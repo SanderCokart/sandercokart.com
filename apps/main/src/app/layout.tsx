@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     type: 'website',
     url: env.SITE_URL,
     siteName: 'sandercokart.com',
-    title: 'sandercokart.com — articles linked to YouTube',
+    title: 'sandercokart.com',
     description: SITE_DESCRIPTION,
     images: [
       {
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'sandercokart.com — articles linked to YouTube',
+    title: 'sandercokart.com',
     description: SITE_DESCRIPTION,
     images: [DEFAULT_SOCIAL_IMAGE],
   },
