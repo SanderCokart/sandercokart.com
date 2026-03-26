@@ -29,7 +29,15 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
       .email(tZod('errors.invalid_string.email', { name: tForm('email') }))
       .min(1, tZod('errors.required', { name: tForm('email') })),
     phone: z.string().optional(),
-    website: z.union([z.string().length(0), z.httpUrl()]),
+    website: z
+      .string()
+      .transform(value => value.trim())
+      .pipe(
+        z.union([
+          z.literal(''),
+          z.httpUrl(tZod('errors.invalid_string.url', { name: tForm('website') })),
+        ]),
+      ),
     message: z.string().min(1, tZod('errors.required', { name: tForm('projectDescription') })),
   });
 

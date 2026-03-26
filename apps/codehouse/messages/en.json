@@ -196,6 +196,7 @@
     "haswebsite": "Do you have an existing website?",
     "name": "Name",
     "phone": "Phone number",
+    "website": "Existing website",
     "projectDescription": "Project description",
     "projectName": "Project name",
     "targetAudience": "Target audience",
