@@ -20,16 +20,8 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  serverExternalPackages: [
-    'import-in-the-middle',
-    'require-in-the-middle',
-  ],
-  transpilePackages: [
-    '@repo/runtime-env',
-    '@repo/ui',
-    '@t3-oss/env-core',
-    '@t3-oss/env-nextjs',
-  ],
+  serverExternalPackages: ['import-in-the-middle', 'require-in-the-middle'],
+  transpilePackages: ['@repo/runtime-env', '@repo/ui', '@t3-oss/env-core', '@t3-oss/env-nextjs'],
 };
 
 const sentryBuildOptions = {
@@ -67,6 +59,9 @@ const sentryBuildOptions = {
   // https://docs.sentry.io/product/crons/
   // https://vercel.com/docs/cron-jobs
   automaticVercelMonitors: true,
+  sourcemaps: {
+    disable: env.NEXT_PUBLIC_ENV === 'development',
+  },
 };
 
 finalConfig = nextConfig;

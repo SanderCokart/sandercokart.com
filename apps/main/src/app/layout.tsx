@@ -7,6 +7,7 @@ import { GeistSans } from 'geist/font/sans';
 
 import { Suspense } from 'react';
 import localFont from 'next/font/local';
+import Script from 'next/script';
 
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
@@ -68,24 +69,24 @@ export const metadata: Metadata = {
   },
 };
 
+const shouldLoadTweakCn = env.NEXT_PUBLIC_ENV !== 'production';
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html suppressHydrationWarning className="scroll-smooth" lang="en">
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                var view = localStorage.getItem('blog-view-preference') || 'blog';
-                document.documentElement.setAttribute('data-blog-view', view);
-              } catch (e) {}
-            `,
-          }}
-        />
+        <Script id="blog-view-preference" strategy="beforeInteractive">{`
+          try {
+            var view = localStorage.getItem('blog-view-preference') || 'blog';
+            document.documentElement.setAttribute('data-blog-view', view);
+          } catch (e) {}
+        `}</Script>
         <Suspense fallback={null}>
           <EnvScript />
         </Suspense>
-        <script async crossOrigin="anonymous" src="https://tweakcn.com/live-preview.min.js" />
+        {shouldLoadTweakCn ? (
+          <Script async crossOrigin="anonymous" src="https://tweakcn.com/live-preview.min.js" />
+        ) : null}
       </head>
       <body
         className={cn(
