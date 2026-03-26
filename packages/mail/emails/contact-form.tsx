@@ -19,7 +19,7 @@ interface ContactFormEmailProps {
   email: string;
   phone?: string;
   website?: string;
-  message?: string;
+  message: string;
 }
 
 export const ContactFormEmail = ({ name, email, phone, website, message }: ContactFormEmailProps) => {

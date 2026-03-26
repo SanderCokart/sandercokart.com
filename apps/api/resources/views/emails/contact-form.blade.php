@@ -47,6 +47,7 @@
                                                 'email' => $data['email'],
                                                 'phone' => $data['phone'],
                                                 'website' => $data['website'],
+                                                'message' => $data['message'],
                                             ],
                                             JSON_PRETTY_PRINT,
                                         ) }}</pre>
@@ -61,7 +62,7 @@
                                 <td>
                                     <pre
                                         style='border-color:rgb(76,29,149);margin:0px;white-space:pre-wrap;border-radius:0.5rem;border-style:solid;padding:0.5rem;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-size:0.875rem;line-height:1.625'>
-Hello, I am interested in a new website for my business.  Please contact me to discuss further.</pre>
+{{ $data['message'] }}</pre>
                                 </td>
                             </tr>
                         </tbody>
@@ -77,7 +78,7 @@ Hello, I am interested in a new website for my business.  Please contact me to d
                                             style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:12px">REPLY
                                             TO
                                             {{ $data['name'] }}
-                                            Doe</span><span><!--[if mso]><i style="mso-font-width:400%" hidden>&#8202;&#8202;&#8202;&#8202;&#8203;</i><![endif]--></span></a>
+                                        </span><span><!--[if mso]><i style="mso-font-width:400%" hidden>&#8202;&#8202;&#8202;&#8202;&#8203;</i><![endif]--></span></a>
                                 </td>
                             </tr>
                         </tbody>

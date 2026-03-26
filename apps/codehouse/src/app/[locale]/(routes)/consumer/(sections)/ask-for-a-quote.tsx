@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@repo/ui/components/shadcn/button';
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from '@repo/ui/components/shadcn/field';
 import { Input } from '@repo/ui/components/shadcn/input';
+import { Textarea } from '@repo/ui/components/shadcn/textarea';
 import { cn } from '@repo/ui/lib/utils';
 import { useTranslations } from 'next-intl';
 import { Controller, useForm } from 'react-hook-form';
@@ -25,11 +26,11 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
   const formSchema = z.object({
     name: z.string().min(1, tZod('errors.required', { name: tForm('name') })),
     email: z
-      .string()
-      .min(1, tZod('errors.required', { name: tForm('email') }))
-      .email(tZod('errors.invalid_string.email', { name: tForm('email') })),
+      .email(tZod('errors.invalid_string.email', { name: tForm('email') }))
+      .min(1, tZod('errors.required', { name: tForm('email') })),
     phone: z.string().optional(),
     website: z.union([z.string().length(0), z.httpUrl()]),
+    message: z.string().min(1, tZod('errors.required', { name: tForm('projectDescription') })),
   });
 
   type AskForAQuoteFormValues = z.infer<typeof formSchema>;
@@ -41,6 +42,7 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
       email: '',
       phone: '',
       website: '',
+      message: '',
     },
   });
 
@@ -55,7 +57,7 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
   });
 
   return (
-    <section className={cn('container relative max-w-screen-md py-12', className)} {...props}>
+    <section className={cn('relative container max-w-3xl py-12', className)} {...props}>
       <FormStatus form={form} />
       <h2 className="mb-4 text-center text-3xl font-bold uppercase sm:text-5xl">{t('title')}</h2>
       <p className="text-muted-foreground mb-8 text-center">{t('description')}</p>
@@ -65,7 +67,7 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
         onSubmit={handleSubmit}
         className="bg-card text-card-foreground border-primary mx-auto rounded-lg border p-6 shadow-sm">
         <h3 className="mb-4 text-center text-2xl font-bold">{t('form_title')}</h3>
-        <p className="text-muted-foreground mb-6 text-balance text-center">{t('form_description')}</p>
+        <p className="text-muted-foreground mb-6 text-center text-balance">{t('form_description')}</p>
 
         <FieldGroup className="flex flex-col gap-8">
           <Controller
@@ -149,6 +151,27 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
                   <FieldError errors={[fieldState.error]} />
                 ) : (
                   <FieldDescription>{t('questions_website_description')}</FieldDescription>
+                )}
+              </Field>
+            )}
+          />
+
+          <Controller
+            name="message"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor={`${formId}-message`}>{t('questions_projectDescription_label')}</FieldLabel>
+                <Textarea
+                  {...field}
+                  id={`${formId}-message`}
+                  aria-invalid={fieldState.invalid}
+                  placeholder={t('questions_projectDescription_placeholder')}
+                />
+                {fieldState.invalid ? (
+                  <FieldError errors={[fieldState.error]} />
+                ) : (
+                  <FieldDescription>{t('questions_projectDescription_description')}</FieldDescription>
                 )}
               </Field>
             )}
