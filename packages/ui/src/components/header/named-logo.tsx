@@ -1,5 +1,3 @@
-import type { ReactNode } from 'react';
-
 interface NamedLogoProps {
   name: string;
   slogan: string;

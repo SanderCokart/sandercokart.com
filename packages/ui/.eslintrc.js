@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
   root: true,
