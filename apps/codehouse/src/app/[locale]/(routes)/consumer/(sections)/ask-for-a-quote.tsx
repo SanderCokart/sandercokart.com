@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { getRateLimitRetryMinutes, parseRateLimitHint } from '@repo/toolbox/rate-limit';
 import { Button } from '@repo/ui/components/shadcn/button';
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from '@repo/ui/components/shadcn/field';
 import { Input } from '@repo/ui/components/shadcn/input';
@@ -13,26 +14,13 @@ import { z } from 'zod';
 import { useEffect, useState } from 'react';
 
 import type { ComponentProps, FC } from 'react';
+import type { FormRootErrorKind, RateLimitHint } from './components/form-status';
 
 import { env } from '@/src/env';
 
-import { FormStatus, type FormRootErrorKind, type RateLimitHint } from './components/form-status';
+import { FormStatus } from './components/form-status';
 
 const formId = 'ask-for-a-quote';
-
-function parseRateLimitFromHeaders(headers: Headers): RateLimitHint | null {
-  const limit = headers.get('X-RateLimit-Limit');
-  const remaining = headers.get('X-RateLimit-Remaining');
-  if (limit === null || remaining === null) {
-    return null;
-  }
-  const limitN = Number(limit);
-  const remainingN = Number(remaining);
-  if (Number.isNaN(limitN) || Number.isNaN(remainingN)) {
-    return null;
-  }
-  return { limit: limitN, remaining: remainingN };
-}
 
 export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
   const t = useTranslations('AskForAQuote');
@@ -51,12 +39,7 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
     website: z
       .string()
       .transform(value => value.trim())
-      .pipe(
-        z.union([
-          z.literal(''),
-          z.httpUrl(tZod('errors.invalid_string.url', { name: tForm('website') })),
-        ]),
-      ),
+      .pipe(z.union([z.literal(''), z.httpUrl(tZod('errors.invalid_string.url', { name: tForm('website') }))])),
     message: z.string().min(1, tZod('errors.required', { name: tForm('projectDescription') })),
   });
 
@@ -91,7 +74,7 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
       credentials: 'include',
     });
 
-    const hint = parseRateLimitFromHeaders(response.headers);
+    const hint = parseRateLimitHint(response.headers);
     if (hint) {
       setRateLimitHint(hint);
     }
@@ -102,8 +85,7 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
 
     if (response.status === 429) {
       const retryAfter = response.headers.get('Retry-After');
-      const seconds = retryAfter ? Number.parseInt(retryAfter, 10) : 3600;
-      const minutes = Math.max(1, Math.ceil(seconds / 60));
+      const minutes = getRateLimitRetryMinutes(retryAfter);
       const limit = hint?.limit ?? 2;
       setRootErrorKind('rate_limit');
       form.setError('root', {

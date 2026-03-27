@@ -19,6 +19,7 @@
     "@hookform/resolvers": "^5.2.2",
     "@mantine/hooks": "^8.3.18",
     "@repo/runtime-env": "workspace:*",
+    "@repo/toolbox": "workspace:*",
     "@repo/ui": "workspace:*",
     "@sentry/nextjs": "^10.45.0",
     "@t3-oss/env-nextjs": "^0.13.11",
