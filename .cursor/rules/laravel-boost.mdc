@@ -1,6 +1,7 @@
 ---
 alwaysApply: true
 ---
+
 <laravel-boost-guidelines>
 === foundation rules ===
 
@@ -103,7 +104,7 @@ This project has domain-specific skills available. You MUST activate the relevan
 ## Constructors
 
 - Use PHP 8 constructor property promotion in `__construct()`.
-    - <code-snippet>public function __construct(public GitHub $github) { }</code-snippet>
+  - <code-snippet>public function \_\_construct(public GitHub $github) { }</code-snippet>
 - Do not allow empty `__construct()` methods with zero parameters unless the constructor is private.
 
 ## Type Declarations
@@ -177,6 +178,7 @@ protected function isAccessible(User $user, ?string $path = null): bool
 
 ## Testing
 
+- **How to run `apps/api` tests depends on `apps/api/.env`:** read the header comment at the top of that file (dotenvx source tag). If it indicates **`.envx.docker`**, the app expects Docker services (`DB_HOST=db`, etc.): run tests **inside the `api` container** from the monorepo root—e.g. `docker compose exec api php artisan test --compact` (add `--filter=name` as needed), or `docker compose exec api composer test` (that script runs `optimize:clear` before tests so stale caches do not hide new middleware/providers). Use `docker compose exec -T api …` when stdin is not a TTY. If the header indicates **`.envx.local`**, it is a host/local dev layout: run tests from `apps/api` with **`php artisan test`** (and `composer test`) **on the host**, matching that `.env`.
 - When creating models for tests, use the factories for the models. Check if the factory has custom states that can be used before manually setting up the model.
 - Faker: Use methods such as `$this->faker->word()` or `fake()->randomDigit()`. Follow existing conventions whether to use `$this->faker` or `fake()`.
 - When creating tests, make use of `php artisan make:test [options] {name}` to create a feature test, and pass `--unit` to create a unit test. Most tests should be feature tests.
@@ -214,7 +216,7 @@ protected function isAccessible(User $user, ?string $path = null): bool
 
 # Laravel Pint Code Formatter
 
-- You must run `vendor/bin/pint --dirty` before finalizing changes to ensure your code matches the project's expected style.
+- You must run Pint before finalizing PHP changes. For **`apps/api`**, use the same **Docker vs local** rule as **Testing**: if `apps/api/.env` is **`.envx.docker`**, run `docker compose exec api vendor/bin/pint --dirty` from the monorepo root; if **`.envx.local`**, run `vendor/bin/pint --dirty` from `apps/api`.
 - Do not run `vendor/bin/pint --test`, simply run `vendor/bin/pint` to fix any formatting issues.
 
 === pest/core rules ===
@@ -222,8 +224,8 @@ protected function isAccessible(User $user, ?string $path = null): bool
 ## Pest
 
 - This project uses Pest for testing. Create tests: `php artisan make:test --pest {name}`.
-- Run tests: `php artisan test --compact` or filter: `php artisan test --compact --filter=testName`.
+- Run tests as in **Testing** above: **Docker** (`.envx.docker` in `apps/api/.env`) → `docker compose exec api composer test` or `docker compose exec api php artisan test --compact --filter=testName`. **Local** (`.envx.local`) → from `apps/api`, `composer test` / `php artisan test --compact`.
 - Do NOT delete tests without approval.
 - CRITICAL: ALWAYS use `search-docs` tool for version-specific Pest documentation and updated code examples.
 - IMPORTANT: Activate `pest-testing` every time you're working with a Pest or testing-related task.
-</laravel-boost-guidelines>
+  </laravel-boost-guidelines>

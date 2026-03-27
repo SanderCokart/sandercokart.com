@@ -40,16 +40,22 @@ All tests must be written using Pest. Use `php artisan make:test --pest {name}`.
 <code-snippet name="Basic Pest Test Example" lang="php">
 
 it('is true', function () {
-    expect(true)->toBeTrue();
+expect(true)->toBeTrue();
 });
 
 </code-snippet>
 
 ### Running Tests
 
-- Run minimal tests with filter before finalizing: `php artisan test --compact --filter=testName`.
-- Run all tests: `php artisan test --compact`.
-- Run file: `php artisan test --compact tests/Feature/ExampleTest.php`.
+**Check `apps/api/.env` first:** the header comment states whether it was built from **`.envx.docker`** or **`.envx.local`** (dotenvx).
+
+- **`.envx.docker` (Docker-backed):** DB/Redis match the compose stack (e.g. `DB_HOST=db`). From the **monorepo root**, run tests **inside** the `api` service:
+  - All: `docker compose exec api composer test` (or `docker compose exec -T api composer test` without a TTY). The script runs `optimize:clear` first so tests do not use stale caches (routes/config/providers).
+  - Filter: `docker compose exec api php artisan test --compact --filter=testName`.
+  - One file: `docker compose exec api php artisan test --compact tests/Feature/ExampleTest.php`.
+- **`.envx.local` (local dev on the host):** from **`apps/api`**, run `composer test` or `php artisan test --compact` (same flags/filters as usual) so PHP uses the local `.env`.
+
+`pint` for PHP in `apps/api` should follow the same rule: run on the host for `.envx.local`, or `docker compose exec api vendor/bin/pint --dirty` for `.envx.docker`.
 
 ## Assertions
 
@@ -58,16 +64,16 @@ Use specific assertions (`assertSuccessful()`, `assertNotFound()`) instead of `a
 <code-snippet name="Pest Response Assertion" lang="php">
 
 it('returns all', function () {
-    $this->postJson('/api/docs', [])->assertSuccessful();
+$this->postJson('/api/docs', [])->assertSuccessful();
 });
 
 </code-snippet>
 
-| Use | Instead of |
-|-----|------------|
+| Use                  | Instead of          |
+| -------------------- | ------------------- |
 | `assertSuccessful()` | `assertStatus(200)` |
-| `assertNotFound()` | `assertStatus(404)` |
-| `assertForbidden()` | `assertStatus(403)` |
+| `assertNotFound()`   | `assertStatus(404)` |
+| `assertForbidden()`  | `assertStatus(403)` |
 
 ## Mocking
 
@@ -82,21 +88,21 @@ Use datasets for repetitive tests (validation rules, etc.):
 it('has emails', function (string $email) {
     expect($email)->not->toBeEmpty();
 })->with([
-    'james' => 'james@laravel.com',
-    'taylor' => 'taylor@laravel.com',
+'james' => 'james@laravel.com',
+'taylor' => 'taylor@laravel.com',
 ]);
 
 </code-snippet>
 
 ## Pest 4 Features
 
-| Feature | Purpose |
-|---------|---------|
-| Browser Testing | Full integration tests in real browsers |
-| Smoke Testing | Validate multiple pages quickly |
-| Visual Regression | Compare screenshots for visual changes |
-| Test Sharding | Parallel CI runs |
-| Architecture Testing | Enforce code conventions |
+| Feature              | Purpose                                 |
+| -------------------- | --------------------------------------- |
+| Browser Testing      | Full integration tests in real browsers |
+| Smoke Testing        | Validate multiple pages quickly         |
+| Visual Regression    | Compare screenshots for visual changes  |
+| Test Sharding        | Parallel CI runs                        |
+| Architecture Testing | Enforce code conventions                |
 
 ### Browser Test Example
 
@@ -114,7 +120,7 @@ Browser tests run in real browsers for full integration testing:
 <code-snippet name="Pest Browser Test Example" lang="php">
 
 it('may reset the password', function () {
-    Notification::fake();
+Notification::fake();
 
     $this->actingAs(User::factory()->create());
 
@@ -128,6 +134,7 @@ it('may reset the password', function () {
         ->assertSee('We have emailed your password reset link!');
 
     Notification::assertSent(ResetPassword::class);
+
 });
 
 </code-snippet>
@@ -159,9 +166,9 @@ Pest 4 includes architecture testing (from Pest 3):
 <code-snippet name="Architecture Test Example" lang="php">
 
 arch('controllers')
-    ->expect('App\Http\Controllers')
-    ->toExtendNothing()
-    ->toHaveSuffix('Controller');
+->expect('App\Http\Controllers')
+->toExtendNothing()
+->toHaveSuffix('Controller');
 
 </code-snippet>
 
