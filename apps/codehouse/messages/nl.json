@@ -203,6 +203,11 @@
     "timeline": "Gewenste tijdlijn"
   },
   "FormStatus": {
+    "rate_limit_title": "Aanvraaglimiet",
+    "rate_limited": "Je hebt het maximum van {limit} offerteaanvragen per uur vanuit deze browser bereikt. Je kunt over {minutes, plural, one {# minuut} other {# minuten}} opnieuw versturen.",
+    "rate_limit_remaining": "Resterende offerteaanvragen dit uur: {remaining} van {limit}.",
+    "submit_failed": "We konden de server niet bereiken om je bericht te verzenden. Controleer je internetverbinding en probeer opnieuw. Blijft het mislukken, mail ons via het adres in de footer.",
+    "submit_failed_title": "Bericht niet verzonden",
     "submitting": "Verzenden...",
     "submitted": "Verzonden"
   },

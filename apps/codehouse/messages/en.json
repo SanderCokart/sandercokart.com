@@ -203,6 +203,11 @@
     "timeline": "Desired timeline"
   },
   "FormStatus": {
+    "rate_limit_title": "Rate Limit",
+    "rate_limited": "You have reached the hourly limit of {limit} quote requests from this browser. You can submit again in {minutes, plural, one {# minute} other {# minutes}}.",
+    "rate_limit_remaining": "Quote requests left this hour: {remaining} of {limit}.",
+    "submit_failed": "We could not reach the server to send your message. Check your internet connection and try again. If it keeps failing, use the email in the site footer.",
+    "submit_failed_title": "Could not send message",
     "submitting": "Submitting...",
     "submitted": "Submitted"
   },

@@ -10,18 +10,37 @@ import { useTranslations } from 'next-intl';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { useEffect, useState } from 'react';
+
 import type { ComponentProps, FC } from 'react';
 
 import { env } from '@/src/env';
 
-import { FormStatus } from './components/form-status';
+import { FormStatus, type FormRootErrorKind, type RateLimitHint } from './components/form-status';
 
 const formId = 'ask-for-a-quote';
+
+function parseRateLimitFromHeaders(headers: Headers): RateLimitHint | null {
+  const limit = headers.get('X-RateLimit-Limit');
+  const remaining = headers.get('X-RateLimit-Remaining');
+  if (limit === null || remaining === null) {
+    return null;
+  }
+  const limitN = Number(limit);
+  const remainingN = Number(remaining);
+  if (Number.isNaN(limitN) || Number.isNaN(remainingN)) {
+    return null;
+  }
+  return { limit: limitN, remaining: remainingN };
+}
 
 export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
   const t = useTranslations('AskForAQuote');
   const tZod = useTranslations('zod');
   const tForm = useTranslations('form');
+  const tStatus = useTranslations('FormStatus');
+  const [rateLimitHint, setRateLimitHint] = useState<RateLimitHint | null>(null);
+  const [rootErrorKind, setRootErrorKind] = useState<FormRootErrorKind | null>(null);
 
   const formSchema = z.object({
     name: z.string().min(1, tZod('errors.required', { name: tForm('name') })),
@@ -54,19 +73,71 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
     },
   });
 
+  useEffect(() => {
+    if (!form.formState.errors.root) {
+      setRootErrorKind(null);
+    }
+  }, [form.formState.errors.root]);
+
   const handleSubmit = form.handleSubmit(async formData => {
+    form.clearErrors('root');
+    setRateLimitHint(null);
+    setRootErrorKind(null);
+
     const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/v1/contact`, {
       method: 'POST',
       body: JSON.stringify(formData),
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       credentials: 'include',
     });
-    if (!response.ok) throw new Error('Failed to submit form');
+
+    const hint = parseRateLimitFromHeaders(response.headers);
+    if (hint) {
+      setRateLimitHint(hint);
+    }
+
+    if (response.status === 204) {
+      return;
+    }
+
+    if (response.status === 429) {
+      const retryAfter = response.headers.get('Retry-After');
+      const seconds = retryAfter ? Number.parseInt(retryAfter, 10) : 3600;
+      const minutes = Math.max(1, Math.ceil(seconds / 60));
+      const limit = hint?.limit ?? 2;
+      setRootErrorKind('rate_limit');
+      form.setError('root', {
+        type: 'server',
+        message: tStatus('rate_limited', { limit, minutes }),
+      });
+      return;
+    }
+
+    if (response.status === 422) {
+      const body = (await response.json()) as { errors?: Record<string, string[]> };
+      const errors = body.errors ?? {};
+      for (const [key, messages] of Object.entries(errors)) {
+        const first = messages[0];
+        if (first !== undefined && key in form.getValues()) {
+          form.setError(key as keyof AskForAQuoteFormValues, {
+            type: 'server',
+            message: first,
+          });
+        }
+      }
+      return;
+    }
+
+    setRootErrorKind('generic');
+    form.setError('root', {
+      type: 'server',
+      message: tStatus('submit_failed'),
+    });
   });
 
   return (
     <section className={cn('relative container max-w-3xl py-12', className)} {...props}>
-      <FormStatus form={form} />
+      <FormStatus form={form} rateLimitHint={rateLimitHint} rootErrorKind={rootErrorKind} />
       <h2 className="mb-4 text-center text-3xl font-bold uppercase sm:text-5xl">{t('title')}</h2>
       <p className="text-muted-foreground mb-8 text-center">{t('description')}</p>
       <form
