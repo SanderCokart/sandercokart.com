@@ -1,21 +1,21 @@
 import './globals.css';
 
+import { EnvScript } from '@repo/runtime-env/env-script';
 import { cn } from '@repo/ui/lib/utils';
 import { setRequestLocale } from 'next-intl/server';
-import type { Metadata } from 'next';
 
 import { Geist, Geist_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
 
 import type { ReactNode } from 'react';
+import type { Metadata } from 'next';
 
-import { LocaleCode } from '@/src/i18n/config';
 import { env } from '@/src/env';
+import { LocaleCode } from '@/src/i18n/config';
 import { routing } from '@/src/i18n/routing';
 import { GlobalProviders } from '@/src/providers/server.global-providers';
 
 import { Footer } from './(components)/footer';
-import { EnvScript } from '@repo/runtime-env/env-script';
 
 const LetsGoDigital = localFont({
   src: '../fonts/LetsGoDigital.ttf',
@@ -76,7 +76,7 @@ export default async function RootLayout({ params, children }: RootLayoutParams)
   setRequestLocale(locale);
 
   return (
-    <html suppressHydrationWarning className="scroll-smooth" lang={locale}>
+    <html suppressHydrationWarning className="relative scroll-smooth" data-scroll-behavior="smooth" lang={locale}>
       <head>
         <EnvScript />
       </head>
