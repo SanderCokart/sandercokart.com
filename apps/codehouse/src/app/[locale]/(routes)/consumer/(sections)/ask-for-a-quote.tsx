@@ -1,7 +1,6 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { getRateLimitRetryMinutes, parseRateLimitHint } from '@repo/toolbox/rate-limit';
 import { Button } from '@repo/ui/components/shadcn/button';
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from '@repo/ui/components/shadcn/field';
 import { Input } from '@repo/ui/components/shadcn/input';
@@ -11,10 +10,9 @@ import { useTranslations } from 'next-intl';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import type { ComponentProps, FC } from 'react';
-import type { FormRootErrorKind, RateLimitHint } from './components/form-status';
 
 import { env } from '@/src/env';
 
@@ -26,9 +24,6 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
   const t = useTranslations('AskForAQuote');
   const tZod = useTranslations('zod');
   const tForm = useTranslations('form');
-  const tStatus = useTranslations('FormStatus');
-  const [rateLimitHint, setRateLimitHint] = useState<RateLimitHint | null>(null);
-  const [rootErrorKind, setRootErrorKind] = useState<FormRootErrorKind | null>(null);
 
   const formSchema = z.object({
     name: z.string().min(1, tZod('errors.required', { name: tForm('name') })),
@@ -56,16 +51,10 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
     },
   });
 
-  useEffect(() => {
-    if (!form.formState.errors.root) {
-      setRootErrorKind(null);
-    }
-  }, [form.formState.errors.root]);
+  const [lastResponse, setLastResponse] = useState<Response | null>(null);
 
   const handleSubmit = form.handleSubmit(async formData => {
-    form.clearErrors('root');
-    setRateLimitHint(null);
-    setRootErrorKind(null);
+    setLastResponse(null);
 
     const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/v1/contact`, {
       method: 'POST',
@@ -74,24 +63,9 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
       credentials: 'include',
     });
 
-    const hint = parseRateLimitHint(response.headers);
-    if (hint) {
-      setRateLimitHint(hint);
-    }
+    setLastResponse(response);
 
     if (response.status === 204) {
-      return;
-    }
-
-    if (response.status === 429) {
-      const retryAfter = response.headers.get('Retry-After');
-      const minutes = getRateLimitRetryMinutes(retryAfter);
-      const limit = hint?.limit ?? 2;
-      setRootErrorKind('rate_limit');
-      form.setError('root', {
-        type: 'server',
-        message: tStatus('rate_limited', { limit, minutes }),
-      });
       return;
     }
 
@@ -107,19 +81,14 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
           });
         }
       }
-      return;
     }
 
-    setRootErrorKind('generic');
-    form.setError('root', {
-      type: 'server',
-      message: tStatus('submit_failed'),
-    });
+    // something went wrong
   });
 
   return (
     <section className={cn('relative container max-w-3xl py-12', className)} {...props}>
-      <FormStatus form={form} rateLimitHint={rateLimitHint} rootErrorKind={rootErrorKind} />
+      <FormStatus lastResponse={lastResponse} form={form} />
       <h2 className="mb-4 text-center text-3xl font-bold uppercase sm:text-5xl">{t('title')}</h2>
       <p className="text-muted-foreground mb-8 text-center">{t('description')}</p>
       <form

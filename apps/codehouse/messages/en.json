@@ -202,14 +202,15 @@
     "targetAudience": "Target audience",
     "timeline": "Desired timeline"
   },
-  "FormStatus": {
-    "rate_limit_title": "Rate Limit",
-    "rate_limited": "You’ve reached the limit of {limit} quote requests. Please try again in {minutes, plural, one {# minute} other {# minutes}}.",
-    "rate_limit_remaining": "Quote requests left this hour: {remaining} of {limit}.",
-    "submit_failed": "We could not reach the server to send your message. Check your internet connection and try again. If it keeps failing, use the email in the site footer.",
-    "submit_failed_title": "Could not send message",
-    "submitting": "Submitting...",
-    "submitted": "Submitted"
+  "formMessages": {
+    "submitting_title": "Submitting",
+    "submitting_subtitle": "We are submitting your request. Please wait a moment.",
+    "submitted_title": "Submitted",
+    "submitted_subtitle": "Your request has been received successfully.",
+    "ratelimit_title": "Limit reached",
+    "ratelimit_subtitle": "You have reached the limit of {limit} forms. You can try again in {minutes, plural, one {# minute} other {# minutes}}.",
+    "error_title": "Server error",
+    "error_subtitle": "There was a problem with the server. We're working to fix it, please try again in a few minutes."
   },
   "zod": {
     "errors": {

@@ -202,14 +202,15 @@
     "targetAudience": "Doelgroep",
     "timeline": "Gewenste tijdlijn"
   },
-  "FormStatus": {
-    "rate_limit_title": "Aanvraaglimiet",
-    "rate_limited": "Je hebt het maximum van {limit} offerteaanvragen bereikt. Probeer het opnieuw over {minutes, plural, one {# minuut} other {# minuten}}.",
-    "rate_limit_remaining": "Resterende offerteaanvragen dit uur: {remaining} van {limit}.",
-    "submit_failed": "We konden de server niet bereiken om je bericht te verzenden. Controleer je internetverbinding en probeer opnieuw. Blijft het mislukken, mail ons via het adres in de footer.",
-    "submit_failed_title": "Bericht niet verzonden",
-    "submitting": "Verzenden...",
-    "submitted": "Verzonden"
+  "formMessages": {
+    "submitting_title": "Verwerking bezig",
+    "submitting_subtitle": "We zijn je formulier aan het verwerken. Even geduld.",
+    "submitted_title": "Verwerkt",
+    "submitted_subtitle": "Je formulier is succesvol verwerkt.",
+    "ratelimit_title": "Limiet bereikt",
+    "ratelimit_subtitle": "Je hebt de limiet van {limit} formulieren bereikt. Je kunt het over {minutes, plural, one {# minuut} other {# minuten}} opnieuw proberen.",
+    "error_title": "Serverfout",
+    "error_subtitle": "Er is een probleem met de server. We zijn hiervan op de hoogte en werken aan een oplossing. Probeer het opnieuw over een paar minuten."
   },
   "zod": {
     "errors": {
