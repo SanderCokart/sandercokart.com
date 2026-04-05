@@ -2,7 +2,6 @@ services:
     api:
         profiles: [development, production]
         tty: true
-        image: 'api:latest'
         env_file:
             - .env
         build:
