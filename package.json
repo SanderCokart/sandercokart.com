@@ -1,6 +1,7 @@
 {
   "name": "sandercokart.com",
   "private": true,
+  "workspaces": ["apps/*", "packages/*"],
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
@@ -37,28 +38,26 @@
     "turbo": "2.8.20",
     "typescript": "5.9.3"
   },
-  "packageManager": "pnpm@10.32.1",
+  "packageManager": "bun@1.3.11",
   "engines": {
     "node": ">=20"
   },
-  "pnpm": {
-    "overrides": {
-      "zod": "^4"
-    },
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "@sentry/cli",
-      "@swc/core",
-      "core-js-pure",
-      "es5-ext",
-      "esbuild",
-      "msw",
-      "sharp",
-      "unrs-resolver"
-    ]
+  "overrides": {
+    "zod": "^4"
   },
+  "trustedDependencies": [
+    "@parcel/watcher",
+    "@sentry/cli",
+    "@swc/core",
+    "core-js-pure",
+    "es5-ext",
+    "esbuild",
+    "msw",
+    "sharp",
+    "unrs-resolver"
+  ],
   "volta": {
-    "node": "22.19.0",
-    "pnpm": "10.16.1"
+    "node": "24.14.1",
+    "bun": "1.3.11"
   }
 }

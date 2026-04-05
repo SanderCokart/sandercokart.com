@@ -25,17 +25,17 @@ sandercokart.com/
 
 1. **Prerequisites**
    - Node.js >= 20
-   - pnpm >= 10.6.3
+   - [Bun](https://bun.sh/) >= 1.2 (see root `package.json` `packageManager` for the pinned version)
    - Docker and Docker Compose
 
 2. **Installation**
 
    ```bash
    # Install dependencies
-   pnpm install
+   bun install
 
    # Start development environment
-   pnpm dev
+   bun run dev
    ```
 
 3. **Development Ports**
@@ -156,9 +156,9 @@ The project uses a shared i18n package (`@repo/i18n`) for consistent translation
 
 ### Package Management
 
-- Uses `pnpm` for efficient package management
-- Workspace dependencies are managed through Turborepo
-- Package versions are locked in `pnpm-lock.yaml`
+- Uses [Bun](https://bun.sh/) for installs and workspace linking
+- Workspace dependencies are managed through Turborepo (`workspaces` in root `package.json`)
+- Package versions are locked in `bun.lock`
 
 ### Code Quality
 
@@ -194,9 +194,9 @@ To run an app-specific script, use:
 
 ```bash
 # From the root directory
-pnpm --filter @repo/main run script:your-script-name
+bun run --filter main script:your-script-name
 # Or from within the app directory
-pnpm run script:your-script-name
+bun run script:your-script-name
 ```
 
 ### Configuring New Scripts
@@ -251,16 +251,16 @@ The existing pre-commit hook in `.husky/pre-commit` will automatically run lint-
 
 ```bash
 # Build all packages and apps
-pnpm build
+bun run build
 
 # Run linting
-pnpm lint
+bun run lint
 
 # Format code
-pnpm format
+bun run format
 
 # Clean build artifacts
-pnpm clean
+bun run clean
 ```
 
 ## 🔧 Turborepo Configuration
@@ -341,9 +341,9 @@ Tasks can be run in several ways:
 
 ### Development Workflow
 
-- When you run `pnpm dev` in the root directory:
-  1. It executes `turbo run dev` (defined in root package.json)
-  2. Turborepo then runs `pnpm run dev` in each workspace (unless filtered)
+- When you run `bun run dev` in the root directory:
+  1. It executes `turbo dev` (defined in root package.json)
+  2. Turborepo then runs each workspace's `dev` script (unless filtered)
   3. Each app's dev script starts its development server
   4. All servers run in parallel by default
 
@@ -351,13 +351,13 @@ Example command chain:
 
 ```bash
 # In root directory
-pnpm dev
+bun run dev
 # ↓ executes
-turbo run dev
+turbo dev
 # ↓ runs in each workspace
-pnpm run dev
+bun run dev
 # ↓ starts development servers
-next dev    # for Next.js apps
+bunx --bun next dev    # for Next.js apps (main, codehouse)
 php artisan serve  # for Laravel API
 ```
 
@@ -365,10 +365,10 @@ You can target specific apps using filters:
 
 ```bash
 # Run dev only for the main website
-pnpm dev --filter=@repo/main
+bun run --filter main dev
 
 # Run dev for multiple specific apps
-pnpm dev --filter=@repo/main --filter=@repo/api
+bun run --filter main --filter api dev
 ```
 
 - Long-running tasks (like dev servers) use `persistent: true`
@@ -376,17 +376,17 @@ pnpm dev --filter=@repo/main --filter=@repo/api
 
 ### Package Manager
 
-The project uses pnpm as the package manager, specified in root `package.json`:
+The project uses Bun as the package manager, specified in root `package.json`:
 
 ```json
 {
-  "packageManager": "pnpm@10.6.3"
+  "packageManager": "bun@1.3.11"
 }
 ```
 
 ## 🤝 Contributing
 
-1. Install dependencies with `pnpm install`
+1. Install dependencies with `bun install`
 2. Create a new branch for your feature
 3. Make your changes
 4. Run tests and linting
