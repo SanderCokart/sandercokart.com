@@ -8,4 +8,4 @@ for var in SENTRY_AUTH_TOKEN TURBO_TOKEN; do
 	fi
 done
 set +a
-exec pnpm build
+exec bun run build

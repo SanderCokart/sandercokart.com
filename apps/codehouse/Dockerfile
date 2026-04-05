@@ -1,31 +1,27 @@
-FROM node:lts-alpine AS base
-
-RUN npm install -g corepack@latest
-
-ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable pnpm
+FROM oven/bun:latest AS base
 
 FROM base AS pruner
 WORKDIR /app
 
 COPY . .
 
-RUN pnpm dlx turbo prune codehouse --docker
+RUN bunx turbo prune codehouse --docker
 
 FROM base AS builder
 WORKDIR /app
 
 COPY --from=pruner /app/out/json/ .
-COPY --from=pruner /app/out/pnpm-lock.yaml .
+COPY --from=pruner /app/out/bun.lock .
 
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm fetch --frozen-lockfile
-RUN pnpm install --offline
+ENV HUSKY=0
+
+RUN --mount=type=cache,id=bun,target=/root/.bun/install/cache \
+	bun install --frozen-lockfile
 
 # Required for docker
 ENV NEXT_OUTPUT=standalone
 
-COPY --from=pruner /app/out/pnpm-lock.yaml /app/out/full/ ./
+COPY --from=pruner /app/out/full/ .
 
 # Map build secrets to environment and run build (mapping is in apps/codehouse/scripts/docker-build.sh)
 RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN,required=false \
