@@ -1,5 +1,5 @@
 {
   "setup-worktree": [
-    "pnpm install"
+    "bun install"
   ]
 }
