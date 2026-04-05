@@ -3,9 +3,12 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "postinstall": "composer install --no-interaction --no-ansi",
         "dev": "concurrently \"@php artisan serve\" \"vite\"",
         "clean": "rm -rf node_modules .next .turbo dist",
-        "build": "vite build"
+        "build": "vite build",
+        "env:use:local": "dotenvx decrypt -f .envx.local --stdout > .env",
+        "env:use:docker": "dotenvx decrypt -f .envx.docker --stdout > .env"
     },
     "devDependencies": {
         "axios": "^1.13.6",
