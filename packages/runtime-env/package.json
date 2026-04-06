@@ -20,6 +20,10 @@
     "./env-script": {
       "types": "./dist/env-script.d.ts",
       "default": "./dist/env-script.js"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
     }
   },
   "types": "./dist/index.d.ts",

@@ -1,9 +1,7 @@
 import { defineConfig } from 'tsdown';
 
 export default defineConfig({
-  entry: {
-    'rate-limit': './src/rate-limit.ts',
-  },
+  entry: ['src/**/*.ts', '!src/**/*.test.ts'],
   format: ['esm'],
   dts: true,
   platform: 'node',
