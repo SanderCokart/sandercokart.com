@@ -1,6 +1,6 @@
-# Node.js and pnpm versions for local development (single source of truth for this repo).
+# Enables reading Node and pnpm versions from package.json (single source of truth).
+# See: https://mise.jdx.dev/configuration.html#idiomatic-version-files
 min_version = "2024.11.1"
 
-[tools]
-node = "22.19.0"
-pnpm = "10.32.1"
+[settings]
+idiomatic_version_file_enable_tools = ["node", "pnpm"]
