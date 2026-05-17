@@ -1,0 +1,6 @@
+# Node.js and pnpm versions for local development (single source of truth for this repo).
+min_version = "2024.11.1"
+
+[tools]
+node = "22.19.0"
+pnpm = "10.32.1"
