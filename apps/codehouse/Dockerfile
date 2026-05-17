@@ -1,10 +1,8 @@
 FROM node:lts-alpine AS base
 
-RUN npm install -g corepack@latest
-
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable pnpm
+RUN npm install -g pnpm@10.32.1
 
 FROM base AS pruner
 WORKDIR /app
