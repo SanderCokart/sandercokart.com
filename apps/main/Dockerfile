@@ -1,8 +1,26 @@
-FROM node:lts-alpine AS base
+# Build stages use bookworm (glibc), not alpine: mise install pulls prebuilt Node/pnpm
+# binaries on glibc. On alpine/musl it falls back to compiling Node from source, which
+# needs python and build tools we do not want in the image. Runner stays alpine (below).
+FROM node:22-bookworm-slim AS base
 
+RUN apt-get update \
+	&& apt-get -y --no-install-recommends install \
+		bash curl ca-certificates \
+	&& rm -rf /var/lib/apt/lists/*
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+ENV MISE_DATA_DIR="/mise"
+ENV MISE_CONFIG_DIR="/mise"
+ENV MISE_CACHE_DIR="/mise/cache"
+ENV MISE_INSTALL_PATH="/usr/local/bin/mise"
 ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
-RUN npm install -g pnpm@10.32.1
+ENV PATH="/mise/shims:$PNPM_HOME:$PATH"
+
+RUN curl https://mise.run | sh
+
+WORKDIR /app
+COPY mise.toml package.json ./
+RUN mise trust /app && mise install
 
 FROM base AS pruner
 WORKDIR /app
@@ -30,6 +48,7 @@ RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN,required=false \
 	--mount=type=secret,id=TURBO_TOKEN,required=false \
 	sh ./apps/main/scripts/docker-build.sh
 
+# Production image: standalone Next output only; no mise/pnpm needed here.
 FROM node:lts-alpine AS runner
 
 RUN apk update
