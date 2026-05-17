@@ -23,28 +23,174 @@ sandercokart.com/
 
 ## 🚀 Quick Start
 
-1. **Prerequisites**
-   - Node.js >= 20
-   - pnpm >= 10.6.3
-   - Docker and Docker Compose
+From a fresh machine (no Node, no pnpm, no mise), run:
 
-2. **Installation**
+```bash
+git clone <repo-url>
+cd sandercokart.com
+bash ./scripts/setup.sh
+pnpm --filter codehouse dev
+```
 
-   ```bash
-   # Install dependencies
-   pnpm install
+If you already have pnpm available, you can run:
 
-   # Start development environment
-   pnpm dev
-   ```
+```bash
+pnpm setup
+```
 
-3. **Development Ports**
+The `setup` command is safe to rerun and handles already-installed tooling.
+
+**Prerequisites:** Docker and Docker Compose (for the API and databases).
+
+### Development Ports
    - Main Website: http://localhost:3000
    - Codehouse: http://localhost:3001
    - API: http://localhost:8080
    - Database: localhost:3306
    - Redis: localhost:6379
    - Mailpit: localhost:1025 (SMTP), localhost:8025 (UI)
+
+## 🧰 Environment setup
+
+This project uses:
+
+- **[mise](https://mise.jdx.dev/)** to install and pin both Node and pnpm from `mise.toml`
+- root `setup` script to automate the full bootstrap flow
+
+### One-command setup (recommended)
+
+From the repository root:
+
+```bash
+bash ./scripts/setup.sh
+```
+
+What it does:
+
+1. Installs mise if missing (Linux/macOS/WSL)
+2. Adds mise activation to `~/.bashrc` (idempotent)
+3. Activates mise in the current shell
+4. Trusts this repo's `mise.toml`
+5. Installs Node and pnpm from `mise.toml`
+6. Refreshes mise shims (`mise reshim`) so `pnpm`/`pnpx` shims are available
+7. Installs workspace dependencies with pinned pnpm
+
+If pnpm is already available in your shell, the same flow is exposed as:
+
+```bash
+pnpm setup
+```
+
+### Manual setup (fallback)
+
+Use this if you prefer explicit steps.
+
+#### 1. Install mise
+
+Pick the method that fits your OS. Official docs: [installing mise](https://mise.jdx.dev/installing-mise.html).
+
+**Linux / macOS / WSL:**
+
+```bash
+curl https://mise.run | sh
+```
+
+**Homebrew (macOS / Linux):**
+
+```bash
+brew install mise
+```
+
+**Windows (PowerShell):**
+
+```powershell
+winget install jdx.mise
+```
+
+Verify the install (use the full path if `mise` is not on your PATH yet):
+
+```bash
+mise --version
+# or: ~/.local/bin/mise --version
+```
+
+#### 2. Activate mise in bash (one-time)
+
+Activation makes `node`, `pnpm`, and other tools from `mise.toml` available automatically when you `cd` into this project. Add this to `~/.bashrc`—see [`mise activate`](https://mise.jdx.dev/cli/activate.html#mise-activate) for details. **Restart your terminal** afterward.
+
+```bash
+echo 'eval "$(mise activate bash)"' >> ~/.bashrc
+```
+
+If `mise` is not on your `PATH` yet, use the full path: `eval "$(~/.local/bin/mise activate bash)"`.
+
+Check that everything is wired correctly:
+
+```bash
+mise doctor
+```
+
+#### 3. Install project tools
+
+From the repository root, the first time you use this project, mise may ask you to **trust** `mise.toml`. Trust this repo's config:
+
+```bash
+mise trust
+```
+
+Install the tool versions declared in `mise.toml`:
+
+```bash
+mise install
+```
+
+Confirm Node and pnpm match what the repo expects:
+
+```bash
+node -v    # should match the version in mise.toml (e.g. v22.19.0)
+pnpm -v    # should match the version in mise.toml (e.g. 10.32.1)
+```
+
+Install JavaScript dependencies:
+
+```bash
+pnpm install
+```
+
+Start Codehouse:
+
+```bash
+pnpm --filter codehouse dev
+```
+
+### Day-to-day workflow
+
+After the one-time setup above, from the repository root you usually only need:
+
+```bash
+pnpm install   # when dependencies or lockfile change
+pnpm --filter codehouse dev
+```
+
+If you pull changes that bump the Node version in `mise.toml`, run `mise install` again.
+
+### Troubleshooting
+
+| Problem | What to try |
+|---------|-------------|
+| `mise: command not found` | Install mise (step 1) or use `~/.local/bin/mise` |
+| `node: command not found` after `mise install` | Add `mise activate bash` to `~/.bashrc` (step 2) and open a **new** terminal |
+| Prompt: `mise.toml is not trusted` | Run `mise trust` in the repo root |
+| Wrong Node version | Run `mise install` in the repo root; check `node -v` against `mise.toml` |
+| Wrong pnpm version | Run `bash ./scripts/setup.sh`, or `mise install && mise reshim`; check `pnpm -v` against `mise.toml` |
+| `mise doctor`: shims are missing | Run `mise reshim` (the setup script already does this) |
+| `pnpm: command not found` after `mise install` | Run `mise reshim`, then open a new terminal in the repo |
+| Still on nvm / fnm / old Node managers | Disable or uninstall them for this repo; mise should manage Node and pnpm here |
+| General mise issues | Run `mise doctor` and see [mise troubleshooting](https://mise.jdx.dev/troubleshooting.html) |
+
+### Coming from Volta?
+
+This repo no longer uses Volta. Uninstall it locally ([Volta uninstall guide](https://docs.volta.sh/advanced/uninstall)), then run `bash ./scripts/setup.sh`. You do not need a global Node install from nodejs.org if mise is activated.
 
 ## 📱 Exposing dev servers to LAN (WSL2)
 
@@ -153,6 +299,10 @@ The project uses a shared i18n package (`@repo/i18n`) for consistent translation
 - Provides shared components and utilities for i18n
 
 ## 🛠️ Development Tools
+
+### Runtime versions
+
+Node and pnpm are pinned for the whole monorepo. See [Environment setup](#environment-setup) for install steps and troubleshooting.
 
 ### Package Management
 
@@ -376,21 +526,16 @@ pnpm dev --filter=@repo/main --filter=@repo/api
 
 ### Package Manager
 
-The project uses pnpm as the package manager, specified in root `package.json`:
-
-```json
-{
-  "packageManager": "pnpm@10.6.3"
-}
-```
+Node and pnpm are pinned in `mise.toml`. `mise install` and `mise reshim` ensure everyone uses the same versions.
 
 ## 🤝 Contributing
 
-1. Install dependencies with `pnpm install`
-2. Create a new branch for your feature
-3. Make your changes
-4. Run tests and linting
-5. Submit a pull request
+1. Complete [Environment setup](#environment-setup) if you have not already
+2. Run `mise install`, then `pnpm install`
+3. Create a new branch for your feature
+4. Make your changes
+5. Run tests and linting
+6. Submit a pull request
 
 ## 📝 License
 
