@@ -54,7 +54,7 @@ The `setup` command is safe to rerun and handles already-installed tooling.
 
 This project uses:
 
-- **[mise](https://mise.jdx.dev/)** to install and pin both Node and pnpm from `mise.toml`
+- **[mise](https://mise.jdx.dev/)** to install Node and pnpm from `package.json` (via `mise.toml` settings)
 - root `setup` script to automate the full bootstrap flow
 
 ### One-command setup (recommended)
@@ -71,7 +71,7 @@ What it does:
 2. Adds mise activation to `~/.bashrc` (idempotent)
 3. Activates mise in the current shell
 4. Trusts this repo's `mise.toml`
-5. Installs Node and pnpm from `mise.toml`
+5. Installs Node and pnpm from `package.json` (`devEngines.runtime` and `packageManager`)
 6. Refreshes mise shims (`mise reshim`) so `pnpm`/`pnpx` shims are available
 7. Installs workspace dependencies with pinned pnpm
 
@@ -116,7 +116,7 @@ mise --version
 
 #### 2. Activate mise in bash (one-time)
 
-Activation makes `node`, `pnpm`, and other tools from `mise.toml` available automatically when you `cd` into this project. Add this to `~/.bashrc`—see [`mise activate`](https://mise.jdx.dev/cli/activate.html#mise-activate) for details. **Restart your terminal** afterward.
+Activation makes `node`, `pnpm`, and other tools from `package.json` available automatically when you `cd` into this project. Add this to `~/.bashrc`—see [`mise activate`](https://mise.jdx.dev/cli/activate.html#mise-activate) for details. **Restart your terminal** afterward.
 
 ```bash
 echo 'eval "$(mise activate bash)"' >> ~/.bashrc
@@ -138,7 +138,7 @@ From the repository root, the first time you use this project, mise may ask you 
 mise trust
 ```
 
-Install the tool versions declared in `mise.toml`:
+Install the tool versions declared in `package.json`:
 
 ```bash
 mise install
@@ -147,8 +147,8 @@ mise install
 Confirm Node and pnpm match what the repo expects:
 
 ```bash
-node -v    # should match the version in mise.toml (e.g. v22.19.0)
-pnpm -v    # should match the version in mise.toml (e.g. 10.32.1)
+node -v    # should match devEngines.runtime in package.json (e.g. v22.19.0)
+pnpm -v    # should match packageManager in package.json (e.g. 10.32.1)
 ```
 
 Install JavaScript dependencies:
@@ -172,7 +172,7 @@ pnpm install   # when dependencies or lockfile change
 pnpm --filter codehouse dev
 ```
 
-If you pull changes that bump the Node version in `mise.toml`, run `mise install` again.
+If you pull changes that bump Node or pnpm in `package.json`, run `mise install` again.
 
 ### Troubleshooting
 
@@ -181,8 +181,8 @@ If you pull changes that bump the Node version in `mise.toml`, run `mise install
 | `mise: command not found` | Install mise (step 1) or use `~/.local/bin/mise` |
 | `node: command not found` after `mise install` | Add `mise activate bash` to `~/.bashrc` (step 2) and open a **new** terminal |
 | Prompt: `mise.toml is not trusted` | Run `mise trust` in the repo root |
-| Wrong Node version | Run `mise install` in the repo root; check `node -v` against `mise.toml` |
-| Wrong pnpm version | Run `bash ./scripts/setup.sh`, or `mise install && mise reshim`; check `pnpm -v` against `mise.toml` |
+| Wrong Node version | Run `mise install` in the repo root; check `node -v` against `package.json` `devEngines.runtime` |
+| Wrong pnpm version | Run `bash ./scripts/setup.sh`, or `mise install && mise reshim`; check `pnpm -v` against `package.json` `packageManager` |
 | `mise doctor`: shims are missing | Run `mise reshim` (the setup script already does this) |
 | `pnpm: command not found` after `mise install` | Run `mise reshim`, then open a new terminal in the repo |
 | Still on nvm / fnm / old Node managers | Disable or uninstall them for this repo; mise should manage Node and pnpm here |
@@ -526,7 +526,7 @@ pnpm dev --filter=@repo/main --filter=@repo/api
 
 ### Package Manager
 
-Node and pnpm are pinned in `mise.toml`. `mise install` and `mise reshim` ensure everyone uses the same versions.
+Node and pnpm are pinned in root `package.json` (`devEngines.runtime` and `packageManager`). Mise reads those fields; Turbo and other tooling use `packageManager` directly.
 
 ## 🤝 Contributing
 
