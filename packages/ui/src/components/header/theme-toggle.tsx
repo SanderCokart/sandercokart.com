@@ -41,7 +41,7 @@ export function ThemeToggle() {
   if (!mounted) {
     return (
       <div className="grid h-full place-items-center overflow-hidden">
-        <button type="button" className="size-8" disabled aria-label="Toggle color theme">
+        <button type="button" className="size-8" aria-label="Toggle color theme">
           <MoonIcon className="hidden size-8 dark:block" aria-hidden="true" focusable="false" />
           <SunIcon className="block size-8 dark:hidden" aria-hidden="true" focusable="false" />
         </button>
