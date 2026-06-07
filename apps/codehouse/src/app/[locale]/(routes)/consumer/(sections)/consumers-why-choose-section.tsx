@@ -7,75 +7,36 @@ import { ComponentProps, FC } from 'react';
 export const ConsumersWhyChooseSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
   const t = useTranslations('BespokeWhyChooseSection');
 
+  const reasons = [
+    { title: 'features_uniqueness_title', description: 'features_uniqueness_description' },
+    { title: 'features_scalability_title', description: 'features_scalability_description' },
+    { title: 'features_ownership_title', description: 'features_ownership_description' },
+    { title: 'features_performance_title', description: 'features_performance_description' },
+    { title: 'features_security_title', description: 'features_security_description' },
+    { title: 'features_support_title', description: 'features_support_description' },
+  ] as const;
+
   return (
     <section className={cn('container scroll-mt-16 sm:scroll-mt-16', className)} id="why-choose-consumers" {...props}>
       <h2 className="mb-8 text-center text-3xl font-bold uppercase sm:text-5xl">{t('title')}</h2>
       <p className="mb-8 text-balance text-center">
         {t.rich('description', {
-          highlight: chunks => <span className="text-primary dark:text-accent font-medium">{chunks}</span>,
+          highlight: chunks => <strong className="text-primary dark:text-accent">{chunks}</strong>,
         })}
       </p>
       <div className="grid gap-8 md:grid-cols-2">
-        <Card className="border-primary">
-          <CardHeader>
-            <CardTitle>{t('features_uniqueness_title')}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {t.rich('features_uniqueness_description', {
-              highlight: chunks => <strong className="dark:text-accent text-primary">{chunks}</strong>,
-            })}
-          </CardContent>
-        </Card>
-        <Card className="border-primary">
-          <CardHeader>
-            <CardTitle>{t('features_scalability_title')}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {t.rich('features_scalability_description', {
-              highlight: chunks => <strong className="dark:text-accent text-primary">{chunks}</strong>,
-            })}
-          </CardContent>
-        </Card>
-        <Card className="border-primary">
-          <CardHeader>
-            <CardTitle>{t('features_ownership_title')}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {t.rich('features_ownership_description', {
-              highlight: chunks => <strong className="dark:text-accent text-primary">{chunks}</strong>,
-            })}
-          </CardContent>
-        </Card>
-        <Card className="border-primary">
-          <CardHeader>
-            <CardTitle>{t('features_performance_title')}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {t.rich('features_performance_description', {
-              highlight: chunks => <strong className="dark:text-accent text-primary">{chunks}</strong>,
-            })}
-          </CardContent>
-        </Card>
-        <Card className="border-primary">
-          <CardHeader>
-            <CardTitle>{t('features_security_title')}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {t.rich('features_security_description', {
-              highlight: chunks => <strong className="dark:text-accent text-primary">{chunks}</strong>,
-            })}
-          </CardContent>
-        </Card>
-        <Card className="border-primary">
-          <CardHeader>
-            <CardTitle>{t('features_support_title')}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {t.rich('features_support_description', {
-              highlight: chunks => <strong className="dark:text-accent text-primary">{chunks}</strong>,
-            })}
-          </CardContent>
-        </Card>
+        {reasons.map(reason => (
+          <Card key={reason.title} className="border-primary">
+            <CardHeader>
+              <CardTitle>{t(reason.title)}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {t.rich(reason.description, {
+                highlight: chunks => <strong className="dark:text-accent text-primary">{chunks}</strong>,
+              })}
+            </CardContent>
+          </Card>
+        ))}
       </div>
     </section>
   );
