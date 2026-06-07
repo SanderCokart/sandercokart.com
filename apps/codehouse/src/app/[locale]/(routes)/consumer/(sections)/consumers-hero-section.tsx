@@ -119,8 +119,7 @@ export function ConsumersHeroSection() {
     <section
       className={cn(
         'dark:drop-shadow-[0_0px_10px_hsl(var(--primary))]',
-        'min-h-[calc(100dvh-theme(spacing.11))] sm:min-h-[calc(100dvh-theme(spacing.16))]',
-        'container grid place-items-center',
+        'mt-16',
       )}
       id="hero">
       <article className="flex flex-col gap-8">
@@ -132,25 +131,7 @@ export function ConsumersHeroSection() {
             highlight: chunks => <span className="text-accent">{chunks}</span>,
           })}
         </h2>
-
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4 xl:gap-8">
-          {/* First 4 features with staggerDirection: 1 */}
-          <MotionUl className="contents" variants={container} initial="hidden" animate="show">
-            {service_features.slice(0, 4).map(feature => (
-              <MotionLi key={`first-${feature.label}`} variants={item}>
-                <ServiceFeature className={cn('h-full w-full', 'border-primary')} feature={feature} />
-              </MotionLi>
-            ))}
-          </MotionUl>
-          {/* Last 4 features with staggerDirection: -1 */}
-          <MotionUl className="contents" variants={reverseContainer} initial="hidden" animate="show">
-            {service_features.slice(-4).map(feature => (
-              <MotionLi key={`last-${feature.label}`} variants={item}>
-                <ServiceFeature className={cn('h-full w-full', 'border-primary')} feature={feature} />
-              </MotionLi>
-            ))}
-          </MotionUl>
-        </div>
+        
       </article>
     </section>
   );
