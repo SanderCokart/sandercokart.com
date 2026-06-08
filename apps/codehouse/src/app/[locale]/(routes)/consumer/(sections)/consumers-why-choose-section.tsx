@@ -26,11 +26,11 @@ export const ConsumersWhyChooseSection: FC<ComponentProps<'section'>> = ({ class
       </p>
       <div className="grid gap-8 md:grid-cols-2">
         {reasons.map(reason => (
-          <Card key={reason.title} className="border-primary">
+          <Card key={reason.title} className="border-primary group bg-card/50 border-2">
             <CardHeader>
-              <CardTitle>{t(reason.title)}</CardTitle>
+              <CardTitle className="md:group-odd:text-right">{t(reason.title)}</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="md:group-odd:text-right">
               {t.rich(reason.description, {
                 highlight: chunks => <strong className="dark:text-accent text-primary">{chunks}</strong>,
               })}

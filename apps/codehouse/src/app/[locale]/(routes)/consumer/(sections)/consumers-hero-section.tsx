@@ -123,10 +123,10 @@ export function ConsumersHeroSection() {
       )}
       id="hero">
       <article className="flex flex-col gap-8">
-        <Image priority alt="Logo" className="tw-w-full mx-auto block sm:w-1/5 dark:hidden" src={LogoINV} />
-        <Image priority alt="Logo" className="tw-w-full mx-auto hidden sm:w-1/5 dark:block" src={Logo} />
+        <Image priority alt="Logo" className="tw-w-full max-w-xs mx-auto block sm:w-1/5 dark:hidden" src={LogoINV} />
+        <Image priority alt="Logo" className="tw-w-full max-w-xs mx-auto hidden sm:w-1/5 dark:block" src={Logo} />
 
-        <h2 className="text-balance text-center text-3xl font-bold uppercase sm:text-5xl">
+        <h2 className="text-balance text-center text-3xl max-w-6xl mx-auto font-bold uppercase sm:text-5xl">
           {t.rich('title', {
             highlight: chunks => <span className="text-accent">{chunks}</span>,
           })}
