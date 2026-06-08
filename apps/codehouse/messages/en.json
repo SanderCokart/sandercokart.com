@@ -117,7 +117,25 @@
     "features_support_title": "Dedicated Support",
     "features_uniqueness_description": "Stand out from the crowd with a website <highlight>custom-designed</highlight> to reflect your brand's <highlight>unique personality</highlight> and values, unlike generic templates.",
     "features_uniqueness_title": "Unique Brand Identity",
+    "faq_title": "Frequently Asked Questions",
+    "faq_ownership_question": "Do I own the code and the website after paying?",
+    "faq_ownership_answer": "Yes. Once your project is paid for, <highlight>you own the code</highlight>. It is completely yours. You can host it anywhere, modify it freely, or hand it over to another developer with no restrictions or lock-in.",
+    "faq_hosting_question": "Is hosting included, or do I have to arrange it myself?",
+    "faq_hosting_answer": "You can host the site yourself — you own the code, so that is always an option. If you prefer a hands-off experience, we can take care of hosting, security, updates, and support for you at a slightly higher fee than pure self-hosting.",
+    "faq_updates_question": "What if I need changes or new features after the site is live?",
+    "faq_updates_answer": "We are happy to make updates and improvements after launch for very small fees (to be discussed per request). For regular work you can also arrange a lightweight ongoing agreement with us.",
+    "faq_content_editing_question": "Can I edit the content on my website myself?",
+    "faq_content_editing_answer": "Yes, if you want. We can provide a <cms>content management system (CMS)</cms> so you can update text, images, and certain sections on your own. Please note that because every site is built to your exact specifications, the editing experience is not as open-ended as all-in-one template platforms like Squarespace. What you trade for that simplicity is a site that is <highlight>fully customizable</highlight> to your precise requirements.",
+    "faq_design_question": "Can you create the design for my website?",
+    "faq_design_answer": "Absolutely. We can deliver a complete custom design, and we actively encourage you to share reference designs, brand assets, mood boards, or even your own design files. The more direction you give us, the more precisely we can match your vision.",
+    "faq_performance_question": "Why are your websites so fast?",
+    "faq_performance_answer": "We generate static pages wherever possible and serve them from modern, high-performance infrastructure located close to your visitors. The result is near-instant load times, excellent reliability, and strong search engine visibility without any extra effort from you.",
+    "faq_mobile_accessibility_question": "Is the site mobile-friendly and accessible to everyone?",
+    "faq_mobile_accessibility_answer": "Mobile support is always included. We follow a <highlight>mobile-first approach</highlight> and ensure the design and interactions scale beautifully from the smallest phones all the way up to ultrawide desktop monitors. We also build accessibility in from the beginning, so the site can be comfortably navigated using screen readers, keyboard controls, and other assistive technologies by people with visual impairments or reduced mobility.",
     "title": "Why a personal website outperforms templates"
+  },
+  "Glossary": {
+    "cms_description": "A Content Management System (CMS) is software that lets you update website content—such as text, images, and certain sections—without editing code."
   },
   "Footer": {
     "Address_btw": "VAT",
