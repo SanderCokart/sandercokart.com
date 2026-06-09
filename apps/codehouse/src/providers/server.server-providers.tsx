@@ -2,14 +2,20 @@ import { ThemeProvider } from '@repo/ui/components/theme-provider';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 
-import { FC, ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 
-export const ServerProviders: FC<{ children: ReactNode }> = async ({ children }) => {
+async function IntlProvider({ children }: { children: ReactNode }) {
   const messages = await getMessages();
 
+  return <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>;
+}
+
+export async function ServerProviders({ children }: { children: ReactNode }) {
   return (
     <ThemeProvider>
-      <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+      <Suspense fallback={null}>
+        <IntlProvider>{children}</IntlProvider>
+      </Suspense>
     </ThemeProvider>
   );
-};
+}

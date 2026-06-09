@@ -4,6 +4,7 @@ import { EnvScript } from '@repo/runtime-env/env-script';
 import { cn } from '@repo/ui/lib/utils';
 import { setRequestLocale } from 'next-intl/server';
 
+import { Suspense } from 'react';
 import { Geist, Geist_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
 
@@ -70,25 +71,54 @@ export const metadata: Metadata = {
   },
 };
 
+const bodyClassName = cn(
+  fontMono.variable,
+  fontSans.variable,
+  LetsGoDigital.variable,
+  'font-sans antialiased',
+  'flex min-h-dvh flex-col',
+);
+
 type RootLayoutParams = { children: ReactNode; params: Promise<{ locale: string }> };
-export default async function RootLayout({ params, children }: RootLayoutParams) {
+
+export default function RootLayout({ params, children }: RootLayoutParams) {
+  return (
+    <Suspense fallback={<RootLayoutFallback>{children}</RootLayoutFallback>}>
+      <LocalizedRootLayout params={params}>{children}</LocalizedRootLayout>
+    </Suspense>
+  );
+}
+
+function RootLayoutFallback({ children }: { children: ReactNode }) {
+  return (
+    <html suppressHydrationWarning className="relative scroll-smooth" data-scroll-behavior="smooth" lang="en">
+      <head>
+        <Suspense fallback={null}>
+          <EnvScript />
+        </Suspense>
+      </head>
+      <body className={bodyClassName}>
+        <GlobalProviders>
+          {children}
+          <Footer />
+        </GlobalProviders>
+      </body>
+    </html>
+  );
+}
+
+async function LocalizedRootLayout({ params, children }: RootLayoutParams) {
   const { locale } = (await params) as { locale: LocaleCode };
   setRequestLocale(locale);
 
   return (
     <html suppressHydrationWarning className="relative scroll-smooth" data-scroll-behavior="smooth" lang={locale}>
       <head>
-        <EnvScript />
+        <Suspense fallback={null}>
+          <EnvScript />
+        </Suspense>
       </head>
-      <body
-        className={cn(
-          fontMono.variable,
-          fontSans.variable,
-          LetsGoDigital.variable,
-          'font-sans antialiased',
-          'flex min-h-dvh flex-col',
-          // 'mb-14 md:mb-0', //this is to account for mobile navigation @see <Navigation />
-        )}>
+      <body className={bodyClassName}>
         <GlobalProviders>
           {children}
           <Footer />
