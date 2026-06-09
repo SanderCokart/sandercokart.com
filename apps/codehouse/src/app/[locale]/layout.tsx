@@ -2,7 +2,9 @@ import './globals.css';
 
 import { EnvScript } from '@repo/runtime-env/env-script';
 import { cn } from '@repo/ui/lib/utils';
+import { hasLocale } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
+import { notFound } from 'next/navigation';
 
 import { Suspense } from 'react';
 import { Geist, Geist_Mono } from 'next/font/google';
@@ -91,7 +93,11 @@ export default function RootLayout({ params, children }: RootLayoutParams) {
 
 function RootLayoutFallback({ children }: { children: ReactNode }) {
   return (
-    <html suppressHydrationWarning className="relative scroll-smooth" data-scroll-behavior="smooth" lang="en">
+    <html
+      suppressHydrationWarning
+      className="relative scroll-smooth"
+      data-scroll-behavior="smooth"
+      lang={routing.defaultLocale}>
       <head>
         <Suspense fallback={null}>
           <EnvScript />
@@ -109,6 +115,11 @@ function RootLayoutFallback({ children }: { children: ReactNode }) {
 
 async function LocalizedRootLayout({ params, children }: RootLayoutParams) {
   const { locale } = (await params) as { locale: LocaleCode };
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
   setRequestLocale(locale);
 
   return (
