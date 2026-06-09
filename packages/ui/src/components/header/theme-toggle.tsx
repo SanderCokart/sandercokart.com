@@ -2,7 +2,7 @@
 
 import { MoonIcon, SunIcon } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
-import { useTheme } from 'next-themes';
+import { useTheme } from '@wrksz/themes/client';
 
 import { useEffect, useState } from 'react';
 

@@ -1,6 +1,6 @@
 ---
 name: docs
-description: Index of internal monorepo documentation. Use when implementing or extending documented features (glossary, etc.) or when component JSDoc @see links point here.
+description: Index of internal monorepo documentation. Use when implementing or extending documented features (glossary, themes, etc.) or when component JSDoc @see links point here.
 ---
 
 # Internal Documentation
@@ -9,9 +9,10 @@ Repo-internal docs for agents and developers — not user-facing product documen
 
 ## Document index
 
-| Topic | File | Summary |
-|-------|------|---------|
-| Glossary | [glossary.md](glossary.md) | Inline glossary terms in `next-intl` rich text via `@repo/toolbox` |
+| Topic    | File                       | Summary                                                                |
+| -------- | -------------------------- | ---------------------------------------------------------------------- |
+| Glossary | [glossary.md](glossary.md) | Inline glossary terms in `next-intl` rich text via `@repo/toolbox`     |
+| Themes   | [themes.md](themes.md)     | Dark/light mode via `@wrksz/themes` (replaces abandoned `next-themes`) |
 
 ## Conventions
 

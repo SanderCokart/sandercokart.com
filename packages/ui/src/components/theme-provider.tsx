@@ -1,13 +1,22 @@
-'use client';
+import { ThemeProvider as WrkszThemeProvider } from '@wrksz/themes/next';
 
-import { ThemeProvider as NextThemesProvider } from 'next-themes';
+import type { ThemeProviderProps } from '@wrksz/themes/next';
 
-import type { ThemeProviderProps } from 'next-themes';
+export type { ThemeProviderProps };
 
-export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
+/**
+ * Shared dark-mode provider for all frontends. Defaults are set here so every app
+ * behaves the same; pass props only when an app truly needs different behavior.
+ */
+export async function ThemeProvider({ children, ...props }: ThemeProviderProps<'light' | 'dark'>) {
   return (
-    <NextThemesProvider disableTransitionOnChange enableSystem attribute="class" defaultTheme="system" {...props}>
+    <WrkszThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+      {...props}>
       {children}
-    </NextThemesProvider>
+    </WrkszThemeProvider>
   );
 }
