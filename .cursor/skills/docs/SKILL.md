@@ -13,6 +13,7 @@ Repo-internal docs for agents and developers — not user-facing product documen
 | -------- | -------------------------- | ---------------------------------------------------------------------- |
 | Glossary | [glossary.md](glossary.md) | Inline glossary terms in `next-intl` rich text via `@repo/toolbox`     |
 | Themes   | [themes.md](themes.md)     | Dark/light mode via `@wrksz/themes` (replaces abandoned `next-themes`) |
+| PPR      | [ppr.md](ppr.md)           | Partial Prerendering + `next-intl` in `apps/codehouse` (`cacheComponents`) |
 
 ## Conventions
 
