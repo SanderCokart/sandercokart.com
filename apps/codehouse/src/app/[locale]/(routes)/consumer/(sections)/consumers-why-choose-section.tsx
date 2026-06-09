@@ -63,7 +63,9 @@ export const ConsumersWhyChooseSection: FC<ComponentProps<'section'>> = ({ class
           <Accordion multiple className="w-full">
             {faqs.map((faq, index) => (
               <AccordionItem key={index} value={`faq-${index}`}>
-                <AccordionTrigger className="text-left">{t(faq.question)}</AccordionTrigger>
+                <AccordionTrigger className="text-left">
+                  <span className="flex-1">{t.rich(faq.question, richText)}</span>
+                </AccordionTrigger>
                 <AccordionContent>{t.rich(faq.answer, richText)}</AccordionContent>
               </AccordionItem>
             ))}
