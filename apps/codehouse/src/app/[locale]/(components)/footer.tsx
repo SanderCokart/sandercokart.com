@@ -5,7 +5,9 @@ import { FaEnvelope, FaGithub, FaInstagram, FaPhone, FaTwitter, FaYoutube } from
 import { CopyToClipboardTooltip as Copy } from '@/src/components/copy-to-clipboard-tooltip';
 import { Link } from '@/src/i18n/navigation';
 
-export function Footer() {
+import { CopyrightMessage } from './copyright-message';
+
+export async function Footer() {
   return (
     <footer
       className="fond-bold bg-primary text-primary-foreground flex flex-col justify-center p-8 font-mono transition-colors"
@@ -15,7 +17,12 @@ export function Footer() {
         {/* <div className="border-primary-foreground hidden shrink border sm:block" /> */}
         {/* <Links className="hidden sm:flex" /> */}
       </div>
-      <Copyright />
+
+      <section className="mx-auto my-8" id="footer-copyright">
+        <p className="text-center text-xs">
+          <CopyrightMessage />
+        </p>
+      </section>
       <Socials />
     </footer>
   );
@@ -108,17 +115,6 @@ async function Address() {
           </span>
         </div>
       </address>
-    </section>
-  );
-}
-
-async function Copyright() {
-  const t = await getTranslations('Footer');
-  const date = new Date().getFullYear();
-
-  return (
-    <section className="mx-auto my-8" id="footer-copyright">
-      <p className="text-center text-xs">{t('Copyright_message', { date })}</p>
     </section>
   );
 }
