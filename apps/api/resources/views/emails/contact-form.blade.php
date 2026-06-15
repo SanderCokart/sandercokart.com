@@ -43,11 +43,13 @@
                                     <pre
                                         style='border-color:rgb(76,29,149);margin:0px;white-space:pre-wrap;border-radius:0.5rem;border-style:solid;padding:0.5rem;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-size:0.875rem;line-height:1.625'>{{ json_encode(
                                             [
-                                                'name' => $data['name'],
-                                                'email' => $data['email'],
-                                                'phone' => $data['phone'],
-                                                'website' => $data['website'],
-                                                'message' => $data['message'],
+                                                'variant' => $data['variant'] ?? null,
+                                                'name' => $data['name'] ?? null,
+                                                'email' => $data['email'] ?? null,
+                                                'phone' => $data['phone'] ?? null,
+                                                'website' => $data['website'] ?? null,
+                                                'message' => $data['message'] ?? null,
+                                                'specifications' => $data['specifications'] ?? null,
                                             ],
                                             JSON_PRETTY_PRINT,
                                         ) }}</pre>
@@ -77,7 +79,7 @@
                                         target="_blank"><span><!--[if mso]><i style="mso-font-width:400%;mso-text-raise:24" hidden>&#8202;&#8202;&#8202;&#8202;</i><![endif]--></span><span
                                             style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:12px">REPLY
                                             TO
-                                            {{ $data['name'] }}
+                                            {{ $data['name'] ?? $data['email'] }}
                                         </span><span><!--[if mso]><i style="mso-font-width:400%" hidden>&#8202;&#8202;&#8202;&#8202;&#8203;</i><![endif]--></span></a>
                                 </td>
                             </tr>
