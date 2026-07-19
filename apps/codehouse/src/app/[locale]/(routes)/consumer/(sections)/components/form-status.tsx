@@ -20,7 +20,7 @@ const SUBMITTING_PHASE_MS = 1000;
 const OUTCOME_VISIBLE_MS = {
   429: 4000,
   500: 4000,
-  default: 1000,
+  default: 2000,
 } as const;
 
 function getOutcomeVisibleMs(httpStatus: number): number {
