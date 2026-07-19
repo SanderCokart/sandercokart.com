@@ -1,43 +1,44 @@
-import { useTranslations } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
-import { use } from 'react';
 
-import { GenericTestimonialsSection } from '@/src/components/generic-testimonials-section';
-import { Line } from '@/src/components/line';
-import { LocaleCode } from '@/src/i18n/config';
+import { Link } from '@/src/i18n/navigation';
+import type { LocaleCode } from '@/src/i18n/config';
 
-import { FreelanceHeroSection } from './(sections)/freelance-hero-section';
-import { PortfolioSection } from './(sections)/portfolio-section';
-import { TechStackSection } from './(sections)/tech-stack-section';
+type PageParams = { params: Promise<{ locale: string }> };
 
-type FreelancePageParams = { params: Promise<{ locale: string }> };
+const proposals = [
+  { href: '/freelance/proposal-a', label: 'Proposal A', angle: 'Portfolio & Craft' },
+  { href: '/freelance/proposal-b', label: 'Proposal B', angle: 'Team Extension' },
+  { href: '/freelance/proposal-c', label: 'Proposal C', angle: 'End-to-End Delivery' },
+  { href: '/freelance/proposal-d', label: 'Proposal D', angle: 'A + B + C blend' },
+] as const;
 
-export default function FreelancePage({ params }: FreelancePageParams) {
-  const { locale } = use(params) as { locale: LocaleCode };
+/**
+ * Temporary chooser while Freelance Development proposals are compared.
+ */
+export default async function FreelanceIndexPage({ params }: PageParams) {
+  const { locale } = (await params) as { locale: LocaleCode };
   setRequestLocale(locale);
-
-  const t = useTranslations('FreelancePage');
-
-  const testimonials = [
-    {
-      author: t('testimonials_1_author'),
-      quote: t('testimonials_1_quote'),
-    },
-  ];
 
   return (
     <main className="grow">
-      <FreelanceHeroSection />
-      <div className="mb-16">
-        <Line />
-        <PortfolioSection className="container max-w-screen-lg" />
-        <Line />
-        <TechStackSection className="container" />
-        <Line />
-        <GenericTestimonialsSection className="container max-w-screen-lg" testimonials={testimonials} />
-        <Line />
-        {/*<ContactSection className="container max-w-screen-lg" />*/}
-      </div>
+      <section className="container mt-16 max-w-screen-md space-y-8 pb-16">
+        <h1 className="text-center text-3xl font-bold uppercase sm:text-5xl">Freelance Development</h1>
+        <p className="text-center text-muted-foreground text-balance">
+          Proposal variants — pick one to review.
+        </p>
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {proposals.map(proposal => (
+            <li key={proposal.href}>
+              <Link
+                href={proposal.href}
+                className="border-primary/40 hover:border-accent block rounded-lg border-2 p-6 text-center transition-colors">
+                <span className="block font-bold uppercase">{proposal.label}</span>
+                <span className="text-muted-foreground mt-2 block text-sm">{proposal.angle}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
     </main>
   );
 }
