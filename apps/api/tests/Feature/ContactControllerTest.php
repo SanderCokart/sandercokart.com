@@ -13,7 +13,6 @@ describe('ContactController', function () {
         Mail::fake();
 
         $data = [
-            'variant' => 'detailed',
             'name' => 'John Doe',
             'email' => 'john@example.com',
             'phone' => '+31 6 12345678',
@@ -26,7 +25,48 @@ describe('ContactController', function () {
         $response->assertStatus(204);
 
         Mail::assertSent(ContactFormMail::class, function ($mail) use ($data) {
-            return $mail->data === $data;
+            return $mail->data['email'] === $data['email']
+                && $mail->data['name'] === $data['name']
+                && $mail->data['phone'] === $data['phone']
+                && $mail->data['website'] === $data['website']
+                && $mail->data['message'] === $data['message'];
+        });
+    });
+
+    it('sends contact form email with only required fields', function () {
+        Mail::fake();
+
+        $data = [
+            'email' => 'jane@example.com',
+            'message' => 'Just a short note about my project.',
+        ];
+
+        $response = $this->postJson(route('v1.contact'), $data);
+
+        $response->assertStatus(204);
+
+        Mail::assertSent(ContactFormMail::class, function ($mail) use ($data) {
+            return $mail->data['email'] === $data['email']
+                && $mail->data['message'] === $data['message'];
+        });
+    });
+
+    it('sends contact form email with phone as preferred contact', function () {
+        Mail::fake();
+
+        $data = [
+            'phone' => '+31 6 12345678',
+            'message' => 'Please call me about a new website.',
+        ];
+
+        $response = $this->postJson(route('v1.contact'), $data);
+
+        $response->assertStatus(204);
+
+        Mail::assertSent(ContactFormMail::class, function ($mail) use ($data) {
+            return $mail->data['phone'] === $data['phone']
+                && $mail->data['message'] === $data['message']
+                && empty($mail->data['email']);
         });
     });
 
@@ -34,14 +74,22 @@ describe('ContactController', function () {
         $response = $this->postJson(route('v1.contact'), []);
 
         $response->assertStatus(422)
-            ->assertJsonValidationErrors(['variant', 'message']);
+            ->assertJsonValidationErrors(['email', 'phone', 'message']);
+    });
+
+    it('requires either email or phone', function () {
+        $response = $this->postJson(route('v1.contact'), [
+            'message' => 'Hello!',
+        ]);
+
+        $response->assertStatus(422)
+            ->assertJsonValidationErrors(['email', 'phone']);
     });
 
     it('validates existing website URL when provided', function () {
         $data = [
-            'variant' => 'detailed',
-            'name' => 'John Doe',
             'email' => 'john@example.com',
+            'message' => 'Hello!',
             'website' => 'invalid-url',
         ];
 
@@ -55,8 +103,6 @@ describe('ContactController', function () {
         Mail::fake();
 
         $data = [
-            'variant' => 'detailed',
-            'name' => 'Jane Doe',
             'email' => 'jane@example.com',
             'message' => 'Project inquiry.',
         ];
@@ -78,41 +124,10 @@ describe('ContactController', function () {
             ->assertHeader('Retry-After');
     });
 
-    it('validates simple variant requires exactly one contact method', function () {
-        Mail::fake();
-
-        $response = $this->postJson(route('v1.contact'), [
-            'variant' => 'simple',
-            'message' => 'Hello!',
-        ]);
-
-        $response->assertStatus(422)
-            ->assertJsonValidationErrors(['email', 'phone']);
-    });
-
-    it('sends simple variant email with phone only', function () {
+    it('sends contact form with optional specifications', function () {
         Mail::fake();
 
         $data = [
-            'variant' => 'simple',
-            'phone' => '+31 6 12345678',
-            'message' => 'Hello!',
-        ];
-
-        $response = $this->postJson(route('v1.contact'), $data);
-        $response->assertStatus(204);
-
-        Mail::assertSent(\App\Mail\ContactFormMail::class, function ($mail) use ($data) {
-            return $mail->data === $data;
-        });
-    });
-
-    it('sends detailed variant with optional specifications', function () {
-        Mail::fake();
-
-        $data = [
-            'variant' => 'detailed',
-            'name' => 'John Doe',
             'email' => 'john@example.com',
             'message' => 'Hello!',
             'specifications' => [
@@ -123,14 +138,16 @@ describe('ContactController', function () {
 
         $response = $this->postJson(route('v1.contact'), $data);
         $response->assertStatus(204);
+
+        Mail::assertSent(ContactFormMail::class, function ($mail) use ($data) {
+            return $mail->data['specifications'] === $data['specifications'];
+        });
     });
 
-    it('validates detailed variant specifications contents', function () {
+    it('validates specifications contents', function () {
         Mail::fake();
 
         $response = $this->postJson(route('v1.contact'), [
-            'variant' => 'detailed',
-            'name' => 'John Doe',
             'email' => 'john@example.com',
             'message' => 'Hello!',
             'specifications' => [''],
