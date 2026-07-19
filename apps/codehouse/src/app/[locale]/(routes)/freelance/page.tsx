@@ -1,13 +1,21 @@
 import { useTranslations } from 'next-intl';
+import { setRequestLocale } from 'next-intl/server';
+import { use } from 'react';
 
 import { GenericTestimonialsSection } from '@/src/components/generic-testimonials-section';
 import { Line } from '@/src/components/line';
+import { LocaleCode } from '@/src/i18n/config';
 
 import { FreelanceHeroSection } from './(sections)/freelance-hero-section';
 import { PortfolioSection } from './(sections)/portfolio-section';
 import { TechStackSection } from './(sections)/tech-stack-section';
 
-export default function FreelancePage() {
+type FreelancePageParams = { params: Promise<{ locale: string }> };
+
+export default function FreelancePage({ params }: FreelancePageParams) {
+  const { locale } = use(params) as { locale: LocaleCode };
+  setRequestLocale(locale);
+
   const t = useTranslations('FreelancePage');
 
   const testimonials = [
