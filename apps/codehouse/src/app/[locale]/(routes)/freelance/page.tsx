@@ -29,7 +29,7 @@ export default async function Page({ params }: PageParams) {
         <FreelanceTechIndexSection className="container max-w-screen-lg" />
         <Line />
         <FreelanceFaqSection className="container max-w-screen-lg" />
-        <AskForAQuote id="ask-for-a-quote" className="container max-w-screen-lg" />
+        <AskForAQuote className="container max-w-screen-lg" />
       </div>
     </main>
   );

@@ -79,6 +79,7 @@ const bodyClassName = cn(
   LetsGoDigital.variable,
   'font-sans antialiased',
   'flex min-h-dvh flex-col',
+  'mb-14 lg:mb-0', // account for mobile navigation @see <Navigation />
 );
 
 type RootLayoutParams = { children: ReactNode; params: Promise<{ locale: string }> };

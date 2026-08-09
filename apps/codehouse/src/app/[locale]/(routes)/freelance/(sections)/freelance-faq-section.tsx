@@ -25,7 +25,7 @@ export const FreelanceFaqSection: FC<ComponentProps<'section'>> = ({ className, 
 
   return (
     <section
-      className={cn('container flex scroll-mt-16 flex-col gap-8 sm:scroll-mt-16', className)}
+      className={cn('container flex scroll-mt-20 flex-col gap-8', className)}
       id="faq"
       {...props}>
       <div className="flex flex-col gap-4">

@@ -38,7 +38,7 @@ export default async function Page({ params }: PageParams) {
         <CommercialTrustSection className="container max-w-screen-lg" />
         <Line />
         <CommercialFaqSection className="container max-w-screen-lg" />
-        <AskForAQuote className="container max-w-screen-lg" id="ask-for-a-quote" />
+        <AskForAQuote className="container max-w-screen-lg" />
       </div>
     </main>
   );

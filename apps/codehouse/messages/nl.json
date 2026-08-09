@@ -335,7 +335,10 @@
     "faq_growth_answer": "Dat is normaal. We bouwen zo dat je stukken kunt toevoegen zonder weg te gooien wat al werkt."
   },
   "common": {
+    "navigation_ask-for-a-quote": "Vraag een offerte",
+    "navigation_back-to-top": "Naar boven",
     "navigation_contact": "Contact",
+    "navigation_faq": "FAQ",
     "navigation_portfolio": "Portfolio",
     "navigation_tech-stack": "Tech Stack",
     "navigation_testimonials": "Referenties"

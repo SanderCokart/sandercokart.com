@@ -1,10 +1,9 @@
 import type { ReactNode } from 'react';
 
+import { ServiceHeader } from '@/src/components/service-header';
 import type { LocaleCode } from '@/src/i18n/config';
 
 import { CachedPageContent } from '../../_ppr/cached-page-content';
-
-import { Header } from './(components)/header';
 
 type ConsumerLayoutProps = {
   children: ReactNode;
@@ -16,7 +15,7 @@ export default async function ConsumerLayout({ children, params }: ConsumerLayou
 
   return (
     <>
-      <Header />
+      <ServiceHeader />
       <CachedPageContent locale={locale}>{children}</CachedPageContent>
     </>
   );

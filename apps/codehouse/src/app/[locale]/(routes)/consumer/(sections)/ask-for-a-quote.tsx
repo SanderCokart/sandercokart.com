@@ -20,7 +20,8 @@ import { env } from '@/src/env';
 
 import { FormStatus } from './components/form-status';
 
-const formId = 'ask-for-a-quote';
+const formId = 'ask-for-a-quote-form';
+const sectionId = 'ask-for-a-quote';
 
 function isEmailContact(value: string): boolean {
   return value.includes('@');
@@ -126,9 +127,11 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
   });
 
   return (
-    <section className={cn('relative container max-w-3xl py-12', className)} {...props}>
+    <section {...props} className={cn('relative container max-w-3xl py-12', className)}>
       <FormStatus lastResponse={lastResponse} form={form} />
-      <h2 className="mb-4 text-center text-3xl font-bold uppercase sm:text-5xl">{t('title')}</h2>
+      <h2 id={sectionId} className="mb-4 scroll-mt-20 text-center text-3xl font-bold uppercase sm:text-5xl">
+        {t('title')}
+      </h2>
       <p className="text-muted-foreground mb-8 text-center">{t('description')}</p>
 
       <Card className="border-primary mx-auto">

@@ -50,7 +50,7 @@ export const ConsumersWhyChooseSection: FC<ComponentProps<'section'>> = ({ class
         ))}
       </div>
 
-      <Card>
+      <Card className="scroll-mt-20" id="faq">
         <CardHeader>
           <CardTitle>
             <div className="flex items-center gap-2">
