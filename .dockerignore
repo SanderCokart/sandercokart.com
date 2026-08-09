@@ -6,7 +6,6 @@
 **boost.json
 **phpunit.xml
 apps/api/public/storage
-**/vendor
 
 # Docker
 **.dockerignore

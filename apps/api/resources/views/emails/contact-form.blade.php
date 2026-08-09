@@ -43,11 +43,12 @@
                                     <pre
                                         style='border-color:rgb(76,29,149);margin:0px;white-space:pre-wrap;border-radius:0.5rem;border-style:solid;padding:0.5rem;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-size:0.875rem;line-height:1.625'>{{ json_encode(
                                             [
-                                                'name' => $data['name'],
-                                                'email' => $data['email'],
-                                                'phone' => $data['phone'],
-                                                'website' => $data['website'],
-                                                'message' => $data['message'],
+                                                'name' => $data['name'] ?? null,
+                                                'email' => $data['email'] ?? null,
+                                                'phone' => $data['phone'] ?? null,
+                                                'website' => $data['website'] ?? null,
+                                                'message' => $data['message'] ?? null,
+                                                'specifications' => $data['specifications'] ?? null,
                                             ],
                                             JSON_PRETTY_PRINT,
                                         ) }}</pre>
@@ -72,13 +73,22 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ $data['email'] }}&amp;su=Re: Contact Form Submission&amp;body=Hi {{ $data['name'] }},%0D%0A%0D%0AThank you for your inquiry..."
+                                    @if (! empty($data['email']))
+                                    <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ $data['email'] }}&amp;su=Re: Contact Form Submission&amp;body=Hi {{ $data['name'] ?? '' }},%0D%0A%0D%0AThank you for your inquiry..."
                                         style="background-color:rgb(76,29,149);border-radius:0.5rem;padding-left:2rem;padding-right:2rem;padding-top:1rem;padding-bottom:1rem;font-size:1rem;line-height:1.5rem;font-weight:700;color:rgb(255,255,255);text-decoration-line:none;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;padding:16px 32px 16px 32px"
                                         target="_blank"><span><!--[if mso]><i style="mso-font-width:400%;mso-text-raise:24" hidden>&#8202;&#8202;&#8202;&#8202;</i><![endif]--></span><span
                                             style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:12px">REPLY
                                             TO
-                                            {{ $data['name'] }}
+                                            {{ $data['name'] ?? $data['email'] }}
                                         </span><span><!--[if mso]><i style="mso-font-width:400%" hidden>&#8202;&#8202;&#8202;&#8202;&#8203;</i><![endif]--></span></a>
+                                    @elseif (! empty($data['phone']))
+                                    <a href="tel:{{ preg_replace('/\s+/', '', $data['phone']) }}"
+                                        style="background-color:rgb(76,29,149);border-radius:0.5rem;padding-left:2rem;padding-right:2rem;padding-top:1rem;padding-bottom:1rem;font-size:1rem;line-height:1.5rem;font-weight:700;color:rgb(255,255,255);text-decoration-line:none;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;padding:16px 32px 16px 32px"
+                                        target="_blank"><span><!--[if mso]><i style="mso-font-width:400%;mso-text-raise:24" hidden>&#8202;&#8202;&#8202;&#8202;</i><![endif]--></span><span
+                                            style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:12px">CALL
+                                            {{ $data['name'] ?? $data['phone'] }}
+                                        </span><span><!--[if mso]><i style="mso-font-width:400%" hidden>&#8202;&#8202;&#8202;&#8202;&#8203;</i><![endif]--></span></a>
+                                    @endif
                                 </td>
                             </tr>
                         </tbody>

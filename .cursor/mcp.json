@@ -3,6 +3,10 @@
     "laravel-boost": {
       "command": "php",
       "args": ["./apps/api/artisan", "boost:mcp"]
+    },
+    "next-devtools": {
+      "command": "/home/sander/.local/share/mise/shims/npx",
+      "args": ["-y", "next-devtools-mcp@latest"]
     }
   }
 }

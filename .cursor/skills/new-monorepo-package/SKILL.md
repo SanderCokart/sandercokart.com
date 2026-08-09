@@ -167,8 +167,8 @@ For an index and when to use each file, see [reference.md](reference.md).
 
 ## External references
 
-- [Turborepo – Creating internal packages](https://turbo.build/repo/docs/crafting-your-repository/creating-an-internal-package)
-- [Turborepo – Package configurations](https://turbo.build/repo/docs/reference/package-configurations)
-- [Turborepo – Reference](https://turbo.build/repo/docs)
-- [PNPM – Workspaces](https://pnpm.io/workspaces)
+- [Turborepo - Creating internal packages](https://turbo.build/repo/docs/crafting-your-repository/creating-an-internal-package)
+- [Turborepo - Package configurations](https://turbo.build/repo/docs/reference/package-configurations)
+- [Turborepo - Reference](https://turbo.build/repo/docs)
+- [PNPM - Workspaces](https://pnpm.io/workspaces)
 - In-repo examples: `packages/i18n`, `packages/ui`, `packages/mail`

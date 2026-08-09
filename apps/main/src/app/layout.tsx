@@ -13,7 +13,7 @@ import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 
 import { env } from '@/env';
-import { GlobalProviders } from '@/providers/global-providers';
+import { GlobalProviders } from '@/providers/server.global-providers';
 
 import { Header } from './components/header';
 
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     images: [
       {
         url: DEFAULT_SOCIAL_IMAGE,
-        alt: 'sandercokart.com — developer articles and YouTube companions',
+        alt: 'sandercokart.com - developer articles and YouTube companions',
       },
     ],
   },

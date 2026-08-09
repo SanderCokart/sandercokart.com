@@ -129,7 +129,7 @@ export const BlogCardItem: React.FC<BlogCardProps> = props => {
 
   /**
    * Static cards: clip the image to `rounded-sm` and attach hover/focus here so the whole tile responds (BlogCard has no outer wrapper class).
-   * Video cards: only `aspect-video` + positioning on `<article>` — overflow and hover/focus stay on `FlippableCard` so preserve-3d / flip layout is not clipped or scaled at the wrong level.
+   * Video cards: only `aspect-video` + positioning on `<article>` - overflow and hover/focus stay on `FlippableCard` so preserve-3d / flip layout is not clipped or scaled at the wrong level.
    */
   const rootArticleClassName = cn('relative aspect-video', !hasVideo && ['overflow-hidden', cardHoverFocusClassName]);
 

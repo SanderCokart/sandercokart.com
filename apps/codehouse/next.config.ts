@@ -9,6 +9,9 @@ const withNextIntl = createNextIntlPlugin();
 let finalConfig;
 
 const nextConfig: NextConfig = {
+  // Enables Partial Prerendering (PPR) and Cache Components; required for 'use cache'.
+  // @see https://nextjs.org/docs/app/api-reference/config/next-config-js/cacheComponents
+  cacheComponents: true,
   output: env.NEXT_OUTPUT,
   serverExternalPackages: [
     'import-in-the-middle',

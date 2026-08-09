@@ -1,6 +1,4 @@
-import { BsFillLightningFill } from 'react-icons/bs';
-import { FaEnvelope } from 'react-icons/fa';
-import { FaComment, FaSuitcase } from 'react-icons/fa6';
+import { FaEnvelope, FaCircleQuestion } from 'react-icons/fa6';
 
 import type { ReactNode } from 'react';
 
@@ -12,23 +10,13 @@ export type LinkType = {
 
 export const links = [
   {
-    href: '/#portfolio',
-    icon: <FaSuitcase />,
-    t: 'portfolio',
+    href: '#faq',
+    icon: <FaCircleQuestion />,
+    t: 'faq',
   },
   {
-    href: '/#techstack',
-    icon: <BsFillLightningFill />,
-    t: 'tech-stack',
-  },
-  {
-    href: '/#testimonials',
-    icon: <FaComment />,
-    t: 'testimonials',
-  },
-  {
-    href: '/#contact-form',
+    href: '#ask-for-a-quote',
     icon: <FaEnvelope />,
-    t: 'contact',
+    t: 'ask-for-a-quote',
   },
 ] as const;

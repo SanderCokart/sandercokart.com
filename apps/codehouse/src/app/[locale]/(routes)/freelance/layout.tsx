@@ -1,18 +1,22 @@
-import type { FC, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
-import { Header } from './(components)/header';
+import { ServiceHeader } from '@/src/components/service-header';
+import type { LocaleCode } from '@/src/i18n/config';
 
-interface Props {
+import { CachedPageContent } from '../../_ppr/cached-page-content';
+
+type FreelanceLayoutProps = {
   children: ReactNode;
-}
-
-const Layout: FC<Props> = async ({ children }) => {
-  return (
-    <>
-      <Header />
-      {children}
-    </>
-  );
+  params: Promise<{ locale: string }>;
 };
 
-export default Layout;
+export default async function FreelanceLayout({ children, params }: FreelanceLayoutProps) {
+  const { locale } = (await params) as { locale: LocaleCode };
+
+  return (
+    <>
+      <ServiceHeader />
+      <CachedPageContent locale={locale}>{children}</CachedPageContent>
+    </>
+  );
+}

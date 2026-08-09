@@ -4,6 +4,7 @@ import { ServiceOfferingsSection } from './(components)/service-offerings-sectio
 import { LocaleCode } from '@/src/i18n/config';
 
 type LandingPageParams = { params: Promise<{ locale: string }> };
+
 export default async function LandingPage({ params }: LandingPageParams) {
   const { locale } = (await params) as { locale: LocaleCode };
   setRequestLocale(locale);
