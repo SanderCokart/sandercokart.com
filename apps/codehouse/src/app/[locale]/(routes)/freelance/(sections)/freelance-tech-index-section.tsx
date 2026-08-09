@@ -62,8 +62,8 @@ import {
   SiPinia,
   SiPnpm,
   SiPocketbase,
-  SiPostgresql,
   SiPostcss,
+  SiPostgresql,
   SiPrettier,
   SiPython,
   SiQwik,
@@ -161,7 +161,13 @@ const techItems: TechItem[] = [
   { id: 'python', label: 'Python', aliases: ['python'], icon: SiPython, category: 'languages' },
   { id: 'java', label: 'Java', aliases: ['java'], icon: FaJava, category: 'languages' },
   { id: 'sql', label: 'SQL', aliases: ['sql'], icon: FaDatabase, category: 'languages' },
-  { id: 'bash', label: 'Bash / Shell', aliases: ['bash', 'shell', 'sh', 'cli'], icon: SiGnubash, category: 'languages' },
+  {
+    id: 'bash',
+    label: 'Bash / Shell',
+    aliases: ['bash', 'shell', 'sh', 'cli'],
+    icon: SiGnubash,
+    category: 'languages',
+  },
   { id: 'json', label: 'JSON', aliases: ['json'], icon: SiJson, category: 'languages' },
   { id: 'xml', label: 'XML', aliases: ['xml'], icon: SiXml, category: 'languages' },
   { id: 'mdx', label: 'MDX', aliases: ['mdx'], icon: SiMdx, category: 'languages' },
@@ -259,7 +265,13 @@ const techItems: TechItem[] = [
   { id: 'laravel', label: 'Laravel', aliases: ['laravel', 'php laravel'], icon: SiLaravel, category: 'backend' },
   { id: 'symfony', label: 'Symfony', aliases: ['symfony', 'php symfony'], icon: SiSymfony, category: 'backend' },
   { id: 'flask', label: 'Flask', aliases: ['flask', 'python flask'], icon: SiFlask, category: 'backend' },
-  { id: 'fastapi', label: 'FastAPI', aliases: ['fastapi', 'fast-api', 'fast api'], icon: SiFastapi, category: 'backend' },
+  {
+    id: 'fastapi',
+    label: 'FastAPI',
+    aliases: ['fastapi', 'fast-api', 'fast api'],
+    icon: SiFastapi,
+    category: 'backend',
+  },
   { id: 'doctrine', label: 'Doctrine', aliases: ['doctrine', 'doctrine orm'], icon: SiDoctrine, category: 'backend' },
   {
     id: 'laravel-sanctum',
@@ -275,7 +287,13 @@ const techItems: TechItem[] = [
     icon: SiNextdotjs,
     category: 'backend',
   },
-  { id: 'jwt', label: 'JWT', aliases: ['jwt', 'json web token', 'jsonwebtoken'], icon: SiJsonwebtokens, category: 'backend' },
+  {
+    id: 'jwt',
+    label: 'JWT',
+    aliases: ['jwt', 'json web token', 'jsonwebtoken'],
+    icon: SiJsonwebtokens,
+    category: 'backend',
+  },
   {
     id: 'openid',
     label: 'OpenID Connect',
@@ -311,7 +329,13 @@ const techItems: TechItem[] = [
     category: 'databases',
   },
   { id: 'sqlite', label: 'SQLite', aliases: ['sqlite'], icon: SiSqlite, category: 'databases' },
-  { id: 'mongodb', label: 'MongoDB', aliases: ['mongo', 'mongodb', 'mongo db'], icon: SiMongodb, category: 'databases' },
+  {
+    id: 'mongodb',
+    label: 'MongoDB',
+    aliases: ['mongo', 'mongodb', 'mongo db'],
+    icon: SiMongodb,
+    category: 'databases',
+  },
   { id: 'redis', label: 'Redis', aliases: ['redis', 'cache'], icon: SiRedis, category: 'databases' },
 
   // DevOps & hosting
@@ -324,7 +348,13 @@ const techItems: TechItem[] = [
     category: 'devops',
   },
   { id: 'nginx', label: 'Nginx', aliases: ['nginx'], icon: SiNginx, category: 'devops' },
-  { id: 'traefik', label: 'Traefik', aliases: ['traefik', 'proxy', 'reverse proxy'], icon: SiTraefikproxy, category: 'devops' },
+  {
+    id: 'traefik',
+    label: 'Traefik',
+    aliases: ['traefik', 'proxy', 'reverse proxy'],
+    icon: SiTraefikproxy,
+    category: 'devops',
+  },
   { id: 'cloudflare', label: 'Cloudflare', aliases: ['cloudflare', 'cf'], icon: SiCloudflare, category: 'devops' },
   { id: 'vercel', label: 'Vercel', aliases: ['vercel'], icon: SiVercel, category: 'devops' },
   { id: 'dokploy', label: 'Dokploy', aliases: ['dokploy'], icon: SiDocker, category: 'devops' },
@@ -473,10 +503,11 @@ export const FreelanceTechIndexSection: FC<ComponentProps<'section'>> = ({ class
   const isSearching = deferredQuery.trim().length > 0;
 
   const categoryLabels = useMemo(
-    () => Object.fromEntries(categoryOrder.map(category => [category, t(`categories_${category}`)])) as Record<
-      TechCategory,
-      string
-    >,
+    () =>
+      Object.fromEntries(categoryOrder.map(category => [category, t(`categories_${category}`)])) as Record<
+        TechCategory,
+        string
+      >,
     [t],
   );
 
@@ -502,10 +533,7 @@ export const FreelanceTechIndexSection: FC<ComponentProps<'section'>> = ({ class
     return grouped.filter(group => group.category === activeCategory);
   }, [activeCategory, grouped, isSearching]);
 
-  const visibleCategoryValues = useMemo(
-    () => visibleGroups.map(group => group.category),
-    [visibleGroups],
-  );
+  const visibleCategoryValues = useMemo(() => visibleGroups.map(group => group.category), [visibleGroups]);
 
   const accordionSyncKey = isSearching ? `search:${deferredQuery}` : `browse:${activeCategory}`;
   const [openCategories, setOpenCategories] = useState<TechCategory[]>([]);
@@ -592,7 +620,7 @@ export const FreelanceTechIndexSection: FC<ComponentProps<'section'>> = ({ class
       ) : showAccordion ? (
         <Card className="border-border/60 bg-card/40">
           <CardContent className="flex flex-col gap-2 pt-2">
-            <div className="flex justify-end">
+            <div className="flex justify-center">
               <ButtonGroup aria-label={t('accordion_controls_label')}>
                 <Button
                   type="button"
@@ -622,9 +650,7 @@ export const FreelanceTechIndexSection: FC<ComponentProps<'section'>> = ({ class
                 <AccordionItem key={group.category} value={group.category}>
                   <AccordionTrigger className="text-left hover:no-underline">
                     <span className="flex flex-1 items-center justify-between gap-3 pr-2">
-                      <span className="text-xs font-semibold tracking-[0.12em] uppercase">
-                        {group.categoryLabel}
-                      </span>
+                      <span className="text-xs font-semibold tracking-[0.12em] uppercase">{group.categoryLabel}</span>
                       <span className="text-muted-foreground text-xs tabular-nums">{group.items.length}</span>
                     </span>
                   </AccordionTrigger>
