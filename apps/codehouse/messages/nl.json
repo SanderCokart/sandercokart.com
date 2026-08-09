@@ -142,130 +142,6 @@
     "faq_mobile_accessibility_answer": "Mobiele ondersteuning is altijd inbegrepen. We werken met een <highlight>mobile-first aanpak</highlight> en zorgen dat het ontwerp en de interacties perfect schalen van de kleinste telefoons tot ultrawide desktopmonitoren. Daarnaast bouwen we toegankelijkheid vanaf het begin in, zodat de site comfortabel te gebruiken is met schermlezers, toetsenbordbediening en andere hulpmiddelen - ook voor mensen met een visuele beperking of verminderde mobiliteit.",
     "title": "Waarom een persoonlijke website beter presteert dan templates"
   },
-  "CommercialProposalAHero": {
-    "eyebrow": "Business Solutions",
-    "title": "Software die zichzelf <highlight>terugverdient</highlight> door schonere processen.",
-    "description": "Maatwerk CRM's, dashboards, portals en boekingssystemen - gebouwd om <highlight>verspilling te snijden</highlight>, werk te centraliseren en te schalen zonder chaos.",
-    "cta_primary": "Vraag een projectofferte aan",
-    "cta_secondary": "Bekijk wat we bouwen"
-  },
-  "CommercialProposalASystems": {
-    "title": "Systemen die we bouwen",
-    "description": "Van een gerichte microservice tot een volledig operationeel platform - afgestemd op hoe uw bedrijf echt werkt.",
-    "items_crm_title": "CRM-achtige tools",
-    "items_crm_description": "Volg leads, klanten en follow-ups op één plek, zodat uw team geen deals meer kwijtraakt in inboxen en spreadsheets.",
-    "items_dashboards_title": "Interne dashboards",
-    "items_dashboards_description": "Live metrics en operationele overzichten die beslissers <highlight>helderheid</highlight> geven in plaats van wekelijkse rapportjacht.",
-    "items_portals_title": "Klant- en cliëntportals",
-    "items_portals_description": "Veilige selfservice voor orders, documenten en statusupdates - minder supporttickets, tevredenere klanten.",
-    "items_booking_title": "Geautomatiseerde boekingen",
-    "items_booking_description": "Afspraken, resourceplanning en bevestigingen die lopen zonder constante handmatige coördinatie.",
-    "items_inventory_title": "Voorraad- en orderbeheer",
-    "items_inventory_description": "Voorraadniveaus, fulfillment en orderstromen verbonden, zodat operaties accuraat blijven bij groeiend volume.",
-    "items_internal_title": "Interne managementsystemen",
-    "items_internal_description": "Workflows, goedkeuringen en teamtools vormgegeven rond uw proces - geen generieke SaaS-compromis."
-  },
-  "CommercialProposalARoi": {
-    "title": "Pijn eruit. ROI erin.",
-    "description": "We vervangen operationele frictie door software die elke week dat ze draait waarde opstapelt.",
-    "items_spreadsheets_pain": "Verspreide spreadsheets en gedeelde schijven",
-    "items_spreadsheets_outcome": "<highlight>Eén bron van waarheid</highlight> die uw team kan vertrouwen",
-    "items_silos_pain": "Tools en teams die niet met elkaar praten",
-    "items_silos_outcome": "<highlight>Gecentraliseerde operaties</highlight> met gedeelde workflows",
-    "items_manual_pain": "Uren verloren aan handmatig boeken, najagen en copy-paste",
-    "items_manual_outcome": "<highlight>Geautomatiseerde processen</highlight> die mensen vrijmaken voor echt werk",
-    "items_scale_pain": "Groei die chaos vermenigvuldigt in plaats van omzet",
-    "items_scale_outcome": "<highlight>Schaalbare systemen</highlight> die rustig blijven onder druk",
-    "footnote": "Begin klein met één module met hoge ROI, of laat een volledig platform bouwen - de scope past zich aan uw budget en planning aan."
-  },
-  "CommercialProposalAFaq": {
-    "title": "Gebouwd voor beslissers",
-    "description": "Duidelijke antwoorden over eigendom, oplevering en wat er nodig is om commerciële software met CodeHouse te leveren.",
-    "faq_title": "Veelgestelde vragen",
-    "faq_ownership_question": "Wie is <highlight>eigenaar</highlight> van de software als het project klaar is?",
-    "faq_ownership_answer": "U. Zodra het overeengekomen werk is betaald, bent u <highlight>eigenaar van de code</highlight> en het product. Geen platform-lock-in - u kunt zelf hosten, van leverancier wisselen of uitbreiden met een ander team.",
-    "faq_timeline_question": "Hoe lang <highlight>duurt</highlight> een typisch project?",
-    "faq_timeline_answer": "Een gerichte module of MVP landt vaak in <highlight>weken tot een paar maanden</highlight>. Grotere multi-systeemplatforms worden gefaseerd, zodat u vroeg waarde ziet in plaats van te wachten op een big-bang launch. We bevestigen een realistische planning na de scoping.",
-    "faq_scope_question": "Kunnen jullie zowel <highlight>kleine tools</highlight> als grote systemen aan?",
-    "faq_scope_answer": "Ja. We bouwen alles van een enkele operationele microservice tot multi-module platforms (CRM, portals, voorraad, dashboards). We dimensioneren de architectuur op uw roadmap, zodat u op dag één niet te veel koopt.",
-    "faq_hosting_question": "Is <highlight>hosting</highlight> inbegrepen?",
-    "faq_hosting_answer": "U kunt zelf hosten - u bent eigenaar van de code. Liever hands-off? Dan kunnen we <highlight>hosting</highlight>, deployments, monitoring en updates als doorlopende dienst verzorgen.",
-    "faq_maintenance_question": "Hoe zit het met <highlight>onderhoud</highlight> en nieuwe features na livegang?",
-    "faq_maintenance_answer": "Wijzigingen na livegang zijn op verzoek of via een lichtgewicht retainer beschikbaar. Security patches, dependency-updates en feature-iteraties plannen we rond uw operationele prioriteiten - niet rond een starre SaaS-roadmap.",
-    "faq_security_question": "Hoe pakken jullie <highlight>security</highlight> aan?",
-    "faq_security_answer": "Security zit vanaf het begin in het ontwerp: authenticatie, autorisatie, versleuteld verkeer, least-privilege toegang en infrastructuur die past bij commerciële data. We stemmen controles af op de gevoeligheid van uw workflows en compliance-eisen.",
-    "faq_ip_question": "Wat gebeurt er met <highlight>IP</highlight> en licenties van derden?",
-    "faq_ip_answer": "Maatwerkcode die voor uw project wordt geleverd, is van u. Open-source- en third-party-componenten behouden hun oorspronkelijke licenties - we documenteren wat er gebruikt is, zodat juridische en IT-teams een duidelijk overzicht hebben."
-  },
-  "CommercialProposalBEngagement": {
-    "description": "Een helder samenwerkingsmodel, zodat stakeholders weten wat er volgt - en wie elke stap in eigendom heeft.",
-    "phases_build_description": "We leveren in gerichte stappen die u kunt beoordelen, met transparante voortgang en ruimte om prioriteiten bij te sturen.",
-    "phases_build_item_1": "Werkende software in korte cycli",
-    "phases_build_item_2": "Regelmatige demo's en schriftelijke updates",
-    "phases_build_item_3": "Scopewijzigingen expliciet afgehandeld",
-    "phases_build_title": "Bouwen",
-    "phases_discover_description": "We brengen doelen, randvoorwaarden, gebruikers en systemen in kaart vóór productiewerk - zodat de eerste bouw de juiste bouw is.",
-    "phases_discover_item_1": "Stakeholdergesprekken & succescriteria",
-    "phases_discover_item_2": "Architectuurschets & risicoregister",
-    "phases_discover_item_3": "Gefaseerde roadmap met een duidelijke MVP",
-    "phases_discover_title": "Ontdekken",
-    "phases_handoff_description": "Livegang is niet het einde van het partnerschap. We documenteren, trainen en blijven beschikbaar voor de systemen waar uw team op steunt.",
-    "phases_handoff_item_1": "Documentatie & kennisoverdracht",
-    "phases_handoff_item_2": "Deployen, monitoren en harden",
-    "phases_handoff_item_3": "Optionele retainer voor support & groei",
-    "phases_handoff_title": "Oplevering & support",
-    "title": "Hoe we samenwerken"
-  },
-  "CommercialProposalBFaq": {
-    "description": "Praktische antwoorden voor teams die een langetermijn technische partner overwegen.",
-    "faq_growth_answer": "Dat is juist het punt van het partnerschapsmodel. We ontwerpen voor verandering: duidelijke modulegrenzen, gedocumenteerde <api>API's</api> en een backlog met vervolgstappen. Als u er klaar voor bent, breiden we het systeem uit zonder wat al werkt opnieuw te schrijven.",
-    "faq_growth_question": "Wat als onze behoeften na livegang groeien?",
-    "faq_integrations_answer": "Ja. De meeste bedrijfsapps moeten praten met boekhoudtools, CRM's, betaalproviders of interne databases. We ontwerpen <api>API</api>-integraties en datastromen zorgvuldig, zodat uw nieuwe systeem past in het landschap dat u al draait.",
-    "faq_integrations_question": "Kunnen jullie integreren met onze bestaande tools?",
-    "faq_ownership_answer": "U bent <highlight>eigenaar van de code en het intellectuele eigendom</highlight> van het werk dat u opdracht geeft. Geen platform-lock-in: u kunt zelf hosten, een ander team inschakelen, of ons als doorlopende partner houden.",
-    "faq_ownership_question": "Wie is eigenaar van de code en het IP?",
-    "faq_security_answer": "Beveiliging hoort bij de bouw, niet als nabewerking: toegangscontrole, least-privilege ontwerp, veilige defaults en zorgvuldige omgang met credentials en persoonsgegevens. We documenteren wat we inrichten, zodat uw team het kan auditen en beheren.",
-    "faq_security_question": "Hoe pakken jullie beveiliging aan?",
-    "faq_start_small_answer": "Ja. Veel trajecten beginnen met één <microservice>microservice</microservice> of gerichte interne tool die snel waarde bewijst. We houden interfaces schoon, zodat die tool later in een breder platform kan aansluiten.",
-    "faq_start_small_question": "Kunnen we beginnen met een kleine tool in plaats van een volledig platform?",
-    "faq_support_answer": "Na oplevering kunt u zelf beheren, ons per verzoek inschakelen, of een lichte retainer afspreken voor monitoring, updates en kleine verbeteringen. Toegewijde support betekent een bekend aanspreekpunt - geen ticket-zwart gat.",
-    "faq_support_question": "Hoe ziet doorlopende support eruit?",
-    "faq_timeline_answer": "Een gerichte MVP landt vaak binnen enkele weken zodra discovery helder is. Grotere platforms leveren we in fases, zodat u vroeg werkende software ziet. We spreken mijlpalen vooraf af en houden die zichtbaar.",
-    "faq_timeline_question": "Hoe lang duurt een typisch traject?",
-    "faq_title": "Veelgestelde vragen",
-    "title": "Vragen van zakelijke stakeholders"
-  },
-  "CommercialProposalBHero": {
-    "cta_primary": "Start een gesprek",
-    "cta_secondary": "Bekijk hoe we werken",
-    "description": "We werken samen met groeiende bedrijven om de maatwerk websystemen te ontwerpen, bouwen en beheren waar de operatie écht op draait - klein beginnen wanneer dat verstandig is, en opschalen wanneer u er klaar voor bent.",
-    "title": "Wij bouwen de <highlight>systemen</highlight> waar uw bedrijf op <highlight>draait</highlight>"
-  },
-  "CommercialProposalBScale": {
-    "description": "U hoeft op dag één geen enterprise-platform te bestellen. We starten waar de pijn het scherpst is, en vergroten het oppervlak naarmate vertrouwen en ROI toenemen.",
-    "footnote": "Elke stap houdt het eigendom bij u - en laat een schoon pad open naar de volgende.",
-    "steps_connected_description": "Koppel de tool aan workflows: notificaties, gedeelde data en lichte <api>API</api>-integraties met de systemen die u al gebruikt.",
-    "steps_connected_title": "Verbonden workflows",
-    "steps_focused_description": "Eén gerichte tool of <microservice>microservice</microservice> die één duur probleem oplost - boeken, offreren, intake of rapportage.",
-    "steps_focused_title": "Gerichte tools",
-    "steps_platforms_description": "Klantportals, interne dashboards, CRM-achtige views en ops-consoles die teams één werkplek geven.",
-    "steps_platforms_title": "Geïntegreerde platforms",
-    "steps_systems_description": "Een samenhangende suite van services die de dagelijkse operatie draagt - betrouwbaar, gedocumenteerd en klaar voor het volgende groeihofdstuk.",
-    "steps_systems_title": "Bedrijfskritische systemen",
-    "title": "Klein beginnen. Met intentie schalen."
-  },
-  "CommercialProposalBTrust": {
-    "description": "Partnerschap werkt alleen als vertrouwen expliciet is. Dit zijn de toezeggingen die we bij elk traject meenemen.",
-    "pillars_maintainability_description": "Leesbare architectuur, tests waar ze ertoe doen, en documentatie die uw volgende engineer kan volgen - zodat het systeem <highlight>onderhoudbaar</highlight> blijft voor jaren, niet maanden.",
-    "pillars_maintainability_title": "Onderhoudbaarheid",
-    "pillars_ownership_description": "U bent eigenaar van de repository, de infrastructuuraccounts die we voor u inrichten, en het <highlight>IP</highlight>. We bouwen assets die u kunt houden, verkopen of uitbreiden zonder onze toestemming.",
-    "pillars_ownership_title": "Eigendom & IP",
-    "pillars_security_description": "Authenticatie, autorisatie, secrets-beheer en gegevensbescherming zitten vanaf de eerste commit in het ontwerp - niet pas op het laatste moment voor livegang.",
-    "pillars_security_title": "Security by design",
-    "pillars_support_description": "Een vast aanspreekpunt dat uw stack kent. Of u een retainer wilt of hulp op afroep: u hoeft nooit te raden wie u moet bellen.",
-    "pillars_support_title": "Toegewijde support",
-    "title": "Vertrouwen dat we schriftelijk verdienen"
-  },
   "Glossary": {
     "api_description": "Een Application Programming Interface (API) laat softwaresystemen op een gestructureerde, betrouwbare manier data uitwisselen en acties starten.",
     "cms_description": "Een contentmanagementsysteem (CMS) is software waarmee je website-inhoud-zoals teksten, afbeeldingen en bepaalde secties-kunt bijwerken zonder code te hoeven aanpassen.",
@@ -276,167 +152,12 @@
     "Address_kvk": "KvK nummer",
     "Copyright_message": "© Sander's CodeHouse {date} Alle rechten voorbehouden."
   },
-  "FreelanceHeroSection": {
-    "button": "Bekijk mijn werk",
-    "description": "Ontketen het volledige potentieel van uw bedrijf met op maat gemaakte webapplicaties en deskundige freelance ontwikkeling. Van concept tot implementatie lever ik op maat gemaakte digitale oplossingen die zijn ontworpen om groei te stimuleren, de gebruikersbetrokkenheid te vergroten en de bedrijfsvoering te stroomlijnen. Laten we samen iets uitzonderlijks bouwen.",
-    "title": "Weboplossingen op maat voor uw bedrijf"
-  },
-  "FreelancePage": {
-    "testimonials_1_author": "Sander is een ambitieuze programmeur aan het begin van zijn carrière.",
-    "testimonials_1_quote": "Sander is technisch erg goed en kan snel schakelen. We zouden Sander zeker nog eens inhuren.",
-    "title": "Referenties"
-  },
-  "FreelanceProposalAHero": {
-    "eyebrow": "Portfolio & vakmanschap",
-    "title": "Ik lever <highlight>producten</highlight> waar teams op kunnen bouwen",
-    "description": "Freelance webontwikkeling onderbouwd door echt opgeleverd werk - van doordachte gebruikersflows tot beheerpaneel dat uw team dagelijks nodig heeft.",
-    "cta_primary": "Vraag een offerte aan",
-    "cta_secondary": "Bekijk het werk"
-  },
-  "FreelanceProposalAShowcase": {
-    "title": "Opgeleverd werk, geen slides",
-    "description": "Een blik op NaWijzer - een productieplatform dat ik mede heb gebouwd, van <highlight>vragenlijst-UX</highlight> tot beheerdersgereedschap.",
-    "case_eyebrow": "Casestudy",
-    "case_title": "NaWijzer.nl",
-    "case_description": "Ik heb geholpen bij het bouwen van het platform voor NaWijzer, met focus op het aangepaste vragenlijstsysteem en het administratieve dashboard - inclusief dynamische PDF-generatie uit vragenlijstgegevens.",
-    "highlight_1_title": "Vragenlijstervaring",
-    "highlight_1_description": "Een begeleide flow die respondenten op koers houdt - duidelijke stappen, validatie en een verzorgde afronding die bij het merk past.",
-    "highlight_2_title": "Beheerdersdashboard",
-    "highlight_2_description": "Beheerders krijgen een overzichtelijk beeld van inzendingen, status en exports - gebouwd voor dagelijks gebruik, niet voor een demo.",
-    "highlight_3_title": "Dynamische PDF-output",
-    "highlight_3_description": "Op maat gebouwde generatie zet antwoorden om in merkgebonden PDF's - geen handmatig kopiëren na elke inzending.",
-    "nawijzer_caption_1_alt": "NaWijzer vragenlijstinterface",
-    "nawijzer_caption_1_text": "NaWijzer Vragenlijstsysteem",
-    "nawijzer_caption_2_alt": "NaWijzer beheerdersdashboard",
-    "nawijzer_caption_2_text": "NaWijzer Beheerdersdashboard"
-  },
-  "FreelanceProposalACapabilities": {
-    "title": "Wat ik meebreng in uw team",
-    "description": "Het portfolio bewijst het vakmanschap - zo sluit ik aan bij uw project wanneer u een <highlight>senior bouwer</highlight> nodig heeft.",
-    "items_react_title": "React, Vue & Next.js",
-    "items_react_description": "Moderne front-end ontwikkeling met de frameworks die uw stack al gebruikt - componentgedreven, toegankelijk en performancebewust.",
-    "items_fullstack_title": "Ontwikkeling van A tot Z",
-    "items_fullstack_description": "Van <highlight>API</highlight>-ontwerp tot UI-afwerking - ik kan features over de hele stack oppakken zodat uw team sneller levert.",
-    "items_quality_title": "Kwaliteit die u kunt beoordelen",
-    "items_quality_description": "Schone code, doordachte architectuur en een grondige overdracht - werk waar u na het contract op verder kunt bouwen.",
-    "items_agile_title": "Agile samenwerking",
-    "items_agile_description": "Vertrouwd met sprints, stand-ups en async updates - ik pas me aan hoe uw team al werkt.",
-    "items_team_title": "Teamgerichte instelling",
-    "items_team_description": "Ik communiceer helder, documenteer beslissingen en laat de codebase beter achter dan ik hem aantref.",
-    "items_onboarding_title": "Snelle onboarding",
-    "items_onboarding_description": "Ik werk me snel in bestaande codebases en conventies - productief binnen dagen, niet weken."
-  },
-  "FreelanceProposalAFaq": {
-    "title": "Vragen voordat u inhuurt",
-    "description": "Eerlijke antwoorden over samenwerken met mij als freelance ontwikkelaar.",
-    "faq_title": "Veelgestelde vragen",
-    "faq_availability_question": "Wat is uw <highlight>beschikbaarheid</highlight>?",
-    "faq_availability_answer": "Ik neem een beperkt aantal opdrachten tegelijk aan zodat elke klant gerichte aandacht krijgt. Deel uw planning en ik bevestig of ik op tijd kan starten.",
-    "faq_rates_question": "Hoe gaat u om met <highlight>tarieven</highlight>?",
-    "faq_rates_answer": "Ik offreer op basis van scope, duur en complexiteit - dagtarief of projectbasis, wat past bij uw inkoopproces. Geen verrassingsfacturen; we spreken vooraf de voorwaarden af.",
-    "faq_ip_question": "Wie is eigenaar van de <highlight>code</highlight> en IP?",
-    "faq_ip_answer": "U bent dat. Zodra het afgesproken werk is betaald, zijn de deliverables en broncode van u - geen platform lock-in, geen verborgen licenties.",
-    "faq_stack_question": "Met welke <highlight>technologieën</highlight> werkt u?",
-    "faq_stack_answer": "Voornamelijk React, Vue, Next.js en Laravel - met ruime ervaring in TypeScript, REST API's en moderne deployment-workflows. Ik kies tools die bij uw bestaande stack passen.",
-    "faq_collaboration_question": "Hoe <highlight>werkt u samen</highlight> met interne teams?",
-    "faq_collaboration_answer": "Ik sluit aan op uw tools - Slack, Jira, GitHub, wat u ook gebruikt - en volg uw reviewproces. Regelmatige demo's en duidelijke PR's houden iedereen op één lijn.",
-    "faq_timeline_question": "Hoe lang duren opdrachten meestal?",
-    "faq_timeline_answer": "Dat hangt af van de scope - een gerichte feature kan weken duren; een grotere build levert in <highlight>iteratieve releases</highlight>. We definiëren vooraf mijlpalen zodat planningen realistisch blijven.",
-    "faq_handoff_question": "Hoe ziet <highlight>overdracht</highlight> eruit?",
-    "faq_handoff_answer": "Gedocumenteerde setup, walkthrough-sessies en schone repository-toegang. Uw team kan het werk onderhouden en uitbreiden zonder van mij afhankelijk te zijn - al ben ik beschikbaar voor vervolg indien nodig."
-  },
   "GenericTestimonialsSection": {
     "title": "Referenties"
   },
   "NotFoundPage": {
     "back-to-front": "Ga terug naar de voorpagina",
     "message": "Deze pagina bestaat niet."
-  },
-  "PortfolioSection": {
-    "nawijzer_caption_1_alt": "NaWijzer Questionnaire",
-    "nawijzer_caption_1_text": "NaWijzer Vragenlijstsysteem",
-    "nawijzer_caption_2_alt": "NaWijzer Admin",
-    "nawijzer_caption_2_text": "NaWijzer Beheerdersdashboard",
-    "nawijzer_description": "Ik heb geholpen bij het bouwen van het platform voor NaWijzer, waarbij de nadruk lag op hun aangepaste vragenlijstsysteem en het administratieve dashboard. Dit project omvatte het creëren van een robuust systeem voor vragenlijstbeheer en een gebruiksvriendelijk dashboard voor beheerders, samen met een op maat gemaakte oplossing voor het genereren van dynamische PDF's uit de vragenlijstgegevens.",
-    "nawijzer_title": "NaWijzer.nl",
-    "title": "Portfolio"
-  },
-  "FreelanceProposalBHero": {
-    "eyebrow": "Freelance · Teamuitbreiding",
-    "title": "Een senior developer die <highlight>naadloos in je team past</highlight>",
-    "description": "Extra capaciteit nodig zonder een langdurig wervingsproces? Ik sluit aan bij jullie team - dezelfde standups, dezelfde PR-workflow, hetzelfde sprintbord - en lever vanaf week één productiecode.",
-    "cta_primary": "Bespreek teamfit",
-    "cta_secondary": "Hoe we samenwerken"
-  },
-  "FreelanceProposalBCollaboration": {
-    "title": "Afgestemd op het ritme van je team",
-    "description": "Staff augmentation werkt alleen als samenwerking natuurlijk aanvoelt. Zo sluit ik aan en begin ik snel bij te dragen.",
-    "steps_onboarding_title": "Snelle onboarding",
-    "steps_onboarding_description": "Repo-toegang, omgevingsopzet en een gedeelde definition of done - doorgaans binnen één tot twee dagen.",
-    "steps_onboarding_item_1": "Kickoff met je tech lead of product owner",
-    "steps_onboarding_item_2": "Lokale dev-omgeving en CI/CD-walkthrough",
-    "steps_onboarding_item_3": "Eerste ticket gescoped en toegewezen vóór dag drie",
-    "steps_agile_title": "Agile-rituelen, op jullie manier",
-    "steps_agile_description": "Ik neem deel aan de ceremonies die jullie al draaien - geen parallel proces, geen extra overhead.",
-    "steps_agile_item_1": "Dagelijkse standups en async status waar nuttig",
-    "steps_agile_item_2": "Sprintplanning, refinement en retros",
-    "steps_agile_item_3": "Schattingen afgestemd op de velocity van je team",
-    "steps_communication_title": "Heldere communicatie",
-    "steps_communication_description": "Proactieve updates in de kanalen die je team al gebruikt - async-vriendelijk, altijd traceerbaar.",
-    "steps_communication_item_1": "Slack, Teams of jullie voorkeurschattool",
-    "steps_communication_item_2": "Schriftelijke overdracht bij complexe beslissingen",
-    "steps_communication_item_3": "Overlap met CET-kantooruren als standaard",
-    "steps_delivery_title": "PR-cultuur en opleveren",
-    "steps_delivery_description": "Kleine, reviewbare pull requests die passen bij jullie conventies en main groen houden.",
-    "steps_delivery_item_1": "Feature branches met beschrijvende PR's",
-    "steps_delivery_item_2": "Code review als tweerichtingsgesprek",
-    "steps_delivery_item_3": "Tests en documentatie waar je team ze verwacht"
-  },
-  "FreelanceProposalBSkills": {
-    "title": "Stack die je team al spreekt",
-    "description": "Moderne webontwikkeling over frontend en backend - klaar om vanaf dag één bij te dragen in jullie bestaande codebase.",
-    "items_react_title": "React en ecosysteem",
-    "items_react_description": "Components, hooks, state management en design systems in productie-React-codebases.",
-    "items_vue_title": "Vue en Nuxt",
-    "items_vue_description": "Composition API, Pinia en SSR-apps - vertrouwd met volwassen Vue-projecten.",
-    "items_next_title": "Next.js en App Router",
-    "items_next_description": "Server components, routing, i18n en performancepatronen voor moderne Next-apps.",
-    "items_fullstack_title": "Fullstack delivery",
-    "items_fullstack_description": "API-ontwerp, authenticatie, databasemodellen en end-to-end features over de hele stack.",
-    "items_typescript_title": "TypeScript-first",
-    "items_typescript_description": "Strikte typing, gedeelde contracten tussen frontend en API, en onderhoudbare interfaces.",
-    "items_agile_title": "Agile en DevOps",
-    "items_agile_description": "GitHub- en GitLab-workflows, CI-pipelines, feature flags en iteratieve oplevering in sprintcycli."
-  },
-  "FreelanceProposalBShowcase": {
-    "title": "Geleverd binnen echte productteams",
-    "description": "Bewijs van productiewaardig werk - features en systemen gebouwd als onderdeel van bestaande squads, niet in isolatie.",
-    "nawijzer_eyebrow": "Case in context",
-    "nawijzer_title": "NaWijzer.nl",
-    "nawijzer_description": "Bijgedragen aan de vragenlijstflow en het admin-dashboard van NaWijzer binnen hun productteam - maatwerk vragenlijstbeheer, beheerderstooling en dynamische PDF-generatie uit antwoorden.",
-    "nawijzer_caption_1_alt": "NaWijzer Vragenlijst",
-    "nawijzer_caption_1_text": "Vragenlijstsysteem",
-    "nawijzer_caption_2_alt": "NaWijzer Admin",
-    "nawijzer_caption_2_text": "Beheerdersdashboard"
-  },
-  "FreelanceProposalBFaq": {
-    "title": "Inhuren in je team",
-    "description": "Praktische antwoorden voor leads en engineering managers die een freelance senior embed overwegen.",
-    "faq_title": "Veelgestelde vragen",
-    "faq_hours_question": "Wat zijn typische <highlight>beschikbaarheid</highlight> en uren?",
-    "faq_hours_answer": "Opdrachten zijn meestal <highlight>parttime of fulltime</highlight> (ongeveer 16-40 uur per week). We spreken kernoverlapuren vooraf af, zodat je team standups en reviews kan plannen.",
-    "faq_timezone_question": "Werk je in onze <highlight>tijdzone</highlight>?",
-    "faq_timezone_answer": "Ik ben gevestigd in Nederland (CET/CEST) met sterke overlap voor Europese teams. Voor andere regio's definiëren we een dagelijks overlapvenster - async updates houden het momentum als de klokken verschillen.",
-    "faq_tools_question": "Kun je onze <highlight>tools</highlight> en workflows gebruiken?",
-    "faq_tools_answer": "Ja. Jira, Linear, GitHub, GitLab, Notion, Slack, Teams - ik pas me aan jullie stack aan. Geen gedwongen toolchain-wijzigingen, tenzij je procesverbeteringen wilt.",
-    "faq_ownership_question": "Wie is <highlight>eigenaar</highlight> van de code die ik schrijf?",
-    "faq_ownership_answer": "Jij. Alles wat onder onze overeenkomst wordt opgeleverd, behoort tot jouw organisatie. Ik behoud geen IP over werk dat in jullie repo's wordt geleverd.",
-    "faq_sprint_question": "Hoe snel kun je in een <highlight>sprint</highlight> passen?",
-    "faq_sprint_answer": "De meeste teams plaatsen me <highlight>binnen één sprint</highlight> na kickoff. Onboarding is ontworpen om in de eerste week een gemergede PR te landen - je ziet velocity, geen ramp-up slides.",
-    "faq_notice_question": "Welke <highlight>opzegtermijn</highlight> heb je nodig?",
-    "faq_notice_answer": "Standaard opzegtermijn is <highlight>twee tot vier weken</highlight>, afhankelijk van de duur van de opdracht. Als je een harde einddatum nodig hebt voor budgetcycli, plannen we kennisoverdracht vroeg in.",
-    "faq_remote_question": "Hoe werkt <highlight>remote samenwerking</highlight> dagelijks?",
-    "faq_remote_answer": "Videostandups wanneer je dat wilt, anders async schriftelijke updates, en PR's als bron van waarheid. Ik documenteer beslissingen in jullie wiki of tickets, zodat het team op één lijn blijft als we niet in dezelfde ruimte zitten."
   },
   "ServiceOfferingsSection": {
     "callToAction": "Lees meer",
@@ -463,218 +184,7 @@
     "marketing_title": "Persoonlijke Websites",
     "title": "Diensten"
   },
-  "TechStackSection": {
-    "laravel": "We gebruiken laravel voor onze complexe systemen en complete weboplossingen. Of u nu een eenvoudige koppeling of een volledig webapp nodig heeft, laravel is een goede keuze. We combineren vaak laravel met andere tools zoals InertiaJS, waardoor we een rijke javascript ondersteunde webapp kunnen bouwen zonder een apart (sub)domein nodig te hebben.",
-    "next": "We gebruiken NextJS for onze websiteprojecten. NextJS gebruikt geavanceerde laadtechnieken om de snelste ervaring te bieden. Het gebruikt React onder de motorkap, zodat we toegang hebben tot alle geweldige bibliotheken die er zijn. Wanneer mogelijk, gebruiken we NextJS boven alleenstaand React, Vue of Laravel + JavaScript Framework oplossingen vanwege de enorme prestatieboost die NextJS biedt. codehouse.sandercokart.com is hiermee gemaakt!",
-    "react": "React is ons framework van keuze voor het bouwen van websites en digitale tools. De reden hiervoor is dat React de grootste gemeenschap heeft en het meest populaire framework is. Dit betekent dat we veel tijd kunnen besparen door bestaande oplossingen en bibliotheken te gebruiken om de ontwikkeling te versnellen.",
-    "title": "Tech Stack",
-    "vue": "We gebruiken VueJS als alternatief voor React. Het wordt vaak gecombineerd met NuxtJS, wat veel lijkt op NextJS, maar voor Vue. Statistisch gezien is Vue sneller dan React vanwege hoe het reactiviteit behandelt. Het is veel jonger dan React en heeft een kleinere community. Dit betekent dat er minder bestaande oplossingen en bibliotheken beschikbaar zijn."
-  },
-  "FreelanceProposalCHeroSection": {
-    "eyebrow": "Freelance · End-to-end levering",
-    "title": "Van <highlight>concept</highlight> tot productie - één partner, volledig eigenaarschap",
-    "description": "Jij brengt het idee. Ik neem het mee door discovery, bouw, deployment en overdracht - zodat je een opgeleverd product krijgt, geen stapel tickets.",
-    "supporting": "Solo full-stack levering met duidelijke mijlpalen, eerlijke scope en verantwoordelijkheid in elke fase.",
-    "cta_primary": "Start een project",
-    "cta_secondary": "Bekijk de aanpak",
-    "pipeline_aria": "Leveringspipeline van concept tot overdracht",
-    "pipeline_label": "Concept → live",
-    "pipeline_concept": "Concept",
-    "pipeline_discovery": "Discovery",
-    "pipeline_build": "Bouw",
-    "pipeline_deploy": "Deploy",
-    "pipeline_handoff": "Overdracht"
-  },
-  "FreelanceProposalCDeliveryPhasesSection": {
-    "title": "Hoe een opdracht verloopt",
-    "description": "Geen mysterieus proces - elke fase heeft een duidelijk resultaat, zodat je altijd weet <highlight>waar we staan</highlight> en wat er volgt.",
-    "phases_kickoff_title": "Kickoff & scope",
-    "phases_kickoff_description": "We stemmen doelen, randvoorwaarden en succescriteria af voordat er een regel code wordt geschreven.",
-    "phases_kickoff_item_1": "Discovery-gesprek en requirements mapping",
-    "phases_kickoff_item_2": "Scopedocument met mijlpalen",
-    "phases_kickoff_item_3": "Tijdlijn en communicatieplan",
-    "phases_build_title": "Bouw & iteratie",
-    "phases_build_description": "Ontwikkeling in gerichte sprints met regelmatige demo's - je ziet voortgang, niet alleen statusupdates.",
-    "phases_build_item_1": "Incrementele releases die je kunt beoordelen",
-    "phases_build_item_2": "Directe toegang voor vragen en feedback",
-    "phases_build_item_3": "Scopewijzigingen transparant afgehandeld",
-    "phases_deploy_title": "Deploy & lancering",
-    "phases_deploy_description": "Productieklare infrastructuur, performancechecks en een gecontroleerde go-live - geen vrijdagavond-verrassing.",
-    "phases_deploy_item_1": "Staging-omgeving voor definitieve goedkeuring",
-    "phases_deploy_item_2": "CI/CD en hosting-setup",
-    "phases_deploy_item_3": "Launch-checklist en smoke tests",
-    "phases_handoff_title": "Overdracht & daarna",
-    "phases_handoff_description": "Je ontvangt documentatie, toegang en de kennis om het product te draaien - met optionele doorlopende ondersteuning.",
-    "phases_handoff_item_1": "Broncode en deployment-credentials",
-    "phases_handoff_item_2": "Walkthrough voor je team",
-    "phases_handoff_item_3": "Supportperiode na lancering"
-  },
-  "FreelanceProposalCTechSection": {
-    "title": "Stack die betrouwbaar oplevert",
-    "description": "Moderne tools gekozen voor <highlight>onderhoudbaarheid</highlight> en snelheid - de basis achter elke levering, niet het verhaal op zich.",
-    "tech_next_name": "Next.js",
-    "tech_next_description": "Server rendering, routing en performance out of the box - ideaal voor snelle, SEO-vriendelijke webapps.",
-    "tech_react_name": "React",
-    "tech_react_description": "Component-gedreven UI met een enorm ecosysteem - bewezen voor interactieve interfaces die schalen.",
-    "tech_laravel_name": "Laravel",
-    "tech_laravel_description": "Robuuste API's, auth en background jobs - de backend-ruggengraat voor complexe bedrijfslogica.",
-    "tech_typescript_name": "TypeScript",
-    "tech_typescript_description": "Type safety over de hele stack - minder runtime-verrassingen en eenvoudigere overdracht."
-  },
-  "FreelanceProposalCShowcaseSection": {
-    "eyebrow": "Opgeleverde resultaten",
-    "title": "Producten end-to-end geleverd",
-    "description": "Echte software van idee tot productie - <highlight>gebruikerservaring</highlight> én de admin-tooling erachter.",
-    "project_title": "NaWijzer.nl",
-    "project_subtitle": "Vragenlijstplatform · volledige levering",
-    "project_badge": "Concept → productie",
-    "project_description": "Het complete NaWijzer-platform gebouwd - een custom vragenlijst-ervaring voor eindgebruikers en een administratief dashboard voor het beheren van antwoorden, het genereren van dynamische PDF's en de dagelijkse operatie.",
-    "showcase_questionnaire_alt": "NaWijzer vragenlijst-ervaring",
-    "showcase_questionnaire_caption": "Gebruikersgerichte vragenlijstflow",
-    "showcase_questionnaire_role": "Front-end ervaring",
-    "showcase_admin_alt": "NaWijzer beheerdersdashboard",
-    "showcase_admin_caption": "Admin dashboard & beheer",
-    "showcase_admin_role": "Back-office tooling",
-    "highlights_scope_title": "Vooraf gescopeerd",
-    "highlights_scope_description": "Vragenlijstlogica, PDF-generatie en admin-workflows gedefinieerd vóór de bouw.",
-    "highlights_delivery_title": "Iteratieve levering",
-    "highlights_delivery_description": "Opgeleverd in fasen - eerst de gebruikersflow, daarna admin en rapportage.",
-    "highlights_outcome_title": "Productieresultaat",
-    "highlights_outcome_description": "Live platform dat dagelijks echte gebruikers en beheerders bedient."
-  },
-  "FreelanceProposalCFaqSection": {
-    "title": "Vragen vóór we beginnen",
-    "description": "Duidelijke antwoorden over hoe freelance end-to-end levering werkt - scope, eigenaarschap en wat je kunt verwachten.",
-    "faq_title": "Veelgestelde vragen",
-    "faq_scope_question": "Hoe definieer je <highlight>scope</highlight> vóór de bouw?",
-    "faq_scope_answer": "We beginnen met een discovery-fase: doelen, gebruikers, randvoorwaarden en must-haves. Je krijgt een geschreven scope met mijlpalen en een eerlijke tijdlijn - geen vage schattingen die later exploderen.",
-    "faq_ownership_question": "Wie is <highlight>eigenaar</highlight> van de code na lancering?",
-    "faq_ownership_answer": "Jij. Zodra het project is betaald, zijn de volledige codebase, deploymentconfiguratie en documentatie van jou. Geen platform-lock-in.",
-    "faq_timeline_question": "Hoe lang duurt een typisch project?",
-    "faq_timeline_answer": "Gerichte webapps worden vaak in <highlight>4-8 weken</highlight> opgeleverd; grotere platforms duren langer en worden in iteratieve mijlpalen uitgebracht. We spreken fasen vooraf af zodat tijdlijnen realistisch blijven.",
-    "faq_communication_question": "Hoe blijven we <highlight>op één lijn</highlight> tijdens de bouw?",
-    "faq_communication_answer": "Regelmatige demo's, async updates en een gedeelde mijlpaaltracker. Je ziet werkende software - niet alleen ticketaantallen - in elke fase.",
-    "faq_stack_question": "Kun je werken met onze bestaande <highlight>stack</highlight>?",
-    "faq_stack_answer": "Ja. Ik werk primair met React, Next.js, Laravel en TypeScript, maar kan integreren met je bestaande infrastructuur en API's wanneer dat zinvol is.",
-    "faq_handoff_question": "Hoe ziet <highlight>overdracht</highlight> eruit?",
-    "faq_handoff_answer": "Volledige broncodetoegang, deployment-walkthrough en documentatie. Ik lever een supportperiode na lancering en kan blijven voor onderhoud als je doorlopende hulp wilt."
-  },
-  "CommercialProposalCHeroSection": {
-    "brand": "Sander's CodeHouse",
-    "headline": "Zie hoe de systemen die wij bouwen aanvoelen voor jouw operatie.",
-    "supporting": "Dashboards op maat, CRM-achtige klantoverzichten en beheerpaneels - zodat je team het product voelt vóór er een ticket is aangemaakt.",
-    "cta_primary": "Vraag een offerte",
-    "cta_secondary": "Bekijk mogelijkheden",
-    "mock_window_title": "Operatieconsole",
-    "mock_nav_overview": "Overzicht",
-    "mock_nav_customers": "Klanten",
-    "mock_nav_analytics": "Analytics",
-    "mock_nav_schedule": "Planning",
-    "mock_stat_orders": "Orders",
-    "mock_stat_orders_trend": "+12% deze week",
-    "mock_stat_revenue": "Omzet",
-    "mock_stat_revenue_trend": "+8,4% MoM",
-    "mock_stat_clients": "Actieve klanten",
-    "mock_stat_clients_trend": "+19 nieuw",
-    "mock_stat_sla": "Uptime",
-    "mock_stat_sla_trend": "Binnen SLA",
-    "mock_chart_label": "Doorvoer · laatste 12 weken",
-    "mock_activity_label": "Live activiteit",
-    "mock_row_1_name": "Factuur #4821",
-    "mock_row_1_status": "Betaald",
-    "mock_row_1_time": "2m geleden",
-    "mock_row_2_name": "Nieuwe lead · Atlas BV",
-    "mock_row_2_status": "In wachtrij",
-    "mock_row_2_time": "9m geleden",
-    "mock_row_3_name": "Zending vertraagd",
-    "mock_row_3_status": "Alert",
-    "mock_row_3_time": "14m geleden",
-    "mock_row_4_name": "Support overdracht",
-    "mock_row_4_status": "Afgerond",
-    "mock_row_4_time": "21m geleden"
-  },
-  "CommercialProposalCCustomersSection": {
-    "title": "Klantgegevens die scherp blijven",
-    "description": "We bouwen CRM-achtige overzichten zodat je team het juiste account, segment en status in één oogopslag vindt - <highlight>gestructureerde</highlight> data, geen verspreide spreadsheets.",
-    "mock_title": "Klantendirectory",
-    "mock_nav_all": "Alles",
-    "mock_nav_active": "Actief",
-    "mock_nav_leads": "Leads",
-    "mock_nav_archived": "Gearchiveerd",
-    "mock_col_name": "Account",
-    "mock_col_segment": "Segment",
-    "mock_col_status": "Status",
-    "mock_row_1_name": "Northwind Logistics",
-    "mock_row_1_seg": "Enterprise",
-    "mock_row_1_status": "Actief",
-    "mock_row_2_name": "Harbor Retail Co.",
-    "mock_row_2_seg": "Mid-market",
-    "mock_row_2_status": "Actief",
-    "mock_row_3_name": "Lumen Studio",
-    "mock_row_3_seg": "MKB",
-    "mock_row_3_status": "Lead",
-    "mock_row_4_name": "Cascade Foods",
-    "mock_row_4_seg": "Enterprise",
-    "mock_row_4_status": "Onboarding",
-    "mock_row_5_name": "Pixel & Co.",
-    "mock_row_5_seg": "MKB",
-    "mock_row_5_status": "Gepauzeerd"
-  },
-  "CommercialProposalCAnalyticsSection": {
-    "title": "Analytics die beslissingen sturen",
-    "description": "Toon conversie, retentie en doorvoer in panelen die je operators echt openen - <highlight>live metrics</highlight> gekoppeld aan de workflows die ertoe doen.",
-    "mock_title": "Prestatie-studio",
-    "mock_stat_conversion": "Conversie",
-    "mock_stat_conversion_trend": "+0,6 pt",
-    "mock_stat_retention": "Retentie",
-    "mock_stat_retention_trend": "Stabiel",
-    "mock_stat_nps": "NPS",
-    "mock_stat_nps_trend": "+4 t.o.v. Q1",
-    "mock_chart_label": "Wekelijkse conversietrend"
-  },
-  "CommercialProposalCBookingSection": {
-    "title": "Plannen zonder chaos",
-    "description": "Boekingskalenders, capaciteitsviews en slot-overdrachten - gebouwd zodat afspraken en resources <highlight>op elkaar afgestemd</highlight> blijven over teams heen.",
-    "mock_title": "Boekingskalender",
-    "mock_month": "maart 2026",
-    "mock_dow_mon": "ma",
-    "mock_dow_tue": "di",
-    "mock_dow_wed": "wo",
-    "mock_dow_thu": "do",
-    "mock_dow_fri": "vr",
-    "mock_dow_sat": "za",
-    "mock_dow_sun": "zo",
-    "mock_slot_title": "12 mrt · Installatie op locatie",
-    "mock_slot_detail": "Ploeg A · 09:00-11:30 · Bevestigd met klant"
-  },
-  "CommercialProposalCScopeSection": {
-    "title": "Van gerichte services tot volledige platforms",
-    "description": "Begin met één waardevolle workflow en groei uit tot een verbonden suite - we schalen de bouw naar jouw <highlight>operationele realiteit</highlight>, niet naar een opgeblazen roadmap.",
-    "steps_micro_label": "Gerichte microservice",
-    "steps_micro_hint": "Eén scherpe workflow, snel live",
-    "steps_module_label": "Verbonden modules",
-    "steps_module_hint": "Gedeelde data over een paar teams",
-    "steps_platform_label": "Volledig operatieplatform",
-    "steps_platform_hint": "End-to-end systeem van record"
-  },
-  "CommercialProposalCFaqSection": {
-    "title": "Vragen vóór je committeert",
-    "description": "Duidelijke antwoorden over hoe we custom bedrijfssoftware ontwerpen, bouwen en overdragen.",
-    "faq_title": "Veelgestelde vragen",
-    "faq_fit_question": "Is dit voor een <highlight>marketingsite</highlight> of interne software?",
-    "faq_fit_answer": "Proposal C richt zich op <highlight>operationele bedrijfssoftware</highlight> - portals, dashboards, CRM’s, boekingstools en beheerpaneels. Voor persoonlijke merksites zie ons consumer-aanbod.",
-    "faq_stack_question": "Welke <highlight>technologieën</highlight> gebruiken jullie?",
-    "faq_stack_answer": "We kiezen de stack die bij de klus past - doorgaans moderne webframeworks (React/Next.js, Laravel, Vue) met solide API’s en databases. Jij krijgt onderhoudbare code, geen black-box SaaS-lock-in.",
-    "faq_integrations_question": "Kunnen jullie koppelen met onze <highlight>bestaande tools</highlight>?",
-    "faq_integrations_answer": "Ja. We integreren met boekhouding, CRM, ERP, betaal- en messaging-systemen via API’s waar mogelijk - of ontwerpen nette import/export-bruggen wanneer die er niet zijn.",
-    "faq_ownership_question": "Wie wordt <highlight>eigenaar</highlight> van het product na lancering?",
-    "faq_ownership_answer": "Jij. Zodra het project is betaald, zijn de codebase en deploymentconfiguratie van jou - geen platform-lock-in, geen verplichte subscription om de software draaiende te houden.",
-    "faq_timeline_question": "Hoe lang duurt een eerste release meestal?",
-    "faq_timeline_answer": "Gerichte modules landen vaak in weken; multi-team platforms duren langer en worden in <highlight>iteratieve releases</highlight> opgeleverd. We leggen scope en mijlpalen vooraf vast zodat tijdlijnen eerlijk blijven.",
-    "faq_maintenance_question": "Wat gebeurt er na go-live?",
-    "faq_maintenance_answer": "We kunnen blijven voor hosting, monitoring en iteratieve verbeteringen, of alles overdragen aan jouw team. In beide gevallen behoud je volledige toegang tot de broncode."
-  },
-  "CommercialProposalDHero": {
+  "CommercialHero": {
     "title": "Ik bouw <highlight>tools</highlight> die je bedrijf helpen <highlight>draaien</highlight>",
     "description": "Websites en webapps voor bedrijven - dashboards, klantenlijsten, boekingstools en dat soort dingen. We kunnen klein beginnen en later uitbreiden.",
     "cta_primary": "Vraag over een project",
@@ -707,7 +217,7 @@
     "mock_row_4_status": "Klaar",
     "mock_row_4_time": "21m geleden"
   },
-  "CommercialProposalDCustomers": {
+  "CommercialCustomers": {
     "title": "Houd je klanten bij",
     "description": "Eén overzichtelijke lijst voor accounts, contacten en status - in plaats van <highlight>spreadsheets</highlight> overal verspreid.",
     "mock_title": "Klantenlijst",
@@ -734,7 +244,7 @@
     "mock_row_5_type": "Klein",
     "mock_row_5_status": "Gepauzeerd"
   },
-  "CommercialProposalDNumbers": {
+  "CommercialNumbers": {
     "title": "Zie wat er speelt",
     "description": "Eenvoudige cijfers en grafieken zodat je ziet hoe het gaat - zonder door een stapel rapporten te waden.",
     "mock_title": "Cijfers in één oogopslag",
@@ -746,7 +256,7 @@
     "mock_stat_rating_trend": "Beter dan vorig kwartaal",
     "mock_chart_label": "Wekelijkse verkoop"
   },
-  "CommercialProposalDBooking": {
+  "CommercialBooking": {
     "title": "Boekingen zonder rommel",
     "description": "Een agenda die je team echt kan gebruiken - afspraken, mensen en bevestigingen op <highlight>één plek</highlight>.",
     "mock_title": "Boekingskalender",
@@ -761,7 +271,7 @@
     "mock_slot_title": "12 mrt · Installatie op locatie",
     "mock_slot_detail": "Ploeg A · 09:00-11:30 · Bevestigd met klant"
   },
-  "CommercialProposalDScale": {
+  "CommercialScale": {
     "title": "Klein beginnen. Groeien als het past.",
     "description": "Je hebt op dag één geen enorm systeem nodig. We lossen eerst het irritantste probleem op, en bouwen later bij als je er klaar voor bent.",
     "footnote": "Jij blijft eigenaar van wat we bouwen - en er is altijd een duidelijk vervolgstap als je die wilt.",
@@ -774,7 +284,7 @@
     "steps_systems_title": "Een set die samenhangt",
     "steps_systems_description": "Meerdere tools die samenwerken en de dagelijkse gang stil laten lopen - gedocumenteerd zodat iemand anders later kan overnemen."
   },
-  "CommercialProposalDHowWeWork": {
+  "CommercialHowWeWork": {
     "title": "Hoe het meestal gaat",
     "description": "Geen mysterieus proces. We praten, we bouwen, en we leveren zo op dat jij ermee verder kunt.",
     "phases_talk_title": "Eerst praten",
@@ -793,7 +303,7 @@
     "phases_handoff_item_2": "Hulp bij livegang",
     "phases_handoff_item_3": "Optionele doorlopende hulp"
   },
-  "CommercialProposalDTrust": {
+  "CommercialTrust": {
     "title": "Waar je op kunt rekenen",
     "description": "Eerlijke beloftes - de dingen die ertoe doen als je echte tijd steekt in een maatwerktool.",
     "pillars_security_title": "Met zorg gebouwd",
@@ -805,7 +315,7 @@
     "pillars_support_title": "Een echt persoon om te bellen",
     "pillars_support_description": "Je praat met mij, niet met een ticketput. Retainer of af en toe hulp? We houden het simpel."
   },
-  "CommercialProposalDFaq": {
+  "CommercialFaq": {
     "title": "Veelgestelde vragen",
     "description": "Eerlijke antwoorden als je twijfelt of dit bij je past.",
     "faq_title": "FAQ",
@@ -886,13 +396,13 @@
     },
     "custom": {}
   },
-  "FreelanceProposalDHero": {
+  "FreelanceHero": {
     "title": "Ik lever <highlight>producten</highlight> waar teams op kunnen bouwen",
     "description": "Freelance webontwikkeling onderbouwd door echt opgeleverd werk - van doordachte gebruikersflows tot beheerpaneel dat uw team dagelijks nodig heeft.",
     "cta_primary": "Vraag een offerte aan",
     "cta_secondary": "Bekijk het werk"
   },
-  "FreelanceProposalDShowcase": {
+  "FreelanceShowcase": {
     "eyebrow": "Opgeleverde resultaten",
     "title": "Producten end-to-end geleverd",
     "description": "Echte software van idee tot productie - <highlight>gebruikerservaring</highlight> én de admin-tooling erachter.",
@@ -913,7 +423,7 @@
     "highlights_outcome_title": "Productieresultaat",
     "highlights_outcome_description": "Live platform dat dagelijks echte gebruikers en beheerders bedient."
   },
-  "FreelanceProposalDSkills": {
+  "FreelanceSkills": {
     "title": "Van API tot frontend - en de lijm ertussen",
     "description": "Ik haak aan op de lagen waarop jullie product al draait: contracten, data, UI, services, pipelines en de sprintcadans die oplevering gaande houdt.",
     "items_api_title": "API-ontwerp",
@@ -929,7 +439,7 @@
     "items_agile_title": "Agile & Scrum",
     "items_agile_description": "Sprint-rituelen, backlog-helderheid en async-vriendelijke updates zodat het team levert zonder ceremonie-overload."
   },
-  "FreelanceProposalDTechIndex": {
+  "FreelanceTechIndex": {
     "title": "Doorzoek de toolkit",
     "description": "Een levend overzicht van technologieën, frameworks en tools waarmee ik werk - kies een categorie of zoek op naam.",
     "search_label": "Zoek technologieën",
@@ -952,7 +462,7 @@
     "categories_tooling": "Tooling & packages",
     "categories_collaboration": "Samenwerking"
   },
-  "FreelanceProposalDFaq": {
+  "FreelanceFaq": {
     "title": "Inhuren in je team",
     "description": "Praktische antwoorden voor leads en engineering managers die een freelance senior embed overwegen.",
     "faq_title": "Veelgestelde vragen",

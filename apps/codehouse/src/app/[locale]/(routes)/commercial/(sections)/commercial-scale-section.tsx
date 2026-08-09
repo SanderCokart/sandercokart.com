@@ -21,15 +21,12 @@ const itemVariants = {
   show: { opacity: 1, x: 0 },
 };
 
-export const ProposalBScaleSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
-  const t = useTranslations('CommercialProposalBScale');
+export const CommercialScaleSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
+  const t = useTranslations('CommercialScale');
   const richText = useGlossaryRichText();
 
   return (
-    <section
-      className={cn('flex scroll-mt-16 flex-col gap-8', className)}
-      id="scale"
-      {...props}>
+    <section className={cn('flex scroll-mt-16 flex-col gap-8', className)} id="scale" {...props}>
       <h2 className="text-center text-3xl font-bold uppercase sm:text-5xl">{t('title')}</h2>
       <p className="text-center text-balance">{t.rich('description', richText)}</p>
 
@@ -73,9 +70,7 @@ export const ProposalBScaleSection: FC<ComponentProps<'section'>> = ({ className
         })}
       </MotionDiv>
 
-      <p className="text-muted-foreground mx-auto max-w-xl text-center text-sm text-balance">
-        {t('footnote')}
-      </p>
+      <p className="text-muted-foreground mx-auto max-w-xl text-center text-sm text-balance">{t('footnote')}</p>
     </section>
   );
 };

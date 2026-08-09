@@ -19,8 +19,8 @@ const faqs = [
   { question: 'faq_remote_question', answer: 'faq_remote_answer' },
 ] as const;
 
-export const FreelanceProposalBFaq: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
-  const t = useTranslations('FreelanceProposalBFaq');
+export const FreelanceFaqSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
+  const t = useTranslations('FreelanceFaq');
   const richText = useGlossaryRichText();
 
   return (

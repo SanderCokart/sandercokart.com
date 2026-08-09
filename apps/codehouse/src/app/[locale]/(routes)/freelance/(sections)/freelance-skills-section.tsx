@@ -26,8 +26,8 @@ const skills = [
   { key: 'agile', icon: ClipboardListIcon },
 ] as const;
 
-export const ProposalDSkillsSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
-  const t = useTranslations('FreelanceProposalDSkills');
+export const FreelanceSkillsSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
+  const t = useTranslations('FreelanceSkills');
   const richText = useGlossaryRichText();
 
   return (

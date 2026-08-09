@@ -48,8 +48,8 @@ const dashboardPanel = {
   },
 };
 
-export const ProposalDHeroSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
-  const t = useTranslations('CommercialProposalDHero');
+export const CommercialHeroSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
+  const t = useTranslations('CommercialHero');
 
   const navItems = [t('mock_nav_overview'), t('mock_nav_customers'), t('mock_nav_numbers'), t('mock_nav_schedule')];
 

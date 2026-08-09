@@ -46,8 +46,8 @@ const showcaseItems = [
   },
 ] as const;
 
-export const ProposalDShowcaseSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
-  const t = useTranslations('FreelanceProposalDShowcase');
+export const FreelanceShowcaseSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
+  const t = useTranslations('FreelanceShowcase');
   const richText = useGlossaryRichText();
 
   return (

@@ -465,8 +465,8 @@ function TechBadgeList({ items }: { items: TechItem[] }) {
   );
 }
 
-export const ProposalDTechIndexSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
-  const t = useTranslations('FreelanceProposalDTechIndex');
+export const FreelanceTechIndexSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
+  const t = useTranslations('FreelanceTechIndex');
   const [query, setQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>('frontend');
   const deferredQuery = useDeferredValue(query);

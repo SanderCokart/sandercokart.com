@@ -8,22 +8,19 @@ import type { ComponentProps, FC } from 'react';
 
 import { MotionDiv } from '@/src/lib/motion';
 
-const phases = ['discover', 'build', 'handoff'] as const;
+const phases = ['talk', 'build', 'handoff'] as const;
 
 const phaseVariants = {
   hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0 },
 };
 
-export const ProposalBEngagementSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
-  const t = useTranslations('CommercialProposalBEngagement');
+export const CommercialHowWeWorkSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
+  const t = useTranslations('CommercialHowWeWork');
   const richText = useGlossaryRichText();
 
   return (
-    <section
-      className={cn('flex scroll-mt-16 flex-col gap-8', className)}
-      id="how-we-work"
-      {...props}>
+    <section className={cn('flex scroll-mt-16 flex-col gap-8', className)} id="how-we-work" {...props}>
       <h2 className="text-center text-3xl font-bold uppercase sm:text-5xl">{t('title')}</h2>
       <p className="text-center text-balance">{t.rich('description', richText)}</p>
 
@@ -48,9 +45,7 @@ export const ProposalBEngagementSection: FC<ComponentProps<'section'>> = ({ clas
               </p>
               <ul className="flex flex-col gap-2">
                 {([1, 2, 3] as const).map(item => (
-                  <li
-                    key={item}
-                    className="border-accent/40 dark:border-primary/40 border-l-2 pl-3 text-sm">
+                  <li key={item} className="border-accent/40 dark:border-primary/40 border-l-2 pl-3 text-sm">
                     {t(`phases_${phase}_item_${item}`)}
                   </li>
                 ))}

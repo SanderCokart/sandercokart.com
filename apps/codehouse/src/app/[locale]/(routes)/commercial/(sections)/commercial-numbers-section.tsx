@@ -27,8 +27,8 @@ const stagger = {
   },
 };
 
-export const ProposalDNumbersSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
-  const t = useTranslations('CommercialProposalDNumbers');
+export const CommercialNumbersSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
+  const t = useTranslations('CommercialNumbers');
   const richText = useGlossaryRichText();
 
   return (

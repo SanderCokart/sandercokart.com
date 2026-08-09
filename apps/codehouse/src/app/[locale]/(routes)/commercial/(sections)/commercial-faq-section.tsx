@@ -19,15 +19,12 @@ const faqs = [
   { question: 'faq_growth_question', answer: 'faq_growth_answer' },
 ] as const;
 
-export const ProposalBFaqSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
-  const t = useTranslations('CommercialProposalBFaq');
+export const CommercialFaqSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
+  const t = useTranslations('CommercialFaq');
   const richText = useGlossaryRichText();
 
   return (
-    <section
-      className={cn('flex scroll-mt-16 flex-col gap-8', className)}
-      id="faq"
-      {...props}>
+    <section className={cn('flex scroll-mt-16 flex-col gap-8', className)} id="faq" {...props}>
       <h2 className="text-center text-3xl font-bold uppercase sm:text-5xl">{t('title')}</h2>
       <p className="text-center text-balance">{t.rich('description', richText)}</p>
 
