@@ -23,8 +23,8 @@ Output a **nicely formatted summary** so the user can review the commits before 
 
 Example format:
 
-- **FEAT | Add back-to-top button** — `back-to-top-button.tsx`
-- **REFACTOR | Simplify article page layout** — `page.tsx`
+- **FEAT | Add back-to-top button** - `back-to-top-button.tsx`
+- **REFACTOR | Simplify article page layout** - `page.tsx`
 
 Keep this short and scannable. No code block in this step.
 
@@ -57,8 +57,8 @@ Immediately after the code block, ask exactly:
 
 ## Step 6: Act on answer
 
-- **Y** — Run the same command sequence in the terminal (the exact commands from the code block).
-- **N** — Do nothing. Do not run any git commands.
+- **Y** - Run the same command sequence in the terminal (the exact commands from the code block).
+- **N** - Do nothing. Do not run any git commands.
 
 ---
 

@@ -1,4 +1,4 @@
-# env-nextjs — Reference
+# env-nextjs - Reference
 
 ## Zod patterns
 
@@ -29,5 +29,5 @@ In setups where client env vars are injected at runtime (e.g. SSR/hydration from
 
 ## External links
 
-- [T3 Stack — Env variables](https://create.t3.gg/en/usage/env-variables)
+- [T3 Stack - Env variables](https://create.t3.gg/en/usage/env-variables)
 - [@t3-oss/env-nextjs GitHub](https://github.com/t3-oss/env-nextjs)

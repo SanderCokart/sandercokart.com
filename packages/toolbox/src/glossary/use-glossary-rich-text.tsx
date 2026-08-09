@@ -26,7 +26,7 @@ function glossaryTermsFromMessages(glossary: Record<string, string> | undefined)
 /**
  * Returns `t.rich()` handlers for `<highlight>` and auto-discovered glossary tags.
  *
- * @see `.cursor/skills/docs/glossary.md` — plug-and-play setup and examples
+ * @see `.cursor/skills/docs/glossary.md` - plug-and-play setup and examples
  */
 export function useGlossaryRichText({
   highlightClassName = 'text-primary dark:text-accent',

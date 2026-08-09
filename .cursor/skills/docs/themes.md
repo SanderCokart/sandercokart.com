@@ -34,7 +34,7 @@ For day-to-day UI work, behavior is intentionally familiar:
 | Script injection   | Inline in React tree (React 19 warning) | `useServerInsertedHTML` (no warning)                               |
 | State subscription | Legacy pattern                          | `useSyncExternalStore` (correct with React 19 / `cacheComponents`) |
 
-We still centralize defaults in `@repo/ui/components/theme-provider`, but the implementation is a server provider — not a `"use client"` re-export like the old `next-themes` wrapper.
+We still centralize defaults in `@repo/ui/components/theme-provider`, but the implementation is a server provider - not a `"use client"` re-export like the old `next-themes` wrapper.
 
 ### Bugs fixed in `@wrksz/themes`
 
@@ -45,7 +45,7 @@ These are real production issues in `next-themes` that `@wrksz/themes` addresses
 | React 19 inline `<script>` warning                     | Unresolved          | Fixed via `useServerInsertedHTML`          |
 | `__name` minification error in production builds       | Unresolved          | Fixed                                      |
 | Stale theme with React 19 `cacheComponents` / Activity | Unresolved          | Fixed via `useSyncExternalStore`           |
-| Multiple classes per theme — old classes left on DOM   | Broken removal      | Fixed (proper class cleanup)               |
+| Multiple classes per theme - old classes left on DOM   | Broken removal      | Fixed (proper class cleanup)               |
 | Nested `ThemeProvider` instances                       | Shared global state | Per-instance store (`ClientThemeProvider`) |
 
 ### Behavioral API differences
@@ -67,8 +67,8 @@ onThemeChange={(theme) => {
 
 **`disableTransitionOnChange`**
 
-- `next-themes`: boolean only — disables all transitions.
-- `@wrksz/themes`: `boolean | string` — pass a CSS `transition` value to suppress only specific properties (e.g. `"background-color 0s, color 0s"`) while keeping motion elsewhere.
+- `next-themes`: boolean only - disables all transitions.
+- `@wrksz/themes`: `boolean | string` - pass a CSS `transition` value to suppress only specific properties (e.g. `"background-color 0s, color 0s"`) while keeping motion elsewhere.
 
 ### Features only in `@wrksz/themes`
 
@@ -83,7 +83,7 @@ Not enabled in our shared defaults today, but available without switching librar
 | Server-seeded theme       | `initialTheme`             | DB/user preference on first mount              |
 | Always follow OS          | `followSystem`             | Ignore stored choice, track system             |
 | Safari/PWA chrome         | `themeColor`               | Updates `<meta name="theme-color">`            |
-| Read theme outside React  | `getTheme()`               | Middleware, RSC, edge — sync or async          |
+| Read theme outside React  | `getTheme()`               | Middleware, RSC, edge - sync or async          |
 | Typed custom themes       | `createThemes(...)`        | Inferred union on `useTheme` / `setTheme`      |
 | Theme-change side effects | `useThemeEffect(...)`      | Run logic after mount on theme changes         |
 
@@ -113,9 +113,9 @@ import { ThemeProvider } from '@wrksz/themes/next';
 // attribute="class", defaultTheme="system", enableSystem, disableTransitionOnChange
 ```
 
-Apps import the wrapper — **do not** import `@wrksz/themes/next` directly for the root provider.
+Apps import the wrapper - **do not** import `@wrksz/themes/next` directly for the root provider.
 
-Both apps mount `ThemeProvider` in `server.server-providers.tsx` — not in `layout.tsx`.
+Both apps mount `ThemeProvider` in `server.server-providers.tsx` - not in `layout.tsx`.
 
 **`main`:**
 
@@ -150,7 +150,7 @@ Layouts import `GlobalProviders` from `server.global-providers.tsx` only.
 
 Overriding provider props per app is **discouraged**. Only pass props when an app has a genuine, documented reason to diverge from the shared defaults.
 
-`ThemeProvider` is an **async Server Component** — mount it in a server file (`layout.tsx` or `server.*-providers.tsx`), not inside a `"use client"` wrapper.
+`ThemeProvider` is an **async Server Component** - mount it in a server file (`layout.tsx` or `server.*-providers.tsx`), not inside a `"use client"` wrapper.
 
 ## Provider hierarchy
 
@@ -178,7 +178,7 @@ layout.tsx
 
 | File | Layer | Role |
 |------|-------|------|
-| `apps/*/src/**/layout.tsx` | Server | HTML shell, fonts, metadata — imports `GlobalProviders` only |
+| `apps/*/src/**/layout.tsx` | Server | HTML shell, fonts, metadata - imports `GlobalProviders` only |
 | `apps/*/src/providers/server.global-providers.tsx` | Server | Composes `ServerProviders` → `ClientProviders` |
 | `apps/*/src/providers/server.server-providers.tsx` | Server | `ThemeProvider` (+ `NextIntlClientProvider` in codehouse) |
 | `apps/main/src/providers/client.client-providers.tsx` | Client | `BlogViewProvider` |
@@ -199,7 +199,7 @@ const { theme, resolvedTheme, setTheme } = useTheme();
 | Import                               | Use for                                                              |
 | ------------------------------------ | -------------------------------------------------------------------- |
 | `@repo/ui/components/theme-provider` | Root `ThemeProvider` in a server file (preferred)                    |
-| `@wrksz/themes/next`                 | `getTheme()` in middleware or RSC only — not the root provider       |
+| `@wrksz/themes/next`                 | `getTheme()` in middleware or RSC only - not the root provider       |
 | `@wrksz/themes/client`               | `useTheme`, `useThemeValue`, `useThemeEffect`, `ClientThemeProvider` |
 
 For a nested provider inside a Client Component, use `ClientThemeProvider` from `@wrksz/themes/client`.
@@ -215,7 +215,7 @@ Set in `@repo/ui/components/theme-provider`:
 | `enableSystem`              | `true`     | Enables `prefers-color-scheme`                           |
 | `disableTransitionOnChange` | `true`     | Avoids flash of animated colors on toggle                |
 
-Storage defaults to `localStorage`. To change defaults, edit `theme-provider.tsx` in `@repo/ui` — not individual app layouts.
+Storage defaults to `localStorage`. To change defaults, edit `theme-provider.tsx` in `@repo/ui` - not individual app layouts.
 
 ## Monorepo touchpoints
 
@@ -233,14 +233,14 @@ Storage defaults to `localStorage`. To change defaults, edit `theme-provider.tsx
 
 1. Ensure the app depends on `@repo/ui` (transitively pulls in `@wrksz/themes`).
 2. Add the three-file provider split: `server.global-providers.tsx`, `server.server-providers.tsx`, `client.client-providers.tsx`.
-3. Mount `<ThemeProvider>` in `server.server-providers.tsx` — not in `layout.tsx`.
+3. Mount `<ThemeProvider>` in `server.server-providers.tsx` - not in `layout.tsx`.
 4. Keep `client.client-providers.tsx` even when empty, for future client-only providers.
 5. Reuse `ThemeToggle` or `Toaster` from `@repo/ui` as needed.
 
 ## Migrating from `next-themes`
 
 1. Remove `next-themes`; add `@wrksz/themes` to `@repo/ui` only.
-2. Use `@repo/ui/components/theme-provider` in a server file — not a `"use client"` wrapper.
+2. Use `@repo/ui/components/theme-provider` in a server file - not a `"use client"` wrapper.
 3. Change `useTheme` imports to `@wrksz/themes/client` in client components.
 
 See **Behavioral API differences** above for `onThemeChange` and `disableTransitionOnChange`.
@@ -249,9 +249,9 @@ See **Behavioral API differences** above for `onThemeChange` and `disableTransit
 
 Change defaults in `theme-provider.tsx` if adopting monorepo-wide:
 
-- `storage="cookie"` — zero-flash SSR
-- `storage="hybrid"` — cookie + cross-tab sync
-- `getTheme()` — read theme in middleware or RSC
-- `initialTheme` — server-provided override on mount
-- `themeColor` — update `<meta name="theme-color">`
-- `createThemes(...)` — typed theme union for custom theme names
+- `storage="cookie"` - zero-flash SSR
+- `storage="hybrid"` - cookie + cross-tab sync
+- `getTheme()` - read theme in middleware or RSC
+- `initialTheme` - server-provided override on mount
+- `themeColor` - update `<meta name="theme-color">`
+- `createThemes(...)` - typed theme union for custom theme names

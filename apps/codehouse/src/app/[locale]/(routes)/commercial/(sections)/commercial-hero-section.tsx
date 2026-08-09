@@ -10,16 +10,9 @@ import type { ComponentProps, FC } from 'react';
 
 import LogoINV from '@/public/static/images/logo/Logo-INV.png';
 import Logo from '@/public/static/images/logo/Logo.png';
-import { Link } from '@/src/i18n/navigation';
 import { MotionDiv } from '@/src/lib/motion';
 
-import {
-  MockBarChart,
-  MockSidebar,
-  MockStat,
-  MockTableRow,
-  MockWindow,
-} from './components/mock-ui';
+import { MockBarChart, MockSidebar, MockStat, MockTableRow, MockWindow } from './components/mock-ui';
 
 const heroContainer = {
   hidden: { opacity: 0 },
@@ -29,12 +22,12 @@ const heroContainer = {
   },
 };
 
-const heroItem = {
-  hidden: { opacity: 0, y: 18 },
+const fadeUp = {
+  hidden: { opacity: 0, y: 16 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const },
+    transition: { duration: 0.45, ease: 'easeOut' as const },
   },
 };
 
@@ -42,12 +35,12 @@ const dashboardContainer = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.08, delayChildren: 0.35 },
+    transition: { staggerChildren: 0.08, delayChildren: 0.3 },
   },
 };
 
 const dashboardPanel = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 20 },
   show: {
     opacity: 1,
     y: 0,
@@ -55,48 +48,45 @@ const dashboardPanel = {
   },
 };
 
-export const ProposalCHeroSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
-  const t = useTranslations('CommercialProposalCHeroSection');
+export const CommercialHeroSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
+  const t = useTranslations('CommercialHero');
 
-  const navItems = [t('mock_nav_overview'), t('mock_nav_customers'), t('mock_nav_analytics'), t('mock_nav_schedule')];
+  const navItems = [t('mock_nav_overview'), t('mock_nav_customers'), t('mock_nav_numbers'), t('mock_nav_schedule')];
 
   return (
     <section
-      className={cn(
-        'relative mt-16 overflow-hidden',
-        'bg-[radial-gradient(ellipse_at_top,_hsl(var(--primary)/0.18)_0%,_transparent_55%),radial-gradient(ellipse_at_bottom_right,_hsl(var(--accent)/0.12)_0%,_transparent_45%)]',
-        className,
-      )}
+      className={cn('mt-16', 'dark:drop-shadow-[0_0px_10px_hsl(var(--primary))]', className)}
       id="hero"
       {...props}>
       <MotionDiv
-        className="container flex max-w-screen-xl flex-col gap-10 pb-4"
+        className="container flex max-w-7xl flex-col gap-10 pb-4"
         variants={heroContainer}
         initial="hidden"
         animate="show">
-        <MotionDiv variants={heroItem} className="flex flex-col items-center gap-6 text-center">
-          <Image priority alt="Sander's CodeHouse" className="mx-auto block max-w-[11rem] sm:max-w-[8rem] dark:hidden" src={LogoINV} />
+        <MotionDiv variants={fadeUp} className="flex flex-col items-center gap-6 text-center">
           <Image
             priority
             alt="Sander's CodeHouse"
-            className="mx-auto hidden max-w-[11rem] sm:max-w-[8rem] dark:block"
+            className="mx-auto block max-w-44 sm:max-w-32 dark:hidden"
+            src={LogoINV}
+          />
+          <Image
+            priority
+            alt="Sander's CodeHouse"
+            className="mx-auto hidden max-w-44 sm:max-w-32 dark:block"
             src={Logo}
           />
-          <h1 className="max-w-4xl text-balance text-3xl font-bold uppercase sm:text-5xl">{t('brand')}</h1>
-          <p className="text-muted-foreground max-w-2xl text-balance text-lg sm:text-xl">{t('headline')}</p>
-          <p className="text-muted-foreground max-w-xl text-balance text-sm sm:text-base">{t('supporting')}</p>
+          <h1 className="mx-auto max-w-4xl text-balance text-3xl font-bold uppercase sm:text-5xl">
+            {t.rich('title', {
+              highlight: chunks => <span className="text-accent">{chunks}</span>,
+            })}
+          </h1>
+          <p className="text-muted-foreground mx-auto max-w-2xl text-balance text-lg sm:text-xl">{t('description')}</p>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <Button
-              size="lg"
-              nativeButton={false}
-              render={<Link href={{ pathname: '/commercial/proposal-c', hash: 'ask-for-a-quote' }} />}>
+            <Button size="lg" render={<a href="#ask-for-a-quote" />} nativeButton={false}>
               {t('cta_primary')}
             </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              nativeButton={false}
-              render={<Link href={{ pathname: '/commercial/proposal-c', hash: 'capabilities' }} />}>
+            <Button size="lg" variant="outline" render={<a href="#examples" />} nativeButton={false}>
               {t('cta_secondary')}
             </Button>
           </div>
@@ -111,18 +101,18 @@ export const ProposalCHeroSection: FC<ComponentProps<'section'>> = ({ className,
           <div
             className={cn(
               'pointer-events-none absolute -inset-x-8 -bottom-8 -top-4 z-0',
-              'bg-gradient-to-b from-transparent via-transparent to-background',
+              'bg-linear-to-b from-transparent via-transparent to-background',
             )}
           />
           <MockWindow title={t('mock_window_title')} className="relative z-10">
-            <div className="flex min-h-[18rem] sm:min-h-[22rem]">
+            <div className="flex min-h-72 sm:min-h-88">
               <MockSidebar items={navItems} />
               <div className="flex flex-1 flex-col gap-3 p-3 sm:p-4">
                 <MotionDiv variants={dashboardPanel} className="grid grid-cols-2 gap-2 sm:grid-cols-4">
                   <MockStat label={t('mock_stat_orders')} value="1,284" trend={t('mock_stat_orders_trend')} />
                   <MockStat label={t('mock_stat_revenue')} value="€48.2k" trend={t('mock_stat_revenue_trend')} />
                   <MockStat label={t('mock_stat_clients')} value="326" trend={t('mock_stat_clients_trend')} />
-                  <MockStat label={t('mock_stat_sla')} value="99.8%" trend={t('mock_stat_sla_trend')} />
+                  <MockStat label={t('mock_stat_uptime')} value="99.8%" trend={t('mock_stat_uptime_trend')} />
                 </MotionDiv>
                 <div className="grid flex-1 gap-3 sm:grid-cols-5">
                   <MotionDiv

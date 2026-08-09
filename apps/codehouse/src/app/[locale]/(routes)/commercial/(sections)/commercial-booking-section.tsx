@@ -51,8 +51,8 @@ const dayMeta = [
   { day: '21', busy: false },
 ] as const;
 
-export const ProposalCBookingSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
-  const t = useTranslations('CommercialProposalCBookingSection');
+export const CommercialBookingSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
+  const t = useTranslations('CommercialBooking');
   const richText = useGlossaryRichText();
 
   return (
@@ -64,7 +64,9 @@ export const ProposalCBookingSection: FC<ComponentProps<'section'>> = ({ classNa
         whileInView="show"
         viewport={{ once: true, margin: '-12%' }}>
         <MotionDiv variants={sectionReveal} className="order-2 lg:order-1" aria-hidden>
-          <MockWindow title={t('mock_title')} toolbar={<span className="text-muted-foreground text-[10px]">{t('mock_month')}</span>}>
+          <MockWindow
+            title={t('mock_title')}
+            toolbar={<span className="text-muted-foreground text-[10px]">{t('mock_month')}</span>}>
             <div className="space-y-3 p-3 sm:p-4">
               <div className="text-muted-foreground grid grid-cols-7 gap-1.5 text-center text-[9px] tracking-wider uppercase">
                 <span>{t('mock_dow_mon')}</span>

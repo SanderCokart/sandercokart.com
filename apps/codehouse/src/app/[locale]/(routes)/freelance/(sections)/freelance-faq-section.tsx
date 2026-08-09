@@ -10,23 +10,30 @@ import { useTranslations } from 'next-intl';
 import type { ComponentProps, FC } from 'react';
 
 const faqs = [
-  { question: 'faq_start_small_question', answer: 'faq_start_small_answer' },
+  { question: 'faq_hours_question', answer: 'faq_hours_answer' },
+  { question: 'faq_timezone_question', answer: 'faq_timezone_answer' },
+  { question: 'faq_tools_question', answer: 'faq_tools_answer' },
   { question: 'faq_ownership_question', answer: 'faq_ownership_answer' },
-  { question: 'faq_security_question', answer: 'faq_security_answer' },
-  { question: 'faq_integrations_question', answer: 'faq_integrations_answer' },
-  { question: 'faq_timeline_question', answer: 'faq_timeline_answer' },
-  { question: 'faq_support_question', answer: 'faq_support_answer' },
-  { question: 'faq_growth_question', answer: 'faq_growth_answer' },
+  { question: 'faq_sprint_question', answer: 'faq_sprint_answer' },
+  { question: 'faq_notice_question', answer: 'faq_notice_answer' },
+  { question: 'faq_remote_question', answer: 'faq_remote_answer' },
 ] as const;
 
-export const ProposalDFaqSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
-  const t = useTranslations('CommercialProposalDFaq');
+export const FreelanceFaqSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
+  const t = useTranslations('FreelanceFaq');
   const richText = useGlossaryRichText();
 
   return (
-    <section className={cn('flex scroll-mt-16 flex-col gap-8', className)} id="faq" {...props}>
-      <h2 className="text-center text-3xl font-bold uppercase sm:text-5xl">{t('title')}</h2>
-      <p className="text-center text-balance">{t.rich('description', richText)}</p>
+    <section
+      className={cn('container flex scroll-mt-16 flex-col gap-8 sm:scroll-mt-16', className)}
+      id="faq"
+      {...props}>
+      <div className="flex flex-col gap-4">
+        <h2 className="text-center text-3xl font-bold uppercase sm:text-5xl">{t('title')}</h2>
+        <p className="text-muted-foreground mx-auto max-w-2xl text-center text-balance">
+          {t.rich('description', richText)}
+        </p>
+      </div>
 
       <Card>
         <CardHeader>

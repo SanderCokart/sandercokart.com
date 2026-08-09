@@ -45,10 +45,10 @@ export const env = createEnv({
 
 ## Rules
 
-1. **Every key in `server`, `client`, or `shared` must appear in `runtimeEnv`** — otherwise validation will fail.
-2. **Server variables** — Only on server. Accessing them in client code throws at runtime.
-3. **Client variables** — Use `NEXT_PUBLIC_` prefix; available on server and client.
-4. **Shared** — Same value on both (e.g. `NODE_ENV`).
+1. **Every key in `server`, `client`, or `shared` must appear in `runtimeEnv`** - otherwise validation will fail.
+2. **Server variables** - Only on server. Accessing them in client code throws at runtime.
+3. **Client variables** - Use `NEXT_PUBLIC_` prefix; available on server and client.
+4. **Shared** - Same value on both (e.g. `NODE_ENV`).
 5. Use Zod for validation and transforms (e.g. `z.coerce.number()`, `.transform(s => s === 'true')` for booleans).
 
 ## Usage
@@ -66,7 +66,7 @@ const apiUrl = env.NEXT_PUBLIC_API_URL;
 
 ## Options
 
-- **emptyStringAsUndefined**: `createEnv({ emptyStringAsUndefined: true, ... })` — treats `""` as undefined.
+- **emptyStringAsUndefined**: `createEnv({ emptyStringAsUndefined: true, ... })` - treats `""` as undefined.
 - **Coercion**: `z.coerce.number()`, `z.coerce.boolean()` for string envs that should be numbers/booleans.
 
 ## Additional resources

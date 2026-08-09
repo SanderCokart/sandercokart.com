@@ -25,9 +25,9 @@ This application is a Laravel application and its main Laravel ecosystems packag
 
 ## Skills Activation
 
-This project has domain-specific skills available. You MUST activate the relevant skill whenever you work in that domain—don't wait until you're stuck.
+This project has domain-specific skills available. You MUST activate the relevant skill whenever you work in that domain-don't wait until you're stuck.
 
-- `pest-testing` — Tests applications using the Pest 4 PHP framework. Activates when writing tests, creating unit or feature tests, adding assertions, testing Livewire components, browser testing, debugging test failures, working with datasets or mocking; or when the user mentions test, spec, TDD, expects, assertion, coverage, or needs to verify functionality works.
+- `pest-testing` - Tests applications using the Pest 4 PHP framework. Activates when writing tests, creating unit or feature tests, adding assertions, testing Livewire components, browser testing, debugging test failures, working with datasets or mocking; or when the user mentions test, spec, TDD, expects, assertion, coverage, or needs to verify functionality works.
 
 ## Conventions
 
@@ -178,7 +178,7 @@ protected function isAccessible(User $user, ?string $path = null): bool
 
 ## Testing
 
-- **How to run `apps/api` tests depends on `apps/api/.env`:** read the header comment at the top of that file (dotenvx source tag). If it indicates **`.envx.docker`**, the app expects Docker services (`DB_HOST=db`, etc.): run tests **inside the `api` container** from the monorepo root—e.g. `docker compose exec api php artisan test --compact` (add `--filter=name` as needed), or `docker compose exec api composer test` (that script runs `optimize:clear` before tests so stale caches do not hide new middleware/providers). Use `docker compose exec -T api …` when stdin is not a TTY. If the header indicates **`.envx.local`**, it is a host/local dev layout: run tests from `apps/api` with **`php artisan test`** (and `composer test`) **on the host**, matching that `.env`.
+- **How to run `apps/api` tests depends on `apps/api/.env`:** read the header comment at the top of that file (dotenvx source tag). If it indicates **`.envx.docker`**, the app expects Docker services (`DB_HOST=db`, etc.): run tests **inside the `api` container** from the monorepo root-e.g. `docker compose exec api php artisan test --compact` (add `--filter=name` as needed), or `docker compose exec api composer test` (that script runs `optimize:clear` before tests so stale caches do not hide new middleware/providers). Use `docker compose exec -T api …` when stdin is not a TTY. If the header indicates **`.envx.local`**, it is a host/local dev layout: run tests from `apps/api` with **`php artisan test`** (and `composer test`) **on the host**, matching that `.env`.
 - When creating models for tests, use the factories for the models. Check if the factory has custom states that can be used before manually setting up the model.
 - Faker: Use methods such as `$this->faker->word()` or `fake()->randomDigit()`. Follow existing conventions whether to use `$this->faker` or `fake()`.
 - When creating tests, make use of `php artisan make:test [options] {name}` to create a feature test, and pass `--unit` to create a unit test. Most tests should be feature tests.

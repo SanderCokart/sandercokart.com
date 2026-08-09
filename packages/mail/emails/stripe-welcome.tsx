@@ -85,7 +85,7 @@ export const StripeWelcomeEmail = () => (
             </Link>
             .
           </Text>
-          <Text style={paragraph}>— The Stripe team</Text>
+          <Text style={paragraph}>- The Stripe team</Text>
           <Hr style={hr} />
           <Text style={footer}>
             Stripe, 354 Oyster Point Blvd, South San Francisco, CA 94080

@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     images: [
       {
         url: DEFAULT_SOCIAL_IMAGE,
-        alt: 'sandercokart.com — developer articles and YouTube companions',
+        alt: 'sandercokart.com - developer articles and YouTube companions',
       },
     ],
   },

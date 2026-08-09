@@ -22,8 +22,8 @@ const cardVariants = {
   show: { opacity: 1, y: 0 },
 };
 
-export const ProposalDTrustSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
-  const t = useTranslations('CommercialProposalDTrust');
+export const CommercialTrustSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
+  const t = useTranslations('CommercialTrust');
   const richText = useGlossaryRichText();
 
   return (
