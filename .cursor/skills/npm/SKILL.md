@@ -5,7 +5,7 @@ description: Guidelines for running Node.js and package-manager commands in PNPM
 
 # PNPM & Monorepo Commands
 
-Use **PNPM** only—never `npm` or `yarn`. Run commands from the **repo root** unless you have a reason to be in a workspace.
+Use **PNPM** only-never `npm` or `yarn`. Run commands from the **repo root** unless you have a reason to be in a workspace.
 
 ## Core rules
 

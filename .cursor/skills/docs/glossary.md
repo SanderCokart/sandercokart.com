@@ -1,6 +1,6 @@
 # Glossary (inline rich-text terms)
 
-Explain jargon inline: **tooltip on desktop**, **bottom drawer on mobile**. Terms are auto-discovered from translation keys — no TypeScript changes when adding a term.
+Explain jargon inline: **tooltip on desktop**, **bottom drawer on mobile**. Terms are auto-discovered from translation keys - no TypeScript changes when adding a term.
 
 ## Quick start
 
@@ -23,7 +23,7 @@ export function MySection() {
 1. Add `{term}_description` under the `Glossary` namespace in **both** `messages/en.json` and `messages/nl.json`.
 2. Wrap the term in your rich string with `<term>...</term>` (tag name must match the key prefix).
 
-Example — adding `seo`:
+Example - adding `seo`:
 
 ```json
 {
@@ -68,9 +68,9 @@ Lower-level component when not using `t.rich()`:
 
 | Prop | Default | Description |
 |------|---------|-------------|
-| `term` | — | Key prefix; looks up `{term}_description` |
+| `term` | - | Key prefix; looks up `{term}_description` |
 | `namespace` | `Glossary` | Translation namespace |
-| `className` | — | Extra trigger classes |
+| `className` | - | Extra trigger classes |
 
 ## Example (codehouse)
 
@@ -79,7 +79,7 @@ Lower-level component when not using `t.rich()`:
 ```json
 {
   "Glossary": {
-    "cms_description": "A Content Management System (CMS) is software that lets you update website content—such as text, images, and certain sections—without editing code."
+    "cms_description": "A Content Management System (CMS) is software that lets you update website content-such as text, images, and certain sections-without editing code."
   },
   "BespokeWhyChooseSection": {
     "faq_content_editing_answer": "Yes, if you want. We can provide a <cms>content management system (CMS)</cms> so you can update text, images, and certain sections on your own. What you trade for that simplicity is a site that is <highlight>fully customizable</highlight> to your precise requirements."
@@ -87,4 +87,4 @@ Lower-level component when not using `t.rich()`:
 }
 ```
 
-**Component:** `consumers-why-choose-section.tsx` — `useGlossaryRichText()` + `t.rich(faq.answer, richText)`.
+**Component:** `consumers-why-choose-section.tsx` - `useGlossaryRichText()` + `t.rich(faq.answer, richText)`.

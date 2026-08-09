@@ -116,7 +116,7 @@ mise --version
 
 #### 2. Activate mise in bash (one-time)
 
-Activation makes `node`, `pnpm`, and other tools from `package.json` available automatically when you `cd` into this project. Add this to `~/.bashrc`—see [`mise activate`](https://mise.jdx.dev/cli/activate.html#mise-activate) for details. **Restart your terminal** afterward.
+Activation makes `node`, `pnpm`, and other tools from `package.json` available automatically when you `cd` into this project. Add this to `~/.bashrc`-see [`mise activate`](https://mise.jdx.dev/cli/activate.html#mise-activate) for details. **Restart your terminal** afterward.
 
 ```bash
 echo 'eval "$(mise activate bash)"' >> ~/.bashrc

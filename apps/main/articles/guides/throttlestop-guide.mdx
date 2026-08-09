@@ -13,7 +13,7 @@ videoId: 'V_2b5M0J8SM'
 
 > **Note:** This article is based on a video from **June 23, 2019**. ThrottleStop, Windows, and Intel’s behavior have changed since then (e.g. newer versions, different CPU support, and in some cases locked undervolting on 10th gen and later). Use this as a conceptual guide and always check [ThrottleStop on TechPowerUp](https://www.techpowerup.com/download/techpowerup-throttlestop/) and the [TechPowerUp forums](https://www.techpowerup.com/forums/forums/throttlestop.158/) for your specific hardware and OS.
 
-[ThrottleStop](https://www.techpowerup.com/download/techpowerup-throttlestop/) is a free Windows utility by Kevin Glynn, published by TechPowerUp. It lets you monitor and control CPU throttling, power limits, and—on supported Intel CPUs—undervolting via FIVR. It’s especially useful on laptops to reduce heat, extend battery life, and avoid performance drops from thermal throttling.
+[ThrottleStop](https://www.techpowerup.com/download/techpowerup-throttlestop/) is a free Windows utility by Kevin Glynn, published by TechPowerUp. It lets you monitor and control CPU throttling, power limits, and-on supported Intel CPUs-undervolting via FIVR. It’s especially useful on laptops to reduce heat, extend battery life, and avoid performance drops from thermal throttling.
 
 ## Download and install
 
@@ -29,8 +29,8 @@ When you first run ThrottleStop, you’ll see four default profiles: **Performan
 
 Practical options in the main window:
 
-- **Minimize on Close** — Closing the window keeps ThrottleStop running in the system tray instead of exiting.
-- **Start Minimized** — Useful if you add ThrottleStop to startup; it will run in the background without opening a window.
+- **Minimize on Close** - Closing the window keeps ThrottleStop running in the system tray instead of exiting.
+- **Start Minimized** - Useful if you add ThrottleStop to startup; it will run in the background without opening a window.
 
 That way ThrottleStop can stay active without cluttering the taskbar.
 
@@ -51,13 +51,13 @@ Use it sparingly; Speed Shift (below) usually gives a better balance.
 
 ## Set Multiplier and Speed Shift
 
-- **Set Multiplier** — Intended for **unlocked** (K/X series) desktop CPUs where the multiplier can be set directly. On most laptops and locked CPUs, leave this alone.
+- **Set Multiplier** - Intended for **unlocked** (K/X series) desktop CPUs where the multiplier can be set directly. On most laptops and locked CPUs, leave this alone.
 
-- **Speed Shift** — Intel’s mechanism for the CPU to choose its own frequency based on load and power policy. ThrottleStop can control the **EPP (Energy Performance Preference)** value:
+- **Speed Shift** - Intel’s mechanism for the CPU to choose its own frequency based on load and power policy. ThrottleStop can control the **EPP (Energy Performance Preference)** value:
 
-  - **0** — Prefer maximum frequency (performance).
-  - **255** — Prefer minimum power (battery saving).
-  - **128** — Roughly in the middle.
+  - **0** - Prefer maximum frequency (performance).
+  - **255** - Prefer minimum power (battery saving).
+  - **128** - Roughly in the middle.
 
   Enabling Speed Shift in ThrottleStop (and setting EPP per profile) gives more predictable behavior than leaving everything to Windows power plans.
 
@@ -103,9 +103,9 @@ Run your normal workloads as well; TS Bench is a quick check, not a full guarant
 To run ThrottleStop automatically at logon:
 
 1. Open **Task Scheduler** (e.g. `taskschd.msc` or search “Task Scheduler”).
-2. **Create Basic Task** — Name it e.g. “ThrottleStop”.
+2. **Create Basic Task** - Name it e.g. “ThrottleStop”.
 3. **Trigger:** “When I log on”.
-4. **Action:** “Start a program” — Browse to your ThrottleStop executable (e.g. `ThrottleStop.exe`).
+4. **Action:** “Start a program” - Browse to your ThrottleStop executable (e.g. `ThrottleStop.exe`).
 5. Finish the wizard.
 
 After that, ThrottleStop will start when you log in. With “Start Minimized” and “Minimize on Close” enabled, it will stay in the tray.
@@ -114,10 +114,10 @@ After that, ThrottleStop will start when you log in. With “Start Minimized” 
 
 ThrottleStop gives you direct control over:
 
-- **Profiles** — Different behavior for AC vs battery and for gaming vs browsing.
-- **Clock modulation** — Cap max frequency to save power (at the cost of speed).
-- **Speed Shift (EPP)** — Influence how aggressively the CPU boosts (0 = performance, 255 = power saving).
-- **Turbo Power Limits (TPL)** — Set PL1/PL2 to avoid excessive heat and throttling.
-- **FIVR** — Undervolt on supported Intel 4th gen and newer CPUs (where not locked by OEM/firmware).
+- **Profiles** - Different behavior for AC vs battery and for gaming vs browsing.
+- **Clock modulation** - Cap max frequency to save power (at the cost of speed).
+- **Speed Shift (EPP)** - Influence how aggressively the CPU boosts (0 = performance, 255 = power saving).
+- **Turbo Power Limits (TPL)** - Set PL1/PL2 to avoid excessive heat and throttling.
+- **FIVR** - Undervolt on supported Intel 4th gen and newer CPUs (where not locked by OEM/firmware).
 
 Start with conservative values, test with TS Bench and real use, and adjust step by step. For up-to-date compatibility and community tips for your CPU and laptop model, see the [ThrottleStop forum on TechPowerUp](https://www.techpowerup.com/forums/forums/throttlestop.158/).

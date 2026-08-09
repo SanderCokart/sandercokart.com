@@ -14,7 +14,7 @@ import { ProposalBTrustSection } from './(sections)/proposal-b-trust-section';
 type PageParams = { params: Promise<{ locale: string }> };
 
 /**
- * Business Solutions — Proposal B: Partnership & Scale.
+ * Business Solutions - Proposal B: Partnership & Scale.
  */
 export default async function CommercialProposalBPage({ params }: PageParams) {
   const { locale } = (await params) as { locale: LocaleCode };

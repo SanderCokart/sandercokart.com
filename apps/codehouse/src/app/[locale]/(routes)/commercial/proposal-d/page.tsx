@@ -17,7 +17,7 @@ import { ProposalDTrustSection } from './(sections)/proposal-d-trust-section';
 type PageParams = { params: Promise<{ locale: string }> };
 
 /**
- * Business Solutions — Proposal D: C imagery + B structure, plain language.
+ * Business Solutions - Proposal D: C imagery + B structure, plain language.
  */
 export default async function CommercialProposalDPage({ params }: PageParams) {
   const { locale } = (await params) as { locale: LocaleCode };

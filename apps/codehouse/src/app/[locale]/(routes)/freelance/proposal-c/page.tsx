@@ -13,7 +13,7 @@ import { ProposalCTechSection } from './(sections)/proposal-c-tech-section';
 type PageParams = { params: Promise<{ locale: string }> };
 
 /**
- * Freelance Development — Proposal C (End-to-End Delivery).
+ * Freelance Development - Proposal C (End-to-End Delivery).
  * Sells freelance web development by leading with concept-to-production ownership.
  */
 export default async function FreelanceProposalCPage({ params }: PageParams) {

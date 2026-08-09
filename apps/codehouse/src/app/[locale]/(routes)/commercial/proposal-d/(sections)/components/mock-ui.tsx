@@ -4,7 +4,7 @@ import { cn } from '@repo/ui/lib/utils';
 
 import type { ComponentProps, FC, ReactNode } from 'react';
 
-/** Shared chrome for faux product UI panels — decorative, not interactive. */
+/** Shared chrome for faux product UI panels - decorative, not interactive. */
 export const MockWindow: FC<
   ComponentProps<'div'> & {
     title: string;

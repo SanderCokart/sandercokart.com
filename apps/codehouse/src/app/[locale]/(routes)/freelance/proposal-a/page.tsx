@@ -13,7 +13,7 @@ import { FreelanceProposalAShowcase } from './(sections)/freelance-proposal-a-sh
 type PageParams = { params: Promise<{ locale: string }> };
 
 /**
- * Freelance Development — Proposal A (Portfolio & Craft).
+ * Freelance Development - Proposal A (Portfolio & Craft).
  * Sells freelance development by leading with shipped work and craftsmanship.
  */
 export default async function FreelanceProposalAPage({ params }: PageParams) {

@@ -627,7 +627,7 @@ Turbo does NOT load `.env` files - your framework does. But Turbo needs to know 
 
 ### Root `.env` File in Monorepo
 
-A `.env` file at the repo root is an anti-pattern — even for small monorepos or starter templates. It creates implicit coupling between packages and makes it unclear which packages depend on which variables.
+A `.env` file at the repo root is an anti-pattern - even for small monorepos or starter templates. It creates implicit coupling between packages and makes it unclear which packages depend on which variables.
 
 ```
 // WRONG - root .env affects all packages implicitly
@@ -654,7 +654,7 @@ my-monorepo/
 - All packages get all variables (even ones they don't need)
 - Cache invalidation is coarse-grained (root .env change invalidates everything)
 - Security risk: packages may accidentally access sensitive vars meant for others
-- Bad habits start small — starter templates should model correct patterns
+- Bad habits start small - starter templates should model correct patterns
 
 **If you must share variables**, use `globalEnv` to be explicit about what's shared, and document why.
 
@@ -767,7 +767,7 @@ A `dev` task with `dependsOn: ["^dev"]` and `persistent: false` in root turbo.js
 
 **Why this works:**
 
-- **Packages** (e.g., `@acme/db`, `@acme/validators`) have `"dev": "tsc"` — one-shot type generation that completes quickly
+- **Packages** (e.g., `@acme/db`, `@acme/validators`) have `"dev": "tsc"` - one-shot type generation that completes quickly
 - **Apps** override with `persistent: true` for actual dev servers (Next.js, etc.)
 - **`turbo watch`** re-runs the one-shot package `dev` scripts when source files change, keeping types in sync
 

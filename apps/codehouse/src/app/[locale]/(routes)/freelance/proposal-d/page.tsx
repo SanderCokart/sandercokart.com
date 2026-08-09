@@ -14,7 +14,7 @@ import { ProposalDTechIndexSection } from './(sections)/proposal-d-tech-index-se
 type PageParams = { params: Promise<{ locale: string }> };
 
 /**
- * Freelance Development — Proposal D: A's hero + C's shipped showcase + B's skills/FAQ + searchable tech index.
+ * Freelance Development - Proposal D: A's hero + C's shipped showcase + B's skills/FAQ + searchable tech index.
  */
 export default async function FreelanceProposalDPage({ params }: PageParams) {
   const { locale } = (await params) as { locale: LocaleCode };

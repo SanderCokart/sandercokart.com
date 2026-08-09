@@ -5,7 +5,7 @@ description: Index of internal monorepo documentation. Use when implementing or 
 
 # Internal Documentation
 
-Repo-internal docs for agents and developers — not user-facing product documentation.
+Repo-internal docs for agents and developers - not user-facing product documentation.
 
 ## Document index
 

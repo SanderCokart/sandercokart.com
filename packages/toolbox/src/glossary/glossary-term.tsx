@@ -29,7 +29,7 @@ type GlossaryTermProps = {
 /**
  * Inline glossary term with tooltip (desktop) or drawer (mobile).
  *
- * @see `.cursor/skills/docs/glossary.md` — adding terms, translation tags, and usage
+ * @see `.cursor/skills/docs/glossary.md` - adding terms, translation tags, and usage
  */
 export function GlossaryTerm({ term, children, className, namespace = 'Glossary' }: GlossaryTermProps) {
   const t = useTranslations(namespace);

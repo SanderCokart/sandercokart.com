@@ -14,7 +14,7 @@ import { ProposalCScopeSection } from './(sections)/proposal-c-scope-section';
 type PageParams = { params: Promise<{ locale: string }> };
 
 /**
- * Business Solutions — Proposal C (Product Showcase).
+ * Business Solutions - Proposal C (Product Showcase).
  * Sells custom business web apps by showing what the software feels like.
  */
 export default async function CommercialProposalCPage({ params }: PageParams) {
