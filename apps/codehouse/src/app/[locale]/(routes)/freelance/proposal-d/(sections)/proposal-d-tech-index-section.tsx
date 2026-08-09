@@ -2,6 +2,8 @@
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@repo/ui/components/shadcn/accordion';
 import { Badge } from '@repo/ui/components/shadcn/badge';
+import { Button } from '@repo/ui/components/shadcn/button';
+import { ButtonGroup } from '@repo/ui/components/shadcn/button-group';
 import { Card, CardContent } from '@repo/ui/components/shadcn/card';
 import { Input } from '@repo/ui/components/shadcn/input';
 import { cn } from '@repo/ui/lib/utils';
@@ -500,17 +502,29 @@ export const ProposalDTechIndexSection: FC<ComponentProps<'section'>> = ({ class
     return grouped.filter(group => group.category === activeCategory);
   }, [activeCategory, grouped, isSearching]);
 
+  const visibleCategoryValues = useMemo(
+    () => visibleGroups.map(group => group.category),
+    [visibleGroups],
+  );
+
+  const accordionSyncKey = isSearching ? `search:${deferredQuery}` : `browse:${activeCategory}`;
+  const [openCategories, setOpenCategories] = useState<TechCategory[]>([]);
+  const [lastAccordionSyncKey, setLastAccordionSyncKey] = useState(accordionSyncKey);
+
+  if (lastAccordionSyncKey !== accordionSyncKey) {
+    setLastAccordionSyncKey(accordionSyncKey);
+    setOpenCategories(isSearching ? visibleCategoryValues : []);
+  }
+
   const filteredCount = useMemo(
     () => visibleGroups.reduce((sum, group) => sum + group.items.length, 0),
     [visibleGroups],
   );
 
-  const openAccordionValues = useMemo(
-    () => (isSearching ? visibleGroups.map(group => group.category) : []),
-    [isSearching, visibleGroups],
-  );
-
   const showAccordion = isSearching || activeCategory === 'all';
+  const allExpanded =
+    visibleCategoryValues.length > 0 && visibleCategoryValues.every(category => openCategories.includes(category));
+  const noneExpanded = !visibleCategoryValues.some(category => openCategories.includes(category));
 
   return (
     <section
@@ -577,11 +591,32 @@ export const ProposalDTechIndexSection: FC<ComponentProps<'section'>> = ({ class
         <p className="text-muted-foreground text-center text-sm">{t('empty', { query })}</p>
       ) : showAccordion ? (
         <Card className="border-border/60 bg-card/40">
-          <CardContent className="pt-2">
+          <CardContent className="flex flex-col gap-2 pt-2">
+            <div className="flex justify-end">
+              <ButtonGroup aria-label={t('accordion_controls_label')}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="xs"
+                  disabled={allExpanded}
+                  onClick={() => setOpenCategories(visibleCategoryValues)}>
+                  {t('expand_all')}
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="xs"
+                  disabled={noneExpanded}
+                  onClick={() => setOpenCategories([])}>
+                  {t('collapse_all')}
+                </Button>
+              </ButtonGroup>
+            </div>
+
             <Accordion
-              key={isSearching ? `search:${deferredQuery}` : 'all'}
               multiple
-              defaultValue={openAccordionValues}
+              value={openCategories}
+              onValueChange={value => setOpenCategories(value as TechCategory[])}
               className="w-full">
               {visibleGroups.map(group => (
                 <AccordionItem key={group.category} value={group.category}>
