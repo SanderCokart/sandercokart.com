@@ -12,6 +12,7 @@ import type { ComponentProps, FC } from 'react';
 
 import LogoINV from '@/public/static/images/logo/Logo-INV.png';
 import Logo from '@/public/static/images/logo/Logo.png';
+
 import { MotionDiv } from '@/src/lib/motion';
 
 export const ProposalDHeroSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
@@ -20,19 +21,10 @@ export const ProposalDHeroSection: FC<ComponentProps<'section'>> = ({ className,
 
   return (
     <section
-      className={cn(
-        'relative mt-16 overflow-hidden',
-        'dark:drop-shadow-[0_0px_10px_hsl(var(--primary))]',
-        className,
-      )}
+      className={cn('mt-16', 'dark:drop-shadow-[0_0px_10px_hsl(var(--primary))]', className)}
       id="hero"
       {...props}>
-      <div
-        aria-hidden
-        className="from-primary/10 via-background to-accent/5 dark:from-accent/15 dark:via-background dark:to-primary/10 pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b"
-      />
-
-      <article className="container flex max-w-screen-lg flex-col items-center gap-8">
+      <article className="container flex max-w-5xl flex-col items-center gap-8">
         <MotionDiv
           className="flex flex-col items-center gap-6"
           initial={{ opacity: 0, y: 16 }}
@@ -41,13 +33,13 @@ export const ProposalDHeroSection: FC<ComponentProps<'section'>> = ({ className,
           <Image
             priority
             alt="Sander's CodeHouse"
-            className="mx-auto block max-w-[11rem] sm:max-w-[8rem] dark:hidden"
+            className="mx-auto block max-w-44 sm:max-w-32 dark:hidden"
             src={LogoINV}
           />
           <Image
             priority
             alt="Sander's CodeHouse"
-            className="mx-auto hidden max-w-[11rem] sm:max-w-[8rem] dark:block"
+            className="mx-auto hidden max-w-44 sm:max-w-32 dark:block"
             src={Logo}
           />
 

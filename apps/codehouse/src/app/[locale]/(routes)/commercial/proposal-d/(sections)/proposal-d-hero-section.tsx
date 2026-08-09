@@ -55,16 +55,11 @@ export const ProposalDHeroSection: FC<ComponentProps<'section'>> = ({ className,
 
   return (
     <section
-      className={cn(
-        'relative mt-16 overflow-hidden',
-        'bg-[radial-gradient(ellipse_at_top,_hsl(var(--primary)/0.18)_0%,_transparent_55%),radial-gradient(ellipse_at_bottom_right,_hsl(var(--accent)/0.12)_0%,_transparent_45%)]',
-        'dark:drop-shadow-[0_0px_10px_hsl(var(--primary))]',
-        className,
-      )}
+      className={cn('mt-16', 'dark:drop-shadow-[0_0px_10px_hsl(var(--primary))]', className)}
       id="hero"
       {...props}>
       <MotionDiv
-        className="container flex max-w-screen-xl flex-col gap-10 pb-4"
+        className="container flex max-w-7xl flex-col gap-10 pb-4"
         variants={heroContainer}
         initial="hidden"
         animate="show">
@@ -72,13 +67,13 @@ export const ProposalDHeroSection: FC<ComponentProps<'section'>> = ({ className,
           <Image
             priority
             alt="Sander's CodeHouse"
-            className="mx-auto block max-w-[11rem] sm:max-w-[8rem] dark:hidden"
+            className="mx-auto block max-w-44 sm:max-w-32 dark:hidden"
             src={LogoINV}
           />
           <Image
             priority
             alt="Sander's CodeHouse"
-            className="mx-auto hidden max-w-[11rem] sm:max-w-[8rem] dark:block"
+            className="mx-auto hidden max-w-44 sm:max-w-32 dark:block"
             src={Logo}
           />
           <h1 className="mx-auto max-w-4xl text-balance text-3xl font-bold uppercase sm:text-5xl">
@@ -106,11 +101,11 @@ export const ProposalDHeroSection: FC<ComponentProps<'section'>> = ({ className,
           <div
             className={cn(
               'pointer-events-none absolute -inset-x-8 -bottom-8 -top-4 z-0',
-              'bg-gradient-to-b from-transparent via-transparent to-background',
+              'bg-linear-to-b from-transparent via-transparent to-background',
             )}
           />
           <MockWindow title={t('mock_window_title')} className="relative z-10">
-            <div className="flex min-h-[18rem] sm:min-h-[22rem]">
+            <div className="flex min-h-72 sm:min-h-88">
               <MockSidebar items={navItems} />
               <div className="flex flex-1 flex-col gap-3 p-3 sm:p-4">
                 <MotionDiv variants={dashboardPanel} className="grid grid-cols-2 gap-2 sm:grid-cols-4">
