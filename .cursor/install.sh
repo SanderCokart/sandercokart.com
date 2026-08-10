@@ -17,26 +17,19 @@ cd "${REPO_ROOT}"
 
 log() { printf '[install] %s\n' "$1"; }
 
+# Make mise-managed node/pnpm available in non-login shells.
+if [[ -x "${HOME}/.local/bin/mise" ]]; then
+  eval "$("${HOME}/.local/bin/mise" activate bash)" 2>/dev/null || true
+  export PATH="${HOME}/.local/share/mise/shims:${PATH}"
+fi
+
 log "Installing workspace dependencies (pnpm)…"
 pnpm install --config.confirmModulesPurge=false
 
-if [[ -n "${DOTENV_PRIVATE_KEY_LOCAL:-}" ]]; then
-  log "Decrypting local env files for api, main, codehouse…"
-  for app in api main codehouse; do
-    pnpm --filter "${app}" env:use:local
-  done
-else
-  log "DOTENV_PRIVATE_KEY_LOCAL not set — keeping existing .env files (add it as a secret to refresh them)."
-fi
+log "Ensuring API .env (decrypt with key, else local fallback)…"
+bash .cursor/ensure-api-env.sh
 
 log "Building internal dist packages (runtime-env, toolbox)…"
 pnpm exec turbo run build --filter=@repo/runtime-env --filter=@repo/toolbox
-
-if [[ -f apps/api/.env ]]; then
-  if ! grep -qE '^APP_KEY=base64:' apps/api/.env; then
-    log "Generating Laravel APP_KEY…"
-    (cd apps/api && php artisan key:generate --force --ansi)
-  fi
-fi
 
 log "Install complete."

@@ -20,6 +20,12 @@ cd "${REPO_ROOT}"
 
 log() { printf '[start] %s\n' "$1"; }
 
+# 0. Ensure the API .env exists on every boot (decrypt with the secret when
+#    available, otherwise write a working local dev fallback). This runs here —
+#    not just in install — because a checkout can drop the gitignored .env and
+#    the install phase may be skipped on warm boots.
+bash .cursor/ensure-api-env.sh || log "warning: could not ensure apps/api/.env"
+
 # 1. Map compose service hostnames to loopback (best effort).
 if ! grep -qE '^127\.0\.0\.1[[:space:]].*\bmailpit\b' /etc/hosts 2>/dev/null; then
   echo '127.0.0.1 db redis mailpit' | sudo tee -a /etc/hosts >/dev/null 2>&1 || \
