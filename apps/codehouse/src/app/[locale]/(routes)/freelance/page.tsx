@@ -14,14 +14,14 @@ export default function Page() {
       <FreelanceHeroSection />
       <div className="mb-16">
         <Line />
-        <FreelanceSkillsSection className="container max-w-screen-lg" />
+        <FreelanceSkillsSection className="container max-w-(--breakpoint-lg)" />
         <Line />
         <FreelanceShowcaseSection />
         <Line />
-        <FreelanceTechIndexSection className="container max-w-screen-lg" />
+        <FreelanceTechIndexSection className="container max-w-(--breakpoint-lg)" />
         <Line />
-        <FreelanceFaqSection className="container max-w-screen-lg" />
-        <AskForAQuote className="container max-w-screen-lg" />
+        <FreelanceFaqSection className="container max-w-(--breakpoint-lg)" />
+        <AskForAQuote className="container max-w-(--breakpoint-lg)" />
       </div>
     </main>
   );

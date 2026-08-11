@@ -70,11 +70,11 @@ export function ServiceOfferingsSection() {
     <section
       className={cn(
         'mt-8 sm:mb-16 xl:mt-0',
-        'min-h-[calc(100dvh-theme(spacing.11))] sm:min-h-[calc(100dvh-theme(spacing.16))]',
+        'min-h-[calc(100dvh-(--spacing(11)))] sm:min-h-[calc(100dvh-(--spacing(16)))]',
         'grid place-items-center',
       )}
       id="services">
-      <article className="container px-0 sm:max-w-screen-sm sm:px-4 xl:max-w-screen-2xl">
+      <article className="container px-0 sm:max-w-(--breakpoint-sm) sm:px-4 xl:max-w-(--breakpoint-2xl)">
         <motion.h1
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -94,8 +94,8 @@ export function ServiceOfferingsSection() {
               className="group relative overflow-hidden">
               <Card
                 className={cn(
-                  'grid grid-rows-[1fr,1fr,2fr,2fr,auto]',
-                  'h-full bg-gradient-to-b',
+                  'grid grid-rows-[1fr_1fr_2fr_2fr_auto]',
+                  'h-full bg-linear-to-b',
                   service.color,
                   'rounded-none transition-colors duration-500 ease-in-out sm:rounded-lg',
                   'has-[a:hover]:from-primary/10 has-[a:hover]:to-primary/20 dark:has-[a:hover]:from-accent/10 dark:has-[a:hover]:to-accent/20',

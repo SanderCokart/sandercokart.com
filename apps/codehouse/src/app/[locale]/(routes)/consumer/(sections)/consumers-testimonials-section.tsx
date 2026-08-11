@@ -11,7 +11,7 @@ export const ConsumersTestimonialsSection: FC<ComponentProps<'section'>> = ({ cl
 
   return (
     <GenericTestimonialsSection
-      className={cn('container max-w-screen-lg', className)}
+      className={cn('container max-w-(--breakpoint-lg)', className)}
       testimonials={testimonials}
       {...props}
     />

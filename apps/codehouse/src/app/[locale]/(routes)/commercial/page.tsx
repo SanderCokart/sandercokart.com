@@ -23,14 +23,14 @@ export default function Page() {
         <Line />
         <CommercialBookingSection />
         <Line />
-        <CommercialScaleSection className="container max-w-screen-lg" />
+        <CommercialScaleSection className="container max-w-(--breakpoint-lg)" />
         <Line />
-        <CommercialHowWeWorkSection className="container max-w-screen-lg" />
+        <CommercialHowWeWorkSection className="container max-w-(--breakpoint-lg)" />
         <Line />
-        <CommercialTrustSection className="container max-w-screen-lg" />
+        <CommercialTrustSection className="container max-w-(--breakpoint-lg)" />
         <Line />
-        <CommercialFaqSection className="container max-w-screen-lg" />
-        <AskForAQuote className="container max-w-screen-lg" />
+        <CommercialFaqSection className="container max-w-(--breakpoint-lg)" />
+        <AskForAQuote className="container max-w-(--breakpoint-lg)" />
       </div>
     </main>
   );
