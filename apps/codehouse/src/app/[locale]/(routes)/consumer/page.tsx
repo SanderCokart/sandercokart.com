@@ -11,10 +11,10 @@ export default function Page() {
       <ConsumersHeroSection />
       <div className="mb-16">
         <Line />
-        <ConsumersWhyChooseSection className="container max-w-screen-lg" />
+        <ConsumersWhyChooseSection className="container max-w-(--breakpoint-lg)" />
         <Line />
-        <ConsumersTestimonialsSection className="container max-w-screen-lg" />
-        <AskForAQuote className="container max-w-screen-lg" />
+        <ConsumersTestimonialsSection className="container max-w-(--breakpoint-lg)" />
+        <AskForAQuote className="container max-w-(--breakpoint-lg)" />
       </div>
     </main>
   );

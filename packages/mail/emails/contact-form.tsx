@@ -76,7 +76,7 @@ export const ContactFormEmail = ({ name, email, phone, website, message, specifi
               </Section>
             ) : null}
 
-            <Hr className="!border-primary my-0" />
+            <Hr className="border-primary! my-0" />
 
             {/* Footer */}
             <Section className="bg-gray-50 px-8 py-6 text-center">

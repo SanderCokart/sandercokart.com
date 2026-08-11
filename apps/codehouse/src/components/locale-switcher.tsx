@@ -24,7 +24,7 @@ export function LocaleSwitcher() {
           })}
         />
       </Link>
-      <div className="h-5 border-r-2 border-white !opacity-100 sm:h-7" />
+      <div className="h-5 border-r-2 border-white opacity-100! sm:h-7" />
       <Link replace href={pathname} hrefLang="nl" locale="nl" rel="alternate" scroll={false}>
         <NLFlag
           className={cn('h-5 cursor-pointer transition-opacity sm:h-7', {
