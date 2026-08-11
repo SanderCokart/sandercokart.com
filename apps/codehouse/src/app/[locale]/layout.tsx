@@ -2,9 +2,7 @@ import './globals.css';
 
 import { EnvScript } from '@repo/runtime-env/env-script';
 import { cn } from '@repo/ui/lib/utils';
-import { hasLocale } from 'next-intl';
-import { setRequestLocale } from 'next-intl/server';
-import { notFound } from 'next/navigation';
+import { getLocale } from 'next-intl/server';
 
 import { Suspense } from 'react';
 import { Geist, Geist_Mono } from 'next/font/google';
@@ -14,7 +12,6 @@ import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 
 import { env } from '@/src/env';
-import { LocaleCode } from '@/src/i18n/config';
 import { routing } from '@/src/i18n/routing';
 import { GlobalProviders } from '@/src/providers/server.global-providers';
 
@@ -82,12 +79,12 @@ const bodyClassName = cn(
   'mb-14 lg:mb-0', // account for mobile navigation @see <Navigation />
 );
 
-type RootLayoutParams = { children: ReactNode; params: Promise<{ locale: string }> };
+type RootLayoutParams = { children: ReactNode };
 
-export default function RootLayout({ params, children }: RootLayoutParams) {
+export default function RootLayout({ children }: RootLayoutParams) {
   return (
     <Suspense fallback={<RootLayoutFallback>{children}</RootLayoutFallback>}>
-      <LocalizedRootLayout params={params}>{children}</LocalizedRootLayout>
+      <LocalizedRootLayout>{children}</LocalizedRootLayout>
     </Suspense>
   );
 }
@@ -114,14 +111,8 @@ function RootLayoutFallback({ children }: { children: ReactNode }) {
   );
 }
 
-async function LocalizedRootLayout({ params, children }: RootLayoutParams) {
-  const { locale } = (await params) as { locale: LocaleCode };
-
-  if (!hasLocale(routing.locales, locale)) {
-    notFound();
-  }
-
-  setRequestLocale(locale);
+async function LocalizedRootLayout({ children }: RootLayoutParams) {
+  const locale = await getLocale();
 
   return (
     <html suppressHydrationWarning className="relative scroll-smooth" data-scroll-behavior="smooth" lang={locale}>
