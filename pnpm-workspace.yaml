@@ -9,3 +9,5 @@ onlyBuiltDependencies:
   - 'esbuild'
   - 'sharp'
   - 'msw'
+overrides:
+  '@types/hast': 3.0.5

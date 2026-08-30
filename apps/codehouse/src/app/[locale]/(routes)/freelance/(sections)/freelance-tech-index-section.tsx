@@ -10,7 +10,7 @@ import { cn } from '@repo/ui/lib/utils';
 import { SearchIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { BiLogoAdobe, BiLogoMicrosoftTeams } from 'react-icons/bi';
-import { FaDatabase, FaJava } from 'react-icons/fa';
+import { FaDatabase, FaEnvelope, FaJava, FaSlack } from 'react-icons/fa';
 import {
   SiAlpinedotjs,
   SiAlpinelinux,
@@ -77,10 +77,8 @@ import {
   SiRemix,
   SiSanity,
   SiSass,
-  SiSendgrid,
   SiSentry,
   SiShadcnui,
-  SiSlack,
   SiSqlite,
   SiStorybook,
   SiStripe,
@@ -302,7 +300,7 @@ const techItems: TechItem[] = [
     category: 'backend',
   },
   { id: 'stripe', label: 'Stripe', aliases: ['stripe'], icon: SiStripe, category: 'backend' },
-  { id: 'sendgrid', label: 'SendGrid', aliases: ['sendgrid', 'send grid'], icon: SiSendgrid, category: 'backend' },
+  { id: 'sendgrid', label: 'SendGrid', aliases: ['sendgrid', 'send grid'], icon: FaEnvelope, category: 'backend' },
   {
     id: 'swagger',
     label: 'Swagger / OpenAPI',
@@ -428,7 +426,7 @@ const techItems: TechItem[] = [
 
   // Collaboration
   { id: 'notion', label: 'Notion', aliases: ['notion'], icon: SiNotion, category: 'collaboration' },
-  { id: 'slack', label: 'Slack', aliases: ['slack'], icon: SiSlack, category: 'collaboration' },
+  { id: 'slack', label: 'Slack', aliases: ['slack'], icon: FaSlack, category: 'collaboration' },
   {
     id: 'teams',
     label: 'Microsoft Teams',
