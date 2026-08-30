@@ -36,18 +36,19 @@
     ]
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "^1.57.1",
+    "@dotenvx/dotenvx": "^2.22.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
     "husky": "^9.1.7",
-    "lint-staged": "^15.5.2",
-    "prettier": "^3.8.1",
+    "lint-staged": "^17.4.1",
+    "prettier": "^3.9.6",
     "prettier-plugin-tailwindcss": "^0.8.1",
-    "turbo": "2.8.20",
+    "turbo": "2.10.12",
     "typescript": "5.9.3"
   },
   "pnpm": {
     "overrides": {
-      "zod": "^4"
+      "zod": "^4",
+      "@types/hast": "3.0.5"
     },
     "onlyBuiltDependencies": [
       "@parcel/watcher",
