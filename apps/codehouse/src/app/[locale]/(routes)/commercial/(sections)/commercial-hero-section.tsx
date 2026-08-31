@@ -2,6 +2,7 @@
 
 import { Button } from '@repo/ui/components/shadcn/button';
 import { cn } from '@repo/ui/lib/utils';
+import { useReducedMotion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 
 import Image from 'next/image';
@@ -50,6 +51,7 @@ const dashboardPanel = {
 
 export const CommercialHeroSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
   const t = useTranslations('CommercialHero');
+  const shouldReduceMotion = useReducedMotion();
 
   const navItems = [t('mock_nav_overview'), t('mock_nav_customers'), t('mock_nav_numbers'), t('mock_nav_schedule')];
 
@@ -61,7 +63,7 @@ export const CommercialHeroSection: FC<ComponentProps<'section'>> = ({ className
       <MotionDiv
         className="container flex max-w-7xl flex-col gap-10 pb-4"
         variants={heroContainer}
-        initial="hidden"
+        initial={shouldReduceMotion ? 'show' : 'hidden'}
         animate="show">
         <MotionDiv variants={fadeUp} className="flex flex-col items-center gap-6 text-center">
           <Image
@@ -95,7 +97,7 @@ export const CommercialHeroSection: FC<ComponentProps<'section'>> = ({ className
         <MotionDiv
           className="relative w-full"
           variants={dashboardContainer}
-          initial="hidden"
+          initial={shouldReduceMotion ? 'show' : 'hidden'}
           animate="show"
           aria-hidden>
           <div

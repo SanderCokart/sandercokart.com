@@ -4,6 +4,7 @@ import { useGlossaryRichText } from '@repo/toolbox/glossary/use-glossary-rich-te
 import { Button } from '@repo/ui/components/shadcn/button';
 import { cn } from '@repo/ui/lib/utils';
 import { ArrowDownIcon, ArrowRightIcon } from 'lucide-react';
+import { useReducedMotion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 
 import Image from 'next/image';
@@ -18,6 +19,7 @@ import { MotionDiv } from '@/src/lib/motion';
 export const FreelanceHeroSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
   const t = useTranslations('FreelanceHero');
   const richText = useGlossaryRichText();
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <section
@@ -27,7 +29,7 @@ export const FreelanceHeroSection: FC<ComponentProps<'section'>> = ({ className,
       <article className="container flex max-w-5xl flex-col items-center gap-8">
         <MotionDiv
           className="flex flex-col items-center gap-6"
-          initial={{ opacity: 0, y: 16 }}
+          initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, ease: 'easeOut' }}>
           <Image
