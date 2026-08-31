@@ -60,7 +60,7 @@ pnpm test:visual
 pnpm test:visual:update   # only after an intentional visual change
 ```
 
-CI runs the same suite on pull requests via `.github/workflows/visual-regression.yml`.
+CI runs the same suite on pull requests and pushes to `main` (`.github/workflows/visual-regression.yml`). `development` is not a trigger, so those snapshots stay based on `main`.
 
 ## 🧰 Environment setup
 

@@ -1,9 +1,10 @@
-name: Visual regression
+name: Visual regression (main, codehouse)
 
 on:
   pull_request:
+    branches: [main]
   push:
-    branches: [main, development]
+    branches: [main]
 
 concurrency:
   group: visual-regression-${{ github.ref }}

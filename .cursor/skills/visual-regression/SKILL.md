@@ -56,3 +56,7 @@ A failed run means pixels moved vs the committed PNG.
 3. If it is not, fix the UI (or tighten a mask) and re-run without `--update-snapshots`.
 
 Do not raise `maxDiffPixelRatio` to hide a real regression.
+
+## CI
+
+The GitHub workflow runs only on pull requests and pushes to `main`. That keeps `main` as the screenshot baseline. Do not add `development` to the workflow triggers.
