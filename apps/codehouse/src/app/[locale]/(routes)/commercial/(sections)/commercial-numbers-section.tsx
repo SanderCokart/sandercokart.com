@@ -2,6 +2,7 @@
 
 import { useGlossaryRichText } from '@repo/toolbox/glossary/use-glossary-rich-text';
 import { cn } from '@repo/ui/lib/utils';
+import { useReducedMotion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 
 import type { ComponentProps, FC } from 'react';
@@ -30,13 +31,14 @@ const stagger = {
 export const CommercialNumbersSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
   const t = useTranslations('CommercialNumbers');
   const richText = useGlossaryRichText();
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <section className={cn('container max-w-screen-lg scroll-mt-16 py-4', className)} id="numbers" {...props}>
       <MotionDiv
         className="grid items-center gap-10 lg:grid-cols-2"
         variants={stagger}
-        initial="hidden"
+        initial={shouldReduceMotion ? 'show' : 'hidden'}
         whileInView="show"
         viewport={{ once: true, margin: '-12%' }}>
         <MotionDiv variants={sectionReveal} className="space-y-4">

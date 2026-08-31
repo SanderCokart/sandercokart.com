@@ -2,6 +2,7 @@
 
 import { useGlossaryRichText } from '@repo/toolbox/glossary/use-glossary-rich-text';
 import { cn } from '@repo/ui/lib/utils';
+import { useReducedMotion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 
 import Image from 'next/image';
@@ -49,13 +50,14 @@ const showcaseItems = [
 export const FreelanceShowcaseSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
   const t = useTranslations('FreelanceShowcase');
   const richText = useGlossaryRichText();
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <section className={cn('container max-w-screen-lg scroll-mt-16 py-4', className)} id="showcase" {...props}>
       <MotionDiv
         className="flex flex-col gap-10"
         variants={sectionStagger}
-        initial="hidden"
+        initial={shouldReduceMotion ? 'show' : 'hidden'}
         whileInView="show"
         viewport={{ once: true, margin: '-10%' }}>
         <MotionDiv variants={sectionReveal} className="mx-auto max-w-2xl space-y-4 text-center">

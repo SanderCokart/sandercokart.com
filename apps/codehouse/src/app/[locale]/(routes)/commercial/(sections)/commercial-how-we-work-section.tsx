@@ -2,6 +2,7 @@
 
 import { useGlossaryRichText } from '@repo/toolbox/glossary/use-glossary-rich-text';
 import { cn } from '@repo/ui/lib/utils';
+import { useReducedMotion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 
 import type { ComponentProps, FC } from 'react';
@@ -18,6 +19,7 @@ const phaseVariants = {
 export const CommercialHowWeWorkSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
   const t = useTranslations('CommercialHowWeWork');
   const richText = useGlossaryRichText();
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <section className={cn('flex scroll-mt-16 flex-col gap-8', className)} id="how-we-work" {...props}>
@@ -29,7 +31,7 @@ export const CommercialHowWeWorkSection: FC<ComponentProps<'section'>> = ({ clas
           <li key={phase} className="m-0">
             <MotionDiv
               className="relative flex flex-col gap-3"
-              initial="hidden"
+              initial={shouldReduceMotion ? 'show' : 'hidden'}
               whileInView="show"
               viewport={{ once: true, amount: 0.4 }}
               variants={phaseVariants}

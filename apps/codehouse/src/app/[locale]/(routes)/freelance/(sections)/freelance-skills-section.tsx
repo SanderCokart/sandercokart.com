@@ -11,6 +11,7 @@ import {
   RouteIcon,
   WorkflowIcon,
 } from 'lucide-react';
+import { useReducedMotion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 
 import type { ComponentProps, FC } from 'react';
@@ -29,6 +30,7 @@ const skills = [
 export const FreelanceSkillsSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
   const t = useTranslations('FreelanceSkills');
   const richText = useGlossaryRichText();
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <section
@@ -49,7 +51,7 @@ export const FreelanceSkillsSection: FC<ComponentProps<'section'>> = ({ classNam
           return (
             <MotionDiv
               key={skill.key}
-              initial={{ opacity: 0, y: 24 }}
+              initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.4, ease: 'easeOut', delay: index * 0.08 }}>
