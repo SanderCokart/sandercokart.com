@@ -7,6 +7,15 @@
     "next-devtools": {
       "command": "/home/sander/.local/share/mise/shims/npx",
       "args": ["-y", "next-devtools-mcp@latest"]
+    },
+    "dokploy-mcp": {
+      "command": "npx",
+      "args": ["-y", "@dokploy/mcp"],
+      "env": {
+        "DOKPLOY_URL": "${env:DEPLOY_URL}",
+        "DOKPLOY_API_KEY": "${env:DEPLOY_TOKEN}",
+        "DOKPLOY_TOOL_PRESET": "minimal"
+      }
     }
   }
 }
