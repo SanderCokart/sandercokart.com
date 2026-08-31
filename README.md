@@ -50,6 +50,18 @@ The `setup` command is safe to rerun and handles already-installed tooling.
    - Redis: localhost:6379
    - Mailpit: localhost:1025 (SMTP), localhost:8025 (UI)
 
+### Visual regression
+
+Playwright screenshot tests cover `apps/main` and `apps/codehouse` (Chromium, light and dark). Baselines are committed under each app's `e2e/` folder.
+
+```bash
+pnpm --filter main exec playwright install chromium --with-deps
+pnpm test:visual
+pnpm test:visual:update   # only after an intentional visual change
+```
+
+CI runs the same suite on pull requests via `.github/workflows/visual-regression.yml`.
+
 ## 🧰 Environment setup
 
 This project uses:

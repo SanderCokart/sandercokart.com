@@ -22,6 +22,16 @@
     "lint": {
       "dependsOn": ["^lint"]
     },
+    "test:visual": {
+      "dependsOn": ["build"],
+      "cache": false,
+      "env": ["CI", "PLAYWRIGHT_BASE_URL"]
+    },
+    "test:visual:update": {
+      "dependsOn": ["build"],
+      "cache": false,
+      "env": ["CI", "PLAYWRIGHT_BASE_URL"]
+    },
     "dev": {
       "dependsOn": ["^build"],
       "cache": false,
