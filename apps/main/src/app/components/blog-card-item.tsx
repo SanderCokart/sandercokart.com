@@ -27,6 +27,7 @@ function articleLinkAriaLabel({ article, timeAgo, publishedDate }: BlogCardProps
 
 const TimeOverlay: React.FC<TimeOverlayProps> = ({ timeAgo, publishedDate }) => (
   <div
+    data-testid="article-time-ago"
     className="bg-accent text-accent-foreground absolute bottom-3 left-3 rounded px-2 py-1 text-sm font-medium"
     suppressHydrationWarning
     title={

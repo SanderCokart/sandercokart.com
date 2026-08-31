@@ -14,6 +14,8 @@
     "dev": "turbo dev",
     "start": "turbo start",
     "lint": "turbo lint",
+    "test:visual": "turbo run test:visual --filter=main --filter=codehouse",
+    "test:visual:update": "turbo run test:visual:update --filter=main --filter=codehouse",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky",
     "clean": "turbo clean && echo 'Deleting root node_modules...' && rm -rf node_modules .next .turbo dist"
@@ -57,6 +59,7 @@
       "es5-ext",
       "esbuild",
       "msw",
+      "playwright",
       "sharp",
       "unrs-resolver"
     ]

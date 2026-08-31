@@ -1,0 +1,50 @@
+name: Visual regression (main, codehouse)
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+concurrency:
+  group: visual-regression-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  screenshots:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --filter=main... --filter=codehouse...
+        env:
+          HUSKY: '0'
+
+      - name: Install Playwright Chromium
+        run: pnpm --filter main exec playwright install chromium --with-deps
+
+      - name: Run visual regression tests
+        run: pnpm test:visual
+        env:
+          CI: true
+
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            apps/main/playwright-report
+            apps/main/test-results
+            apps/codehouse/playwright-report
+            apps/codehouse/test-results
+          retention-days: 7
