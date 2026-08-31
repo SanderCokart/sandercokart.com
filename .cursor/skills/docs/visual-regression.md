@@ -1,6 +1,6 @@
 # Visual regression
 
-Playwright compares full-page screenshots of `apps/main` and `apps/codehouse` against PNGs committed next to the specs.
+Playwright compares full-page screenshots of `apps/main` and `apps/codehouse` only against PNGs committed next to the specs. `apps/api` is out of scope.
 
 Agent workflow (commands, masks, snapshot updates) lives in the [visual-regression skill](../visual-regression/SKILL.md).
 

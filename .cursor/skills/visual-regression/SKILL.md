@@ -8,7 +8,7 @@ description: >-
 
 # Visual regression (Playwright)
 
-Page screenshots for `apps/main` and `apps/codehouse`. There is no Storybook/Chromatic setup. Do not add Pest visual tests for this; the Laravel API has no marketing UI.
+Page screenshots for `apps/main` and `apps/codehouse` only. Do not add visual tests for `apps/api` or shared packages. There is no Storybook/Chromatic setup. Do not add Pest visual tests for this; the Laravel API has no marketing UI.
 
 ## Layout
 

@@ -52,7 +52,7 @@ The `setup` command is safe to rerun and handles already-installed tooling.
 
 ### Visual regression
 
-Playwright screenshot tests cover `apps/main` and `apps/codehouse` (Chromium, light and dark). Baselines are committed under each app's `e2e/` folder.
+Playwright screenshot tests cover `apps/main` and `apps/codehouse` only (Chromium, light and dark). Baselines are committed under each app's `e2e/` folder. `apps/api` is not part of this suite.
 
 ```bash
 pnpm --filter main exec playwright install chromium --with-deps
