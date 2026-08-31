@@ -5,7 +5,7 @@
   "devEngines": {
     "runtime": {
       "name": "node",
-      "version": "22.19.0"
+      "version": "lts"
     }
   },
   "scripts": {

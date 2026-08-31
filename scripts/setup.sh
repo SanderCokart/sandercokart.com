@@ -84,6 +84,17 @@ log "Refreshing mise shims..."
 log "Re-activating mise so newly installed tools are on PATH..."
 eval "$("${MISE_BIN}" activate bash)"
 
+if [[ -f "${HOME}/.profile" ]]; then
+  if ! grep -F "${ACTIVATE_MARKER}" "${HOME}/.profile" >/dev/null 2>&1; then
+    log "Adding mise activation to ~/.profile..."
+    printf '\n%s\n' "${ACTIVATE_LINE}" >> "${HOME}/.profile"
+  else
+    log "mise activation already present in ~/.profile."
+  fi
+fi
+
+bash "${REPO_ROOT}/scripts/link-mise-node-globally.sh"
+
 if ! pnpm --version >/dev/null 2>&1; then
   fail "pnpm is unavailable after mise install/reshim. Open a new terminal and run setup again."
 fi
