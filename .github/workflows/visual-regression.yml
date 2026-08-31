@@ -24,7 +24,9 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile --filter=main... --filter=codehouse...
+        env:
+          HUSKY: '0'
 
       - name: Install Playwright Chromium
         run: pnpm --filter main exec playwright install chromium --with-deps
