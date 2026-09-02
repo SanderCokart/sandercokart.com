@@ -94,7 +94,7 @@ export function ServiceOfferingsSection() {
               className="group relative overflow-hidden">
               <Card
                 className={cn(
-                  'grid grid-rows-[1fr_1fr_2fr_2fr_auto]',
+                  'grid grid-rows-[auto_auto_auto_auto_auto]',
                   'h-full bg-linear-to-b',
                   service.color,
                   'rounded-none transition-colors duration-500 ease-in-out sm:rounded-lg',
