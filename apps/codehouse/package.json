@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "pnpm run build && next start -p 3001",
     "lint": "eslint .",
+    "test:visual": "next build && playwright test",
+    "test:visual:update": "next build && playwright test --update-snapshots",
     "clean": "rm -rf node_modules .next .turbo dist",
     "i18n:check:en": "i18n-check --source en --locales messages",
     "i18n:check:nl": "i18n-check --source nl --locales messages",
@@ -48,7 +50,9 @@
   },
   "devDependencies": {
     "@lingual/i18n-check": "^0.9.3",
+    "@playwright/test": "1.63.0",
     "@repo/eslint-config": "workspace:*",
+    "@repo/playwright-visual": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "4.3.3",
     "@types/node": "20.19.37",
