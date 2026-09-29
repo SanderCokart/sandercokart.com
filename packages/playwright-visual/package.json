@@ -4,16 +4,12 @@
   "private": true,
   "type": "module",
   "exports": {
-    "./package.json": "./package.json",
     ".": "./src/index.ts",
-    "./config": "./src/config.ts",
-    "./stabilize": "./src/stabilize.ts",
-    "./screenshot.css": "./src/screenshot.css"
+    "./config": "./src/config.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
     "typecheck": "tsc --noEmit",
-    "install:browsers": "playwright install chromium",
     "clean": "rm -rf node_modules .turbo"
   },
   "peerDependencies": {
