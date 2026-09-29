@@ -22,6 +22,18 @@
     "lint": {
       "dependsOn": ["^lint"]
     },
+    "test:visual": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "env": ["NODE_ENV", "NEXT_PUBLIC_*", "SITE_URL", "APP_URL", "APP_ENV"],
+      "passThroughEnv": ["CI", "HOME", "PLAYWRIGHT_*"]
+    },
+    "test:visual:update": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "env": ["NODE_ENV", "NEXT_PUBLIC_*", "SITE_URL", "APP_URL", "APP_ENV"],
+      "passThroughEnv": ["CI", "HOME", "PLAYWRIGHT_*"]
+    },
     "dev": {
       "dependsOn": ["^build"],
       "cache": false,

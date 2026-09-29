@@ -4,5 +4,8 @@ npx dotenvx ext precommit
 # run eslint and prettier on staged files
 npx lint-staged
 
+# run Playwright visual regression when UI-relevant files are staged (SKIP_VISUAL=1 to bypass)
+bash ./scripts/visual-precommit.sh
+
 # Uncomment the line below to preform a dry run of the git hooks without submitting the commit.
 # exit 1

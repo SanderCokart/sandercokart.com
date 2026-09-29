@@ -29,6 +29,7 @@ const TimeOverlay: React.FC<TimeOverlayProps> = ({ timeAgo, publishedDate }) => 
   <div
     className="bg-accent text-accent-foreground absolute bottom-3 left-3 rounded px-2 py-1 text-sm font-medium"
     suppressHydrationWarning
+    data-visual-mask="relative-time"
     title={
       publishedDate
         ? publishedDate.toLocaleString(navigator.language, {

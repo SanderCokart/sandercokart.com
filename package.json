@@ -14,6 +14,9 @@
     "dev": "turbo dev",
     "start": "turbo start",
     "lint": "turbo lint",
+    "test:visual": "turbo run test:visual --concurrency=1 --ui=stream",
+    "test:visual:update": "turbo run test:visual:update --concurrency=1 --ui=stream",
+    "test:visual:install": "pnpm --filter @repo/playwright-visual install:browsers",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky",
     "clean": "turbo clean && echo 'Deleting root node_modules...' && rm -rf node_modules .next .turbo dist"

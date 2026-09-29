@@ -1,0 +1,10 @@
+/*
+ * Applied only while Playwright captures a screenshot (expect.toHaveScreenshot.stylePath).
+ * Masked relative timestamps ("about 5 years ago") change length over time; pin their box so the
+ * painted mask keeps the same size between runs.
+ */
+[data-visual-mask='relative-time'] {
+  inline-size: 10rem !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+}

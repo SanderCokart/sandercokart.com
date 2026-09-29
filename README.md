@@ -14,6 +14,7 @@ sandercokart.com/
 │   └── api/           # Backend API (Laravel)
 ├── packages/
 │   ├── ui/            # Shared UI components (shadcn/ui)
+│   ├── playwright-visual/ # Shared Playwright visual regression config and helpers
 │   ├── eslint-config/ # Shared ESLint configuration
 │   ├── typescript-config/ # Shared TypeScript configuration
 │   ├── i18n/          # Internationalization package
@@ -45,6 +46,7 @@ The `setup` command is safe to rerun and handles already-installed tooling.
 ### Development Ports
    - Main Website: http://localhost:3000
    - Codehouse: http://localhost:3001
+   - Visual tests (production builds): 3100 (main), 3101 (codehouse)
    - API: http://localhost:8080
    - Database: localhost:3306
    - Redis: localhost:6379
@@ -318,6 +320,25 @@ Node and pnpm are pinned for the whole monorepo. See [Environment setup](#enviro
   - `prettier-plugin-tailwindcss`
 - **Husky**: Git hooks for pre-commit checks
 - **lint-staged**: Runs linters on staged files
+
+### Visual Regression (Playwright)
+
+`apps/main` and `apps/codehouse` have full-page screenshot tests (Chromium, light and dark) against a production
+build (`next build` + `next start`) on ports **3100** (main) and **3101** (codehouse), so they never clash with the dev
+servers. Shared config and stabilization helpers live in `packages/playwright-visual`.
+
+```bash
+pnpm test:visual:install   # one-time: download Chromium (add OS libraries with: pnpm --filter @repo/playwright-visual exec playwright install-deps chromium)
+pnpm test:visual           # compare against the committed baselines
+pnpm test:visual:update    # regenerate baselines after an intended visual change
+```
+
+- Baselines: `apps/<app>/e2e/__snapshots__/` (committed, Linux-rendered).
+- The server runs with `NEXT_PUBLIC_VISUAL_TEST=true`, which sets `<MotionConfig skipAnimations>`; Playwright also
+  emulates `prefers-reduced-motion: reduce` and disables CSS animations during capture.
+- Mark time-dependent content with `data-visual-mask` so it is masked in screenshots.
+- The Husky pre-commit hook runs the suite for the affected app(s) when UI files are staged. Bypass with
+  `SKIP_VISUAL=1 git commit ...`.
 
 ### Automation Scripts
 

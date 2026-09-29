@@ -19,7 +19,7 @@ export async function Footer() {
       </div>
 
       <section className="mx-auto my-8" id="footer-copyright">
-        <p className="text-center text-xs">
+        <p className="text-center text-xs" data-visual-mask="copyright-year">
           <CopyrightMessage />
         </p>
       </section>
