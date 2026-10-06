@@ -29,6 +29,8 @@ const DEFAULT_SOCIAL_IMAGE = '/icon.png';
 
 const YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/sandercokart';
 
+const ADSENSE_CLIENT = 'ca-pub-3955408171988223';
+
 const SITE_DESCRIPTION = `Article database paired with Sander Cokart's YouTube videos: guides, reviews, code walkthroughs, and tips for developers. Companion write-ups to the channel at ${YOUTUBE_CHANNEL_URL}.`;
 
 export const metadata: Metadata = {
@@ -67,6 +69,9 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  other: {
+    'google-adsense-account': ADSENSE_CLIENT,
+  },
 };
 
 const shouldLoadTweakCn = env.NEXT_PUBLIC_ENV !== 'production';
@@ -75,6 +80,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html suppressHydrationWarning className="scroll-smooth" lang="en">
       <head>
+        <script
+          async
+          crossOrigin="anonymous"
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
+        />
         <Script id="blog-view-preference" strategy="beforeInteractive">{`
           try {
             var view = localStorage.getItem('blog-view-preference') || 'blog';
