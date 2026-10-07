@@ -337,8 +337,11 @@
   "common": {
     "navigation_ask-for-a-quote": "Ask for a Quote",
     "navigation_back-to-top": "Back to top",
+    "navigation_commercial": "Business",
+    "navigation_consumer": "Personal",
     "navigation_contact": "Contact",
     "navigation_faq": "FAQ",
+    "navigation_freelance": "Freelance",
     "navigation_portfolio": "Portfolio",
     "navigation_tech-stack": "Tech Stack",
     "navigation_testimonials": "Testimonials"

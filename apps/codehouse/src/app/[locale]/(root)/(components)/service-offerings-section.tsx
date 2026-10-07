@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 import { FaCode, FaDatabase, FaGlobe } from 'react-icons/fa';
 
 import { Link } from '@/src/i18n/navigation';
+import { serviceHrefs } from '@/src/lib/nav-links';
 
 export function ServiceOfferingsSection() {
   const t = useTranslations('ServiceOfferingsSection');
@@ -26,7 +27,7 @@ export function ServiceOfferingsSection() {
       ],
       color: 'from-green-500/10 to-green-500/20',
       iconColor: 'text-green-500',
-      link: '/consumer',
+      link: serviceHrefs.consumer,
     },
     {
       icon: <FaDatabase className="h-16 w-16" />,
@@ -41,7 +42,7 @@ export function ServiceOfferingsSection() {
       ],
       color: 'from-blue-500/10 to-blue-500/20',
       iconColor: 'text-blue-500',
-      link: '/commercial',
+      link: serviceHrefs.commercial,
     },
     {
       icon: <FaCode className="h-16 w-16" />,
@@ -56,7 +57,7 @@ export function ServiceOfferingsSection() {
       ],
       color: 'from-purple-500/10 to-purple-500/20',
       iconColor: 'text-purple-500',
-      link: '/freelance',
+      link: serviceHrefs.freelance,
     },
   ];
 
