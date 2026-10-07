@@ -14,13 +14,15 @@ export function createVisualConfig({ port }: { port: number }): PlaywrightTestCo
   return defineConfig({
     testDir: './e2e',
     // Baselines live next to the specs: e2e/__snapshots__/<spec>/<name>-<project>-<platform>.png
-    snapshotPathTemplate: '{testDir}/__snapshots__/{testFilePath}/{arg}-{projectName}-{platform}{ext}',
+    snapshotPathTemplate: '{testDir}/__snapshots__/{testFilePath}/{arg}-{projectName}{ext}',
     fullyParallel: true,
     expect: { toHaveScreenshot: { animations: 'disabled', caret: 'hide' } },
     use: { baseURL, timezoneId: 'UTC', reducedMotion: 'reduce' },
     projects: [
       { name: 'chromium-light', use: { ...devices['Desktop Chrome'], colorScheme: 'light' } },
       { name: 'chromium-dark', use: { ...devices['Desktop Chrome'], colorScheme: 'dark' } },
+      { name: 'mobile-light', use: { ...devices['Pixel 5'], colorScheme: 'light' } },
+      { name: 'mobile-dark', use: { ...devices['Pixel 5'], colorScheme: 'dark' } },
     ],
     webServer: {
       command: `pnpm exec next start -H 127.0.0.1 -p ${port}`,

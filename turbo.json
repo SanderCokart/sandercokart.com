@@ -23,11 +23,11 @@
       "dependsOn": ["^lint"]
     },
     "test:visual": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["build", "^build"],
       "cache": false
     },
     "test:visual:update": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["build", "^build"],
       "cache": false
     },
     "dev": {
