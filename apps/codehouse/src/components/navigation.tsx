@@ -67,18 +67,20 @@ function DesktopNavigation({ links }: NavigationProps) {
   return (
     <nav aria-label="Primary" className={cn('relative z-50 mx-auto hidden w-full max-w-4xl lg:block')}>
       <div className="flex items-center gap-6 py-2 md:gap-8">
-        <div className="flex flex-1 items-center justify-center gap-6 md:gap-8">
+        <div className="flex flex-1 place-items-center items-center justify-center gap-8">
           {links.map(link => (
             <NavLink
               key={link.href}
               href={link.href}
               className={cn(
-                'flex-1',
-                'font-digital flex items-center gap-2 rounded-md px-2 py-1 transition-all duration-150',
-                'text-primary-foreground hover:text-accent hover:scale-105',
+                'group',
+                'font-digital flex items-center justify-center gap-2 rounded-md px-2 py-1',
+                'text-primary-foreground hover:text-accent',
                 'text-xs md:text-2xl',
               )}>
-              {t(link.t)}
+              <span className="inline-block origin-center transition-transform duration-150 group-hover:scale-105">
+                {t(link.t)}
+              </span>
             </NavLink>
           ))}
         </div>
@@ -103,7 +105,6 @@ function MobileNavigation({ links }: NavigationProps) {
             key={link.href}
             href={link.href}
             className={cn(
-              'flex-1',
               'font-digital hover:text-accent flex flex-col items-center gap-1 leading-none transition-colors',
             )}>
             {link.icon}
