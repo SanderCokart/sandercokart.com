@@ -1,4 +1,7 @@
+'use client';
+
 import { cn } from '@repo/ui/lib/utils';
+import { useReducedMotion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 
 import { ComponentProps, FC } from 'react';
@@ -18,7 +21,8 @@ export interface GenericTestimonialsSectionProps extends ComponentProps<'section
 
 export const GenericTestimonialsSection: FC<GenericTestimonialsSectionProps> = ({ className, testimonials, ...props }) => {
   const t = useTranslations('GenericTestimonialsSection');
-  
+  const shouldReduceMotion = useReducedMotion();
+
   if (testimonials.length === 0) {
     return null; // Don't render if there are no testimonials
   }
@@ -29,7 +33,11 @@ export const GenericTestimonialsSection: FC<GenericTestimonialsSectionProps> = (
       <div className="sm:p-6">
         {testimonials.map((testimonial, index) => {
           return (
-            <MotionDiv key={index} style={{ scale: 0.95 }} viewport={{ margin: '-50%' }} whileInView={{ scale: 1 }}>
+            <MotionDiv
+              key={index}
+              style={{ scale: shouldReduceMotion ? 1 : 0.95 }}
+              viewport={{ margin: '-50%' }}
+              whileInView={{ scale: 1 }}>
               <Quote author={testimonial.author}>{testimonial.quote}</Quote>
             </MotionDiv>
           );

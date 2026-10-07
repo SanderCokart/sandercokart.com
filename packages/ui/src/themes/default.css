@@ -2,11 +2,11 @@
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 
-@source "../../../apps/**/*.{ts,tsx}";
-@source "../../../components/**/*.{ts,tsx}";
-@source "../**/*.{ts,tsx}";
+@source '../../../apps/**/*.{ts,tsx}';
+@source '../../../components/**/*.{ts,tsx}';
+@source '../**/*.{ts,tsx}';
 
-@plugin "@tailwindcss/typography";
+@plugin '@tailwindcss/typography';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -177,5 +177,12 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  html.scroll-smooth {
+    scroll-behavior: auto;
   }
 }

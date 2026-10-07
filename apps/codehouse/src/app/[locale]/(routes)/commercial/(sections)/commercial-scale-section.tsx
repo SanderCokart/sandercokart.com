@@ -3,6 +3,7 @@
 import { useGlossaryRichText } from '@repo/toolbox/glossary/use-glossary-rich-text';
 import { cn } from '@repo/ui/lib/utils';
 import { ArrowDownIcon, Building2Icon, LayoutDashboardIcon, PuzzleIcon, WorkflowIcon } from 'lucide-react';
+import { useReducedMotion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 
 import type { ComponentProps, FC } from 'react';
@@ -24,6 +25,7 @@ const itemVariants = {
 export const CommercialScaleSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
   const t = useTranslations('CommercialScale');
   const richText = useGlossaryRichText();
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <section className={cn('flex scroll-mt-16 flex-col gap-8', className)} id="scale" {...props}>
@@ -32,7 +34,7 @@ export const CommercialScaleSection: FC<ComponentProps<'section'>> = ({ classNam
 
       <MotionDiv
         className="mx-auto flex w-full max-w-2xl flex-col gap-0"
-        initial="hidden"
+        initial={shouldReduceMotion ? 'show' : 'hidden'}
         whileInView="show"
         viewport={{ once: true, amount: 0.25 }}
         variants={{

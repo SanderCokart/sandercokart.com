@@ -3,7 +3,7 @@
 import { Button } from '@repo/ui/components/shadcn/button';
 import { Card, CardContent, CardHeader } from '@repo/ui/components/shadcn/card';
 import { cn } from '@repo/ui/lib/utils';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import { FaCode, FaDatabase, FaGlobe } from 'react-icons/fa';
 
@@ -11,6 +11,7 @@ import { Link } from '@/src/i18n/navigation';
 
 export function ServiceOfferingsSection() {
   const t = useTranslations('ServiceOfferingsSection');
+  const shouldReduceMotion = useReducedMotion();
 
   const services = [
     {
@@ -76,7 +77,7 @@ export function ServiceOfferingsSection() {
       id="services">
       <article className="container px-0 sm:max-w-screen-sm sm:px-4 xl:max-w-screen-2xl">
         <motion.h1
-          initial={{ opacity: 0 }}
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
           viewport={{ once: true }}
@@ -87,7 +88,7 @@ export function ServiceOfferingsSection() {
           {services.map((service, index) => (
             <motion.div
               key={service.title}
-              initial={{ opacity: 0, y: 50 }}
+              initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: 'easeOut', delay: 0.5 + index * 0.2 }}
               viewport={{ once: true }}

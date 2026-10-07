@@ -3,7 +3,7 @@
 import { Button } from '@repo/ui/components/shadcn/button';
 import { cn } from '@repo/ui/lib/utils';
 import { CheckCircle, Copy } from 'lucide-react';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { useClipboard } from 'react-haiku';
 
 import type { ComponentProps, FC } from 'react';
@@ -19,6 +19,7 @@ type CopyCodeButtonProps = {
 
 export const CopyCodeButton: FC<CopyCodeButtonProps> = ({ copyValue, ...props }) => {
   const clipboard = useClipboard({ timeout: 2000 });
+  const shouldReduceMotion = useReducedMotion();
 
   function copyToClipboard() {
     if (copyValue) clipboard.copy(copyValue);
@@ -40,7 +41,7 @@ export const CopyCodeButton: FC<CopyCodeButtonProps> = ({ copyValue, ...props })
         <MotionCheckCircle
           key="check"
           variants={checkCircleVariants}
-          initial="hidden"
+          initial={shouldReduceMotion ? 'visible' : 'hidden'}
           animate="visible"
           exit="hidden"
           className="size-6 text-green-400"
@@ -51,7 +52,7 @@ export const CopyCodeButton: FC<CopyCodeButtonProps> = ({ copyValue, ...props })
           variants={copyVariants}
           variant="ghost"
           size="icon"
-          initial="hidden"
+          initial={shouldReduceMotion ? 'visible' : 'hidden'}
           animate="visible"
           exit="hidden"
           className={cn('size-6 disabled:opacity-100')}

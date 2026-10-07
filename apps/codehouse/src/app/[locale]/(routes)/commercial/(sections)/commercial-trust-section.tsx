@@ -4,6 +4,7 @@ import { useGlossaryRichText } from '@repo/toolbox/glossary/use-glossary-rich-te
 import { Card, CardContent, CardHeader, CardTitle } from '@repo/ui/components/shadcn/card';
 import { cn } from '@repo/ui/lib/utils';
 import { FileKey2Icon, HeadsetIcon, ShieldCheckIcon, WrenchIcon } from 'lucide-react';
+import { useReducedMotion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 
 import type { ComponentProps, FC } from 'react';
@@ -25,6 +26,7 @@ const cardVariants = {
 export const CommercialTrustSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
   const t = useTranslations('CommercialTrust');
   const richText = useGlossaryRichText();
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <section className={cn('flex scroll-mt-16 flex-col gap-8', className)} id="trust" {...props}>
@@ -33,7 +35,7 @@ export const CommercialTrustSection: FC<ComponentProps<'section'>> = ({ classNam
 
       <MotionDiv
         className="grid gap-6 sm:grid-cols-2"
-        initial="hidden"
+        initial={shouldReduceMotion ? 'show' : 'hidden'}
         whileInView="show"
         viewport={{ once: true, amount: 0.2 }}
         variants={{
