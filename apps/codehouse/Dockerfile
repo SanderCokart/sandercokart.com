@@ -20,7 +20,9 @@ RUN curl https://mise.run | sh
 
 WORKDIR /app
 COPY mise.toml package.json ./
-RUN mise trust /app && mise install
+# Node/pnpm only. Root mise.toml also lists PHP for the Laravel API; compiling it
+# here needs a full toolchain and is unused by Next.js builds.
+RUN mise trust /app && mise install node pnpm
 
 FROM base AS pruner
 WORKDIR /app
