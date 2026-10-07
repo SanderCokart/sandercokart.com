@@ -69,7 +69,7 @@ export function ServiceOfferingsSection() {
   return (
     <section
       className={cn(
-        'mt-8 sm:mb-16 xl:mt-0',
+        'sm:mt-8 sm:mb-16 xl:mt-0',
         'min-h-[calc(100dvh-(--spacing(11)))] sm:min-h-[calc(100dvh-(--spacing(16)))]',
         'grid place-items-center',
       )}
@@ -80,7 +80,10 @@ export function ServiceOfferingsSection() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
           viewport={{ once: true }}
-          className="mb-8 text-center text-5xl font-bold">
+          className={cn(
+            'text-center text-5xl font-bold sm:mb-8',
+            'max-sm:mb-0 max-sm:bg-card max-sm:bg-linear-to-b max-sm:from-green-500/10 max-sm:to-green-500/10 max-sm:py-8',
+          )}>
           {t('title')}
         </motion.h1>
         <div className="grid gap-0 sm:gap-8 xl:grid-cols-3">
