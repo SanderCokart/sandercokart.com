@@ -32,7 +32,7 @@ export const CommercialCustomersSection: FC<ComponentProps<'section'>> = ({ clas
   const richText = useGlossaryRichText();
 
   return (
-    <section className={cn('container max-w-screen-lg scroll-mt-16 py-4', className)} id="examples" {...props}>
+    <section className={cn('container max-w-(--breakpoint-lg) scroll-mt-16 py-4', className)} id="examples" {...props}>
       <MotionDiv
         className="grid items-center gap-10 lg:grid-cols-2"
         variants={stagger}
@@ -41,7 +41,7 @@ export const CommercialCustomersSection: FC<ComponentProps<'section'>> = ({ clas
         viewport={{ once: true, margin: '-12%' }}>
         <MotionDiv variants={sectionReveal} className="order-2 lg:order-1" aria-hidden>
           <MockWindow title={t('mock_title')}>
-            <div className="flex min-h-[16rem]">
+            <div className="flex min-h-64">
               <MockSidebar
                 items={[t('mock_nav_all'), t('mock_nav_active'), t('mock_nav_leads'), t('mock_nav_archived')]}
                 activeIndex={1}

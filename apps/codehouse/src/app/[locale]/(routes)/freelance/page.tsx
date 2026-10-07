@@ -1,7 +1,4 @@
-import { setRequestLocale } from 'next-intl/server';
-
 import { Line } from '@/src/components/line';
-import type { LocaleCode } from '@/src/i18n/config';
 
 import { AskForAQuote } from '../consumer/(sections)/ask-for-a-quote';
 
@@ -11,25 +8,20 @@ import { FreelanceShowcaseSection } from './(sections)/freelance-showcase-sectio
 import { FreelanceSkillsSection } from './(sections)/freelance-skills-section';
 import { FreelanceTechIndexSection } from './(sections)/freelance-tech-index-section';
 
-type PageParams = { params: Promise<{ locale: string }> };
-
-export default async function Page({ params }: PageParams) {
-  const { locale } = (await params) as { locale: LocaleCode };
-  setRequestLocale(locale);
-
+export default function Page() {
   return (
     <main className="grow">
       <FreelanceHeroSection />
       <div className="mb-16">
         <Line />
-        <FreelanceSkillsSection className="container max-w-screen-lg" />
+        <FreelanceSkillsSection className="container max-w-(--breakpoint-lg)" />
         <Line />
         <FreelanceShowcaseSection />
         <Line />
-        <FreelanceTechIndexSection className="container max-w-screen-lg" />
+        <FreelanceTechIndexSection className="container max-w-(--breakpoint-lg)" />
         <Line />
-        <FreelanceFaqSection className="container max-w-screen-lg" />
-        <AskForAQuote className="container max-w-screen-lg" />
+        <FreelanceFaqSection className="container max-w-(--breakpoint-lg)" />
+        <AskForAQuote className="container max-w-(--breakpoint-lg)" />
       </div>
     </main>
   );

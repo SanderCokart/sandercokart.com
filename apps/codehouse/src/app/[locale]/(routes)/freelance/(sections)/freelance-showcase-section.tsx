@@ -51,7 +51,7 @@ export const FreelanceShowcaseSection: FC<ComponentProps<'section'>> = ({ classN
   const richText = useGlossaryRichText();
 
   return (
-    <section className={cn('container max-w-screen-lg scroll-mt-16 py-4', className)} id="showcase" {...props}>
+    <section className={cn('container max-w-(--breakpoint-lg) scroll-mt-16 py-4', className)} id="showcase" {...props}>
       <MotionDiv
         className="flex flex-col gap-10"
         variants={sectionStagger}
@@ -89,7 +89,7 @@ export const FreelanceShowcaseSection: FC<ComponentProps<'section'>> = ({ classN
                   className="aspect-video w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
-                <figcaption className="from-background/95 absolute inset-x-0 bottom-0 bg-gradient-to-t to-transparent px-4 pt-12 pb-4">
+                <figcaption className="from-background/95 absolute inset-x-0 bottom-0 bg-linear-to-t to-transparent px-4 pt-12 pb-4">
                   <p className="text-accent mb-1 font-mono text-[10px] tracking-wider uppercase">{t(item.roleKey)}</p>
                   <p className="text-sm font-semibold">{t(item.captionKey)}</p>
                 </figcaption>

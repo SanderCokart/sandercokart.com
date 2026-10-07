@@ -1,5 +1,11 @@
 @import './default.css';
 
+@theme inline {
+  --color-react: var(--react);
+  --color-laravel: var(--laravel);
+  --color-vue: var(--vue);
+}
+
 :root {
   --primary: var(--color-violet-800);
   --primary-foreground: var(--color-white);
@@ -16,10 +22,4 @@
   --primary-foreground: var(--color-white);
   --accent: var(--color-emerald-400);
   --accent-foreground: var(--color-black);
-}
-
-@theme inline {
-  --color-react: var(--react);
-  --color-laravel: var(--laravel);
-  --color-vue: var(--vue);
 }

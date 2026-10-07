@@ -22,6 +22,14 @@
     "lint": {
       "dependsOn": ["^lint"]
     },
+    "test:visual": {
+      "dependsOn": ["build", "^build"],
+      "cache": false
+    },
+    "test:visual:update": {
+      "dependsOn": ["build", "^build"],
+      "cache": false
+    },
     "dev": {
       "dependsOn": ["^build"],
       "cache": false,

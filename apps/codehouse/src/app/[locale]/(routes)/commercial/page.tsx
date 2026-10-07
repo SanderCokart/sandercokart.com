@@ -1,7 +1,4 @@
-import { setRequestLocale } from 'next-intl/server';
-
 import { Line } from '@/src/components/line';
-import type { LocaleCode } from '@/src/i18n/config';
 
 import { AskForAQuote } from '../consumer/(sections)/ask-for-a-quote';
 
@@ -14,12 +11,7 @@ import { CommercialNumbersSection } from './(sections)/commercial-numbers-sectio
 import { CommercialScaleSection } from './(sections)/commercial-scale-section';
 import { CommercialTrustSection } from './(sections)/commercial-trust-section';
 
-type PageParams = { params: Promise<{ locale: string }> };
-
-export default async function Page({ params }: PageParams) {
-  const { locale } = (await params) as { locale: LocaleCode };
-  setRequestLocale(locale);
-
+export default function Page() {
   return (
     <main className="grow">
       <CommercialHeroSection />
@@ -31,14 +23,14 @@ export default async function Page({ params }: PageParams) {
         <Line />
         <CommercialBookingSection />
         <Line />
-        <CommercialScaleSection className="container max-w-screen-lg" />
+        <CommercialScaleSection className="container max-w-(--breakpoint-lg)" />
         <Line />
-        <CommercialHowWeWorkSection className="container max-w-screen-lg" />
+        <CommercialHowWeWorkSection className="container max-w-(--breakpoint-lg)" />
         <Line />
-        <CommercialTrustSection className="container max-w-screen-lg" />
+        <CommercialTrustSection className="container max-w-(--breakpoint-lg)" />
         <Line />
-        <CommercialFaqSection className="container max-w-screen-lg" />
-        <AskForAQuote className="container max-w-screen-lg" />
+        <CommercialFaqSection className="container max-w-(--breakpoint-lg)" />
+        <AskForAQuote className="container max-w-(--breakpoint-lg)" />
       </div>
     </main>
   );

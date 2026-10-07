@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 import { FaCode, FaDatabase, FaGlobe } from 'react-icons/fa';
 
 import { Link } from '@/src/i18n/navigation';
+import { serviceHrefs } from '@/src/lib/nav-links';
 
 export function ServiceOfferingsSection() {
   const t = useTranslations('ServiceOfferingsSection');
@@ -26,7 +27,7 @@ export function ServiceOfferingsSection() {
       ],
       color: 'from-green-500/10 to-green-500/20',
       iconColor: 'text-green-500',
-      link: '/consumer',
+      link: serviceHrefs.consumer,
     },
     {
       icon: <FaDatabase className="h-16 w-16" />,
@@ -41,7 +42,7 @@ export function ServiceOfferingsSection() {
       ],
       color: 'from-blue-500/10 to-blue-500/20',
       iconColor: 'text-blue-500',
-      link: '/commercial',
+      link: serviceHrefs.commercial,
     },
     {
       icon: <FaCode className="h-16 w-16" />,
@@ -56,7 +57,7 @@ export function ServiceOfferingsSection() {
       ],
       color: 'from-purple-500/10 to-purple-500/20',
       iconColor: 'text-purple-500',
-      link: '/freelance',
+      link: serviceHrefs.freelance,
     },
   ];
 
@@ -69,18 +70,21 @@ export function ServiceOfferingsSection() {
   return (
     <section
       className={cn(
-        'mt-8 sm:mb-16 xl:mt-0',
-        'min-h-[calc(100dvh-theme(spacing.11))] sm:min-h-[calc(100dvh-theme(spacing.16))]',
+        'sm:mt-8 sm:mb-16 xl:mt-0',
+        'min-h-[calc(100dvh-(--spacing(11)))] sm:min-h-[calc(100dvh-(--spacing(16)))]',
         'grid place-items-center',
       )}
       id="services">
-      <article className="container px-0 sm:max-w-screen-sm sm:px-4 xl:max-w-screen-2xl">
+      <article className="container px-0 sm:max-w-(--breakpoint-sm) sm:px-4 xl:max-w-(--breakpoint-2xl)">
         <motion.h1
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
           viewport={{ once: true }}
-          className="mb-8 text-center text-5xl font-bold">
+          className={cn(
+            'text-center text-5xl font-bold sm:mb-8',
+            'max-sm:mb-0 max-sm:bg-card max-sm:bg-linear-to-b max-sm:from-green-500/10 max-sm:to-green-500/10 max-sm:py-8',
+          )}>
           {t('title')}
         </motion.h1>
         <div className="grid gap-0 sm:gap-8 xl:grid-cols-3">
@@ -94,8 +98,8 @@ export function ServiceOfferingsSection() {
               className="group relative overflow-hidden">
               <Card
                 className={cn(
-                  'grid grid-rows-[1fr,1fr,2fr,2fr,auto]',
-                  'h-full bg-gradient-to-b',
+                  'grid grid-rows-[auto_auto_auto_auto_auto]',
+                  'h-full bg-linear-to-b',
                   service.color,
                   'rounded-none transition-colors duration-500 ease-in-out sm:rounded-lg',
                   'has-[a:hover]:from-primary/10 has-[a:hover]:to-primary/20 dark:has-[a:hover]:from-accent/10 dark:has-[a:hover]:to-accent/20',

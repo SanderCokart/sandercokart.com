@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react';
+import { getLocale } from 'next-intl/server';
 
-import type { LocaleCode } from '@/src/i18n/config';
+import type { ReactNode } from 'react';
 
 import { CachedPageContent } from '../_ppr/cached-page-content';
 
@@ -8,11 +8,10 @@ import { Header } from './(components)/header';
 
 type RootRouteLayoutProps = {
   children: ReactNode;
-  params: Promise<{ locale: string }>;
 };
 
-export default async function RootRouteLayout({ children, params }: RootRouteLayoutProps) {
-  const { locale } = (await params) as { locale: LocaleCode };
+export default async function RootRouteLayout({ children }: RootRouteLayoutProps) {
+  const locale = await getLocale();
 
   return (
     <>

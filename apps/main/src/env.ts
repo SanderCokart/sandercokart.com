@@ -60,6 +60,10 @@ const client = {
     .enum(['true', 'false'])
     .default('false')
     .transform(s => s === 'true'),
+  NEXT_PUBLIC_VISUAL_TEST: z
+    .enum(['true', 'false'])
+    .default('false')
+    .transform(s => s === 'true'),
 };
 
 const shared = {
@@ -84,6 +88,7 @@ export const env = createEnv({
     NEXT_PUBLIC_ENV: getRuntimeEnv().NEXT_PUBLIC_ENV,
     NEXT_PUBLIC_SENTRY_DSN: getRuntimeEnv().NEXT_PUBLIC_SENTRY_DSN,
     NEXT_PUBLIC_SENTRY_ENABLED: getRuntimeEnv().NEXT_PUBLIC_SENTRY_ENABLED,
+    NEXT_PUBLIC_VISUAL_TEST: getRuntimeEnv().NEXT_PUBLIC_VISUAL_TEST,
     // Shared variables
     NODE_ENV: getRuntimeEnv().NODE_ENV,
   },

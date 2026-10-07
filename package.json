@@ -14,6 +14,9 @@
     "dev": "turbo dev",
     "start": "turbo start",
     "lint": "turbo lint",
+    "test:visual": "turbo run test:visual --concurrency=1 --ui=stream",
+    "test:visual:update": "turbo run test:visual:update --concurrency=1 --ui=stream",
+    "test:visual:install": "pnpm --filter @repo/playwright-visual exec playwright install chromium",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky",
     "clean": "turbo clean && echo 'Deleting root node_modules...' && rm -rf node_modules .next .turbo dist"
@@ -36,18 +39,19 @@
     ]
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "^1.57.1",
+    "@dotenvx/dotenvx": "^2.22.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
     "husky": "^9.1.7",
-    "lint-staged": "^15.5.2",
-    "prettier": "^3.8.1",
-    "prettier-plugin-tailwindcss": "^0.7.2",
-    "turbo": "2.8.20",
+    "lint-staged": "^17.4.1",
+    "prettier": "^3.9.6",
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "turbo": "2.11.5",
     "typescript": "5.9.3"
   },
   "pnpm": {
     "overrides": {
-      "zod": "^4"
+      "zod": "^4",
+      "@types/hast": "3.0.5"
     },
     "onlyBuiltDependencies": [
       "@parcel/watcher",
@@ -62,4 +66,3 @@
     ]
   }
 }
-

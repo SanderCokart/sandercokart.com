@@ -337,8 +337,11 @@
   "common": {
     "navigation_ask-for-a-quote": "Vraag een offerte",
     "navigation_back-to-top": "Naar boven",
+    "navigation_commercial": "Zakelijk",
+    "navigation_consumer": "Persoonlijk",
     "navigation_contact": "Contact",
     "navigation_faq": "FAQ",
+    "navigation_freelance": "Freelance",
     "navigation_portfolio": "Portfolio",
     "navigation_tech-stack": "Tech Stack",
     "navigation_testimonials": "Referenties"

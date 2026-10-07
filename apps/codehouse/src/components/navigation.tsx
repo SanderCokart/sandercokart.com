@@ -5,13 +5,20 @@ import { motion, useScroll, useTransform } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import { FaArrowUp } from 'react-icons/fa6';
 
-import { links } from '@/src/lib/nav-links';
+import type { ReactNode } from 'react';
 
-export function Navigation() {
+import { Link } from '@/src/i18n/navigation';
+import type { LinkType } from '@/src/lib/nav-links';
+
+type NavigationProps = {
+  links: readonly LinkType[];
+};
+
+export function Navigation({ links }: NavigationProps) {
   return (
     <>
-      <DesktopNavigation />
-      <MobileNavigation />
+      <DesktopNavigation links={links} />
+      <MobileNavigation links={links} />
     </>
   );
 }
@@ -46,76 +53,66 @@ function BackToTopButton({ className }: { className?: string }) {
   );
 }
 
-function DesktopNavigation() {
+function NavLink({ href, className, children }: { href: string; className?: string; children: ReactNode }) {
+  return (
+    <Link href={href} className={className}>
+      {children}
+    </Link>
+  );
+}
+
+function DesktopNavigation({ links }: NavigationProps) {
   const t = useTranslations('common');
-  const mid = Math.floor(links.length / 2);
 
   return (
     <nav aria-label="Primary" className={cn('relative z-50 mx-auto hidden w-full max-w-4xl lg:block')}>
-      <div className={cn('flex items-center justify-center gap-6 py-2 md:gap-8')}>
-        {links.slice(0, mid).map(link => (
-          <a
-            key={link.href}
-            href={link.href}
-            className={cn(
-              'font-digital flex items-center gap-2 rounded-md px-2 py-1 transition-all duration-150',
-              'text-primary-foreground hover:text-accent hover:scale-105',
-              'text-xs md:text-2xl',
-            )}>
-            {t(`navigation_${link.t}`)}
-          </a>
-        ))}
+      <div className="flex items-center gap-6 py-2 md:gap-8">
+        <div className="flex flex-1 place-items-center items-center justify-center gap-8">
+          {links.map(link => (
+            <NavLink
+              key={link.href}
+              href={link.href}
+              className={cn(
+                'group',
+                'font-digital flex items-center justify-center gap-2 rounded-md px-2 py-1',
+                'text-primary-foreground hover:text-accent',
+                'text-xs md:text-2xl',
+              )}>
+              <span className="inline-block origin-center transition-transform duration-150 group-hover:scale-105">
+                {t(link.t)}
+              </span>
+            </NavLink>
+          ))}
+        </div>
         <BackToTopButton className="rounded-md p-2 text-xl md:text-2xl" />
-        {links.slice(mid).map(link => (
-          <a
-            key={link.href}
-            href={link.href}
-            className={cn(
-              'font-digital flex items-center gap-2 rounded-md px-2 py-1 transition-all duration-150',
-              'text-primary-foreground hover:text-accent hover:scale-105',
-              'text-xs md:text-2xl',
-            )}>
-            {t(`navigation_${link.t}`)}
-          </a>
-        ))}
       </div>
     </nav>
   );
 }
 
-function MobileNavigation() {
+function MobileNavigation({ links }: NavigationProps) {
   const t = useTranslations('common');
-  const mid = Math.floor(links.length / 2);
 
   return (
     <nav
       aria-label="Primary"
       className={cn(
-        'bg-primary text-primary-foreground fixed inset-x-0 bottom-0 z-40 flex h-14 w-full items-center justify-evenly text-2xl lg:hidden',
+        'bg-primary text-primary-foreground fixed inset-x-0 bottom-0 z-40 flex h-14 w-full items-center text-2xl lg:hidden',
       )}>
-      {links.slice(0, mid).map(link => (
-        <a
-          key={link.href}
-          href={link.href}
-          className={cn(
-            'font-digital hover:text-accent flex flex-col items-center gap-1 leading-none transition-colors',
-          )}>
-          {link.icon}
-          <span className="text-xs">{t(`navigation_${link.t}`)}</span>
-        </a>
-      ))}
-      <BackToTopButton className="text-2xl" />
-      {links.slice(mid).map(link => (
-        <a
-          key={link.href}
-          href={link.href}
-          className={cn(
-            'font-digital hover:text-accent flex flex-col items-center gap-1 leading-none transition-colors',
-          )}>
-          {link.icon}
-          <span className="text-xs">{t(`navigation_${link.t}`)}</span>
-        </a>
-      ))}
+      <div className="flex flex-1 items-center justify-evenly">
+        {links.map(link => (
+          <NavLink
+            key={link.href}
+            href={link.href}
+            className={cn(
+              'font-digital hover:text-accent flex flex-col items-center gap-1 leading-none transition-colors',
+            )}>
+            {link.icon}
+            <span className="text-xs">{t(link.t)}</span>
+          </NavLink>
+        ))}
+      </div>
+      <BackToTopButton className="text-2xl w-10" />
     </nav>
   );
 }

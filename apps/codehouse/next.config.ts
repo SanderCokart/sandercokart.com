@@ -12,6 +12,12 @@ const nextConfig: NextConfig = {
   // Enables Partial Prerendering (PPR) and Cache Components; required for 'use cache'.
   // @see https://nextjs.org/docs/app/api-reference/config/next-config-js/cacheComponents
   cacheComponents: true,
+  // Required pairing for Cache Components in Next.js 16.4; prefetches the shared App Shell.
+  // @see https://nextjs.org/docs/app/guides/adopting-partial-prefetching
+  partialPrefetching: true,
+  // Dev-only: allow LAN IPs so phones can load `/_next` chunks from `-H 0.0.0.0`.
+  // @see https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+  allowedDevOrigins: ['10.*.*.*', '192.168.*.*', '172.*.*.*'],
   output: env.NEXT_OUTPUT,
   serverExternalPackages: [
     'import-in-the-middle',
@@ -23,6 +29,9 @@ const nextConfig: NextConfig = {
     '@t3-oss/env-core',
     '@t3-oss/env-nextjs',
   ],
+  experimental: {
+    agentUpgrade: 'latest',
+  },
 };
 
 const sentryBuildOptions = {

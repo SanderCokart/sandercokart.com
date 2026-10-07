@@ -32,7 +32,7 @@ export const CommercialNumbersSection: FC<ComponentProps<'section'>> = ({ classN
   const richText = useGlossaryRichText();
 
   return (
-    <section className={cn('container max-w-screen-lg scroll-mt-16 py-4', className)} id="numbers" {...props}>
+    <section className={cn('container max-w-(--breakpoint-lg) scroll-mt-16 py-4', className)} id="numbers" {...props}>
       <MotionDiv
         className="grid items-center gap-10 lg:grid-cols-2"
         variants={stagger}
