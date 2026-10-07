@@ -2,8 +2,13 @@ services:
   api:
     ports:
       - 8080:8080
+    volumes:
+      - ./apps/api:/var/www/html
     build:
       target: development
+  main:
+    ports:
+      - 3000:3000
   codehouse:
     ports:
       - 3001:3000
