@@ -10,6 +10,9 @@ const nextConfig: NextConfig = {
   // Enables Partial Prerendering (PPR) and Cache Components; replaces deprecated experimental.ppr.
   // @see https://nextjs.org/docs/app/api-reference/config/next-config-js/cacheComponents
   cacheComponents: true,
+  // Dev-only: allow LAN IPs so phones can load `/_next` chunks from `-H 0.0.0.0`.
+  // @see https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+  allowedDevOrigins: ['10.*.*.*', '192.168.*.*', '172.*.*.*'],
   ...(env.NEXT_OUTPUT && { output: env.NEXT_OUTPUT }),
   images: {
     remotePatterns: [
