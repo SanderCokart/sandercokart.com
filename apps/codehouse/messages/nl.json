@@ -579,5 +579,9 @@
     "faq_contribute_answer": "Pull requests en issues zijn welkom op GitHub. Open eerst een issue voor grotere wijzigingen, zodat we de richting kunnen afstemmen.",
     "faq_support_question": "Bied je <highlight>commerciële support</highlight> op deze tools?",
     "faq_support_answer": "De repositories zelf zijn as-is. Heb je een custom feature, integratie of een private fork nodig, gebruik dan het offerteformulier en we praten verder."
+  },
+  "OpenSourceMetadata": {
+    "title": "Open Source Projecten",
+    "description": "Publieke tools die ik open source bouw: een Zen Browser-extensie, een Cloudreve MCP-server, een shell-wachtwoordgenerator en envcrypt. Download de broncode, kies een versie en gebruik wat je helpt."
   }
 }

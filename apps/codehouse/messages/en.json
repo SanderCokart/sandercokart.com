@@ -579,5 +579,9 @@
     "faq_contribute_answer": "Pull requests and issues are welcome on GitHub. Open an issue first for larger changes so we can agree on direction.",
     "faq_support_question": "Do you <highlight>support</highlight> these tools commercially?",
     "faq_support_answer": "The repositories themselves are as-is. If you need a custom feature, integration, or a private fork, use the quote form and we can talk."
+  },
+  "OpenSourceMetadata": {
+    "title": "Open Source Projects",
+    "description": "Public tools I build in the open: a Zen Browser extension, a Cloudreve MCP server, a shell password generator, and envcrypt. Download the source, pick a version, and use what helps."
   }
 }

@@ -3,19 +3,20 @@ import type { MetadataRoute } from 'next';
 import { env } from '@/src/env';
 import { locales } from '@/src/i18n/config';
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const localeRoutes = locales.flatMap(locale => [
-    `/${locale}`,
-    `/${locale}/consumer`,
-    `/${locale}/freelance`,
-    `/${locale}/commercial`,
-    `/${locale}/open-source`,
-  ]);
+const routePaths = ['', '/consumer', '/freelance', '/commercial', '/open-source'] as const;
 
-  return localeRoutes.map(route => ({
-    url: `${env.SITE_URL}${route}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly',
-    priority: route === '/en' || route === '/nl' ? 1 : 0.8,
-  }));
+export default function sitemap(): MetadataRoute.Sitemap {
+  return routePaths.flatMap(routePath =>
+    locales.map(locale => ({
+      url: `${env.SITE_URL}/${locale}${routePath}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: routePath === '' ? 1 : 0.8,
+      alternates: {
+        languages: Object.fromEntries(
+          locales.map(alternateLocale => [alternateLocale, `${env.SITE_URL}/${alternateLocale}${routePath}`]),
+        ),
+      },
+    })),
+  );
 }
