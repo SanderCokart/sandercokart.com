@@ -182,6 +182,13 @@
     "marketing_features_mobile": "Perfect on all devices, from mobile to ultrawide",
     "marketing_features_performance": "Blazing speed",
     "marketing_title": "Personal Websites",
+    "opensource_title": "Open Source",
+    "opensource_description": "Public tools I build in the open - browser extensions, CLIs, and MCP servers you can download, fork, and reuse.",
+    "opensource_features_tools": "Extensions, CLIs, and MCP servers",
+    "opensource_features_download": "Source downloads straight from GitHub",
+    "opensource_features_versions": "Pick a release or the latest from main",
+    "opensource_features_licenses": "Permissive licenses where possible",
+    "opensource_features_public": "Built and maintained in public",
     "title": "Services"
   },
   "CommercialHero": {
@@ -342,6 +349,7 @@
     "navigation_contact": "Contact",
     "navigation_faq": "FAQ",
     "navigation_freelance": "Freelance",
+    "navigation_open-source": "Open Source",
     "navigation_portfolio": "Portfolio",
     "navigation_tech-stack": "Tech Stack",
     "navigation_testimonials": "Testimonials"
@@ -486,5 +494,90 @@
     "faq_notice_answer": "Standard notice is <highlight>two to four weeks</highlight> depending on engagement length. If you need a hard end date for budget cycles, we plan knowledge transfer early.",
     "faq_remote_question": "How does <highlight>remote collaboration</highlight> work day to day?",
     "faq_remote_answer": "Video standups when you want them, async written updates otherwise, and PRs as the source of truth. I document decisions in your wiki or tickets so the team stays aligned when we're not in the same room."
+  },
+  "OpenSourceHero": {
+    "title": "Software I ship <highlight>in the open</highlight>",
+    "description": "A selection of public projects: a Zen Browser extension, a Cloudreve MCP server, a shell password generator, and a Rust CLI for encrypting .env files. Download the source, pick a version, and use what helps.",
+    "cta_primary": "Browse projects",
+    "cta_secondary": "Ask about a project"
+  },
+  "OpenSourceProjects": {
+    "eyebrow": "Public repositories",
+    "title": "Projects",
+    "description": "Each download pulls source from GitHub. The main button is the latest stable release when one exists; the chevron lists other tagged versions and the current default branch.",
+    "view_on_github": "View repository on GitHub",
+    "download_latest": "Download latest source code",
+    "download_version": "Download latest source code ({version})",
+    "download_other_versions": "Download other versions",
+    "download_versions_label": "Source versions",
+    "download_branch": "Latest ({branch})",
+    "download_prerelease": "Pre-release",
+    "projects_zen-tab-search_intro": "Zen Browser extension · TypeScript",
+    "projects_zen-tab-search_title": "Zen Tab Search",
+    "projects_zen-tab-search_description": "Fuzzy-search tabs, spaces, and custom labels in Zen Browser. Set tab timers, auto-label GitHub and GitLab issues, and switch without leaving the keyboard. Distributed as a GitHub release zip because Zen's privileged APIs cannot go on AMO.",
+    "projects_cloudreve-mcp_intro": "MCP server · TypeScript",
+    "projects_cloudreve-mcp_title": "Cloudreve MCP",
+    "projects_cloudreve-mcp_description": "A Model Context Protocol server for Cloudreve v4. It signs in with OAuth (PKCE), then exposes file and cache tools over stdio so Cursor and other MCP clients can list, upload, download, and share from your Cloudreve site.",
+    "projects_shell-password-generator_intro": "CLI · Bash",
+    "projects_shell-password-generator_title": "Shell password generator",
+    "projects_shell-password-generator_description": "A dependency-free Bash password generator with character sets for env files, URLs, and high-entropy secrets. Install with a one-liner on Linux, macOS, and Windows (Git Bash / WSL).",
+    "projects_envcrypt_intro": "CLI · Rust",
+    "projects_envcrypt_title": "envcrypt",
+    "projects_envcrypt_description": "Encrypt and decrypt .env files with AES-256-CBC, AES-256-GCM, or ChaCha20-Poly1305 - the same idea as Laravel's env:encrypt, as a standalone binary. Keys stay out of git; encrypted files can live in the repo.",
+    "features_label": "Features",
+    "stars_label": "GitHub stars",
+    "projects_zen-tab-search_features": [
+      "Fuzzy search across tab titles, URLs, spaces, and custom labels",
+      "Search and switch between all Zen spaces",
+      "Fast in-page overlay plus a popup that works without an active web page",
+      "Custom tab timers with countdown labels in the tab label",
+      "Timers are restored after a restart and notify you when they finish",
+      "Automatic custom labels for GitHub and GitLab issues, merge requests, and pull requests (Ctrl+Alt+R)",
+      "Real-time results with full keyboard navigation",
+      "Keyboard shortcuts for in-page search, popup search, timers, and labels"
+    ],
+    "projects_cloudreve-mcp_features": [
+      "OAuth authorize, status, and logout with secure local token storage",
+      "File tools: list, resolve id, properties, download URL, download, upload, create directory, rename, move, copy, delete, source URL, and share URL",
+      "Local cache helpers: list, write text, presign, download-to-cache, and upload-from-cache",
+      "Cloudreve v4 File URIs (cloudreve://my/...) with friendly /path inputs",
+      "Runs over stdio, so it works in Cursor and other MCP clients (npx from GitHub)"
+    ],
+    "projects_shell-password-generator_features": [
+      "Six character sets: RESTRICTED, UNRESTRICTED, BASIC, URL_SAFE, URL_ULTRA_SAFE, and NONE",
+      "Customizable length from 1 to unlimited characters",
+      "Ensure-types option so every character type is present",
+      "Cross-platform: Linux, macOS, and Windows (with Git Bash, WSL, or MSYS2)",
+      "No dependencies: a pure shell script with no network calls while generating",
+      "Generates passwords instantly"
+    ],
+    "projects_envcrypt_features": [
+      "Multiple ciphers: AES-256-CBC, AES-256-GCM, and ChaCha20-Poly1305",
+      "Strong encryption with authentication",
+      "Secure key derivation: PBKDF2 with 100,000 iterations",
+      "Constant-time MAC verification to prevent timing attacks",
+      "Key zeroization: sensitive keys are cleared from memory automatically",
+      "Support for multiple environments (local, production, and more)",
+      "Flexible paths: custom input and output files",
+      "Verbosity control: --silent, --quiet, and --verbose",
+      "Non-interactive mode with --no-interaction",
+      "File management: --force to overwrite and --prune to delete originals",
+      "Feature flags for modular compilation"
+    ],
+    "releases": "Releases",
+    "changelog": "Changelog"
+  },
+  "OpenSourceFaq": {
+    "title": "Using the source",
+    "description": "How downloads, licenses, and contributions work for these public repositories.",
+    "faq_title": "Frequently Asked Questions",
+    "faq_license_question": "Can I <highlight>use</highlight> this in my own project?",
+    "faq_license_answer": "Yes, within each repository's license. Check the LICENSE file on GitHub before you ship. These projects are meant to be forked, studied, and reused.",
+    "faq_download_question": "What does the <highlight>download</highlight> button give me?",
+    "faq_download_answer": "A zip of the source from GitHub. The main button is the latest stable release when the repo publishes releases; otherwise it is the current default branch. The chevron lists other tags and the latest from main.",
+    "faq_contribute_question": "Can I <highlight>contribute</highlight>?",
+    "faq_contribute_answer": "Pull requests and issues are welcome on GitHub. Open an issue first for larger changes so we can agree on direction.",
+    "faq_support_question": "Do you <highlight>support</highlight> these tools commercially?",
+    "faq_support_answer": "The repositories themselves are as-is. If you need a custom feature, integration, or a private fork, use the quote form and we can talk."
   }
 }

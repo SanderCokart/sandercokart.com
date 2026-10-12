@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     `/${locale}/consumer`,
     `/${locale}/freelance`,
     `/${locale}/commercial`,
+    `/${locale}/open-source`,
   ]);
 
   return localeRoutes.map(route => ({

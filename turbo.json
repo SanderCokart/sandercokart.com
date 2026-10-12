@@ -14,7 +14,8 @@
         "TURBO_TOKEN",
         "APP_ENV",
         "APP_URL",
-        "SITE_URL"
+        "SITE_URL",
+        "GITHUB_TOKEN"
       ],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]

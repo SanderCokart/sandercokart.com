@@ -1,4 +1,4 @@
-import { FaCode, FaDatabase, FaGlobe } from 'react-icons/fa';
+import { FaCode, FaDatabase, FaGithub, FaGlobe } from 'react-icons/fa';
 import { FaEnvelope, FaCircleQuestion } from 'react-icons/fa6';
 
 import type { ReactNode } from 'react';
@@ -26,12 +26,13 @@ export const links = [
   },
 ] as const satisfies readonly LinkType[];
 
-export type ServiceId = 'consumer' | 'commercial' | 'freelance';
+export type ServiceId = 'consumer' | 'commercial' | 'freelance' | 'open-source';
 
 export const serviceHrefs = {
   consumer: '/consumer',
   commercial: '/commercial',
   freelance: '/freelance',
+  'open-source': '/open-source',
 } as const satisfies Record<ServiceId, string>;
 
 export const serviceLinks = [
@@ -49,5 +50,10 @@ export const serviceLinks = [
     href: serviceHrefs.freelance,
     icon: <FaCode />,
     t: 'navigation_freelance',
+  },
+  {
+    href: serviceHrefs['open-source'],
+    icon: <FaGithub />,
+    t: 'navigation_open-source',
   },
 ] as const satisfies readonly LinkType[];

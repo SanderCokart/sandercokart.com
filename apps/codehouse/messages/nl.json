@@ -182,6 +182,13 @@
     "marketing_features_mobile": "Perfect op alle apparaten, van mobiel tot breedbeeld",
     "marketing_features_performance": "Bliksemsnelle website prestaties",
     "marketing_title": "Persoonlijke Websites",
+    "opensource_title": "Open source",
+    "opensource_description": "Publieke tools die ik in de openbaarheid bouw - browserextensies, CLI's en MCP-servers die je kunt downloaden, forken en hergebruiken.",
+    "opensource_features_tools": "Extensies, CLI's en MCP-servers",
+    "opensource_features_download": "Broncode downloaden vanaf GitHub",
+    "opensource_features_versions": "Kies een release of de laatste van main",
+    "opensource_features_licenses": "Permissieve licenties waar mogelijk",
+    "opensource_features_public": "Gebouwd en onderhouden in het openbaar",
     "title": "Diensten"
   },
   "CommercialHero": {
@@ -342,6 +349,7 @@
     "navigation_contact": "Contact",
     "navigation_faq": "FAQ",
     "navigation_freelance": "Freelance",
+    "navigation_open-source": "Open source",
     "navigation_portfolio": "Portfolio",
     "navigation_tech-stack": "Tech Stack",
     "navigation_testimonials": "Referenties"
@@ -486,5 +494,90 @@
     "faq_notice_answer": "Standaard is dat <highlight>twee tot vier weken</highlight>, afhankelijk van de opdrachtlengte. Hebben jullie een harde einddatum voor budgetcycli, dan plannen we kennisoverdracht vroeg.",
     "faq_remote_question": "Hoe werkt <highlight>remote samenwerking</highlight> van dag tot dag?",
     "faq_remote_answer": "Videostandups als jullie dat willen, anders async updates, en PR's als bron van waarheid. Ik documenteer beslissingen in jullie wiki of tickets, zodat het team aligned blijft als we niet in dezelfde ruimte zitten."
+  },
+  "OpenSourceHero": {
+    "title": "Software die ik <highlight>in het openbaar</highlight> uitbreng",
+    "description": "Een selectie publieke projecten: een Zen Browser-extensie, een Cloudreve MCP-server, een shell-wachtwoordgenerator en een Rust-CLI om .env-bestanden te versleutelen. Download de bron, kies een versie en gebruik wat helpt.",
+    "cta_primary": "Bekijk projecten",
+    "cta_secondary": "Vraag over een project"
+  },
+  "OpenSourceProjects": {
+    "eyebrow": "Publieke repositories",
+    "title": "Projecten",
+    "description": "Elke download haalt broncode van GitHub. De hoofdkop is de laatste stabiele release als die er is; de chevron toont andere tags en de huidige default branch.",
+    "view_on_github": "Bekijk repository op GitHub",
+    "download_latest": "Download laatste broncode",
+    "download_version": "Download laatste broncode ({version})",
+    "download_other_versions": "Download andere versies",
+    "download_versions_label": "Broncodeversies",
+    "download_branch": "Laatste ({branch})",
+    "download_prerelease": "Pre-release",
+    "projects_zen-tab-search_intro": "Zen Browser-extensie · TypeScript",
+    "projects_zen-tab-search_title": "Zen Tab Search",
+    "projects_zen-tab-search_description": "Zoek fuzzy in tabs, spaces en custom labels in Zen Browser. Zet tab-timers, label GitHub- en GitLab-issues automatisch en wissel zonder het toetsenbord te verlaten. Verspreid als GitHub-release-zip omdat Zen's privileged API's niet op AMO mogen.",
+    "projects_cloudreve-mcp_intro": "MCP-server · TypeScript",
+    "projects_cloudreve-mcp_title": "Cloudreve MCP",
+    "projects_cloudreve-mcp_description": "Een Model Context Protocol-server voor Cloudreve v4. Hij logt in met OAuth (PKCE) en biedt daarna bestands- en cache-tools over stdio, zodat Cursor en andere MCP-clients kunnen listen, uploaden, downloaden en delen vanaf jouw Cloudreve-site.",
+    "projects_shell-password-generator_intro": "CLI · Bash",
+    "projects_shell-password-generator_title": "Shell-wachtwoordgenerator",
+    "projects_shell-password-generator_description": "Een Bash-wachtwoordgenerator zonder dependencies, met karaktersets voor env-bestanden, URL's en high-entropy secrets. Installeren met één commando op Linux, macOS en Windows (Git Bash / WSL).",
+    "projects_envcrypt_intro": "CLI · Rust",
+    "projects_envcrypt_title": "envcrypt",
+    "projects_envcrypt_description": "Versleutel en ontsleutel .env-bestanden met AES-256-CBC, AES-256-GCM of ChaCha20-Poly1305 - hetzelfde idee als Laravel's env:encrypt, als losse binary. Sleutels blijven uit git; versleutelde bestanden mogen in de repo.",
+    "features_label": "Functies",
+    "stars_label": "GitHub-sterren",
+    "projects_zen-tab-search_features": [
+      "Fuzzy zoeken in tabbladtitels, URL's, spaces en eigen labels",
+      "Zoek en wissel tussen alle Zen-spaces",
+      "Snelle overlay op de pagina plus een popup die werkt zonder actieve webpagina",
+      "Eigen tabtimers met aftellabels in het tabblad",
+      "Timers worden hersteld na een herstart en melden wanneer ze klaar zijn",
+      "Automatische eigen labels voor GitHub- en GitLab-issues, merge requests en pull requests (Ctrl+Alt+R)",
+      "Resultaten in realtime met volledige toetsenbordnavigatie",
+      "Sneltoetsen voor zoeken op de pagina, popupzoeken, timers en labels"
+    ],
+    "projects_cloudreve-mcp_features": [
+      "OAuth-autorisatie, status en uitloggen met veilige lokale tokenopslag",
+      "Bestandstools: lijsten, id opzoeken, eigenschappen, download-URL, downloaden, uploaden, map maken, hernoemen, verplaatsen, kopiëren, verwijderen, bron-URL en deel-URL",
+      "Lokale cache-hulpmiddelen: lijsten, tekst schrijven, presign, download naar cache en upload vanuit cache",
+      "Cloudreve v4 File URI's (cloudreve://my/...) met gebruiksvriendelijke /pad-invoer",
+      "Draait via stdio, dus werkt in Cursor en andere MCP-clients (npx vanaf GitHub)"
+    ],
+    "projects_shell-password-generator_features": [
+      "Zes tekensets: RESTRICTED, UNRESTRICTED, BASIC, URL_SAFE, URL_ULTRA_SAFE en NONE",
+      "Zelf te kiezen lengte van 1 tot onbeperkt aantal tekens",
+      "Ensure-types optie zodat elk tekentype aanwezig is",
+      "Cross-platform: Linux, macOS en Windows (met Git Bash, WSL of MSYS2)",
+      "Geen afhankelijkheden: een puur shellscript zonder netwerkverkeer tijdens het genereren",
+      "Wachtwoorden direct gegenereerd"
+    ],
+    "projects_envcrypt_features": [
+      "Meerdere ciphers: AES-256-CBC, AES-256-GCM en ChaCha20-Poly1305",
+      "Sterke versleuteling met authenticatie",
+      "Veilige sleutelafleiding: PBKDF2 met 100.000 iteraties",
+      "Constante-tijd MAC-verificatie om timingaanvallen te voorkomen",
+      "Sleutel-wissing: gevoelige sleutels worden automatisch uit het geheugen verwijderd",
+      "Ondersteuning voor meerdere omgevingen (lokaal, productie en meer)",
+      "Flexibele paden: eigen invoer- en uitvoerbestanden",
+      "Verbositeitsniveau: --silent, --quiet en --verbose",
+      "Niet-interactieve modus met --no-interaction",
+      "Bestandsbeheer: --force om te overschrijven en --prune om originelen te verwijderen",
+      "Feature flags voor modulaire compilatie"
+    ],
+    "releases": "Releases",
+    "changelog": "Changelog"
+  },
+  "OpenSourceFaq": {
+    "title": "De bron gebruiken",
+    "description": "Hoe downloads, licenties en bijdragen werken voor deze publieke repositories.",
+    "faq_title": "Veelgestelde vragen",
+    "faq_license_question": "Mag ik dit in mijn <highlight>eigen project</highlight> gebruiken?",
+    "faq_license_answer": "Ja, binnen de licentie van elke repository. Check het LICENSE-bestand op GitHub voordat je iets uitbrengt. Deze projecten zijn bedoeld om te forken, te bestuderen en te hergebruiken.",
+    "faq_download_question": "Wat levert de <highlight>downloadknop</highlight> op?",
+    "faq_download_answer": "Een zip van de broncode vanaf GitHub. De hoofdkop is de laatste stabiele release als de repo releases publiceert; anders de huidige default branch. De chevron toont andere tags en de laatste van main.",
+    "faq_contribute_question": "Kan ik <highlight>bijdragen</highlight>?",
+    "faq_contribute_answer": "Pull requests en issues zijn welkom op GitHub. Open eerst een issue voor grotere wijzigingen, zodat we de richting kunnen afstemmen.",
+    "faq_support_question": "Bied je <highlight>commerciële support</highlight> op deze tools?",
+    "faq_support_answer": "De repositories zelf zijn as-is. Heb je een custom feature, integratie of een private fork nodig, gebruik dan het offerteformulier en we praten verder."
   }
 }

@@ -56,6 +56,11 @@ const server = {
    * Defaults to production when unset.
    */
   SITE_URL: z.url().default('https://codehouse.sandercokart.com'),
+  /**
+   * Optional GitHub token for listing public release versions (higher rate limit).
+   * Unauthenticated requests still work for public repositories.
+   */
+  GITHUB_TOKEN: z.string().min(1).optional(),
 };
 const client = {
   /** The API URL */
@@ -92,6 +97,7 @@ export const env = createEnv({
     TURBO_TEAM: process.env.TURBO_TEAM,
     TURBO_TOKEN: process.env.TURBO_TOKEN,
     SITE_URL: process.env.SITE_URL,
+    GITHUB_TOKEN: process.env.GITHUB_TOKEN,
     // Client variables (use getRuntimeEnv() to read from window.__ENV on client or process.env on server)
     NEXT_PUBLIC_API_URL: getRuntimeEnv().NEXT_PUBLIC_API_URL,
     NEXT_PUBLIC_ENV: getRuntimeEnv().NEXT_PUBLIC_ENV,

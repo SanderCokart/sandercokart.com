@@ -6,6 +6,7 @@ const routes = [
   { name: 'commercial', path: '/commercial' },
   { name: 'freelance', path: '/freelance' },
   { name: 'consumer', path: '/consumer' },
+  { name: 'open-source', path: '/open-source' },
 ] as const;
 
 for (const locale of locales) {
