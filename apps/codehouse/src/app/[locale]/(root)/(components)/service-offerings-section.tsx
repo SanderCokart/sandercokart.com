@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader } from '@repo/ui/components/shadcn/card';
 import { cn } from '@repo/ui/lib/utils';
 import { motion } from 'motion/react';
 import { useTranslations } from 'next-intl';
-import { FaCode, FaDatabase, FaGlobe } from 'react-icons/fa';
+import { FaCode, FaDatabase, FaGithub, FaGlobe } from 'react-icons/fa';
 
 import { Link } from '@/src/i18n/navigation';
 import { serviceHrefs } from '@/src/lib/nav-links';
@@ -59,12 +59,27 @@ export function ServiceOfferingsSection() {
       iconColor: 'text-purple-500',
       link: serviceHrefs.freelance,
     },
+    {
+      icon: <FaGithub className="h-16 w-16" />,
+      title: t('opensource_title'),
+      description: t('opensource_description'),
+      features: [
+        t('opensource_features_tools'),
+        t('opensource_features_download'),
+        t('opensource_features_versions'),
+        t('opensource_features_licenses'),
+        t('opensource_features_public'),
+      ],
+      color: 'from-orange-500/10 to-orange-500/20',
+      iconColor: 'text-orange-500',
+      link: serviceHrefs['open-source'],
+    },
   ];
 
   /**
    * Breakpoints:
    * - sm: Targets small screens (typically phones) and adjusts the container width and grid gap.
-   * - xl: Targets extra-large screens (large desktops) and configures the grid to have 3 columns.
+   * - xl: Four columns so the four offerings sit in a single row on desktop.
    */
 
   return (
@@ -75,7 +90,7 @@ export function ServiceOfferingsSection() {
         'grid place-items-center',
       )}
       id="services">
-      <article className="container px-0 sm:max-w-(--breakpoint-sm) sm:px-4 xl:max-w-(--breakpoint-2xl)">
+      <article className="container px-0 sm:max-w-(--breakpoint-sm) sm:px-4 xl:max-w-[120rem]">
         <motion.h1
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -83,11 +98,11 @@ export function ServiceOfferingsSection() {
           viewport={{ once: true }}
           className={cn(
             'text-center text-5xl font-bold sm:mb-8',
-            'max-sm:mb-0 max-sm:bg-card max-sm:bg-linear-to-b max-sm:from-green-500/10 max-sm:to-green-500/10 max-sm:py-8',
+            'max-sm:bg-card max-sm:mb-0 max-sm:bg-linear-to-b max-sm:from-green-500/10 max-sm:to-green-500/10 max-sm:py-8',
           )}>
           {t('title')}
         </motion.h1>
-        <div className="grid gap-0 sm:gap-8 xl:grid-cols-3">
+        <div className="grid gap-0 sm:gap-8 xl:grid-cols-4">
           {services.map((service, index) => (
             <motion.div
               key={service.title}

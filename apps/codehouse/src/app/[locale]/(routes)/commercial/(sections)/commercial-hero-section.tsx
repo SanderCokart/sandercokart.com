@@ -61,7 +61,6 @@ export const CommercialHeroSection: FC<ComponentProps<'section'>> = ({ className
       <MotionDiv
         className="container flex max-w-7xl flex-col gap-10 pb-4"
         variants={heroContainer}
-        initial="hidden"
         animate="show">
         <MotionDiv variants={fadeUp} className="flex flex-col items-center gap-6 text-center">
           <Image

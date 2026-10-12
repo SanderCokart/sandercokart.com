@@ -27,7 +27,6 @@ export const FreelanceHeroSection: FC<ComponentProps<'section'>> = ({ className,
       <article className="container flex max-w-5xl flex-col items-center gap-8">
         <MotionDiv
           className="flex flex-col items-center gap-6"
-          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, ease: 'easeOut' }}>
           <Image
