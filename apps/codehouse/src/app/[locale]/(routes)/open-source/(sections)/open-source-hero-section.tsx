@@ -9,10 +9,8 @@ import Image from 'next/image';
 
 import type { ComponentProps, FC } from 'react';
 
+import logoMark from '@/app/[locale]/images/sc-logo.png';
 import { MotionDiv } from '@/lib/motion';
-
-import LogoINV from '../../../../../../public/static/images/logo/Logo-INV.png';
-import Logo from '../../../../../../public/static/images/logo/Logo.png';
 
 export const OpenSourceHeroSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
   const t = useTranslations('OpenSourceHero');
@@ -28,18 +26,7 @@ export const OpenSourceHeroSection: FC<ComponentProps<'section'>> = ({ className
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, ease: 'easeOut' }}>
-          <Image
-            priority
-            alt="Sander's CodeHouse"
-            className="mx-auto block max-w-44 sm:max-w-32 dark:hidden"
-            src={LogoINV}
-          />
-          <Image
-            priority
-            alt="Sander's CodeHouse"
-            className="mx-auto hidden max-w-44 sm:max-w-32 dark:block"
-            src={Logo}
-          />
+          <Image priority alt="Sander's CodeHouse" className="mx-auto h-auto max-w-44 sm:max-w-32" src={logoMark} />
 
           <h1 className="mx-auto max-w-4xl text-center text-3xl font-bold text-balance uppercase sm:text-5xl">
             {t.rich('title', {

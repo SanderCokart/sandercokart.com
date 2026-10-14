@@ -1,18 +1,24 @@
+import type { ElementType, ReactNode } from 'react';
+
 interface NamedLogoProps {
   name: string;
   slogan: string;
   href: string;
-  Component?: React.ElementType;
+  logo: ReactNode;
+  Component?: ElementType;
 }
 
-export function NamedLogo({ name, slogan, href = '/', Component = 'a' }: NamedLogoProps) {
+export function NamedLogo({ name, slogan, href = '/', logo, Component = 'a' }: NamedLogoProps) {
   return (
     <Component href={href} className="group">
-      <div className="font-digital! flex w-min flex-col whitespace-nowrap">
-        <h1 className="group-hover:text-accent group-focus:text-accent text-base leading-none! transition-colors sm:text-3xl">
-          {name}
-        </h1>
-        <p className="self-end text-xs leading-none! transition-colors sm:text-xl">{slogan}</p>
+      <div className="flex items-center gap-2 sm:gap-3">
+        {logo}
+        <div className="font-digital! flex w-min flex-col whitespace-nowrap">
+          <h1 className="group-hover:text-accent group-focus:text-accent text-base leading-none! transition-colors sm:text-3xl">
+            {name}
+          </h1>
+          <p className="self-end text-xs leading-none! transition-colors sm:text-xl">{slogan}</p>
+        </div>
       </div>
     </Component>
   );
