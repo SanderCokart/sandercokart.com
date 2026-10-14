@@ -83,6 +83,12 @@ export function ServiceOfferingsSection() {
    * Breakpoints:
    * - sm: Targets small screens (typically phones) and adjusts the container width and grid gap.
    * - xl: Four columns so the four offerings sit in a single row on desktop.
+   *
+   * Vertical placement (xl): a frozen top track centers the English-sized cluster
+   * (logo + title + cards). Taller locale copy grows the auto track downward into
+   * the leftover 1fr instead of shrinking the top track — so the heading does not
+   * jump. `--services-cluster` is that English cluster height (~heading 15rem +
+   * cards 36rem). Below xl the cards stack and the section just grows with content.
    */
 
   return (
@@ -90,10 +96,12 @@ export function ServiceOfferingsSection() {
       className={cn(
         'sm:mt-8 sm:mb-16 xl:mt-0',
         'min-h-[calc(100dvh-(--spacing(11)))] sm:min-h-[calc(100dvh-(--spacing(16)))]',
-        'grid grid-rows-[auto_1fr] justify-items-center',
+        'grid justify-items-center',
+        '[--services-cluster:51rem]',
+        'xl:grid-rows-[max(0px,calc((100dvh-(--spacing(16))-var(--services-cluster))/2))_auto_1fr]',
       )}
       id="services">
-      <article className="col-span-full row-span-2 container grid w-full grid-rows-subgrid px-0 sm:max-w-(--breakpoint-sm) sm:px-4 xl:max-w-[120rem]">
+      <article className="container w-full px-0 sm:max-w-(--breakpoint-sm) sm:px-4 xl:row-start-2 xl:max-w-[120rem]">
         <div className="flex flex-col items-center">
           <Image
             priority
@@ -113,7 +121,7 @@ export function ServiceOfferingsSection() {
             {t('title')}
           </motion.h1>
         </div>
-        <div className="grid w-full gap-0 self-start sm:gap-8 xl:grid-cols-4">
+        <div className="grid gap-0 sm:gap-8 xl:grid-cols-4">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
