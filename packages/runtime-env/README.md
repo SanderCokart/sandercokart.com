@@ -88,11 +88,13 @@ Then `import { env } from '@/env'` on both server and client. Accessing a server
 
 ### What you should see
 
-In the document:
+In the initial HTML (View Source):
 
 ```html
 <script id="runtime-env">window.__ENV = {"NODE_ENV":"development","NEXT_PUBLIC_ENV":"development"};</script>
 ```
+
+React removes that tag from the live DOM after hydration. The IIFE has already run, so `window.__ENV` stays set. Rendering a new `<script>` on client navigations (for example locale changes under `[locale]`) would not re-execute it and trips a React 19.3+ dev warning.
 
 If a `NEXT_PUBLIC_*` key is missing here, it was not on `process.env` when the request ran. `EnvScript` does not invent keys from your Zod schema. Confirm the app’s `.env` (or dotenvx decrypt) is loaded into that process.
 
