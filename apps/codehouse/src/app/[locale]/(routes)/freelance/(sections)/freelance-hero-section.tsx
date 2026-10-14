@@ -10,10 +10,10 @@ import Image from 'next/image';
 
 import type { ComponentProps, FC } from 'react';
 
-import LogoINV from '@/public/static/images/logo/Logo-INV.png';
-import Logo from '@/public/static/images/logo/Logo.png';
+import { MotionDiv } from '@/lib/motion';
 
-import { MotionDiv } from '@/src/lib/motion';
+import LogoINV from '../../../../../../public/static/images/logo/Logo-INV.png';
+import Logo from '../../../../../../public/static/images/logo/Logo.png';
 
 export const FreelanceHeroSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
   const t = useTranslations('FreelanceHero');

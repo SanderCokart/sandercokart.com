@@ -8,9 +8,10 @@ import Image from 'next/image';
 
 import type { ComponentProps, FC } from 'react';
 
-import NaWijzerAdmin from '@/public/static/images/portfolio/nawijzer-admin.png';
-import NaWijzerQuestionnaire from '@/public/static/images/portfolio/nawijzer-questionnaire.png';
-import { MotionDiv } from '@/src/lib/motion';
+import { MotionDiv } from '@/lib/motion';
+
+import NaWijzerAdmin from './images/nawijzer-admin.png';
+import NaWijzerQuestionnaire from './images/nawijzer-questionnaire.png';
 
 const sectionStagger = {
   hidden: { opacity: 0 },

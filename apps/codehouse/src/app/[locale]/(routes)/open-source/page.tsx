@@ -2,9 +2,10 @@ import { getLocale, getTranslations } from 'next-intl/server';
 
 import type { Metadata } from 'next';
 
-import { Line } from '@/src/components/line';
-import { env } from '@/src/env';
-import { getOpenSourceProjectsWithVersions } from '@/src/lib/github-source-versions';
+import { Line } from '@/components/line';
+
+import { env } from '@/env';
+import { getOpenSourceProjectsWithVersions } from '@/lib/github-source-versions';
 
 import { AskForAQuote } from '../consumer/(sections)/ask-for-a-quote';
 import { OpenSourceFaqSection } from './(sections)/open-source-faq-section';

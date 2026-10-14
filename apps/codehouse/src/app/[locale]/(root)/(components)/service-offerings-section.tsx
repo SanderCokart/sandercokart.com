@@ -7,8 +7,8 @@ import { motion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import { FaCode, FaDatabase, FaGithub, FaGlobe } from 'react-icons/fa';
 
-import { Link } from '@/src/i18n/navigation';
-import { serviceHrefs } from '@/src/lib/nav-links';
+import { Link } from '@/i18n/navigation';
+import { serviceHrefs } from '@/lib/nav-links';
 
 export function ServiceOfferingsSection() {
   const t = useTranslations('ServiceOfferingsSection');

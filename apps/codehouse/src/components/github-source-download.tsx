@@ -14,7 +14,7 @@ import {
 import { ChevronDownIcon, DownloadIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
-import type { GithubSourceVersion } from '@/src/lib/github-source-versions';
+import type { GithubSourceVersion } from '@/lib/github-source-versions';
 
 type GithubSourceDownloadProps = {
   versions: GithubSourceVersion[];

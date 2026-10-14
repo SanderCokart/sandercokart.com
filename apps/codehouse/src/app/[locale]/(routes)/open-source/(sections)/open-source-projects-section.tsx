@@ -8,11 +8,12 @@ import { useFormatter, useTranslations } from 'next-intl';
 import { FaGithub } from 'react-icons/fa';
 
 import type { ComponentProps, FC } from 'react';
-import type { OpenSourceProjectWithVersions } from '@/src/lib/github-source-versions';
+import type { OpenSourceProjectWithVersions } from '@/lib/github-source-versions';
 
-import { GithubSourceDownload } from '@/src/components/github-source-download';
-import { MotionDiv } from '@/src/lib/motion';
-import { githubChangelogUrl, githubReleasesUrl, githubRepoUrl } from '@/src/lib/open-source-projects';
+import { GithubSourceDownload } from '@/components/github-source-download';
+
+import { MotionDiv } from '@/lib/motion';
+import { githubChangelogUrl, githubReleasesUrl, githubRepoUrl } from '@/lib/open-source-projects';
 
 const sectionStagger = {
   hidden: { opacity: 0 },
@@ -63,7 +64,7 @@ export const OpenSourceProjectsSection: FC<OpenSourceProjectsSectionProps> = ({ 
                 <Card>
                   {/*
                   Optional project screenshot.
-                  Drop a file at public/static/images/open-source/{project.id}.png
+                  Colocate an imported file at (sections)/images/{project.id}.png
                   then import it and render as the first child of this Card:
 
                   <Image

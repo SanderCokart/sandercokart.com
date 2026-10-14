@@ -1,10 +1,11 @@
 import { Header as BrandHeader } from '@repo/ui/components/header';
 import { NamedLogo } from '@repo/ui/components/header/named-logo';
 
-import { LocaleSwitcher } from '@/src/components/locale-switcher';
-import { Navigation } from '@/src/components/navigation';
-import { Link } from '@/src/i18n/navigation';
-import { links } from '@/src/lib/nav-links';
+import { LocaleSwitcher } from '@/components/locale-switcher';
+import { Navigation } from '@/components/navigation';
+
+import { Link } from '@/i18n/navigation';
+import { links } from '@/lib/nav-links';
 
 export function ServiceHeader() {
   return (

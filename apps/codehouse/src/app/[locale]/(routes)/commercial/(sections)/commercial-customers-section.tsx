@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 
 import type { ComponentProps, FC } from 'react';
 
-import { MotionDiv } from '@/src/lib/motion';
+import { MotionDiv } from '@/lib/motion';
 
 import { MockSidebar, MockTableRow, MockWindow } from './components/mock-ui';
 

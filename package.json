@@ -27,20 +27,21 @@
     }
   },
   "lint-staged": {
-    "(apps|packages)/*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
+    "{apps,packages}/**/*.{js,jsx,ts,tsx}": [
+      "eslint --flag v10_config_lookup_from_file --fix",
       "prettier --write"
     ],
-    "(apps|packages)/*.{css,scss}": [
+    "{apps,packages}/**/*.{css,scss}": [
       "prettier --write"
     ],
-    "apps/sandercokart.com/**/*.mdx": [
+    "apps/main/articles/**/*.mdx": [
       "node ./scripts/article-update.js"
     ]
   },
   "devDependencies": {
     "@dotenvx/dotenvx": "^2.22.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
+    "eslint": "9.39.5",
     "husky": "^9.1.7",
     "lint-staged": "^17.4.1",
     "prettier": "^3.9.6",

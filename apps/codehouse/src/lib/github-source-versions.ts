@@ -1,9 +1,9 @@
 import { cacheLife, cacheTag } from 'next/cache';
 
-import type { OpenSourceProject } from '@/src/lib/open-source-projects';
+import type { OpenSourceProject } from '@/lib/open-source-projects';
 
-import { env } from '@/src/env';
-import { githubArchiveUrl, openSourceProjects } from '@/src/lib/open-source-projects';
+import { env } from '@/env';
+import { githubArchiveUrl, openSourceProjects } from '@/lib/open-source-projects';
 
 type GithubRepository = {
   stargazers_count: number;

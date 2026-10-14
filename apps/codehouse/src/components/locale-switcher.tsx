@@ -4,7 +4,7 @@ import { cn } from '@repo/ui/lib/utils';
 import { GB as GBFlag, NL as NLFlag } from 'country-flag-icons/react/3x2';
 import { useLocale } from 'next-intl';
 
-import { Link, usePathname } from '@/src/i18n/navigation';
+import { Link, usePathname } from '@/i18n/navigation';
 
 export function LocaleSwitcher() {
   // next-intl's usePathname already includes a leading `/` and omits the locale prefix.

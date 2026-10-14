@@ -3,10 +3,10 @@ import { useTranslations } from 'next-intl';
 
 import Image from 'next/image';
 
-import LogoINV from '@/public/static/images/logo/Logo-INV.png';
-import Logo from '@/public/static/images/logo/Logo.png';
+import { MotionLi, MotionUl } from '@/lib/motion';
 
-import { MotionLi, MotionUl } from '@/src/lib/motion';
+import LogoINV from '../../../../../../public/static/images/logo/Logo-INV.png';
+import Logo from '../../../../../../public/static/images/logo/Logo.png';
 
 const container = {
   hidden: { opacity: 0 },
@@ -41,22 +41,16 @@ export function ConsumersHeroSection() {
   const t = useTranslations('BespokeHeroSection');
 
   return (
-    <section
-      className={cn(
-        'dark:drop-shadow-[0_0px_10px_hsl(var(--primary))]',
-        'mt-16',
-      )}
-      id="hero">
+    <section className={cn('dark:drop-shadow-[0_0px_10px_hsl(var(--primary))]', 'mt-16')} id="hero">
       <article className="flex flex-col gap-8">
-        <Image priority alt="Logo" className="tw-w-full max-w-xs mx-auto block sm:w-1/5 dark:hidden" src={LogoINV} />
-        <Image priority alt="Logo" className="tw-w-full max-w-xs mx-auto hidden sm:w-1/5 dark:block" src={Logo} />
+        <Image priority alt="Logo" className="tw-w-full mx-auto block max-w-xs sm:w-1/5 dark:hidden" src={LogoINV} />
+        <Image priority alt="Logo" className="tw-w-full mx-auto hidden max-w-xs sm:w-1/5 dark:block" src={Logo} />
 
-        <h2 className="text-balance text-center text-3xl max-w-6xl mx-auto font-bold uppercase sm:text-5xl">
+        <h2 className="mx-auto max-w-6xl text-center text-3xl font-bold text-balance uppercase sm:text-5xl">
           {t.rich('title', {
             highlight: chunks => <span className="text-accent">{chunks}</span>,
           })}
         </h2>
-        
       </article>
     </section>
   );

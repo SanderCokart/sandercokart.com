@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 
 import type { ComponentProps, FC } from 'react';
 
-import { MotionDiv } from '@/src/lib/motion';
+import { MotionDiv } from '@/lib/motion';
 
 import { MockBarChart, MockStat, MockWindow } from './components/mock-ui';
 
@@ -52,7 +52,9 @@ export const CommercialNumbersSection: FC<ComponentProps<'section'>> = ({ classN
                 <MockStat label={t('mock_stat_rating')} value="4.6" trend={t('mock_stat_rating_trend')} />
               </div>
               <div className="border-border/40 bg-background/40 rounded-md border p-3">
-                <p className="text-muted-foreground mb-3 text-[10px] tracking-wider uppercase">{t('mock_chart_label')}</p>
+                <p className="text-muted-foreground mb-3 text-[10px] tracking-wider uppercase">
+                  {t('mock_chart_label')}
+                </p>
                 <MockBarChart heights={[35, 48, 52, 61, 58, 74, 69, 82, 78, 90, 86, 94]} />
               </div>
             </div>

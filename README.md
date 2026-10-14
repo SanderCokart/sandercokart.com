@@ -9,17 +9,19 @@ The project is organized as a Turborepo monorepo with the following structure:
 ```
 sandercokart.com/
 ├── apps/
-│   ├── main/           # Main website (Next.js) - YouTube focused
-│   ├── codehouse/      # Business website (Next.js)
-│   └── api/           # Backend API (Laravel)
+│   ├── main/           # Main website (Next.js) — YouTube / articles. pnpm name: main
+│   ├── codehouse/      # Business website (Next.js). pnpm name: codehouse
+│   ├── api/            # Backend API (Laravel). pnpm name: api
+│   └── mail-renderer/  # React Email HTTP sidecar. pnpm name: mail-renderer
 ├── packages/
-│   ├── ui/            # Shared UI components (shadcn/ui)
-│   ├── playwright-visual/ # Shared Playwright visual regression config and helpers
-│   ├── eslint-config/ # Shared ESLint configuration
-│   ├── typescript-config/ # Shared TypeScript configuration
-│   ├── i18n/          # Internationalization package
-│   └── mail/          # Used to create email templates to be used for creating html for laravel mailables
-└── scripts/           # Utility scripts for automation
+│   ├── ui/                 # Shared UI (consume source). @repo/ui
+│   ├── toolbox/            # Glossary / helpers (consume dist/). @repo/toolbox
+│   ├── runtime-env/        # Runtime public env (consume dist/). @repo/runtime-env
+│   ├── mail/               # React Email templates (consume dist/). @repo/mail
+│   ├── playwright-visual/  # Shared Playwright visual regression
+│   ├── eslint-config/      # Shared ESLint configuration. @repo/eslint-config
+│   └── typescript-config/  # Shared TypeScript configuration
+└── scripts/                # Utility scripts for automation
 ```
 
 ## 🚀 Quick Start
@@ -293,12 +295,13 @@ Important environment variables:
 
 ## 🌐 Internationalization (i18n)
 
-The project uses a shared i18n package (`@repo/i18n`) for consistent translations across apps:
+i18n lives in **codehouse only** (`apps/codehouse/messages` + `next-intl`). There is no shared `@repo/i18n` package.
 
-- Supports multiple locales (currently 'en' and 'nl')
-- Uses `next-intl` for Next.js apps
-- Includes Zod validation messages in multiple languages
-- Provides shared components and utilities for i18n
+- Locales: `en` and `nl` (`apps/codehouse/messages/{locale}.json`)
+- Zod validation copy lives under a top-level `zod` key in those files
+- Key naming, locale sync, and navigation imports: [`.cursor/skills/translations/SKILL.md`](.cursor/skills/translations/SKILL.md)
+
+Mail HTML is produced by `@repo/mail` templates and rendered by `apps/mail-renderer`.
 
 ## 🛠️ Development Tools
 
@@ -348,7 +351,7 @@ Located in `scripts/`:
 
 Each app can also have its own `scripts/` directory for app-specific automation tasks:
 
-- `apps/main/scripts/` - Scripts for the main website
+- `apps/main/src/scripts/` - Scripts for the main website
 - `apps/codehouse/scripts/` - Scripts for the business website
 - `apps/api/scripts/` - Scripts for the API
 
@@ -365,7 +368,7 @@ To run an app-specific script, use:
 
 ```bash
 # From the root directory
-pnpm --filter @repo/main run script:your-script-name
+pnpm --filter main run script:your-script-name
 # Or from within the app directory
 pnpm run script:your-script-name
 ```
@@ -462,7 +465,7 @@ Example task configuration:
       "cache": false
     },
     "lint": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^lint"],
       "outputs": []
     },
     "test": {
@@ -536,10 +539,13 @@ You can target specific apps using filters:
 
 ```bash
 # Run dev only for the main website
-pnpm dev --filter=@repo/main
+pnpm --filter main dev
+
+# Run lint for shared UI
+pnpm --filter @repo/ui lint
 
 # Run dev for multiple specific apps
-pnpm dev --filter=@repo/main --filter=@repo/api
+pnpm --filter main --filter api dev
 ```
 
 - Long-running tasks (like dev servers) use `persistent: true`

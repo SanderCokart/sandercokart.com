@@ -3,9 +3,9 @@ import { useTranslations } from 'next-intl';
 
 import { ComponentProps, FC } from 'react';
 
-import { MotionDiv } from '@/src/lib/motion';
+import { Quote } from '@/components/quote';
 
-import { Quote } from '@/src/components/quote';
+import { MotionDiv } from '@/lib/motion';
 
 export type Testimonial = {
   author: string;
@@ -16,9 +16,13 @@ export interface GenericTestimonialsSectionProps extends ComponentProps<'section
   testimonials: Testimonial[];
 }
 
-export const GenericTestimonialsSection: FC<GenericTestimonialsSectionProps> = ({ className, testimonials, ...props }) => {
+export const GenericTestimonialsSection: FC<GenericTestimonialsSectionProps> = ({
+  className,
+  testimonials,
+  ...props
+}) => {
   const t = useTranslations('GenericTestimonialsSection');
-  
+
   if (testimonials.length === 0) {
     return null; // Don't render if there are no testimonials
   }

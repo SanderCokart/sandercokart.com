@@ -2,8 +2,9 @@ import { cn } from '@repo/ui/lib/utils';
 import { getTranslations } from 'next-intl/server';
 import { FaEnvelope, FaGithub, FaInstagram, FaPhone, FaTwitter, FaYoutube } from 'react-icons/fa';
 
-import { CopyToClipboardTooltip as Copy } from '@/src/components/copy-to-clipboard-tooltip';
-import { Link } from '@/src/i18n/navigation';
+import { CopyToClipboardTooltip as Copy } from '@/components/copy-to-clipboard-tooltip';
+
+import { Link } from '@/i18n/navigation';
 
 import { CopyrightMessage } from './copyright-message';
 

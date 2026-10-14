@@ -1,8 +1,7 @@
 import { cacheLife, cacheTag } from 'next/cache';
 
 import type { ReactNode } from 'react';
-
-import type { LocaleCode } from '@/src/i18n/config';
+import type { LocaleCode } from '@/i18n/config';
 
 type CachedPageContentProps = {
   children: ReactNode;

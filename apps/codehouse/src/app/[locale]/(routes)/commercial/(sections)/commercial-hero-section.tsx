@@ -8,10 +8,10 @@ import Image from 'next/image';
 
 import type { ComponentProps, FC } from 'react';
 
-import LogoINV from '@/public/static/images/logo/Logo-INV.png';
-import Logo from '@/public/static/images/logo/Logo.png';
-import { MotionDiv } from '@/src/lib/motion';
+import { MotionDiv } from '@/lib/motion';
 
+import LogoINV from '../../../../../../public/static/images/logo/Logo-INV.png';
+import Logo from '../../../../../../public/static/images/logo/Logo.png';
 import { MockBarChart, MockSidebar, MockStat, MockTableRow, MockWindow } from './components/mock-ui';
 
 const heroContainer = {
@@ -58,10 +58,7 @@ export const CommercialHeroSection: FC<ComponentProps<'section'>> = ({ className
       className={cn('mt-16', 'dark:drop-shadow-[0_0px_10px_hsl(var(--primary))]', className)}
       id="hero"
       {...props}>
-      <MotionDiv
-        className="container flex max-w-7xl flex-col gap-10 pb-4"
-        variants={heroContainer}
-        animate="show">
+      <MotionDiv className="container flex max-w-7xl flex-col gap-10 pb-4" variants={heroContainer} animate="show">
         <MotionDiv variants={fadeUp} className="flex flex-col items-center gap-6 text-center">
           <Image
             priority
@@ -75,12 +72,12 @@ export const CommercialHeroSection: FC<ComponentProps<'section'>> = ({ className
             className="mx-auto hidden max-w-44 sm:max-w-32 dark:block"
             src={Logo}
           />
-          <h1 className="mx-auto max-w-4xl text-balance text-3xl font-bold uppercase sm:text-5xl">
+          <h1 className="mx-auto max-w-4xl text-3xl font-bold text-balance uppercase sm:text-5xl">
             {t.rich('title', {
               highlight: chunks => <span className="text-accent">{chunks}</span>,
             })}
           </h1>
-          <p className="text-muted-foreground mx-auto max-w-2xl text-balance text-lg sm:text-xl">{t('description')}</p>
+          <p className="text-muted-foreground mx-auto max-w-2xl text-lg text-balance sm:text-xl">{t('description')}</p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Button size="lg" render={<a href="#ask-for-a-quote" />} nativeButton={false}>
               {t('cta_primary')}
@@ -99,8 +96,8 @@ export const CommercialHeroSection: FC<ComponentProps<'section'>> = ({ className
           aria-hidden>
           <div
             className={cn(
-              'pointer-events-none absolute -inset-x-8 -bottom-8 -top-4 z-0',
-              'bg-linear-to-b from-transparent via-transparent to-background',
+              'pointer-events-none absolute -inset-x-8 -top-4 -bottom-8 z-0',
+              'to-background bg-linear-to-b from-transparent via-transparent',
             )}
           />
           <MockWindow title={t('mock_window_title')} className="relative z-10">
@@ -128,7 +125,10 @@ export const CommercialHeroSection: FC<ComponentProps<'section'>> = ({ className
                     <p className="text-muted-foreground border-border/40 border-b px-3 py-2 text-[10px] tracking-wider uppercase">
                       {t('mock_activity_label')}
                     </p>
-                    <MockTableRow cells={[t('mock_row_1_name'), t('mock_row_1_status'), t('mock_row_1_time')]} highlight />
+                    <MockTableRow
+                      cells={[t('mock_row_1_name'), t('mock_row_1_status'), t('mock_row_1_time')]}
+                      highlight
+                    />
                     <MockTableRow cells={[t('mock_row_2_name'), t('mock_row_2_status'), t('mock_row_2_time')]} />
                     <MockTableRow cells={[t('mock_row_3_name'), t('mock_row_3_status'), t('mock_row_3_time')]} />
                     <MockTableRow cells={[t('mock_row_4_name'), t('mock_row_4_status'), t('mock_row_4_time')]} />

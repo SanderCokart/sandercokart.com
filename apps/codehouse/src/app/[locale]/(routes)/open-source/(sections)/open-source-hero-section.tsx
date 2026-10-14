@@ -9,15 +9,19 @@ import Image from 'next/image';
 
 import type { ComponentProps, FC } from 'react';
 
-import LogoINV from '@/public/static/images/logo/Logo-INV.png';
-import Logo from '@/public/static/images/logo/Logo.png';
-import { MotionDiv } from '@/src/lib/motion';
+import { MotionDiv } from '@/lib/motion';
+
+import LogoINV from '../../../../../../public/static/images/logo/Logo-INV.png';
+import Logo from '../../../../../../public/static/images/logo/Logo.png';
 
 export const OpenSourceHeroSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
   const t = useTranslations('OpenSourceHero');
 
   return (
-    <section className={cn('mt-16', 'dark:drop-shadow-[0_0px_10px_hsl(var(--primary))]', className)} id="hero" {...props}>
+    <section
+      className={cn('mt-16', 'dark:drop-shadow-[0_0px_10px_hsl(var(--primary))]', className)}
+      id="hero"
+      {...props}>
       <article className="container flex max-w-5xl flex-col items-center gap-8">
         <MotionDiv
           className="flex flex-col items-center gap-6"

@@ -1,4 +1,5 @@
 ---
+name: translations
 description: "Guidelines for managing translations in the monorepo, including file structure, key naming, Zod error handling, and synchronization across locales."
 ---
 
@@ -77,7 +78,7 @@ These custom functions are lightweight wrappers around Next.js' navigation APIs 
 import { Link } from 'next-intl/navigation';
 
 // ✅ Import from your app's i18n navigation
-import { Link } from '@/src/i18n/navigation';
+import { Link } from '@/i18n/navigation';
 ```
 
 **Location:** These functions are typically defined in `apps/{app-name}/src/i18n/navigation.ts`.

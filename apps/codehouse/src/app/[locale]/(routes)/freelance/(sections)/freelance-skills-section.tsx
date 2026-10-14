@@ -3,19 +3,12 @@
 import { useGlossaryRichText } from '@repo/toolbox/glossary/use-glossary-rich-text';
 import { Card, CardContent, CardHeader, CardTitle } from '@repo/ui/components/shadcn/card';
 import { cn } from '@repo/ui/lib/utils';
-import {
-  BoxesIcon,
-  ClipboardListIcon,
-  DatabaseIcon,
-  LayoutTemplateIcon,
-  RouteIcon,
-  WorkflowIcon,
-} from 'lucide-react';
+import { BoxesIcon, ClipboardListIcon, DatabaseIcon, LayoutTemplateIcon, RouteIcon, WorkflowIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 import type { ComponentProps, FC } from 'react';
 
-import { MotionDiv } from '@/src/lib/motion';
+import { MotionDiv } from '@/lib/motion';
 
 const skills = [
   { key: 'api', icon: RouteIcon },

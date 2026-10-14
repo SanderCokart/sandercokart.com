@@ -5,11 +5,11 @@
 
 import * as Sentry from '@sentry/nextjs';
 
-import { env } from '@/src/env';
+import { env } from '@/env';
 
 Sentry.init({
   enabled: env.NEXT_PUBLIC_SENTRY_ENABLED,
-  
+
   environment: env.NEXT_PUBLIC_ENV,
 
   dsn: env.NEXT_PUBLIC_SENTRY_DSN,

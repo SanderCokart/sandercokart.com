@@ -6,9 +6,9 @@ import { useTranslations } from 'next-intl';
 import { FaArrowUp } from 'react-icons/fa6';
 
 import type { ReactNode } from 'react';
+import type { LinkType } from '@/lib/nav-links';
 
-import { Link } from '@/src/i18n/navigation';
-import type { LinkType } from '@/src/lib/nav-links';
+import { Link } from '@/i18n/navigation';
 
 type NavigationProps = {
   links: readonly LinkType[];
@@ -112,7 +112,7 @@ function MobileNavigation({ links }: NavigationProps) {
           </NavLink>
         ))}
       </div>
-      <BackToTopButton className="text-2xl w-10" />
+      <BackToTopButton className="w-10 text-2xl" />
     </nav>
   );
 }

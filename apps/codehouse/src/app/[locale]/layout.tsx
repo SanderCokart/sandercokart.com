@@ -11,9 +11,9 @@ import localFont from 'next/font/local';
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 
-import { env } from '@/src/env';
-import { routing } from '@/src/i18n/routing';
-import { GlobalProviders } from '@/src/providers/server.global-providers';
+import { env } from '@/env';
+import { routing } from '@/i18n/routing';
+import { GlobalProviders } from '@/providers/server.global-providers';
 
 import { Footer } from './(components)/footer';
 

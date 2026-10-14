@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 
-import { env } from '@/src/env';
+import { env } from '@/env';
 
 export default function robots(): MetadataRoute.Robots {
   return {
