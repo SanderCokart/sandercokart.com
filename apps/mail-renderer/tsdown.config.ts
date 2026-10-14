@@ -5,7 +5,12 @@ export default defineConfig({
   format: ['esm'],
   dts: false,
   platform: 'node',
-  unbundle: true,
+  unbundle: false,
+  deps: {
+    // Inline workspace + npm deps so the Docker runner is a single JS file.
+    alwaysBundle: () => true,
+    onlyBundle: false,
+  },
   outExtensions() {
     return {
       js: '.js',
