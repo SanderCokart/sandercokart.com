@@ -7,6 +7,9 @@ import { motion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import { FaCode, FaDatabase, FaGithub, FaGlobe } from 'react-icons/fa';
 
+import Image from 'next/image';
+
+import logoMark from '@/app/[locale]/images/sc-logo.png';
 import { Link } from '@/i18n/navigation';
 import { serviceHrefs } from '@/lib/nav-links';
 
@@ -91,17 +94,25 @@ export function ServiceOfferingsSection() {
       )}
       id="services">
       <article className="container px-0 sm:max-w-(--breakpoint-sm) sm:px-4 xl:max-w-[120rem]">
-        <motion.h1
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
-          viewport={{ once: true }}
-          className={cn(
-            'text-center text-5xl font-bold sm:mb-8',
-            'max-sm:bg-card max-sm:mb-0 max-sm:bg-linear-to-b max-sm:from-green-500/10 max-sm:to-green-500/10 max-sm:py-8',
-          )}>
-          {t('title')}
-        </motion.h1>
+        <div className="flex flex-col items-center">
+          <Image
+            priority
+            alt="Sander's CodeHouse"
+            src={logoMark}
+            className="mx-auto mb-4 h-auto max-w-44 sm:mb-8 sm:max-w-32"
+          />
+          <motion.h1
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            viewport={{ once: true }}
+            className={cn(
+              'text-center text-5xl font-bold sm:mb-8',
+              'max-sm:bg-card max-sm:mb-0 max-sm:w-full max-sm:bg-linear-to-b max-sm:from-green-500/10 max-sm:to-green-500/10 max-sm:py-8',
+            )}>
+            {t('title')}
+          </motion.h1>
+        </div>
         <div className="grid gap-0 sm:gap-8 xl:grid-cols-4">
           {services.map((service, index) => (
             <motion.div

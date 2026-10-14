@@ -17,7 +17,7 @@ export function Header() {
           Component={Link}
           name="sandercokart.com"
           slogan="Let's learn..."
-          logo={<Image src={logoMark} alt="" className="h-8 w-auto shrink-0 sm:h-10" priority />}
+          logo={<Image src={logoMark} alt="" fill sizes="50px" className="object-contain" priority />}
         />
       }
       navigation={<Navigation />}

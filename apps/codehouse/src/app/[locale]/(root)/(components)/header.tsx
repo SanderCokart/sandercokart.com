@@ -21,7 +21,7 @@ export function Header() {
           Component={Link}
           name="Sander's Codehouse"
           slogan="Let's code..."
-          logo={<Image src={logoMark} alt="" className="h-8 w-auto shrink-0 sm:h-10" priority />}
+          logo={<Image src={logoMark} alt="" fill sizes="50px" className="object-contain" priority />}
         />
       }
     />
