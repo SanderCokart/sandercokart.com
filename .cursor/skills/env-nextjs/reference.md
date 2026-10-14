@@ -25,7 +25,13 @@ const server = {
 
 ## Monorepo / runtime-env bridge
 
+Developer guide: [`packages/runtime-env/README.md`](../../../packages/runtime-env/README.md).
+
 In setups where client env vars are injected at runtime (e.g. SSR/hydration from `window.__ENV`), use a runtime getter in `runtimeEnv` for client and shared keys instead of `process.env` directly. Example in this repo: `apps/codehouse/src/env.ts` uses `getRuntimeEnv()` from `@repo/runtime-env` for `NEXT_PUBLIC_*` and `NODE_ENV` so the same validated `env` object works on server and client.
+
+Mount `<EnvScript />` from `@repo/runtime-env/env-script` in the root layout `<head>`. It awaits `connection()`, injects only `NEXT_PUBLIC_*` plus `NODE_ENV` via a native blocking `<script>` (not `next/script`), and includes its own Suspense boundary.
+
+For localStorage HTML attributes that must be set before first paint (FOUC), define each preference with `createPreference`, collect them on one `preferences` object, and spread `{...preferences}` onto `PreferenceScripts` and `PreferenceProviders`. Components still call `usePreference` with the individual config. Do not duplicate storage keys in a hand-written inline script.
 
 ## External links
 

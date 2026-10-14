@@ -22,6 +22,10 @@
       "types": "./dist/env-script.d.ts",
       "default": "./dist/env-script.js"
     },
+    "./preference": {
+      "types": "./dist/preference.d.ts",
+      "default": "./dist/preference.js"
+    },
     "./*": {
       "types": "./dist/*.d.ts",
       "default": "./dist/*.js"

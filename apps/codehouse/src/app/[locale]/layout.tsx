@@ -97,9 +97,7 @@ function RootLayoutFallback({ children }: { children: ReactNode }) {
       data-scroll-behavior="smooth"
       lang={routing.defaultLocale}>
       <head>
-        <Suspense fallback={null}>
-          <EnvScript />
-        </Suspense>
+        <EnvScript />
       </head>
       <body className={bodyClassName}>
         <GlobalProviders>
@@ -117,9 +115,7 @@ async function LocalizedRootLayout({ children }: RootLayoutParams) {
   return (
     <html suppressHydrationWarning className="relative scroll-smooth" data-scroll-behavior="smooth" lang={locale}>
       <head>
-        <Suspense fallback={null}>
-          <EnvScript />
-        </Suspense>
+        <EnvScript />
       </head>
       <body className={bodyClassName}>
         <GlobalProviders>
