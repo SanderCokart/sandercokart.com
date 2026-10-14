@@ -1,3 +1,4 @@
 .react-email
 .turbo
 node_modules
+dist

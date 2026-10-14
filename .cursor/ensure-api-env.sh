@@ -97,6 +97,7 @@ MAIL_FROM_NAME="${APP_NAME}"
 
 MAIL_TO_ADDRESS="contact@example.com"
 MAIL_TO_NAME="Sander Cokart"
+MAIL_RENDERER_URL=http://127.0.0.1:4010
 
 VITE_APP_NAME="${APP_NAME}"
 ENV

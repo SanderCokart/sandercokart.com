@@ -2,16 +2,17 @@
 
 use App\Mail\ContactFormMail;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 
 describe('ContactController', function () {
     beforeEach(function () {
         Cache::flush();
+        Http::fake();
+        Mail::fake();
     });
 
-    it('sends contact form email with valid data', function () {
-        Mail::fake();
-
+    it('queues contact form email with valid data', function () {
         $data = [
             'name' => 'John Doe',
             'email' => 'john@example.com',
@@ -22,9 +23,9 @@ describe('ContactController', function () {
 
         $response = $this->postJson(route('v1.contact'), $data);
 
-        $response->assertStatus(204);
+        $response->assertSuccessful();
 
-        Mail::assertSent(ContactFormMail::class, function ($mail) use ($data) {
+        Mail::assertQueued(ContactFormMail::class, function ($mail) use ($data) {
             return $mail->data['email'] === $data['email']
                 && $mail->data['name'] === $data['name']
                 && $mail->data['phone'] === $data['phone']
@@ -33,9 +34,7 @@ describe('ContactController', function () {
         });
     });
 
-    it('sends contact form email with only required fields', function () {
-        Mail::fake();
-
+    it('queues contact form email with only required fields', function () {
         $data = [
             'email' => 'jane@example.com',
             'message' => 'Just a short note about my project.',
@@ -43,17 +42,15 @@ describe('ContactController', function () {
 
         $response = $this->postJson(route('v1.contact'), $data);
 
-        $response->assertStatus(204);
+        $response->assertSuccessful();
 
-        Mail::assertSent(ContactFormMail::class, function ($mail) use ($data) {
+        Mail::assertQueued(ContactFormMail::class, function ($mail) use ($data) {
             return $mail->data['email'] === $data['email']
                 && $mail->data['message'] === $data['message'];
         });
     });
 
-    it('sends contact form email with phone as preferred contact', function () {
-        Mail::fake();
-
+    it('queues contact form email with phone as preferred contact', function () {
         $data = [
             'phone' => '+31 6 12345678',
             'message' => 'Please call me about a new website.',
@@ -61,9 +58,9 @@ describe('ContactController', function () {
 
         $response = $this->postJson(route('v1.contact'), $data);
 
-        $response->assertStatus(204);
+        $response->assertSuccessful();
 
-        Mail::assertSent(ContactFormMail::class, function ($mail) use ($data) {
+        Mail::assertQueued(ContactFormMail::class, function ($mail) use ($data) {
             return $mail->data['phone'] === $data['phone']
                 && $mail->data['message'] === $data['message']
                 && empty($mail->data['email']);
@@ -100,20 +97,18 @@ describe('ContactController', function () {
     });
 
     it('returns 429 with rate limit headers after two submissions in the same hour', function () {
-        Mail::fake();
-
         $data = [
             'email' => 'jane@example.com',
             'message' => 'Project inquiry.',
         ];
 
         $first = $this->postJson(route('v1.contact'), $data);
-        $first->assertStatus(204)
+        $first->assertSuccessful()
             ->assertHeader('X-RateLimit-Limit', '2')
             ->assertHeader('X-RateLimit-Remaining', '1');
 
         $second = $this->postJson(route('v1.contact'), $data);
-        $second->assertStatus(204)
+        $second->assertSuccessful()
             ->assertHeader('X-RateLimit-Limit', '2')
             ->assertHeader('X-RateLimit-Remaining', '0');
 
@@ -124,9 +119,7 @@ describe('ContactController', function () {
             ->assertHeader('Retry-After');
     });
 
-    it('sends contact form with optional specifications', function () {
-        Mail::fake();
-
+    it('queues contact form with optional specifications', function () {
         $data = [
             'email' => 'john@example.com',
             'message' => 'Hello!',
@@ -137,16 +130,14 @@ describe('ContactController', function () {
         ];
 
         $response = $this->postJson(route('v1.contact'), $data);
-        $response->assertStatus(204);
+        $response->assertSuccessful();
 
-        Mail::assertSent(ContactFormMail::class, function ($mail) use ($data) {
+        Mail::assertQueued(ContactFormMail::class, function ($mail) use ($data) {
             return $mail->data['specifications'] === $data['specifications'];
         });
     });
 
     it('validates specifications contents', function () {
-        Mail::fake();
-
         $response = $this->postJson(route('v1.contact'), [
             'email' => 'john@example.com',
             'message' => 'Hello!',
