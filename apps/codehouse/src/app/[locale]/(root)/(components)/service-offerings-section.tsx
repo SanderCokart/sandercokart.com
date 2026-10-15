@@ -49,6 +49,11 @@ export function ServiceOfferingsSection() {
           <h1 id="services-title" className="ch-hero-title text-center text-5xl font-bold">
             {t('title')}
           </h1>
+          <p
+            className="ch-hero-tagline font-digital type-on type-on-caret text-primary dark:text-accent mt-3 text-xl"
+            style={{ '--chars': 13, '--type-delay': '0.85s' } as CSSProperties}>
+            Let&apos;s code...
+          </p>
           <span aria-hidden className="ch-hero-rule mt-5 h-1 w-20 rounded-full" />
         </header>
         <ul role="list" className="grid gap-0 sm:gap-8 xl:grid-cols-4 xl:gap-y-4">
