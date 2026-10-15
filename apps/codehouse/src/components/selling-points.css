@@ -1,0 +1,38 @@
+/**
+ * Selling-point labels. Brand violet (the logo's #5d0ec0 family) on light, a lifted violet on dark where the
+ * theme's own --primary (violet-950) would disappear. Square-ish corners and a seven-segment bar as the marker
+ * keep them from reading as generic pills.
+ */
+.selling-point {
+  --point-ink: var(--primary);
+  --point-fill: color-mix(in srgb, #5d0ec0 8%, transparent);
+  --point-edge: color-mix(in srgb, #5d0ec0 26%, transparent);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.35rem 0.7rem 0.35rem 0.55rem;
+  border: 1px solid var(--point-edge);
+  border-radius: 0.4rem;
+  background: var(--point-fill);
+  color: var(--point-ink);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.selling-point::before {
+  content: '';
+  flex: none;
+  width: 0.6rem;
+  height: 0.22rem;
+  border-radius: 1px;
+  background: currentcolor;
+  transform: skewX(-24deg);
+}
+
+.dark .selling-point {
+  --point-ink: oklch(0.86 0.09 293);
+  --point-fill: color-mix(in srgb, #7c2df0 16%, transparent);
+  --point-edge: color-mix(in srgb, #9b5cf6 38%, transparent);
+}
