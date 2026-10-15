@@ -1,95 +1,371 @@
 /**
- * Home services: band paint and entrance.
+ * Home services, "console".
  *
- * Paint: every band is one opaque layer — its `--band` accent mixed into the card color — so stacked bands never
- * reveal the page background and nothing has to fade a shell in. `--band-tint` is a registered color, which lets
- * the hover swap to primary/accent cross-fade instead of jumping (gradients do not interpolate on their own).
+ * Layout:
+ * - Phones: a compact display (logo beside title), a sticky channel selector under the site header, and a
+ *   horizontal swipe deck with the next channel peeking in.
+ * - lg+: display and a vertical channel list on the left, one channel at a time on the right.
  *
- * Entrance: painted surfaces never animate; only their content, via opacity/transform, so it stays on the
- * compositor.
- * - Load: logo, then title, then each band's rows (`--item`), cascading across columns (`--column`) on desktop.
- * - Stacked layout (below xl): bands after the first start off-screen, so their rows follow their own scroll
- *   position instead of the clock. Browsers without scroll timelines just show them.
- * - Reduced motion: nothing moves; the server HTML is the final frame.
+ * Paint: the section glows in the selected channel's accent. `--console-accent` is a registered color, so a
+ * channel change shifts the whole surface smoothly. Panels sit on a dotted console grid in their own accent.
+ *
+ * Motion (painted surfaces never move; content does, via opacity/transform/clip-path):
+ * - Load: the logo powers on, the title rises out of a slot, the slogan types itself, selector entries boot like
+ *   the logo's segments, then the deck rises.
+ * - Phones: panel content slides with your swipe (a horizontal view timeline), so it parallaxes in from the edge.
+ * - lg+: switching channel cross-fades the panels and staggers the new one's rows in.
+ * - Reduced motion: no animation; the accent still changes (color, not motion).
  */
-@property --band-tint {
+@property --console-accent {
   syntax: '<color>';
-  inherits: false;
+  inherits: true;
   initial-value: transparent;
 }
 
-.ch-band {
-  --band-tint: var(--band);
-
-  background: linear-gradient(
-    color-mix(in srgb, var(--band-tint) 10%, var(--card)),
-    color-mix(in srgb, var(--band-tint) 20%, var(--card))
+.ch-console {
+  background: radial-gradient(
+    90% 55% at 50% 0%,
+    color-mix(in srgb, var(--console-accent) 18%, transparent),
+    transparent 75%
   );
-  transition: --band-tint 0.5s ease-in-out;
+  transition: --console-accent 0.6s ease-in-out;
 }
 
-.ch-band:has(a:hover) {
-  --band-tint: var(--primary);
+.ch-console-grid {
+  display: grid;
+  grid-template-areas:
+    'display'
+    'selector'
+    'deck';
 }
 
-.dark .ch-band:has(a:hover) {
-  --band-tint: var(--accent);
+/* Display */
+
+.ch-display {
+  grid-area: display;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.75rem 1.25rem 1.25rem;
 }
 
-@media (width < 40rem) {
-  .ch-services-heading {
-    background: color-mix(in srgb, var(--band) 10%, var(--card));
+.ch-display-logo {
+  width: 5.5rem;
+  flex-shrink: 0;
+}
+
+.ch-display-title {
+  overflow: clip;
+  padding-bottom: 0.05em;
+  font-size: var(--text-5xl);
+  line-height: 1;
+}
+
+.ch-tagline {
+  margin-top: 0.5rem;
+  font-size: var(--text-xl);
+  width: fit-content;
+}
+
+/* Selector */
+
+.ch-console-selector {
+  grid-area: selector;
+  position: sticky;
+  top: calc(var(--spacing) * 11);
+  z-index: 20;
+  border-block: 1px solid color-mix(in srgb, var(--console-accent) 30%, transparent);
+  background: color-mix(in srgb, var(--background) 82%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.ch-selector-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.ch-selector-button {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.15rem;
+  width: 100%;
+  padding: 0.6rem 0.25rem 0.7rem;
+  color: color-mix(in srgb, currentcolor 60%, transparent);
+  transition: color 0.3s;
+}
+
+.ch-selector-button::after {
+  content: '';
+  position: absolute;
+  inset-inline: 20%;
+  bottom: -1px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.ch-selector-button[aria-current='true'] {
+  color: var(--foreground);
+}
+
+.ch-selector-button[aria-current='true']::after {
+  transform: scaleX(1);
+}
+
+.ch-selector-number {
+  font-size: var(--text-xl);
+  line-height: 1;
+  color: var(--accent);
+}
+
+.ch-selector-label {
+  font-size: 0.625rem;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.ch-selector-title {
+  display: none;
+}
+
+/* Deck */
+
+.ch-deck {
+  grid-area: deck;
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 86%;
+  gap: 1rem;
+  padding: 1.25rem 1.25rem 2.5rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-padding-inline: 1.25rem;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.ch-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  border-radius: 1.5rem;
+  background:
+    radial-gradient(color-mix(in srgb, var(--accent) 22%, transparent) 1px, transparent 1.5px) 0 0 / 16px 16px,
+    linear-gradient(
+      color-mix(in srgb, var(--accent) 8%, var(--card)),
+      color-mix(in srgb, var(--accent) 16%, var(--card))
+    );
+  scroll-snap-align: start;
+}
+
+@media (width >= 64rem) {
+  .ch-console-grid {
+    min-height: calc(100dvh - var(--spacing) * 16);
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      'display deck'
+      'selector deck';
+    align-content: center;
+    column-gap: 4rem;
+    padding: 3rem 2rem;
+  }
+
+  .ch-display {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 0 0 2rem;
+  }
+
+  .ch-display-logo {
+    width: 8rem;
+  }
+
+  .ch-display-title {
+    font-size: var(--text-7xl);
+  }
+
+  .ch-console-selector {
+    position: static;
+    align-self: start;
+    border: 0;
+    background: none;
+    backdrop-filter: none;
+  }
+
+  .ch-selector-list {
+    grid-template-columns: none;
+    gap: 0.25rem;
+  }
+
+  .ch-selector-button {
+    grid-template-columns: 3.5rem 1fr;
+    grid-template-rows: auto auto;
+    justify-items: start;
+    align-items: center;
+    column-gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    text-align: left;
+    transition:
+      color 0.3s,
+      background-color 0.3s;
+  }
+
+  .ch-selector-button:hover,
+  .ch-selector-button[aria-current='true'] {
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+  }
+
+  .ch-selector-button::after {
+    inset: 20% auto 20% 0;
+    width: 3px;
+    height: auto;
+    transform: scaleY(0);
+  }
+
+  .ch-selector-button[aria-current='true']::after {
+    transform: scaleY(1);
+  }
+
+  .ch-selector-number {
+    grid-row: span 2;
+    font-size: var(--text-4xl);
+  }
+
+  .ch-selector-label {
+    font-size: var(--text-xs);
+    color: var(--accent);
+  }
+
+  .ch-selector-title {
+    display: block;
+    font-size: var(--text-xl);
+    font-weight: 600;
+  }
+
+  .ch-deck {
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .ch-panel {
+    grid-area: 1 / 1;
+    gap: 1.75rem;
+    padding: 2.5rem;
+    transition:
+      opacity 0.35s ease-out,
+      visibility 0.35s;
+  }
+
+  .ch-panel:not([data-active]) {
+    opacity: 0;
+    visibility: hidden;
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .ch-services-logo {
-    animation: ch-services-pop 0.45s ease-out both;
+  .ch-display-title > span {
+    animation: ch-slot 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 0.45s both;
   }
 
-  .ch-services-title {
-    animation: ch-services-rise 0.45s ease-out 0.12s both;
+  .ch-tagline {
+    animation: ch-type 0.9s steps(13, end) 0.8s both;
   }
 
-  .ch-band-item {
-    animation: ch-services-rise 0.45s ease-out both;
-    animation-delay: calc(0.25s + var(--column, 0) * 0.08s + var(--item, 0) * 0.08s);
+  .ch-tagline::after {
+    content: '_';
+    animation: ch-blink 0.5s steps(1, end) 1.7s 6 both;
   }
 
-  .ch-band-icon {
-    animation-name: ch-services-pop;
+  .ch-selector-item {
+    animation: ch-boot 0.5s linear both;
+    animation-delay: calc(0.9s + var(--item, 0) * 0.08s);
   }
 
-  @media (width < 80rem) {
-    .ch-band:not(:first-child) .ch-band-item {
-      animation: none;
-    }
+  .ch-deck {
+    animation: ch-rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 1.1s both;
+  }
 
-    @supports (animation-timeline: view()) {
-      .ch-band:not(:first-child) .ch-band-item {
-        animation: ch-services-rise ease-out both;
+  @media (width < 64rem) {
+    @supports (animation-timeline: view(inline)) {
+      .ch-panel-item {
+        animation: ch-swipe linear both;
         animation-duration: auto;
-        animation-timeline: view();
-        animation-range: entry 0% cover 30%;
+        animation-timeline: view(inline);
+        animation-range: entry 0% entry 100%;
       }
+    }
+  }
 
-      .ch-band:not(:first-child) .ch-band-icon {
-        animation-name: ch-services-pop;
-      }
+  @media (width >= 64rem) {
+    .ch-console[data-switched] .ch-panel[data-active] .ch-panel-item {
+      animation: ch-rise 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      animation-delay: calc(var(--item, 0) * 0.06s);
     }
   }
 }
 
-@keyframes ch-services-pop {
+@keyframes ch-slot {
   from {
-    opacity: 0;
-    transform: scale(0.92);
+    transform: translateY(105%);
   }
 }
 
-@keyframes ch-services-rise {
+@keyframes ch-type {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  to {
+    clip-path: inset(0);
+  }
+}
+
+@keyframes ch-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes ch-boot {
+  0% {
+    opacity: 0;
+  }
+
+  35% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.35;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes ch-rise {
   from {
     opacity: 0;
     transform: translateY(1rem);
+  }
+}
+
+@keyframes ch-swipe {
+  from {
+    opacity: 0.25;
+    transform: translateX(2.5rem);
   }
 }

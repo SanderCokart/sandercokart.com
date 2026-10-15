@@ -5,12 +5,15 @@ import type { Messages } from 'next-intl';
 import type { IconType } from 'react-icons';
 
 type CopyKey = keyof Messages['ServiceOfferingsSection'];
+type LabelKey = Extract<keyof Messages['common'], `navigation_${string}`>;
 
 export type ServiceOffering = {
   id: ServiceId;
   icon: IconType;
-  /** Sets `--band`, the accent the band paint and icon read. Written as a class so Tailwind emits the color token. */
-  band: string;
+  /** Channel accent. One family: equal lightness and chroma, only the hue changes (emerald and violet echo the logo). */
+  accent: string;
+  /** Short name from the site navigation, used on the channel selector. */
+  label: LabelKey;
   title: CopyKey;
   description: CopyKey;
   features: readonly CopyKey[];
@@ -20,7 +23,8 @@ export const serviceOfferings = [
   {
     id: 'consumer',
     icon: FaGlobe,
-    band: '[--band:var(--color-green-500)]',
+    accent: 'oklch(0.7 0.15 165)',
+    label: 'navigation_consumer',
     title: 'marketing_title',
     description: 'marketing_description',
     features: [
@@ -34,7 +38,8 @@ export const serviceOfferings = [
   {
     id: 'commercial',
     icon: FaDatabase,
-    band: '[--band:var(--color-blue-500)]',
+    accent: 'oklch(0.7 0.15 245)',
+    label: 'navigation_commercial',
     title: 'custom_title',
     description: 'custom_description',
     features: [
@@ -48,7 +53,8 @@ export const serviceOfferings = [
   {
     id: 'freelance',
     icon: FaCode,
-    band: '[--band:var(--color-purple-500)]',
+    accent: 'oklch(0.7 0.15 300)',
+    label: 'navigation_freelance',
     title: 'freelance_title',
     description: 'freelance_description',
     features: [
@@ -62,7 +68,8 @@ export const serviceOfferings = [
   {
     id: 'open-source',
     icon: FaGithub,
-    band: '[--band:var(--color-orange-500)]',
+    accent: 'oklch(0.7 0.15 55)',
+    label: 'navigation_open-source',
     title: 'opensource_title',
     description: 'opensource_description',
     features: [
