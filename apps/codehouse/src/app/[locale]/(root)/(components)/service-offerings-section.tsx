@@ -40,7 +40,9 @@ export function ServiceOfferingsSection() {
     <section aria-labelledby="services-title" id="services" className="ch-field">
       <div className="mx-auto grid w-full max-w-7xl lg:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] lg:gap-12 lg:px-8">
         <header className="ch-intro flex flex-col items-center gap-5 px-6 pt-8 pb-12 text-center lg:sticky lg:top-16 lg:h-[calc(100dvh-(--spacing(16)))] lg:items-start lg:justify-center lg:px-0 lg:text-left">
-          <SegmentLogo label="Sander's CodeHouse" className="h-auto w-36 sm:w-40" />
+          <span className="sc-logo-glow">
+            <SegmentLogo label="Sander's CodeHouse" className="h-auto w-36 sm:w-40" />
+          </span>
           <p
             className="font-digital type-on type-on-caret text-primary dark:text-accent text-xl"
             style={{ '--chars': 13, '--type-delay': '0.55s' } as CSSProperties}>

@@ -2,7 +2,7 @@
  * Home services, "blend": colour-field chapters with the cohesive entrance.
  *
  * Paint (never animated):
- * - Intro: the logo's violet and emerald glow behind their own halves of the mark.
+ * - Intro: the mark carries its own halo (`.sc-logo-glow`, segment-logo.css).
  * - Phones: translucent full-width tints; each chapter starts in the accent of the one above (`--accent-prev`) and
  *   settles into its own, so the field has no seams. The sticky chapter bar is the chapter's own tint.
  * - Desktop: a feathered glow per chapter (closest-side radial, transparent at every edge, so no borders).
@@ -15,19 +15,6 @@
  * - Previews: the chart line draws and the sprint bars fill as they scroll in.
  * - Reduced motion: nothing moves; the index still takes the color of the chapter in view.
  */
-.ch-intro {
-  --intro-violet: #5d0ec0;
-  --intro-emerald: #00d492;
-
-  background:
-    radial-gradient(closest-side at 30% 26%, color-mix(in srgb, var(--intro-violet) 20%, transparent), transparent),
-    radial-gradient(closest-side at 70% 26%, color-mix(in srgb, var(--intro-emerald) 16%, transparent), transparent);
-}
-
-.dark .ch-intro {
-  --intro-violet: #7c2df0;
-}
-
 .ch-index-link {
   color: color-mix(in srgb, currentcolor 70%, transparent);
   transition: color 0.3s ease-out;

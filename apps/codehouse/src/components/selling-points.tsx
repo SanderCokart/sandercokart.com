@@ -14,7 +14,7 @@ type SellingPointsProps = ComponentProps<'ul'> & {
  */
 export function SellingPoints({ points, className, ...props }: SellingPointsProps) {
   return (
-    <ul role="list" className={cn('flex flex-wrap gap-2', className)} {...props}>
+    <ul role="list" className={cn('flex flex-wrap content-start gap-2', className)} {...props}>
       {points.map(point => (
         <li key={point} className="selling-point">
           {point}
