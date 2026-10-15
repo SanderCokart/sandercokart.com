@@ -44,7 +44,9 @@ export function ServiceOfferingsSection() {
           'lg:pt-10 lg:pb-4',
           '2xl:absolute 2xl:top-0 2xl:left-1/2 2xl:z-10 2xl:-translate-x-1/2 2xl:px-16 2xl:pt-8',
         )}>
-        <SegmentLogo label="Sander's CodeHouse" className="mb-4 h-auto w-40 sm:w-32 2xl:mb-2 2xl:w-28" />
+        <span className="sc-logo-glow mb-4 2xl:mb-2">
+          <SegmentLogo label="Sander's CodeHouse" className="h-auto w-40 sm:w-32 2xl:w-28" />
+        </span>
         <p
           className="ch-hero-tagline font-digital type-on type-on-caret text-primary dark:text-accent text-xl"
           style={{ '--chars': 13, '--type-delay': '0.55s' } as CSSProperties}>

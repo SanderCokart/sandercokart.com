@@ -54,3 +54,48 @@
     opacity: 1;
   }
 }
+
+/*
+ * Optional halo for a standalone mark: wrap it in `.sc-logo-glow`. Dark mode lights it from just behind its own
+ * halves (violet left, emerald right), sized to the mark so the light reads as coming off the logo rather than off
+ * a distant wall. Light mode has no glow to show against, so the mark gets a soft violet drop shadow instead.
+ */
+.sc-logo-glow {
+  position: relative;
+  isolation: isolate;
+  display: inline-grid;
+}
+
+.sc-logo-glow > svg {
+  filter: drop-shadow(0 14px 16px color-mix(in srgb, #5d0ec0 26%, transparent)) drop-shadow(0 3px 4px rgb(0 0 0 / 0.12));
+}
+
+.sc-logo-glow::before {
+  content: '';
+  position: absolute;
+  inset: -55% -65%;
+  z-index: -1;
+  display: none;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      closest-side at 40% 50%,
+      color-mix(in srgb, #7c2df0 32%, transparent),
+      color-mix(in srgb, #7c2df0 12%, transparent) 55%,
+      transparent
+    ),
+    radial-gradient(
+      closest-side at 60% 50%,
+      color-mix(in srgb, #00d492 24%, transparent),
+      color-mix(in srgb, #00d492 9%, transparent) 55%,
+      transparent
+    );
+}
+
+.dark .sc-logo-glow > svg {
+  filter: none;
+}
+
+.dark .sc-logo-glow::before {
+  display: block;
+}

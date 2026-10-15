@@ -2,7 +2,7 @@
  * Home services, "cohesive": logo, title and offerings on one surface.
  *
  * Paint (never animated):
- * - Hero: the logo's violet and emerald glow behind their own halves of the mark.
+ * - Hero: the mark carries its own halo (`.sc-logo-glow`, segment-logo.css).
  * - Below lg: the hero fades into the first band, and each band starts in the color the one above ended in
  *   (`--band-prev`), so the column has no hard edges.
  * - lg+: the section itself is the surface. 2×2 below 2xl (top row first→second accent, bottom row third→fourth,
@@ -21,25 +21,9 @@
   --tone: 13%;
 }
 
-.ch-hero {
-  --hero-violet: #5d0ec0;
-  --hero-emerald: #00d492;
-
-  background:
-    radial-gradient(closest-side at 32% 34%, color-mix(in srgb, var(--hero-violet) 20%, transparent), transparent),
-    radial-gradient(closest-side at 68% 34%, color-mix(in srgb, var(--hero-emerald) 16%, transparent), transparent);
-}
-
-.dark .ch-hero {
-  --hero-violet: #7c2df0;
-}
-
 @media (width < 64rem) {
   .ch-hero {
-    background:
-      radial-gradient(closest-side at 30% 30%, color-mix(in srgb, var(--hero-violet) 22%, transparent), transparent),
-      radial-gradient(closest-side at 70% 30%, color-mix(in srgb, var(--hero-emerald) 18%, transparent), transparent),
-      linear-gradient(transparent 40%, color-mix(in srgb, var(--band-first) 10%, var(--card)));
+    background: linear-gradient(transparent 40%, color-mix(in srgb, var(--band-first) 10%, var(--card)));
   }
 
   .ch-band {
