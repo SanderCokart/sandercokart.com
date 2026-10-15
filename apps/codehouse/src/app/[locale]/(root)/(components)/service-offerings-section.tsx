@@ -1,28 +1,22 @@
-import { cn } from '@repo/ui/lib/utils';
 import { useTranslations } from 'next-intl';
 
-import Image from 'next/image';
+import type { CSSProperties } from 'react';
 
-import logoMark from '@/app/[locale]/images/sc-logo.png';
-
-import { ServiceBand } from './service-band';
+import { SegmentLogo } from './segment-logo';
+import { chapterTimeline, ServiceChapter } from './service-chapter';
 import { serviceOfferings } from './service-offerings';
 
 import './service-offerings-section.css';
 
 /**
- * Breakpoints:
- * - sm: Targets small screens (typically phones) and adjusts the container width and grid gap.
- * - xl: Four columns so the four offerings sit in a single row on desktop.
+ * "Colour field": the services read as chapters of one continuous surface instead of four cards. There are no
+ * card edges; the tint just shifts from one chapter's accent to the next as you scroll.
  *
- * Vertical placement (xl): a frozen top track centers the English-sized cluster
- * (logo + title + cards). Taller locale copy grows the auto track downward into
- * the leftover 1fr instead of shrinking the top track — so the heading does not
- * jump. `--services-cluster` is that English cluster height (~heading 15rem +
- * cards 36rem). Below xl the cards stack and the section just grows with content.
+ * - Phones: intro (logo, title, chapter index) then the chapters, each with a sticky numbered title.
+ * - lg+: split view. The intro and index stay pinned on the left and light up the chapter in view on the right.
  *
- * Animation is CSS only (service-offerings-section.css): the server HTML is the final layout, nothing waits on
- * hydration, and painted surfaces never move — only the content on top of them.
+ * Animation is CSS only (service-offerings-section.css, segment-logo.css). The server HTML is the final layout;
+ * chapter content follows its own scroll position, so nothing plays off-screen.
  */
 export function ServiceOfferingsSection() {
   const t = useTranslations('ServiceOfferingsSection');
@@ -30,36 +24,41 @@ export function ServiceOfferingsSection() {
   return (
     <section
       aria-labelledby="services-title"
-      className={cn(
-        'sm:mt-8 sm:mb-16 xl:mt-0',
-        'min-h-[calc(100dvh-(--spacing(11)))] sm:min-h-[calc(100dvh-(--spacing(16)))]',
-        'grid justify-items-center',
-        '[--services-cluster:51rem]',
-        'xl:grid-rows-[max(0px,calc((100dvh-(--spacing(16))-var(--services-cluster))/2))_auto_1fr]',
-      )}
-      id="services">
-      <div className="container w-full px-0 sm:max-w-(--breakpoint-sm) sm:px-4 xl:row-start-2 xl:max-w-[120rem]">
-        <header className="flex flex-col items-center">
-          <Image
-            priority
-            alt="Sander's CodeHouse"
-            src={logoMark}
-            className="ch-services-logo mx-auto mb-4 h-auto max-w-44 sm:mb-8 sm:max-w-32"
-          />
-          <h1
-            id="services-title"
-            className={cn(
-              'ch-services-heading text-center text-5xl font-bold sm:mb-8',
-              '[--band:var(--color-green-500)] max-sm:w-full max-sm:py-8',
-            )}>
-            <span className="ch-services-title block">{t('title')}</span>
+      id="services"
+      className="ch-field"
+      style={{ '--timelines': serviceOfferings.map(chapterTimeline).join(', ') } as CSSProperties}>
+      <div className="mx-auto grid w-full max-w-7xl lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-12 lg:px-8">
+        <header className="ch-intro flex flex-col items-center gap-6 px-6 pt-8 pb-12 text-center lg:sticky lg:top-16 lg:h-[calc(100dvh-(--spacing(16)))] lg:items-start lg:justify-center lg:px-0 lg:text-left">
+          <SegmentLogo className="h-auto w-36 sm:w-40" />
+          <h1 id="services-title" className="ch-intro-title text-5xl font-bold lg:text-7xl">
+            <span className="block">{t('title')}</span>
           </h1>
+          <nav aria-labelledby="services-title">
+            <ol className="font-digital grid gap-1 text-lg">
+              {serviceOfferings.map((offering, index) => (
+                <li key={offering.id} className="ch-index-item" style={{ '--item': index } as CSSProperties}>
+                  <a
+                    href={`#service-${offering.id}`}
+                    className="ch-index-link flex items-baseline gap-3 rounded-md px-2 py-1 transition-colors hover:text-(--accent)"
+                    style={{ '--accent': offering.accent, '--timeline': chapterTimeline(offering) } as CSSProperties}>
+                    <span className="text-(--accent)">{String(index + 1).padStart(2, '0')}</span>
+                    {t(offering.title)}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
         </header>
-        <ul role="list" className="grid gap-0 sm:gap-8 xl:grid-cols-4 xl:gap-y-4">
+        <ol role="list" className="ch-chapters lg:py-16">
           {serviceOfferings.map((offering, index) => (
-            <ServiceBand key={offering.id} offering={offering} index={index} />
+            <ServiceChapter
+              key={offering.id}
+              offering={offering}
+              number={index + 1}
+              previousAccent={serviceOfferings[index - 1]?.accent}
+            />
           ))}
-        </ul>
+        </ol>
       </div>
     </section>
   );

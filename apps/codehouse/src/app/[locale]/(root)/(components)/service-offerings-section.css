@@ -1,95 +1,200 @@
 /**
- * Home services: band paint and entrance.
+ * Home services, "colour field".
  *
- * Paint: every band is one opaque layer — its `--band` accent mixed into the card color — so stacked bands never
- * reveal the page background and nothing has to fade a shell in. `--band-tint` is a registered color, which lets
- * the hover swap to primary/accent cross-fade instead of jumping (gradients do not interpolate on their own).
+ * Paint:
+ * - Intro: the logo's violet and emerald glow behind their own halves of the mark.
+ * - Chapters: translucent tints over the page, so the page texture runs through the whole section. Each chapter
+ *   starts in the accent of the one above (`--accent-prev`) and settles into its own, so the field has no seams.
+ *   On desktop the chapters form one rounded ribbon beside the pinned intro.
  *
- * Entrance: painted surfaces never animate; only their content, via opacity/transform, so it stays on the
- * compositor.
- * - Load: logo, then title, then each band's rows (`--item`), cascading across columns (`--column`) on desktop.
- * - Stacked layout (below xl): bands after the first start off-screen, so their rows follow their own scroll
- *   position instead of the clock. Browsers without scroll timelines just show them.
- * - Reduced motion: nothing moves; the server HTML is the final frame.
+ * Motion (painted surfaces never move; content does, via opacity/transform):
+ * - Load: logo powers on (segment-logo.css), the title rises out of a slot, the index boots line by line like
+ *   the logo's segments. On desktop the ribbon fades in after the intro.
+ * - Scroll: chapter numbers flicker on, titles slide in, content rises and the watermark icon drifts — all tied
+ *   to each element's own scroll position, so nothing plays off-screen. Without scroll timelines they are static.
+ * - Desktop index: the entry for the chapter crossing the middle of the viewport lights up (a color change, so
+ *   it stays on under reduced motion).
  */
-@property --band-tint {
-  syntax: '<color>';
-  inherits: false;
-  initial-value: transparent;
+.ch-field {
+  timeline-scope: var(--timelines);
 }
 
-.ch-band {
-  --band-tint: var(--band);
+.ch-intro {
+  --intro-violet: #5d0ec0;
+  --intro-emerald: #00d492;
 
+  background:
+    radial-gradient(closest-side at 30% 26%, color-mix(in srgb, var(--intro-violet) 20%, transparent), transparent),
+    radial-gradient(closest-side at 70% 26%, color-mix(in srgb, var(--intro-emerald) 16%, transparent), transparent);
+}
+
+.dark .ch-intro {
+  --intro-violet: #7c2df0;
+}
+
+.ch-intro-title {
+  overflow: clip;
+  padding-bottom: 0.1em;
+}
+
+.ch-chapter {
+  view-timeline-name: var(--timeline);
   background: linear-gradient(
-    color-mix(in srgb, var(--band-tint) 10%, var(--card)),
-    color-mix(in srgb, var(--band-tint) 20%, var(--card))
+    color-mix(in srgb, var(--accent-prev) 14%, transparent),
+    color-mix(in srgb, var(--accent) 14%, transparent) 12rem,
+    color-mix(in srgb, var(--accent) 14%, transparent)
   );
-  transition: --band-tint 0.5s ease-in-out;
 }
 
-.ch-band:has(a:hover) {
-  --band-tint: var(--primary);
+@media (width < 64rem) {
+  .ch-chapter-head {
+    background: color-mix(in srgb, var(--accent) 14%, var(--background));
+    box-shadow: 0 1px 0 color-mix(in srgb, var(--accent) 35%, transparent);
+  }
 }
 
-.dark .ch-band:has(a:hover) {
-  --band-tint: var(--accent);
-}
+@media (width >= 64rem) {
+  .ch-chapters {
+    overflow: clip;
+    border-radius: 1.5rem;
+  }
 
-@media (width < 40rem) {
-  .ch-services-heading {
-    background: color-mix(in srgb, var(--band) 10%, var(--card));
+  .ch-chapter {
+    background: linear-gradient(
+      color-mix(in srgb, var(--accent-prev) 14%, transparent),
+      color-mix(in srgb, var(--accent) 14%, transparent) 50%,
+      color-mix(in srgb, var(--accent) 14%, transparent)
+    );
+  }
+
+  .ch-chapter:first-child {
+    --accent-prev: var(--accent);
+  }
+
+  @supports (animation-timeline: view()) {
+    .ch-index-link {
+      animation: ch-index-active linear both;
+      animation-duration: auto;
+      animation-timeline: var(--timeline);
+      animation-range: cover 25% cover 75%;
+    }
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .ch-services-logo {
-    animation: ch-services-pop 0.45s ease-out both;
+  .ch-intro-title > span {
+    animation: ch-slot 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s both;
   }
 
-  .ch-services-title {
-    animation: ch-services-rise 0.45s ease-out 0.12s both;
+  .ch-index-item {
+    animation: ch-boot 0.5s linear both;
+    animation-delay: calc(0.9s + var(--item, 0) * 0.1s);
   }
 
-  .ch-band-item {
-    animation: ch-services-rise 0.45s ease-out both;
-    animation-delay: calc(0.25s + var(--column, 0) * 0.08s + var(--item, 0) * 0.08s);
+  @media (width >= 64rem) {
+    .ch-chapters {
+      animation: ch-fade 0.8s ease-out 1s both;
+    }
   }
 
-  .ch-band-icon {
-    animation-name: ch-services-pop;
-  }
-
-  @media (width < 80rem) {
-    .ch-band:not(:first-child) .ch-band-item {
-      animation: none;
+  @supports (animation-timeline: view()) {
+    .ch-chapter-number,
+    .ch-chapter-title,
+    .ch-chapter-item,
+    .ch-chapter-mark {
+      animation-duration: auto;
+      animation-fill-mode: both;
+      animation-timeline: view();
     }
 
-    @supports (animation-timeline: view()) {
-      .ch-band:not(:first-child) .ch-band-item {
-        animation: ch-services-rise ease-out both;
-        animation-duration: auto;
-        animation-timeline: view();
-        animation-range: entry 0% cover 30%;
-      }
+    .ch-chapter-number {
+      animation-name: ch-boot;
+      animation-timing-function: linear;
+      animation-range: entry 20% entry 100%;
+    }
 
-      .ch-band:not(:first-child) .ch-band-icon {
-        animation-name: ch-services-pop;
-      }
+    .ch-chapter-title {
+      animation-name: ch-slide;
+      animation-timing-function: ease-out;
+      animation-range: entry 0% entry 100%;
+    }
+
+    .ch-chapter-item {
+      animation-name: ch-rise;
+      animation-timing-function: ease-out;
+      animation-range: entry 0% cover 30%;
+    }
+
+    .ch-chapter-mark {
+      animation-name: ch-drift;
+      animation-timing-function: linear;
+      animation-range: cover;
     }
   }
 }
 
-@keyframes ch-services-pop {
+@keyframes ch-index-active {
+  0%,
+  100% {
+    background-color: transparent;
+  }
+
+  15%,
+  85% {
+    background-color: color-mix(in srgb, var(--accent) 20%, transparent);
+  }
+}
+
+@keyframes ch-slot {
+  from {
+    transform: translateY(105%);
+  }
+}
+
+@keyframes ch-boot {
+  0% {
+    opacity: 0;
+  }
+
+  35% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.35;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes ch-fade {
   from {
     opacity: 0;
-    transform: scale(0.92);
   }
 }
 
-@keyframes ch-services-rise {
+@keyframes ch-slide {
+  from {
+    opacity: 0;
+    transform: translateX(-1rem);
+  }
+}
+
+@keyframes ch-rise {
   from {
     opacity: 0;
     transform: translateY(1rem);
+  }
+}
+
+@keyframes ch-drift {
+  from {
+    transform: translateY(3rem) rotate(-8deg);
+  }
+
+  to {
+    transform: translateY(-3rem) rotate(4deg);
   }
 }
