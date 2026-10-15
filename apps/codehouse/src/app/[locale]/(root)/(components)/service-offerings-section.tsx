@@ -2,7 +2,8 @@ import { useTranslations } from 'next-intl';
 
 import type { CSSProperties } from 'react';
 
-import { SegmentLogo } from './segment-logo';
+import { SegmentLogo } from '@/components/segment-logo';
+
 import { chapterTimeline, ServiceChapter } from './service-chapter';
 import { serviceOfferings } from './service-offerings';
 
@@ -29,7 +30,7 @@ export function ServiceOfferingsSection() {
       style={{ '--timelines': serviceOfferings.map(chapterTimeline).join(', ') } as CSSProperties}>
       <div className="mx-auto grid w-full max-w-7xl lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-12 lg:px-8">
         <header className="ch-intro flex flex-col items-center gap-6 px-6 pt-8 pb-12 text-center lg:sticky lg:top-16 lg:h-[calc(100dvh-(--spacing(16)))] lg:items-start lg:justify-center lg:px-0 lg:text-left">
-          <SegmentLogo className="h-auto w-36 sm:w-40" />
+          <SegmentLogo label="Sander's CodeHouse" className="h-auto w-36 sm:w-40" />
           <h1 id="services-title" className="ch-intro-title text-5xl font-bold lg:text-7xl">
             <span className="block">{t('title')}</span>
           </h1>
