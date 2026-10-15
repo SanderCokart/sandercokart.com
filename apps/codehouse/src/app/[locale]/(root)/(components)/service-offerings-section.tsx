@@ -19,8 +19,8 @@ const accents = Object.fromEntries(serviceOfferings.map((offering, index) => [`-
  * - Phones and tablets (below lg): the hero, then full-bleed bands that flow into each other.
  * - lg: a 2×2 grid on one continuous surface, the hero above it.
  * - 2xl: the section fills the fold under the header. Four full-height columns sit on a single gradient that runs
- *   from the first accent to the last; the hero is laid over the top, centered between the middle two columns,
- *   and the columns' content starts below it.
+ *   from the first accent to the last. The hero is laid over the middle two columns in the row right above their
+ *   content, and hero plus content are centered as one group in the fold (flexible first and last rows).
  *
  * Animation is CSS only (service-offerings-section.css, segment-logo.css): the server HTML is the final layout,
  * nothing waits on hydration, and painted surfaces never move — only the content on top of them.
@@ -34,7 +34,8 @@ export function ServiceOfferingsSection() {
       className={cn(
         'ch-services relative grid',
         'min-h-[calc(100dvh-(--spacing(11)))] sm:min-h-[calc(100dvh-(--spacing(16)))]',
-        'lg:grid-rows-[auto_1fr] 2xl:grid-rows-1',
+        'lg:grid-rows-[auto_1fr]',
+        '2xl:grid-cols-4 2xl:grid-rows-[1fr_auto_repeat(5,auto)_1fr] 2xl:gap-y-3',
       )}
       style={{ ...accents, '--band-first': serviceOfferings[0].accent } as CSSProperties}
       id="services">
@@ -42,7 +43,7 @@ export function ServiceOfferingsSection() {
         className={cn(
           'ch-hero flex flex-col items-center pt-2 pb-10 sm:pt-6',
           'lg:pt-10 lg:pb-4',
-          '2xl:absolute 2xl:top-0 2xl:left-1/2 2xl:z-10 2xl:-translate-x-1/2 2xl:px-16 2xl:pt-8',
+          '2xl:relative 2xl:z-10 2xl:col-span-2 2xl:col-start-2 2xl:row-start-2 2xl:pt-0 2xl:pb-10',
         )}>
         <span className="sc-logo-glow mb-4 2xl:mb-2">
           <SegmentLogo label="Sander's CodeHouse" className="h-auto w-40 sm:w-32 2xl:w-28" />
@@ -61,7 +62,7 @@ export function ServiceOfferingsSection() {
         className={cn(
           'ch-band-list grid',
           'lg:grid-cols-2',
-          '2xl:grid-cols-4 2xl:grid-rows-[var(--hero-space)_1fr_repeat(5,auto)_1fr] 2xl:gap-y-3',
+          '2xl:col-span-full 2xl:row-span-full 2xl:grid-cols-subgrid 2xl:grid-rows-subgrid',
         )}>
         {serviceOfferings.map((offering, index) => (
           <ServiceBand

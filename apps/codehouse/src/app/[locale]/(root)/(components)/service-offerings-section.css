@@ -17,7 +17,6 @@
  * - Reduced motion: nothing moves; the server HTML is the final frame.
  */
 .ch-services {
-  --hero-space: 15rem;
   --tone: 13%;
 }
 
@@ -93,7 +92,7 @@
     content: none;
   }
 
-  /* Row 1 holds space for the overlaid hero; rows 2 and 8 are flexible, so the content rows sit centered below. */
+  /* Rows 1 and 8 are flexible and row 2 holds the overlaid hero, so hero and content rows sit centered together. */
   .ch-band > :nth-child(1) {
     grid-row: 3;
   }

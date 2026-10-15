@@ -12,7 +12,7 @@ export function Header() {
   return (
     <BrandHeader
       localeSwitcher={<LocaleSwitcher />}
-      navigation={<Navigation links={serviceLinks} />}
+      navigation={<Navigation links={serviceLinks} variant="icons" />}
       namedLogo={
         <NamedLogo
           href="/"
