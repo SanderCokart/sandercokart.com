@@ -35,7 +35,8 @@ export function ServiceChapter({ offering, index, previousAccent, preview }: Ser
     <li
       id={`service-${offering.id}`}
       aria-labelledby={titleId}
-      className="ch-chapter relative scroll-mt-11 sm:scroll-mt-16 lg:grid lg:min-h-[calc(100dvh-(--spacing(16)))] lg:content-center lg:gap-8 lg:py-10"
+      tabIndex={-1}
+      className="ch-chapter relative scroll-mt-11 outline-none sm:scroll-mt-16 lg:grid lg:min-h-[calc(100dvh-(--spacing(16)))] lg:content-center lg:gap-8 lg:py-10"
       style={
         {
           '--accent': offering.accent,

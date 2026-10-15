@@ -189,7 +189,8 @@
     "opensource_features_versions": "Kies een release of de laatste van main",
     "opensource_features_licenses": "Permissieve licenties waar mogelijk",
     "opensource_features_public": "Gebouwd en onderhouden in het openbaar",
-    "title": "Diensten"
+    "title": "Diensten",
+    "keyboard_hint": "Druk op <key>1</key>–<key>4</key> om naar een dienst te springen"
   },
   "ServicePreviews": {
     "blog_nav_journal": "Journal",

@@ -57,6 +57,13 @@ export function ServiceOfferingsSection() {
               title: t(offering.title),
             }))}
           />
+          <p className="text-muted-foreground hidden text-sm lg:block">
+            {t.rich('keyboard_hint', {
+              key: chunks => (
+                <kbd className="border-border bg-muted/60 rounded border px-1.5 font-mono text-xs">{chunks}</kbd>
+              ),
+            })}
+          </p>
         </header>
         <ol role="list" className="ch-chapters">
           {serviceOfferings.map((offering, index) => (

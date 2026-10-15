@@ -10,8 +10,7 @@ type SellingPointsProps = ComponentProps<'ul'> & {
 
 /**
  * A service's selling points as compact labels instead of a bullet list. Painted in the brand violet rather than
- * the section accent so they contrast with the (mostly green) page, each led by a slanted bar borrowed from the
- * logo's seven-segment letters. Styles: selling-points.css.
+ * the section accent so they contrast with the (mostly green) page. Styles: selling-points.css.
  */
 export function SellingPoints({ points, className, ...props }: SellingPointsProps) {
   return (
