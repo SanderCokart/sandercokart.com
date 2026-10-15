@@ -16,14 +16,10 @@ type ServiceChapterProps = {
   previousAccent?: string;
 };
 
-export function chapterTimeline(offering: ServiceOffering) {
-  return `--chapter-${offering.id}`;
-}
-
 /**
  * One offering as a chapter of a continuous colour field. On phones its number and title stick under the site
  * header while you read it and are pushed off by the next chapter; on desktop the sticky index on the left does
- * that job. The chapter exposes a named view timeline the index uses to light up the chapter you are reading.
+ * that job.
  */
 export function ServiceChapter({ offering, number, previousAccent }: ServiceChapterProps) {
   const t = useTranslations('ServiceOfferingsSection');
@@ -39,7 +35,6 @@ export function ServiceChapter({ offering, number, previousAccent }: ServiceChap
         {
           '--accent': offering.accent,
           '--accent-prev': previousAccent ?? 'transparent',
-          '--timeline': chapterTimeline(offering),
         } as CSSProperties
       }>
       <div className="ch-chapter-head sticky top-11 z-10 flex items-baseline gap-4 px-6 py-4 sm:top-16 lg:static">

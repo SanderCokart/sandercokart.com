@@ -5,20 +5,17 @@
  * - Intro: the logo's violet and emerald glow behind their own halves of the mark.
  * - Chapters: translucent tints over the page, so the page texture runs through the whole section. Each chapter
  *   starts in the accent of the one above (`--accent-prev`) and settles into its own, so the field has no seams.
- *   On desktop the chapters form one rounded ribbon beside the pinned intro.
+ *   On desktop each chapter gets a feathered glow instead (closest-side radial, so it is transparent at every edge
+ *   and never draws a border).
  *
  * Motion (painted surfaces never move; content does, via opacity/transform):
- * - Load: logo powers on (segment-logo.css), the title rises out of a slot, the index boots line by line like
- *   the logo's segments. On desktop the ribbon fades in after the intro.
+ * - Load: logo powers on (segment-logo.css), the title rises out of a slot, the slogan types itself (`.type-on`),
+ *   the index boots line by line like the logo's segments. On desktop the chapters fade in after the intro.
  * - Scroll: chapter numbers flicker on, titles slide in, content rises and the watermark icon drifts — all tied
  *   to each element's own scroll position, so nothing plays off-screen. Without scroll timelines they are static.
- * - Desktop index: the entry for the chapter crossing the middle of the viewport lights up (a color change, so
- *   it stays on under reduced motion).
+ * - Index: the entry for the chapter crossing the middle of the viewport takes its accent (ChapterIndex sets
+ *   aria-current; a color change, so it stays on under reduced motion).
  */
-.ch-field {
-  timeline-scope: var(--timelines);
-}
-
 .ch-intro {
   --intro-violet: #5d0ec0;
   --intro-emerald: #00d492;
@@ -32,13 +29,26 @@
   --intro-violet: #7c2df0;
 }
 
+.ch-index-link {
+  color: color-mix(in srgb, currentcolor 70%, transparent);
+  transition: color 0.3s ease-out;
+}
+
+.ch-index-number {
+  color: var(--accent);
+}
+
+.ch-index-link:hover,
+.ch-index-link[aria-current] {
+  color: var(--accent);
+}
+
 .ch-intro-title {
   overflow: clip;
   padding-bottom: 0.1em;
 }
 
 .ch-chapter {
-  view-timeline-name: var(--timeline);
   background: linear-gradient(
     color-mix(in srgb, var(--accent-prev) 14%, transparent),
     color-mix(in srgb, var(--accent) 14%, transparent) 12rem,
@@ -54,30 +64,13 @@
 }
 
 @media (width >= 64rem) {
-  .ch-chapters {
-    overflow: clip;
-    border-radius: 1.5rem;
-  }
-
   .ch-chapter {
-    background: linear-gradient(
-      color-mix(in srgb, var(--accent-prev) 14%, transparent),
-      color-mix(in srgb, var(--accent) 14%, transparent) 50%,
-      color-mix(in srgb, var(--accent) 14%, transparent)
+    background: radial-gradient(
+      closest-side,
+      color-mix(in srgb, var(--accent) 16%, transparent),
+      color-mix(in srgb, var(--accent) 7%, transparent) 60%,
+      transparent
     );
-  }
-
-  .ch-chapter:first-child {
-    --accent-prev: var(--accent);
-  }
-
-  @supports (animation-timeline: view()) {
-    .ch-index-link {
-      animation: ch-index-active linear both;
-      animation-duration: auto;
-      animation-timeline: var(--timeline);
-      animation-range: cover 25% cover 75%;
-    }
   }
 }
 
@@ -130,18 +123,6 @@
       animation-timing-function: linear;
       animation-range: cover;
     }
-  }
-}
-
-@keyframes ch-index-active {
-  0%,
-  100% {
-    background-color: transparent;
-  }
-
-  15%,
-  85% {
-    background-color: color-mix(in srgb, var(--accent) 20%, transparent);
   }
 }
 
