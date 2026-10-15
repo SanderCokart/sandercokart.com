@@ -10,16 +10,17 @@ import { serviceOfferings } from './service-offerings';
 
 import './service-offerings-section.css';
 
+/** `--c1`…`--c4`: the four accents, read by the section-wide gradient on desktop. */
+const accents = Object.fromEntries(serviceOfferings.map((offering, index) => [`--c${index + 1}`, offering.accent]));
+
 /**
- * Breakpoints:
- * - sm: Targets small screens (typically phones) and adjusts the container width and grid gap.
- * - xl: the section fills the fold under the header; the hero sits on top and the four offerings become
- *   borderless full-height columns underneath, their content centered. Below xl the cards stack and the section
- *   grows with content.
+ * "Cohesive": one surface for the logo, the title and the four offerings.
  *
- * Logo and title share one hero surface lit in the logo's own violet and emerald, so they read as a unit instead
- * of a mark floating over a colored title band. On mobile the hero fades into the first band and every band fades
- * out of the one above it, so the column has no hard edges.
+ * - Phones and tablets (below lg): the hero, then full-bleed bands that flow into each other.
+ * - lg: a 2×2 grid on one continuous surface, the hero above it.
+ * - 2xl: the section fills the fold under the header. Four full-height columns sit on a single gradient that runs
+ *   from the first accent to the last; the hero is laid over the top, centered between the middle two columns,
+ *   and the columns' content starts below it.
  *
  * Animation is CSS only (service-offerings-section.css, segment-logo.css): the server HTML is the final layout,
  * nothing waits on hydration, and painted surfaces never move — only the content on top of them.
@@ -31,39 +32,44 @@ export function ServiceOfferingsSection() {
     <section
       aria-labelledby="services-title"
       className={cn(
-        'sm:mt-8 sm:mb-16 xl:my-0',
+        'ch-services relative grid',
         'min-h-[calc(100dvh-(--spacing(11)))] sm:min-h-[calc(100dvh-(--spacing(16)))]',
-        'grid justify-items-center',
+        'lg:grid-rows-[auto_1fr] 2xl:grid-rows-1',
       )}
-      style={{ '--band-first': serviceOfferings[0].accent } as CSSProperties}
+      style={{ ...accents, '--band-first': serviceOfferings[0].accent } as CSSProperties}
       id="services">
-      <div className="container w-full px-0 sm:max-w-(--breakpoint-sm) sm:px-4 xl:grid xl:max-w-none xl:grid-rows-[auto_1fr] xl:px-0">
-        <header className="ch-hero flex flex-col items-center pt-2 pb-10 sm:pt-0 sm:pb-8 xl:pt-6 xl:pb-2">
-          <SegmentLogo label="Sander's CodeHouse" className="mb-4 h-auto w-40 sm:w-32 xl:mb-2 xl:w-24" />
-          <p
-            className="ch-hero-tagline font-digital type-on type-on-caret text-primary dark:text-accent text-xl"
-            style={{ '--chars': 13, '--type-delay': '0.55s' } as CSSProperties}>
-            Let&apos;s code...
-          </p>
-          <h1 id="services-title" className="ch-hero-title mt-2 text-center text-5xl font-bold xl:mt-1 xl:text-4xl">
-            {t('title')}
-          </h1>
-          <span aria-hidden className="ch-hero-rule mt-5 h-1 w-20 rounded-full xl:mt-3" />
-        </header>
-        <ul
-          role="list"
-          className="grid gap-0 sm:gap-8 xl:grid-cols-4 xl:grid-rows-[1fr_repeat(5,auto)_1fr] xl:gap-x-0 xl:gap-y-3">
-          {serviceOfferings.map((offering, index) => (
-            <ServiceBand
-              key={offering.id}
-              offering={offering}
-              index={index}
-              previousAccent={serviceOfferings[index - 1]?.accent}
-              nextAccent={serviceOfferings[index + 1]?.accent}
-            />
-          ))}
-        </ul>
-      </div>
+      <header
+        className={cn(
+          'ch-hero flex flex-col items-center pt-2 pb-10 sm:pt-6',
+          'lg:pt-10 lg:pb-4',
+          '2xl:absolute 2xl:top-0 2xl:left-1/2 2xl:z-10 2xl:-translate-x-1/2 2xl:px-16 2xl:pt-8',
+        )}>
+        <SegmentLogo label="Sander's CodeHouse" className="mb-4 h-auto w-40 sm:w-32 2xl:mb-2 2xl:w-28" />
+        <p
+          className="ch-hero-tagline font-digital type-on type-on-caret text-primary dark:text-accent text-xl"
+          style={{ '--chars': 13, '--type-delay': '0.55s' } as CSSProperties}>
+          Let&apos;s code...
+        </p>
+        <h1 id="services-title" className="ch-hero-title mt-2 text-center text-5xl font-bold 2xl:mt-1">
+          {t('title')}
+        </h1>
+      </header>
+      <ul
+        role="list"
+        className={cn(
+          'ch-band-list grid',
+          'lg:grid-cols-2',
+          '2xl:grid-cols-4 2xl:grid-rows-[var(--hero-space)_1fr_repeat(5,auto)_1fr] 2xl:gap-y-3',
+        )}>
+        {serviceOfferings.map((offering, index) => (
+          <ServiceBand
+            key={offering.id}
+            offering={offering}
+            index={index}
+            previousAccent={serviceOfferings[index - 1]?.accent}
+          />
+        ))}
+      </ul>
     </section>
   );
 }

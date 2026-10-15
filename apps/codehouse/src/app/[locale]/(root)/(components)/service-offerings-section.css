@@ -1,27 +1,24 @@
 /**
- * Home services, "cohesive": one hero surface for logo and title, bands that flow into each other.
+ * Home services, "cohesive": logo, title and offerings on one surface.
  *
- * Paint:
- * - Hero: the logo's violet and emerald glow behind their own halves of the mark, over the page background.
- *   On mobile its floor fades into the first band's top color, so the title is not cut off by a band edge.
- * - Bands: one opaque layer each, the `--band` accent mixed into the card color. On mobile a band starts in the
- *   color the band above ended in (`--band-prev`) and settles into its own within a few rem.
- * - xl columns: borderless and full height. Each fades in from the hero at the top and meets its neighbours
- *   halfway (`--band-prev` / `--band-next`), so four colors sit side by side without a seam or border.
- * - `--band-tint` is a registered color so the hover swap to primary/accent cross-fades instead of jumping.
+ * Paint (never animated):
+ * - Hero: the logo's violet and emerald glow behind their own halves of the mark.
+ * - Below lg: the hero fades into the first band, and each band starts in the color the one above ended in
+ *   (`--band-prev`), so the column has no hard edges.
+ * - lg+: the section itself is the surface. 2×2 below 2xl (top row first→second accent, bottom row third→fourth,
+ *   blended across the middle); from 2xl one gradient from the first accent to the last, each centered on its
+ *   column. A calm wash at the top keeps the overlaid hero legible. Cells have no paint; hover lights the cell.
  *
- * Entrance: painted surfaces never move; only content, via opacity/transform/filter.
- * - Load: the logo powers on (segment-logo.css), the slogan types itself under it (`.type-on`), the title
- *   resolves, the rule draws between the logo's two colors, then the bands' rows follow (`--item`), cascading band
- *   after band (`--column`).
- * - Stacked layout (below xl): bands below the fold also reveal with their own scroll position, so whichever
- *   bands are on screen at load animate with the intro and the rest as you reach them.
+ * Entrance: content only, via opacity/transform/filter.
+ * - Load: the logo powers on (segment-logo.css), the slogan types itself (`.type-on`), the title resolves, then
+ *   the bands' rows follow (`--item`), cascading band after band (`--column`).
+ * - Below 2xl, rows also have a scroll-tied reveal on separate properties (filter/translate), so bands on screen at
+ *   load play with the intro and the rest enter as you reach them.
  * - Reduced motion: nothing moves; the server HTML is the final frame.
  */
-@property --band-tint {
-  syntax: '<color>';
-  inherits: false;
-  initial-value: transparent;
+.ch-services {
+  --hero-space: 15rem;
+  --tone: 13%;
 }
 
 .ch-hero {
@@ -37,29 +34,7 @@
   --hero-violet: #7c2df0;
 }
 
-.ch-hero-rule {
-  background: linear-gradient(to right, var(--hero-violet), var(--hero-emerald));
-}
-
-.ch-band {
-  --band-tint: var(--band);
-
-  background: linear-gradient(
-    color-mix(in srgb, var(--band-tint) 10%, var(--card)),
-    color-mix(in srgb, var(--band-tint) 20%, var(--card))
-  );
-  transition: --band-tint 0.5s ease-in-out;
-}
-
-.ch-band:has(a:hover) {
-  --band-tint: var(--primary);
-}
-
-.dark .ch-band:has(a:hover) {
-  --band-tint: var(--accent);
-}
-
-@media (width < 40rem) {
+@media (width < 64rem) {
   .ch-hero {
     background:
       radial-gradient(closest-side at 30% 30%, color-mix(in srgb, var(--hero-violet) 22%, transparent), transparent),
@@ -70,64 +45,89 @@
   .ch-band {
     background: linear-gradient(
       color-mix(in srgb, var(--band-prev) 20%, var(--card)),
-      color-mix(in srgb, var(--band-tint) 10%, var(--card)) 8rem,
-      color-mix(in srgb, var(--band-tint) 20%, var(--card))
+      color-mix(in srgb, var(--band) 10%, var(--card)) 8rem,
+      color-mix(in srgb, var(--band) 20%, var(--card))
     );
   }
 
   .ch-band:first-child {
     background: linear-gradient(
-      color-mix(in srgb, var(--band-tint) 10%, var(--card)),
-      color-mix(in srgb, var(--band-tint) 20%, var(--card))
+      color-mix(in srgb, var(--band) 10%, var(--card)),
+      color-mix(in srgb, var(--band) 20%, var(--card))
     );
   }
 }
 
-@media (width >= 80rem) {
-  .ch-band {
-    --edge-left: color-mix(in srgb, var(--band-prev) 50%, var(--band-tint));
-    --edge-right: color-mix(in srgb, var(--band-next) 50%, var(--band-tint));
+@media (width >= 64rem) {
+  .ch-services {
+    --s1: color-mix(in srgb, var(--c1) var(--tone), var(--card));
+    --s2: color-mix(in srgb, var(--c2) var(--tone), var(--card));
+    --s3: color-mix(in srgb, var(--c3) var(--tone), var(--card));
+    --s4: color-mix(in srgb, var(--c4) var(--tone), var(--card));
+    --calm: linear-gradient(color-mix(in srgb, var(--card) 55%, transparent), transparent 35%);
 
-    position: relative;
     isolation: isolate;
-    background: none;
+    background: var(--calm), linear-gradient(to right, var(--s1) 25%, var(--s2) 75%);
   }
 
-  .ch-band::before {
+  .ch-services::before {
     content: '';
     position: absolute;
     inset: 0;
     z-index: -1;
+    background: linear-gradient(to right, var(--s3) 25%, var(--s4) 75%);
+    mask-image: linear-gradient(transparent 45%, #000 75%);
+  }
+
+  .ch-band {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .ch-band::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--band) 14%, transparent), transparent);
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+  }
+
+  .ch-band:has(a:hover)::after {
+    opacity: 1;
+  }
+}
+
+@media (width >= 96rem) {
+  .ch-services {
     background:
-      linear-gradient(transparent 40%, color-mix(in srgb, var(--band-tint) 10%, transparent)),
-      linear-gradient(
-        to right,
-        color-mix(in srgb, var(--edge-left) 12%, var(--card)),
-        color-mix(in srgb, var(--band-tint) 12%, var(--card)) 30% 70%,
-        color-mix(in srgb, var(--edge-right) 12%, var(--card))
-      );
-    mask-image: linear-gradient(transparent, #000 10rem);
+      var(--calm), linear-gradient(to right, var(--s1) 12.5%, var(--s2) 37.5%, var(--s3) 62.5%, var(--s4) 87.5%);
   }
 
-  /* Rows 1 and 7 of the list are flexible, so the five content rows sit centered in the full-height column. */
+  .ch-services::before {
+    content: none;
+  }
+
+  /* Row 1 holds space for the overlaid hero; rows 2 and 8 are flexible, so the content rows sit centered below. */
   .ch-band > :nth-child(1) {
-    grid-row: 2;
-  }
-
-  .ch-band > :nth-child(2) {
     grid-row: 3;
   }
 
-  .ch-band > :nth-child(3) {
+  .ch-band > :nth-child(2) {
     grid-row: 4;
   }
 
-  .ch-band > :nth-child(4) {
+  .ch-band > :nth-child(3) {
     grid-row: 5;
   }
 
-  .ch-band > :nth-child(5) {
+  .ch-band > :nth-child(4) {
     grid-row: 6;
+  }
+
+  .ch-band > :nth-child(5) {
+    grid-row: 7;
   }
 }
 
@@ -136,33 +136,22 @@
     animation: ch-services-resolve 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 0.95s both;
   }
 
-  .ch-hero-rule {
-    transform-origin: center;
-    animation: ch-services-draw 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) 1.3s both;
-  }
-
   .ch-band-item {
     animation: ch-services-rise 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-    animation-delay: calc(1.35s + var(--column, 0) * 0.12s + var(--item, 0) * 0.07s);
+    animation-delay: calc(1.3s + var(--column, 0) * 0.12s + var(--item, 0) * 0.07s);
   }
 
   .ch-band-icon {
     animation-name: ch-services-pop;
   }
 
-  /*
-   * Stacked layout: every band plays the load cascade above, so whatever is on screen at load (the first band on
-   * phones, the first two on tablets) comes in with the intro. Bands still below the fold have finished that by
-   * the time you reach them, so a second, scroll-tied reveal on separate properties (filter/translate) brings them
-   * in as they enter. The two compose instead of fighting over opacity/transform.
-   */
-  @media (width < 80rem) {
+  @media (width < 96rem) {
     @supports (animation-timeline: view()) {
       .ch-band-item {
         animation:
           ch-services-rise 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both,
           ch-services-scroll-in ease-out both;
-        animation-delay: calc(1.35s + var(--column, 0) * 0.12s + var(--item, 0) * 0.07s), 0s;
+        animation-delay: calc(1.3s + var(--column, 0) * 0.12s + var(--item, 0) * 0.07s), 0s;
         animation-duration: 0.5s, auto;
         animation-timeline: auto, view();
         animation-range:
@@ -182,12 +171,6 @@
     opacity: 0;
     filter: blur(6px);
     transform: translateY(0.5rem);
-  }
-}
-
-@keyframes ch-services-draw {
-  from {
-    transform: scaleX(0);
   }
 }
 
