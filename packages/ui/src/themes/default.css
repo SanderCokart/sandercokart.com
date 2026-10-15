@@ -189,8 +189,8 @@
  *
  * Pop-in: the same fade-up for any element, starting at `--pop-delay` (header icon links).
  *
- * Once an app marks the entrance as played (`data-intro-seen` on the root), the site header renders its final frame:
- * no replay on reloads or remounts within the session, and no lingering cursor.
+ * A site header mounted after its entrance already played (an ancestor with `data-intro-played`, e.g. after a locale
+ * switch remounted it) renders its final frame: no replay and no lingering cursor.
  */
 @media (prefers-reduced-motion: no-preference) {
   .type-on {
@@ -211,12 +211,12 @@
   }
 }
 
-[data-intro-seen] [data-site-header] *,
-[data-intro-seen] [data-site-header] *::after {
+[data-intro-played] [data-site-header] *,
+[data-intro-played] [data-site-header] *::after {
   animation: none !important;
 }
 
-[data-intro-seen] [data-site-header] .type-on-caret::after {
+[data-intro-played] [data-site-header] .type-on-caret::after {
   content: none;
 }
 

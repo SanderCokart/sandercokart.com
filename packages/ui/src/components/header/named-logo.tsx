@@ -26,7 +26,7 @@ export function NamedLogo({ name, slogan, href = '/', logo, Component = 'a' }: N
   return (
     <Component href={href} className="group shrink-0">
       <div className="font-digital! grid grid-cols-[auto_auto] items-stretch gap-x-2 sm:gap-x-3">
-        <span className="relative row-span-2 aspect-square h-full min-h-0 p-1">
+        <span className="relative row-span-2 aspect-square h-full min-h-0 px-1 sm:p-1">
           <span className="named-logo-mark relative block size-full drop-shadow-[0_1px_2px_rgb(0_0_0/0.45)]">
             {logo}
           </span>
