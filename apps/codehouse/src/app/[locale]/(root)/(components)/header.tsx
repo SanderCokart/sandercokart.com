@@ -1,12 +1,10 @@
 import { Header as BrandHeader } from '@repo/ui/components/header';
 import { NamedLogo } from '@repo/ui/components/header/named-logo';
 
-import Image from 'next/image';
-
 import { LocaleSwitcher } from '@/components/locale-switcher';
 import { Navigation } from '@/components/navigation';
+import { SegmentLogo } from '@/components/segment-logo';
 
-import logoMark from '@/app/[locale]/images/sc-logo.png';
 import { Link } from '@/i18n/navigation';
 import { serviceLinks } from '@/lib/nav-links';
 
@@ -21,7 +19,7 @@ export function Header() {
           Component={Link}
           name="Sander's Codehouse"
           slogan="Let's code..."
-          logo={<Image src={logoMark} alt="" fill sizes="50px" className="object-contain" priority />}
+          logo={<SegmentLogo className="absolute inset-0 size-full [--logo-delay:0.1s]" />}
         />
       }
     />

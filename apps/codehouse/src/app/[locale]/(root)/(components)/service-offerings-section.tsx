@@ -3,7 +3,8 @@ import { useTranslations } from 'next-intl';
 
 import type { CSSProperties } from 'react';
 
-import { SegmentLogo } from './segment-logo';
+import { SegmentLogo } from '@/components/segment-logo';
+
 import { ServiceBand } from './service-band';
 import { serviceOfferings } from './service-offerings';
 
@@ -44,7 +45,7 @@ export function ServiceOfferingsSection() {
       id="services">
       <div className="container w-full px-0 sm:max-w-(--breakpoint-sm) sm:px-4 xl:row-start-2 xl:max-w-[120rem]">
         <header className="ch-hero flex flex-col items-center pt-2 pb-10 sm:pt-0 sm:pb-8">
-          <SegmentLogo className="mb-6 h-auto w-40 sm:mb-6 sm:w-32" />
+          <SegmentLogo label="Sander's CodeHouse" className="mb-6 h-auto w-40 sm:mb-6 sm:w-32" />
           <h1 id="services-title" className="ch-hero-title text-center text-5xl font-bold">
             {t('title')}
           </h1>

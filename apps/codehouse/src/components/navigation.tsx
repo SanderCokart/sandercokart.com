@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import { FaArrowUp } from 'react-icons/fa6';
 
-import type { ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import type { LinkType } from '@/lib/nav-links';
 
 import { Link } from '@/i18n/navigation';
@@ -68,21 +68,28 @@ function DesktopNavigation({ links }: NavigationProps) {
     <nav aria-label="Primary" className={cn('relative z-50 mx-auto hidden w-full max-w-4xl lg:block')}>
       <div className="flex items-center gap-6 py-2 md:gap-8">
         <div className="flex flex-1 place-items-center items-center justify-center gap-8">
-          {links.map(link => (
-            <NavLink
-              key={link.href}
-              href={link.href}
-              className={cn(
-                'group',
-                'font-digital flex items-center justify-center gap-2 rounded-md px-2 py-1',
-                'text-primary-foreground hover:text-accent',
-                'text-xs md:text-2xl',
-              )}>
-              <span className="inline-block origin-center transition-transform duration-150 group-hover:scale-105">
-                {t(link.t)}
-              </span>
-            </NavLink>
-          ))}
+          {links.map((link, index) => {
+            const label = t(link.t);
+
+            return (
+              <NavLink
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  'group',
+                  'font-digital flex items-center justify-center gap-2 rounded-md px-2 py-1',
+                  'text-primary-foreground hover:text-accent',
+                  'text-xs md:text-2xl',
+                )}>
+                {/* Typed in after the named logo, one link after another (`.type-on`, ui themes/default.css). */}
+                <span
+                  className="type-on inline-block origin-center transition-transform duration-150 group-hover:scale-105"
+                  style={{ '--chars': label.length, '--type-delay': `${0.5 + index * 0.15}s` } as CSSProperties}>
+                  {label}
+                </span>
+              </NavLink>
+            );
+          })}
         </div>
         <BackToTopButton className="rounded-md p-2 text-xl md:text-2xl" />
       </div>
