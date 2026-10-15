@@ -11,7 +11,9 @@ export interface HeaderProps {
 
 export function Header({ navigation, localeSwitcher, namedLogo }: HeaderProps) {
   return (
-    <header className="bg-primary text-primary-foreground sticky top-0 z-30 flex h-11 transition-colors sm:h-16">
+    <header
+      data-site-header
+      className="bg-primary text-primary-foreground sticky top-0 z-30 flex h-11 transition-colors sm:h-16">
       <div className="relative mx-4 flex h-full grow items-center justify-between gap-4 sm:mx-8">
         {namedLogo}
 

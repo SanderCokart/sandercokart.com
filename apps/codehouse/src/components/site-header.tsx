@@ -2,17 +2,21 @@ import { Header as BrandHeader } from '@repo/ui/components/header';
 import { NamedLogo } from '@repo/ui/components/header/named-logo';
 
 import { LocaleSwitcher } from '@/components/locale-switcher';
-import { Navigation } from '@/components/navigation';
 import { SegmentLogo } from '@/components/segment-logo';
+import { SiteNavigation } from '@/components/site-navigation';
 
 import { Link } from '@/i18n/navigation';
-import { links } from '@/lib/nav-links';
 
-export function ServiceHeader() {
+/**
+ * The one header for every Codehouse page. It lives in the `[locale]` layout so it stays mounted across page
+ * navigations and its entrance (mark power-on, typed name and slogan) plays once instead of on every page.
+ * SiteNavigation picks the links for the current page and records that the entrance has played.
+ */
+export function SiteHeader() {
   return (
     <BrandHeader
       localeSwitcher={<LocaleSwitcher />}
-      navigation={<Navigation links={links} />}
+      navigation={<SiteNavigation />}
       namedLogo={
         <NamedLogo
           href="/"

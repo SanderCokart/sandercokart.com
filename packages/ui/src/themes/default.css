@@ -188,6 +188,9 @@
  * Named-logo mark: the header mark fades up into place; an inline SegmentLogo inside it also powers on.
  *
  * Pop-in: the same fade-up for any element, starting at `--pop-delay` (header icon links).
+ *
+ * Once an app marks the entrance as played (`data-intro-seen` on the root), the site header renders its final frame:
+ * no replay on reloads or remounts within the session, and no lingering cursor.
  */
 @media (prefers-reduced-motion: no-preference) {
   .type-on {
@@ -206,6 +209,15 @@
   .pop-in {
     animation: named-logo-mark 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) var(--pop-delay, 0s) both;
   }
+}
+
+[data-intro-seen] [data-site-header] *,
+[data-intro-seen] [data-site-header] *::after {
+  animation: none !important;
+}
+
+[data-intro-seen] [data-site-header] .type-on-caret::after {
+  content: none;
 }
 
 @keyframes type-on {

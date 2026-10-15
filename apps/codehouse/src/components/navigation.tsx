@@ -12,6 +12,7 @@ import type { CSSProperties, ReactNode } from 'react';
 import type { LinkType } from '@/lib/nav-links';
 
 import { Link } from '@/i18n/navigation';
+import { hasSeenIntro } from '@/lib/intro';
 
 type NavigationProps = {
   links: readonly LinkType[];
@@ -105,15 +106,26 @@ function DesktopNavigation({ links }: NavigationProps) {
   );
 }
 
-/** Names that arrive this soon after mount are part of the entrance and grow in one after another. */
-const ENTRANCE_WINDOW = 1500;
+/** Names only from the xl breakpoint (1280px); below it the row is icons with tooltips. */
+const LABELS_FROM = '(min-width: 80rem)';
+/** Seconds per typed character, as in the named logo's slogan (`.type-on`). */
+const TYPE_STEP = 0.045;
+/** When the first name starts typing on the entrance (after the icons have popped in). */
+const TYPE_START = 0.7;
+
+/** Snap a 0→1 progress to whole characters, so a growing width reveals the name one letter at a time. */
+function typedSteps(characters: number) {
+  return (progress: number) => Math.min(1, Math.ceil(progress * characters) / characters);
+}
 
 /**
- * Header links as icons plus names. A hidden copy of the fully labelled row is measured against the space between
- * the named logo and the right-hand controls (ResizeObserver, so locale, font load and resizes all count):
- * - Fits: each name grows from zero to its natural width (Motion `width: auto`), so the icons after it slide
- *   along instead of jumping. On load they grow one after another; after that, together.
- * - Does not fit: names collapse and each icon gets a tooltip.
+ * Header links as icons plus names.
+ * - Names show from xl (1280px) up, and only while the fully labelled row (a hidden max-content copy, measured with
+ *   a ResizeObserver so locale, font loading and resizes count) fits between the named logo and the controls.
+ *   Otherwise the names collapse and each icon gets a tooltip.
+ * - On the entrance the names type themselves in like the slogan, one after another. Each name's width grows with
+ *   its typing (Motion `width: auto`, stepped per character), so the icons after it move along instead of jumping.
+ *   After the entrance — or when it already played this session — names appear and disappear without delay.
  * Every link is named by aria-label either way, so the label spans are hidden from assistive tech.
  */
 function DesktopAdaptiveNavigation({ links }: NavigationProps) {
@@ -121,84 +133,97 @@ function DesktopAdaptiveNavigation({ links }: NavigationProps) {
   const reduceMotion = useReducedMotion();
   const areaRef = useRef<HTMLDivElement>(null);
   const measureRef = useRef<HTMLDivElement>(null);
-  const mountedAt = useRef(0);
   const [labelled, setLabelled] = useState(false);
-  const [staggered, setStaggered] = useState(true);
+  const [entrance, setEntrance] = useState(true);
 
   useEffect(() => {
-    mountedAt.current = performance.now();
     const area = areaRef.current;
     const measure = measureRef.current;
     if (!area || !measure) return;
 
-    const update = () => {
-      const fits = measure.offsetWidth <= area.clientWidth;
-      setLabelled(fits);
-      if (performance.now() - mountedAt.current > ENTRANCE_WINDOW) setStaggered(false);
-    };
+    if (hasSeenIntro()) setEntrance(false);
+    const query = window.matchMedia(LABELS_FROM);
+    const update = () => setLabelled(query.matches && measure.offsetWidth <= area.clientWidth);
 
     const observer = new ResizeObserver(update);
     observer.observe(area);
     observer.observe(measure);
+    query.addEventListener('change', update);
     void document.fonts?.ready.then(update);
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      query.removeEventListener('change', update);
+    };
   }, []);
 
+  // The first time the names show is the entrance; any later change is a resize and should not replay it.
+  useEffect(() => {
+    if (!labelled) return;
+    const timer = window.setTimeout(() => setEntrance(false), 3000);
+    return () => window.clearTimeout(timer);
+  }, [labelled]);
+
   const items = links.map(link => ({ ...link, label: t(link.t) }));
+  let typedBefore = 0;
 
   return (
     <nav aria-label="Primary" className="relative z-50 hidden min-w-0 flex-1 lg:flex">
       <div ref={areaRef} className="flex min-w-0 flex-1 items-center justify-center">
         <TooltipProvider delay={150}>
           <div className="flex items-center gap-1 py-2">
-            {items.map((link, index) => (
-              <Tooltip key={link.href} disabled={labelled}>
-                <TooltipTrigger
-                  render={<Link href={link.href} aria-label={link.label} />}
-                  className={cn(
-                    'pop-in flex h-11 items-center rounded-lg px-3 text-2xl transition-colors',
-                    'text-primary-foreground hover:text-accent hover:bg-white/10',
-                    'focus-visible:ring-accent focus-visible:ring-2 focus-visible:outline-none',
-                  )}
-                  style={{ '--pop-delay': `${0.5 + index * 0.1}s` } as CSSProperties}>
-                  <span aria-hidden>{link.icon}</span>
-                  <motion.span
-                    aria-hidden
-                    className="font-digital overflow-hidden text-xl whitespace-nowrap"
-                    initial={false}
-                    animate={
-                      labelled ? { width: 'auto', opacity: 1, marginLeft: 10 } : { width: 0, opacity: 0, marginLeft: 0 }
-                    }
-                    transition={{
-                      duration: reduceMotion ? 0 : 0.35,
-                      delay: reduceMotion || !labelled || !staggered ? 0 : 0.8 + index * 0.3,
-                      ease: [0.2, 0.8, 0.2, 1],
-                    }}>
+            {items.map((link, index) => {
+              const characters = link.label.length;
+              const typing = labelled && entrance && !reduceMotion;
+              const delay = TYPE_START + typedBefore * TYPE_STEP;
+              typedBefore += characters;
+
+              return (
+                <Tooltip key={link.href} disabled={labelled}>
+                  <TooltipTrigger
+                    render={<Link href={link.href} aria-label={link.label} />}
+                    className={cn(
+                      'pop-in flex h-11 items-center rounded-lg px-2.5 text-2xl transition-colors',
+                      'text-primary-foreground hover:text-accent hover:bg-white/10',
+                      'focus-visible:ring-accent focus-visible:ring-2 focus-visible:outline-none',
+                    )}
+                    style={{ '--pop-delay': `${0.5 + index * 0.08}s` } as CSSProperties}>
+                    <span aria-hidden>{link.icon}</span>
+                    <motion.span
+                      aria-hidden
+                      className="font-digital overflow-hidden text-xl whitespace-nowrap"
+                      initial={false}
+                      animate={labelled ? { width: 'auto', marginLeft: 8 } : { width: 0, marginLeft: 0 }}
+                      transition={
+                        typing
+                          ? { duration: characters * TYPE_STEP, delay, ease: typedSteps(characters) }
+                          : { duration: 0 }
+                      }>
+                      {link.label}
+                    </motion.span>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom" sideOffset={8} className="font-digital text-sm tracking-wide">
                     {link.label}
-                  </motion.span>
-                </TooltipTrigger>
-                <TooltipContent side="bottom" sideOffset={8} className="font-digital text-sm tracking-wide">
-                  {link.label}
-                </TooltipContent>
-              </Tooltip>
-            ))}
-            <BackToTopButton className="ml-2 rounded-md p-2 text-xl md:text-2xl" />
+                  </TooltipContent>
+                </Tooltip>
+              );
+            })}
+            <BackToTopButton className="ml-1 rounded-md p-2 text-xl md:text-2xl" />
           </div>
         </TooltipProvider>
       </div>
-      {/* The labelled row at full width, never shown: what has to fit for the names to appear. */}
+      {/* The labelled row at its natural width, never shown: what has to fit for the names to appear. */}
       <div
         ref={measureRef}
         aria-hidden
-        className="pointer-events-none invisible absolute top-0 left-0 flex items-center gap-1 py-2 whitespace-nowrap">
+        className="pointer-events-none invisible absolute top-0 left-0 flex w-max items-center gap-1 py-2 whitespace-nowrap">
         {items.map(link => (
-          <span key={link.href} className="flex h-11 items-center gap-2.5 px-3 text-2xl">
+          <span key={link.href} className="flex h-11 items-center gap-2 px-2.5 text-2xl">
             {link.icon}
             <span className="font-digital text-xl">{link.label}</span>
           </span>
         ))}
-        <span className="ml-2 p-2 text-2xl">
+        <span className="ml-1 p-2 text-2xl">
           <FaArrowUp />
         </span>
       </div>
