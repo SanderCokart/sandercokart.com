@@ -1,13 +1,16 @@
 /**
- * Home services: band paint and entrance.
+ * Home services, "cohesive": one hero surface for logo and title, bands that flow into each other.
  *
- * Paint: every band is one opaque layer — its `--band` accent mixed into the card color — so stacked bands never
- * reveal the page background and nothing has to fade a shell in. `--band-tint` is a registered color, which lets
- * the hover swap to primary/accent cross-fade instead of jumping (gradients do not interpolate on their own).
+ * Paint:
+ * - Hero: the logo's violet and emerald glow behind their own halves of the mark, over the page background.
+ *   On mobile its floor fades into the first band's top color, so the title is not cut off by a band edge.
+ * - Bands: one opaque layer each, the `--band` accent mixed into the card color. On mobile a band starts in the
+ *   color the band above ended in (`--band-prev`) and settles into its own within a few rem.
+ * - `--band-tint` is a registered color so the hover swap to primary/accent cross-fades instead of jumping.
  *
- * Entrance: painted surfaces never animate; only their content, via opacity/transform, so it stays on the
- * compositor.
- * - Load: logo, then title, then each band's rows (`--item`), cascading across columns (`--column`) on desktop.
+ * Entrance: painted surfaces never move; only content, via opacity/transform/filter.
+ * - Load: the logo powers on (segment-logo.css), the title resolves under it, the rule draws between the logo's
+ *   two colors, then the first band's rows follow (`--item`), cascading across columns (`--column`) on desktop.
  * - Stacked layout (below xl): bands after the first start off-screen, so their rows follow their own scroll
  *   position instead of the clock. Browsers without scroll timelines just show them.
  * - Reduced motion: nothing moves; the server HTML is the final frame.
@@ -16,6 +19,23 @@
   syntax: '<color>';
   inherits: false;
   initial-value: transparent;
+}
+
+.ch-hero {
+  --hero-violet: #5d0ec0;
+  --hero-emerald: #00d492;
+
+  background:
+    radial-gradient(closest-side at 32% 34%, color-mix(in srgb, var(--hero-violet) 20%, transparent), transparent),
+    radial-gradient(closest-side at 68% 34%, color-mix(in srgb, var(--hero-emerald) 16%, transparent), transparent);
+}
+
+.dark .ch-hero {
+  --hero-violet: #7c2df0;
+}
+
+.ch-hero-rule {
+  background: linear-gradient(to right, var(--hero-violet), var(--hero-emerald));
 }
 
 .ch-band {
@@ -37,23 +57,42 @@
 }
 
 @media (width < 40rem) {
-  .ch-services-heading {
-    background: color-mix(in srgb, var(--band) 10%, var(--card));
+  .ch-hero {
+    background:
+      radial-gradient(closest-side at 30% 30%, color-mix(in srgb, var(--hero-violet) 22%, transparent), transparent),
+      radial-gradient(closest-side at 70% 30%, color-mix(in srgb, var(--hero-emerald) 18%, transparent), transparent),
+      linear-gradient(transparent 40%, color-mix(in srgb, var(--band-first) 10%, var(--card)));
+  }
+
+  .ch-band {
+    background: linear-gradient(
+      color-mix(in srgb, var(--band-prev) 20%, var(--card)),
+      color-mix(in srgb, var(--band-tint) 10%, var(--card)) 8rem,
+      color-mix(in srgb, var(--band-tint) 20%, var(--card))
+    );
+  }
+
+  .ch-band:first-child {
+    background: linear-gradient(
+      color-mix(in srgb, var(--band-tint) 10%, var(--card)),
+      color-mix(in srgb, var(--band-tint) 20%, var(--card))
+    );
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .ch-services-logo {
-    animation: ch-services-pop 0.45s ease-out both;
+  .ch-hero-title {
+    animation: ch-services-resolve 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 0.55s both;
   }
 
-  .ch-services-title {
-    animation: ch-services-rise 0.45s ease-out 0.12s both;
+  .ch-hero-rule {
+    transform-origin: center;
+    animation: ch-services-draw 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.85s both;
   }
 
   .ch-band-item {
-    animation: ch-services-rise 0.45s ease-out both;
-    animation-delay: calc(0.25s + var(--column, 0) * 0.08s + var(--item, 0) * 0.08s);
+    animation: ch-services-rise 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation-delay: calc(1s + var(--column, 0) * 0.08s + var(--item, 0) * 0.07s);
   }
 
   .ch-band-icon {
@@ -77,6 +116,20 @@
         animation-name: ch-services-pop;
       }
     }
+  }
+}
+
+@keyframes ch-services-resolve {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(0.5rem);
+  }
+}
+
+@keyframes ch-services-draw {
+  from {
+    transform: scaleX(0);
   }
 }
 

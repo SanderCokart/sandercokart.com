@@ -17,6 +17,8 @@ type ServiceBandProps = {
   offering: ServiceOffering;
   /** Column order on desktop, used to cascade the load entrance across the row. */
   index: number;
+  /** Accent of the band above, which this one blends out of when they stack on mobile. */
+  previousAccent?: string;
 };
 
 /**
@@ -24,7 +26,7 @@ type ServiceBandProps = {
  * card. The `li` itself is the painted surface and never animates; its five rows (icon, title, description,
  * features, call to action) do. At xl the rows are a subgrid of the list so all four cards line up.
  */
-export function ServiceBand({ offering, index }: ServiceBandProps) {
+export function ServiceBand({ offering, index, previousAccent }: ServiceBandProps) {
   const t = useTranslations('ServiceOfferingsSection');
   const { icon: Icon } = offering;
   const titleId = `service-${offering.id}-title`;
@@ -35,9 +37,14 @@ export function ServiceBand({ offering, index }: ServiceBandProps) {
         'ch-band text-card-foreground grid gap-4 px-4 pt-4 pb-8 text-sm',
         'sm:ring-foreground/10 sm:rounded-lg sm:ring-1',
         'xl:row-span-5 xl:grid-rows-subgrid',
-        offering.band,
       )}
-      style={{ '--column': index } as CSSProperties}>
+      style={
+        {
+          '--column': index,
+          '--band': offering.accent,
+          '--band-prev': previousAccent ?? offering.accent,
+        } as CSSProperties
+      }>
       <Icon
         aria-hidden
         className="ch-band-item ch-band-icon size-16 justify-self-center text-(--band)"

@@ -9,8 +9,11 @@ type CopyKey = keyof Messages['ServiceOfferingsSection'];
 export type ServiceOffering = {
   id: ServiceId;
   icon: IconType;
-  /** Sets `--band`, the accent the band paint and icon read. Written as a class so Tailwind emits the color token. */
-  band: string;
+  /**
+   * Band accent. The four share lightness and chroma and differ only in hue, so they read as one family; the
+   * first and third echo the logo's emerald and violet.
+   */
+  accent: string;
   title: CopyKey;
   description: CopyKey;
   features: readonly CopyKey[];
@@ -20,7 +23,7 @@ export const serviceOfferings = [
   {
     id: 'consumer',
     icon: FaGlobe,
-    band: '[--band:var(--color-green-500)]',
+    accent: 'oklch(0.7 0.15 165)',
     title: 'marketing_title',
     description: 'marketing_description',
     features: [
@@ -34,7 +37,7 @@ export const serviceOfferings = [
   {
     id: 'commercial',
     icon: FaDatabase,
-    band: '[--band:var(--color-blue-500)]',
+    accent: 'oklch(0.7 0.15 245)',
     title: 'custom_title',
     description: 'custom_description',
     features: [
@@ -48,7 +51,7 @@ export const serviceOfferings = [
   {
     id: 'freelance',
     icon: FaCode,
-    band: '[--band:var(--color-purple-500)]',
+    accent: 'oklch(0.7 0.15 300)',
     title: 'freelance_title',
     description: 'freelance_description',
     features: [
@@ -62,7 +65,7 @@ export const serviceOfferings = [
   {
     id: 'open-source',
     icon: FaGithub,
-    band: '[--band:var(--color-orange-500)]',
+    accent: 'oklch(0.7 0.15 55)',
     title: 'opensource_title',
     description: 'opensource_description',
     features: [
