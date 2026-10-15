@@ -1,5 +1,6 @@
 'use client';
 
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@repo/ui/components/shadcn/tooltip';
 import { cn } from '@repo/ui/lib/utils';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useTranslations } from 'next-intl';
@@ -12,12 +13,17 @@ import { Link } from '@/i18n/navigation';
 
 type NavigationProps = {
   links: readonly LinkType[];
+  /**
+   * How desktop shows the links: `labels` types each name in; `icons` shows only the link icons, named by
+   * aria-label and a tooltip on hover/focus — for sets too long to fit beside the named logo at every width.
+   */
+  variant?: 'labels' | 'icons';
 };
 
-export function Navigation({ links }: NavigationProps) {
+export function Navigation({ links, variant = 'labels' }: NavigationProps) {
   return (
     <>
-      <DesktopNavigation links={links} />
+      {variant === 'icons' ? <DesktopIconNavigation links={links} /> : <DesktopNavigation links={links} />}
       <MobileNavigation links={links} />
     </>
   );
@@ -93,6 +99,41 @@ function DesktopNavigation({ links }: NavigationProps) {
         </div>
         <BackToTopButton className="rounded-md p-2 text-xl md:text-2xl" />
       </div>
+    </nav>
+  );
+}
+
+function DesktopIconNavigation({ links }: NavigationProps) {
+  const t = useTranslations('common');
+
+  return (
+    <nav aria-label="Primary" className="relative z-50 mx-auto hidden lg:block">
+      <TooltipProvider delay={150}>
+        <div className="flex items-center gap-2 py-2">
+          {links.map((link, index) => {
+            const label = t(link.t);
+
+            return (
+              <Tooltip key={link.href}>
+                <TooltipTrigger
+                  render={<Link href={link.href} aria-label={label} />}
+                  className={cn(
+                    'pop-in grid size-11 place-items-center rounded-lg text-2xl transition-colors',
+                    'text-primary-foreground hover:text-accent hover:bg-white/10',
+                    'focus-visible:ring-accent focus-visible:ring-2 focus-visible:outline-none',
+                  )}
+                  style={{ '--pop-delay': `${0.5 + index * 0.1}s` } as CSSProperties}>
+                  <span aria-hidden>{link.icon}</span>
+                </TooltipTrigger>
+                <TooltipContent side="bottom" sideOffset={8} className="font-digital text-sm tracking-wide">
+                  {label}
+                </TooltipContent>
+              </Tooltip>
+            );
+          })}
+          <BackToTopButton className="ml-2 rounded-md p-2 text-xl md:text-2xl" />
+        </div>
+      </TooltipProvider>
     </nav>
   );
 }

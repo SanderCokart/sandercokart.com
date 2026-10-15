@@ -186,6 +186,8 @@
  * then switches off. Static under reduced motion.
  *
  * Named-logo mark: the header mark fades up into place; an inline SegmentLogo inside it also powers on.
+ *
+ * Pop-in: the same fade-up for any element, starting at `--pop-delay` (header icon links).
  */
 @media (prefers-reduced-motion: no-preference) {
   .type-on {
@@ -199,6 +201,10 @@
 
   .named-logo-mark {
     animation: named-logo-mark 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .pop-in {
+    animation: named-logo-mark 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) var(--pop-delay, 0s) both;
   }
 }
 
