@@ -12,7 +12,7 @@ import type { CSSProperties, ReactNode } from 'react';
 import type { LinkType } from '@/lib/nav-links';
 
 import { Link } from '@/i18n/navigation';
-import { hasSeenIntro } from '@/lib/intro';
+import { hasPlayedIntro } from '@/lib/intro';
 
 type NavigationProps = {
   links: readonly LinkType[];
@@ -110,8 +110,9 @@ function DesktopNavigation({ links }: NavigationProps) {
 const LABELS_FROM = '(min-width: 80rem)';
 /** Seconds per typed character, as in the named logo's slogan (`.type-on`). */
 const TYPE_STEP = 0.045;
-/** When the first name starts typing on the entrance (after the icons have popped in). */
+/** When the first name starts typing: on the page-load entrance (after the icons pop in), and on a later reveal. */
 const TYPE_START = 0.7;
+const RETYPE_START = 0.1;
 
 /** Snap a 0→1 progress to whole characters, so a growing width reveals the name one letter at a time. */
 function typedSteps(characters: number) {
@@ -123,9 +124,10 @@ function typedSteps(characters: number) {
  * - Names show from xl (1280px) up, and only while the fully labelled row (a hidden max-content copy, measured with
  *   a ResizeObserver so locale, font loading and resizes count) fits between the named logo and the controls.
  *   Otherwise the names collapse and each icon gets a tooltip.
- * - On the entrance the names type themselves in like the slogan, one after another. Each name's width grows with
- *   its typing (Motion `width: auto`, stepped per character), so the icons after it move along instead of jumping.
- *   After the entrance — or when it already played this session — names appear and disappear without delay.
+ * - Every time the names appear — on load, and again whenever the window grows back past 1280px after they had
+ *   collapsed — they type themselves in like the slogan, one after another. Each name's width grows with its
+ *   typing (Motion `width: auto`, stepped per character), so the icons after it move along instead of jumping.
+ *   Collapsing is instant. A header remounted after the page-load entrance (locale switch) shows names directly.
  * Every link is named by aria-label either way, so the label spans are hidden from assistive tech.
  */
 function DesktopAdaptiveNavigation({ links }: NavigationProps) {
@@ -134,35 +136,44 @@ function DesktopAdaptiveNavigation({ links }: NavigationProps) {
   const areaRef = useRef<HTMLDivElement>(null);
   const measureRef = useRef<HTMLDivElement>(null);
   const [labelled, setLabelled] = useState(false);
-  const [entrance, setEntrance] = useState(true);
+  const [reveal, setReveal] = useState({ typed: true, start: TYPE_START });
 
   useEffect(() => {
     const area = areaRef.current;
     const measure = measureRef.current;
     if (!area || !measure) return;
 
-    if (hasSeenIntro()) setEntrance(false);
     const query = window.matchMedia(LABELS_FROM);
-    const update = () => setLabelled(query.matches && measure.offsetWidth <= area.clientWidth);
+    let shown = false;
+    let first = !hasPlayedIntro();
+    let pageLoad = true;
+
+    const update = () => {
+      const fits = query.matches && measure.offsetWidth <= area.clientWidth;
+      if (fits && !shown) {
+        // A fresh reveal: type in, unless this is a remounted header whose entrance already played.
+        setReveal({ typed: first || !pageLoad, start: pageLoad ? TYPE_START : RETYPE_START });
+        pageLoad = false;
+      }
+      if (!fits && shown) first = false;
+      shown = fits;
+      setLabelled(fits);
+    };
 
     const observer = new ResizeObserver(update);
     observer.observe(area);
     observer.observe(measure);
     query.addEventListener('change', update);
     void document.fonts?.ready.then(update);
+    // After the first measurement, later reveals count as resizes, not the page-load entrance.
+    const settle = window.setTimeout(() => (pageLoad = false), 1000);
 
     return () => {
       observer.disconnect();
       query.removeEventListener('change', update);
+      window.clearTimeout(settle);
     };
   }, []);
-
-  // The first time the names show is the entrance; any later change is a resize and should not replay it.
-  useEffect(() => {
-    if (!labelled) return;
-    const timer = window.setTimeout(() => setEntrance(false), 3000);
-    return () => window.clearTimeout(timer);
-  }, [labelled]);
 
   const items = links.map(link => ({ ...link, label: t(link.t) }));
   let typedBefore = 0;
@@ -174,8 +185,8 @@ function DesktopAdaptiveNavigation({ links }: NavigationProps) {
           <div className="flex items-center gap-1 py-2">
             {items.map((link, index) => {
               const characters = link.label.length;
-              const typing = labelled && entrance && !reduceMotion;
-              const delay = TYPE_START + typedBefore * TYPE_STEP;
+              const typing = labelled && reveal.typed && !reduceMotion;
+              const delay = reveal.start + typedBefore * TYPE_STEP;
               typedBefore += characters;
 
               return (

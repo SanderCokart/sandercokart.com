@@ -1,6 +1,5 @@
 import './globals.css';
 
-import { BlockingScript } from '@repo/runtime-env/blocking-script';
 import { EnvScript } from '@repo/runtime-env/env-script';
 import { cn } from '@repo/ui/lib/utils';
 import { getLocale } from 'next-intl/server';
@@ -16,7 +15,6 @@ import { SiteHeader } from '@/components/site-header';
 
 import { env } from '@/env';
 import { routing } from '@/i18n/routing';
-import { introSeenScript } from '@/lib/intro';
 import { GlobalProviders } from '@/providers/server.global-providers';
 
 import { Footer } from './(components)/footer';
@@ -102,7 +100,6 @@ function RootLayoutFallback({ children }: { children: ReactNode }) {
       lang={routing.defaultLocale}>
       <head>
         <EnvScript />
-        <BlockingScript id="intro-seen" code={introSeenScript} />
       </head>
       <body className={bodyClassName}>
         <GlobalProviders>
@@ -122,7 +119,6 @@ async function LocalizedRootLayout({ children }: RootLayoutParams) {
     <html suppressHydrationWarning className="relative scroll-smooth" data-scroll-behavior="smooth" lang={locale}>
       <head>
         <EnvScript />
-        <BlockingScript id="intro-seen" code={introSeenScript} />
       </head>
       <body className={bodyClassName}>
         <GlobalProviders>
