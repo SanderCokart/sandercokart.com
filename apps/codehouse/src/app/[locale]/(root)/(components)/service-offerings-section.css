@@ -1,20 +1,19 @@
 /**
- * Home services, "colour field".
+ * Home services, "blend": colour-field chapters with the cohesive entrance.
  *
- * Paint:
+ * Paint (never animated):
  * - Intro: the logo's violet and emerald glow behind their own halves of the mark.
- * - Chapters: translucent tints over the page, so the page texture runs through the whole section. Each chapter
- *   starts in the accent of the one above (`--accent-prev`) and settles into its own, so the field has no seams.
- *   On desktop each chapter gets a feathered glow instead (closest-side radial, so it is transparent at every edge
- *   and never draws a border).
+ * - Phones: translucent full-width tints; each chapter starts in the accent of the one above (`--accent-prev`) and
+ *   settles into its own, so the field has no seams. The sticky chapter bar is the chapter's own tint.
+ * - Desktop: a feathered glow per chapter (closest-side radial, transparent at every edge, so no borders).
  *
- * Motion (painted surfaces never move; content does, via opacity/transform):
- * - Load: logo powers on (segment-logo.css), the title rises out of a slot, the slogan types itself (`.type-on`),
- *   the index boots line by line like the logo's segments. On desktop the chapters fade in after the intro.
- * - Scroll: chapter numbers flicker on, titles slide in, content rises and the watermark icon drifts — all tied
- *   to each element's own scroll position, so nothing plays off-screen. Without scroll timelines they are static.
- * - Index: the entry for the chapter crossing the middle of the viewport takes its accent (ChapterIndex sets
- *   aria-current; a color change, so it stays on under reduced motion).
+ * Motion (content only, via opacity/transform/filter):
+ * - Load: logo powers on (segment-logo.css), the slogan types itself (`.type-on`), the title resolves under it, the
+ *   index rises line by line, then the first chapter's rows cascade in (`--item`).
+ * - Every chapter row also has a scroll-tied reveal on separate properties (filter/translate), so chapters reached
+ *   later enter as they come into view while ones on screen at load play with the intro. The two compose.
+ * - Previews: the chart line draws and the sprint bars fill as they scroll in.
+ * - Reduced motion: nothing moves; the index still takes the color of the chapter in view.
  */
 .ch-intro {
   --intro-violet: #5d0ec0;
@@ -43,11 +42,6 @@
   color: var(--accent);
 }
 
-.ch-intro-title {
-  overflow: clip;
-  padding-bottom: 0.1em;
-}
-
 .ch-chapter {
   background: linear-gradient(
     color-mix(in srgb, var(--accent-prev) 14%, transparent),
@@ -67,99 +61,86 @@
   .ch-chapter {
     background: radial-gradient(
       closest-side,
-      color-mix(in srgb, var(--accent) 16%, transparent),
-      color-mix(in srgb, var(--accent) 7%, transparent) 60%,
+      color-mix(in srgb, var(--accent) 14%, transparent),
+      color-mix(in srgb, var(--accent) 6%, transparent) 60%,
       transparent
     );
   }
 }
 
+/* Abstract "photography" for the blog preview. */
+.ch-art-clay {
+  background:
+    radial-gradient(circle at 32% 38%, #f6d3b3 0 18%, transparent 19%),
+    radial-gradient(circle at 64% 62%, color-mix(in srgb, var(--accent) 70%, #1f3b33) 0 26%, transparent 27%),
+    linear-gradient(140deg, #d98f5f, #6e3f33);
+}
+
+.ch-art-dusk {
+  background: linear-gradient(160deg, #7c2df0, #f59e0b);
+}
+
+.ch-art-moss {
+  background:
+    radial-gradient(circle at 70% 30%, #e7f5c8 0 16%, transparent 17%), linear-gradient(160deg, #0f766e, #84cc16);
+}
+
 @media (prefers-reduced-motion: no-preference) {
-  .ch-intro-title > span {
-    animation: ch-slot 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s both;
+  .ch-intro-title {
+    animation: ch-resolve 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 0.95s both;
   }
 
   .ch-index-item {
-    animation: ch-boot 0.5s linear both;
-    animation-delay: calc(0.9s + var(--item, 0) * 0.1s);
+    animation: ch-rise 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation-delay: calc(1.15s + var(--item, 0) * 0.07s);
   }
 
-  @media (width >= 64rem) {
-    .ch-chapters {
-      animation: ch-fade 0.8s ease-out 1s both;
-    }
+  .ch-chapter-item {
+    animation: ch-rise 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation-delay: calc(1.3s + var(--column, 0) * 0.15s + var(--item, 0) * 0.08s);
   }
 
   @supports (animation-timeline: view()) {
-    .ch-chapter-number,
-    .ch-chapter-title,
-    .ch-chapter-item,
-    .ch-chapter-mark {
-      animation-duration: auto;
-      animation-fill-mode: both;
-      animation-timeline: view();
-    }
-
-    .ch-chapter-number {
-      animation-name: ch-boot;
-      animation-timing-function: linear;
-      animation-range: entry 20% entry 100%;
-    }
-
-    .ch-chapter-title {
-      animation-name: ch-slide;
-      animation-timing-function: ease-out;
-      animation-range: entry 0% entry 100%;
-    }
-
     .ch-chapter-item {
-      animation-name: ch-rise;
-      animation-timing-function: ease-out;
-      animation-range: entry 0% cover 30%;
+      animation:
+        ch-rise 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both,
+        ch-scroll-in ease-out both;
+      animation-delay: calc(1.3s + var(--column, 0) * 0.15s + var(--item, 0) * 0.08s), 0s;
+      animation-duration: 0.5s, auto;
+      animation-timeline: auto, view();
+      animation-range:
+        normal,
+        entry 0% cover 30%;
     }
 
-    .ch-chapter-mark {
-      animation-name: ch-drift;
-      animation-timing-function: linear;
-      animation-range: cover;
+    .ch-chart-line {
+      stroke-dasharray: 1;
+      animation: ch-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 40% cover 55%;
+    }
+
+    .ch-chart-area,
+    .ch-chart-dot {
+      animation: ch-fade linear both;
+      animation-timeline: view();
+      animation-range: cover 40% cover 55%;
+    }
+
+    .ch-board-fill {
+      transform-origin: left;
+      animation: ch-fill ease-out both;
+      animation-timeline: view();
+      animation-range: entry 50% cover 45%;
     }
   }
 }
 
-@keyframes ch-slot {
-  from {
-    transform: translateY(105%);
-  }
-}
-
-@keyframes ch-boot {
-  0% {
-    opacity: 0;
-  }
-
-  35% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0.35;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes ch-fade {
+@keyframes ch-resolve {
   from {
     opacity: 0;
-  }
-}
-
-@keyframes ch-slide {
-  from {
-    opacity: 0;
-    transform: translateX(-1rem);
+    filter: blur(6px);
+    transform: translateY(0.5rem);
   }
 }
 
@@ -170,12 +151,31 @@
   }
 }
 
-@keyframes ch-drift {
+@keyframes ch-scroll-in {
   from {
-    transform: translateY(3rem) rotate(-8deg);
+    filter: opacity(0);
+    translate: 0 1.25rem;
+  }
+}
+
+@keyframes ch-draw {
+  from {
+    stroke-dashoffset: 1;
   }
 
   to {
-    transform: translateY(-3rem) rotate(4deg);
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes ch-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes ch-fill {
+  from {
+    transform: scaleX(0);
   }
 }
