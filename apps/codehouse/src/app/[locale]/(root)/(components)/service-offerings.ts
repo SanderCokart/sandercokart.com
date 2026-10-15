@@ -1,4 +1,4 @@
-import { FaCode, FaDatabase, FaGithub, FaGlobe } from 'react-icons/fa';
+import { FaHouseUser, FaLaptopCode, FaOsi, FaStore } from 'react-icons/fa';
 
 import type { ServiceId } from '@/lib/nav-links';
 import type { Messages } from 'next-intl';
@@ -19,7 +19,7 @@ export type ServiceOffering = {
 export const serviceOfferings = [
   {
     id: 'consumer',
-    icon: FaGlobe,
+    icon: FaHouseUser,
     accent: 'oklch(0.7 0.15 165)',
     title: 'marketing_title',
     description: 'marketing_description',
@@ -33,7 +33,7 @@ export const serviceOfferings = [
   },
   {
     id: 'commercial',
-    icon: FaDatabase,
+    icon: FaStore,
     accent: 'oklch(0.7 0.15 245)',
     title: 'custom_title',
     description: 'custom_description',
@@ -47,7 +47,7 @@ export const serviceOfferings = [
   },
   {
     id: 'freelance',
-    icon: FaCode,
+    icon: FaLaptopCode,
     accent: 'oklch(0.7 0.15 300)',
     title: 'freelance_title',
     description: 'freelance_description',
@@ -61,7 +61,7 @@ export const serviceOfferings = [
   },
   {
     id: 'open-source',
-    icon: FaGithub,
+    icon: FaOsi,
     accent: 'oklch(0.7 0.15 55)',
     title: 'opensource_title',
     description: 'opensource_description',
