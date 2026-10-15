@@ -1,0 +1,53 @@
+/**
+ * Home services entrance. Painted surfaces (heading band, card shells) are never animated: stacked edge to edge
+ * on mobile, fading or sliding one opens a hole onto the page background. Only content on top of them moves,
+ * and only via opacity/transform so it stays on the compositor.
+ *
+ * - Load: logo, then title, then each card's items (`--item`), cascading across columns (`--column`) on desktop.
+ * - Stacked layout (below xl): cards after the first start off-screen, so their items follow their own scroll
+ *   position instead of the clock. Browsers without scroll timelines just show them.
+ * - Reduced motion: nothing animates; the server HTML is the final frame.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .ch-services-logo {
+    animation: ch-services-pop 0.45s ease-out both;
+  }
+
+  .ch-services-title {
+    animation: ch-services-rise 0.45s ease-out 0.12s both;
+  }
+
+  .ch-services-item {
+    animation: ch-services-rise 0.45s ease-out both;
+    animation-delay: calc(0.25s + var(--column, 0) * 0.08s + var(--item, 0) * 0.08s);
+  }
+
+  @media (width < 80rem) {
+    .ch-services-card:not(:first-child) .ch-services-item {
+      animation: none;
+    }
+
+    @supports (animation-timeline: view()) {
+      .ch-services-card:not(:first-child) .ch-services-item {
+        animation: ch-services-rise ease-out both;
+        animation-duration: auto;
+        animation-timeline: view();
+        animation-range: entry 0% cover 30%;
+      }
+    }
+  }
+}
+
+@keyframes ch-services-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+}
+
+@keyframes ch-services-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+}
