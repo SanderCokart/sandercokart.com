@@ -1,0 +1,56 @@
+/**
+ * SC mark power-on: frame halves glide in from their own side and meet in the middle, then each letter's segments
+ * light up in reading order with a short seven-segment flicker. Unlit segments start as faint ghosts, like a real
+ * display, so the mark's silhouette is there from the first frame.
+ */
+.sc-logo-frame-left,
+.sc-logo-frame-right {
+  transform-box: fill-box;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .sc-logo-frame-left {
+    animation: sc-logo-from-left 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) var(--logo-delay, 0s) both;
+  }
+
+  .sc-logo-frame-right {
+    animation: sc-logo-from-right 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) var(--logo-delay, 0s) both;
+  }
+
+  .sc-logo-segment {
+    animation: sc-logo-power-on 0.45s linear both;
+    animation-delay: calc(var(--logo-delay, 0s) + 0.4s + var(--segment, 0) * 0.07s);
+  }
+}
+
+@keyframes sc-logo-from-left {
+  from {
+    opacity: 0;
+    translate: -18% 0;
+  }
+}
+
+@keyframes sc-logo-from-right {
+  from {
+    opacity: 0;
+    translate: 18% 0;
+  }
+}
+
+@keyframes sc-logo-power-on {
+  0% {
+    opacity: 0.08;
+  }
+
+  35% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
