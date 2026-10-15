@@ -2,9 +2,11 @@
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@repo/ui/components/shadcn/tooltip';
 import { cn } from '@repo/ui/lib/utils';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import { FaArrowUp } from 'react-icons/fa6';
+
+import { useEffect, useRef, useState } from 'react';
 
 import type { CSSProperties, ReactNode } from 'react';
 import type { LinkType } from '@/lib/nav-links';
@@ -14,16 +16,16 @@ import { Link } from '@/i18n/navigation';
 type NavigationProps = {
   links: readonly LinkType[];
   /**
-   * How desktop shows the links: `labels` types each name in; `icons` shows only the link icons, named by
-   * aria-label and a tooltip on hover/focus — for sets too long to fit beside the named logo at every width.
+   * How desktop shows the links: `labels` types each name in; `adaptive` shows icon and name while they fit beside
+   * the named logo and drops to icons with tooltips when they do not.
    */
-  variant?: 'labels' | 'icons';
+  variant?: 'labels' | 'adaptive';
 };
 
 export function Navigation({ links, variant = 'labels' }: NavigationProps) {
   return (
     <>
-      {variant === 'icons' ? <DesktopIconNavigation links={links} /> : <DesktopNavigation links={links} />}
+      {variant === 'adaptive' ? <DesktopAdaptiveNavigation links={links} /> : <DesktopNavigation links={links} />}
       <MobileNavigation links={links} />
     </>
   );
@@ -103,37 +105,103 @@ function DesktopNavigation({ links }: NavigationProps) {
   );
 }
 
-function DesktopIconNavigation({ links }: NavigationProps) {
+/** Names that arrive this soon after mount are part of the entrance and grow in one after another. */
+const ENTRANCE_WINDOW = 1500;
+
+/**
+ * Header links as icons plus names. A hidden copy of the fully labelled row is measured against the space between
+ * the named logo and the right-hand controls (ResizeObserver, so locale, font load and resizes all count):
+ * - Fits: each name grows from zero to its natural width (Motion `width: auto`), so the icons after it slide
+ *   along instead of jumping. On load they grow one after another; after that, together.
+ * - Does not fit: names collapse and each icon gets a tooltip.
+ * Every link is named by aria-label either way, so the label spans are hidden from assistive tech.
+ */
+function DesktopAdaptiveNavigation({ links }: NavigationProps) {
   const t = useTranslations('common');
+  const reduceMotion = useReducedMotion();
+  const areaRef = useRef<HTMLDivElement>(null);
+  const measureRef = useRef<HTMLDivElement>(null);
+  const mountedAt = useRef(0);
+  const [labelled, setLabelled] = useState(false);
+  const [staggered, setStaggered] = useState(true);
+
+  useEffect(() => {
+    mountedAt.current = performance.now();
+    const area = areaRef.current;
+    const measure = measureRef.current;
+    if (!area || !measure) return;
+
+    const update = () => {
+      const fits = measure.offsetWidth <= area.clientWidth;
+      setLabelled(fits);
+      if (performance.now() - mountedAt.current > ENTRANCE_WINDOW) setStaggered(false);
+    };
+
+    const observer = new ResizeObserver(update);
+    observer.observe(area);
+    observer.observe(measure);
+    void document.fonts?.ready.then(update);
+
+    return () => observer.disconnect();
+  }, []);
+
+  const items = links.map(link => ({ ...link, label: t(link.t) }));
 
   return (
-    <nav aria-label="Primary" className="relative z-50 mx-auto hidden lg:block">
-      <TooltipProvider delay={150}>
-        <div className="flex items-center gap-2 py-2">
-          {links.map((link, index) => {
-            const label = t(link.t);
-
-            return (
-              <Tooltip key={link.href}>
+    <nav aria-label="Primary" className="relative z-50 hidden min-w-0 flex-1 lg:flex">
+      <div ref={areaRef} className="flex min-w-0 flex-1 items-center justify-center">
+        <TooltipProvider delay={150}>
+          <div className="flex items-center gap-1 py-2">
+            {items.map((link, index) => (
+              <Tooltip key={link.href} disabled={labelled}>
                 <TooltipTrigger
-                  render={<Link href={link.href} aria-label={label} />}
+                  render={<Link href={link.href} aria-label={link.label} />}
                   className={cn(
-                    'pop-in grid size-11 place-items-center rounded-lg text-2xl transition-colors',
+                    'pop-in flex h-11 items-center rounded-lg px-3 text-2xl transition-colors',
                     'text-primary-foreground hover:text-accent hover:bg-white/10',
                     'focus-visible:ring-accent focus-visible:ring-2 focus-visible:outline-none',
                   )}
                   style={{ '--pop-delay': `${0.5 + index * 0.1}s` } as CSSProperties}>
                   <span aria-hidden>{link.icon}</span>
+                  <motion.span
+                    aria-hidden
+                    className="font-digital overflow-hidden text-xl whitespace-nowrap"
+                    initial={false}
+                    animate={
+                      labelled ? { width: 'auto', opacity: 1, marginLeft: 10 } : { width: 0, opacity: 0, marginLeft: 0 }
+                    }
+                    transition={{
+                      duration: reduceMotion ? 0 : 0.35,
+                      delay: reduceMotion || !labelled || !staggered ? 0 : 0.8 + index * 0.3,
+                      ease: [0.2, 0.8, 0.2, 1],
+                    }}>
+                    {link.label}
+                  </motion.span>
                 </TooltipTrigger>
                 <TooltipContent side="bottom" sideOffset={8} className="font-digital text-sm tracking-wide">
-                  {label}
+                  {link.label}
                 </TooltipContent>
               </Tooltip>
-            );
-          })}
-          <BackToTopButton className="ml-2 rounded-md p-2 text-xl md:text-2xl" />
-        </div>
-      </TooltipProvider>
+            ))}
+            <BackToTopButton className="ml-2 rounded-md p-2 text-xl md:text-2xl" />
+          </div>
+        </TooltipProvider>
+      </div>
+      {/* The labelled row at full width, never shown: what has to fit for the names to appear. */}
+      <div
+        ref={measureRef}
+        aria-hidden
+        className="pointer-events-none invisible absolute top-0 left-0 flex items-center gap-1 py-2 whitespace-nowrap">
+        {items.map(link => (
+          <span key={link.href} className="flex h-11 items-center gap-2.5 px-3 text-2xl">
+            {link.icon}
+            <span className="font-digital text-xl">{link.label}</span>
+          </span>
+        ))}
+        <span className="ml-2 p-2 text-2xl">
+          <FaArrowUp />
+        </span>
+      </div>
     </nav>
   );
 }
