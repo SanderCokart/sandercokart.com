@@ -33,12 +33,13 @@ function segment(index: number): CSSProperties {
  * The SC mark as inline SVG so it paints with the HTML (the PNG arrived after any entrance had already run) and
  * its parts can move: the frame halves close in from both sides, then the seven-segment letters power on.
  * Timing lives in segment-logo.css; `--logo-delay` on any ancestor shifts the whole sequence.
+ *
+ * Pass `label` when the mark stands alone; leave it out where adjacent text already names it (the header).
  */
-export function SegmentLogo({ className, ...props }: ComponentProps<'svg'>) {
+export function SegmentLogo({ className, label, ...props }: ComponentProps<'svg'> & { label?: string }) {
   return (
     <svg
-      role="img"
-      aria-label="Sander's CodeHouse"
+      {...(label ? { 'role': 'img', 'aria-label': label } : { 'aria-hidden': true })}
       viewBox="193 68 639 654"
       className={cn('sc-logo', className)}
       {...props}>

@@ -1,8 +1,9 @@
 import { useTranslations } from 'next-intl';
 
+import { SegmentLogo } from '@/components/segment-logo';
+
 import { serviceHrefs } from '@/lib/nav-links';
 
-import { SegmentLogo } from './segment-logo';
 import { ServiceConsole } from './service-console';
 import { serviceOfferings } from './service-offerings';
 
@@ -35,7 +36,7 @@ export function ServiceOfferingsSection() {
       selectorLabel={t('title')}
       display={
         <header className="ch-display">
-          <SegmentLogo className="ch-display-logo h-auto" />
+          <SegmentLogo label="Sander's CodeHouse" className="ch-display-logo h-auto" />
           <div className="ch-display-text">
             <h1 id="services-title" className="ch-display-title font-bold">
               <span className="block">{t('title')}</span>

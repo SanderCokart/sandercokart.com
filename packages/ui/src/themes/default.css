@@ -2,11 +2,11 @@
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 
-@plugin "@tailwindcss/typography";
+@plugin '@tailwindcss/typography';
 
-@source "../../../apps/**/*.{ts,tsx}";
-@source "../../../components/**/*.{ts,tsx}";
-@source "../**/*.{ts,tsx}";
+@source '../../../apps/**/*.{ts,tsx}';
+@source '../../../components/**/*.{ts,tsx}';
+@source '../**/*.{ts,tsx}';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -177,5 +177,55 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/*
+ * Type-on: text reveals left to right one step per character, like it is being typed. Set `--chars` to the text
+ * length and `--type-delay` to when it should start. Add `.type-on-caret` for a blinking cursor that types along and
+ * then switches off. Static under reduced motion.
+ *
+ * Named-logo mark: the header mark fades up into place; an inline SegmentLogo inside it also powers on.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .type-on {
+    animation: type-on calc(var(--chars, 12) * 0.045s) steps(var(--chars, 12), end) var(--type-delay, 0s) both;
+  }
+
+  .type-on-caret::after {
+    content: '_';
+    animation: type-on-caret 0.5s steps(1, end) calc(var(--type-delay, 0s) + var(--chars, 12) * 0.045s) 5 both;
+  }
+
+  .named-logo-mark {
+    animation: named-logo-mark 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+}
+
+@keyframes type-on {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  to {
+    clip-path: inset(0);
+  }
+}
+
+@keyframes type-on-caret {
+  0% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes named-logo-mark {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
   }
 }
