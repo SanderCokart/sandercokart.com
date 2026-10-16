@@ -6,11 +6,10 @@ import { cn } from '@repo/ui/lib/utils';
 import { ArrowDownIcon, ArrowRightIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
-import Image from 'next/image';
-
 import type { ComponentProps, FC } from 'react';
 
-import logoMark from '@/app/[locale]/images/sc-logo.png';
+import { SegmentLogo } from '@/components/segment-logo';
+
 import { MotionDiv } from '@/lib/motion';
 
 export const FreelanceHeroSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
@@ -27,7 +26,9 @@ export const FreelanceHeroSection: FC<ComponentProps<'section'>> = ({ className,
           className="flex flex-col items-center gap-6"
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, ease: 'easeOut' }}>
-          <Image priority alt="Sander's CodeHouse" className="mx-auto h-auto max-w-44 sm:max-w-32" src={logoMark} />
+          <span className="sc-logo-glow">
+            <SegmentLogo label="Sander's CodeHouse" className="h-auto w-36 sm:w-40" />
+          </span>
 
           <h1 className="mx-auto max-w-4xl text-center text-3xl font-bold text-balance uppercase sm:text-5xl">
             {t.rich('title', richText)}
