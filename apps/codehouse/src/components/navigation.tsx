@@ -79,8 +79,11 @@ const TYPE_START = 0.7;
 const SWAP_TYPE_START = 0.3;
 const RETYPE_START = 0.1;
 
-/** The link set on screen, so a remount can tell a page change that swapped the links from a locale switch. */
-let shownLinkSet: string | null = null;
+/**
+ * Link sets whose entrance already played in this document, like Motion's `once` per set: each plays at most once per
+ * page load, so going back in history (or a locale switch) never replays it. Module state, gone on a real page load.
+ */
+const playedLinkSets = new Set<string>();
 
 /** Snap a 0→1 progress to whole characters, so a growing width reveals the name one letter at a time. */
 function typedSteps(characters: number) {
@@ -96,8 +99,9 @@ function typedSteps(characters: number) {
  *   collapsed — they type themselves in like the slogan, one after another. Each name's width grows with its
  *   typing (Motion `width: auto`, stepped per character), so the icons after it move along instead of jumping.
  *   Collapsing is instant.
- * - A page change that swaps the links (home ↔ a service page; SiteNavigation remounts this per link set) plays the
- *   same entrance for the new links. A remount with the same links (locale switch) shows them directly.
+ * - A page change that swaps in links not shown before (home ↔ a service page; SiteNavigation remounts this per link
+ *   set) plays the same entrance for them. Links already shown in this page load (back in history, locale switch)
+ *   appear directly.
  * Every link is named by aria-label either way, so the label spans are hidden from assistive tech.
  */
 function DesktopNavigation({ links }: NavigationProps) {
@@ -108,11 +112,11 @@ function DesktopNavigation({ links }: NavigationProps) {
   const [labelled, setLabelled] = useState(false);
   const linkSet = links.map(link => link.href).join(' ');
   // Decided on the first render so the icons start hidden; always false on the server and the first hydration.
-  const [swapped] = useState(() => hasPlayedIntro() && shownLinkSet !== null && shownLinkSet !== linkSet);
+  const [swapped] = useState(() => hasPlayedIntro() && !playedLinkSets.has(linkSet));
   const [reveal, setReveal] = useState({ typed: true, start: TYPE_START });
 
   useEffect(() => {
-    shownLinkSet = linkSet;
+    playedLinkSets.add(linkSet);
   }, [linkSet]);
 
   useEffect(() => {
