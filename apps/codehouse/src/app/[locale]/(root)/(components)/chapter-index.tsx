@@ -87,7 +87,7 @@ export function ChapterIndex({ entries, labelledBy }: ChapterIndexProps) {
 
   return (
     <nav aria-labelledby={labelledBy}>
-      <ol className="font-digital grid gap-1 text-lg">
+      <ol className="font-digital 3xl:gap-3 3xl:text-3xl grid gap-1 text-lg 2xl:gap-2 2xl:text-2xl">
         {entries.map((entry, index) => (
           <li key={entry.target} className="ch-index-item" style={{ '--item': index } as CSSProperties}>
             <a

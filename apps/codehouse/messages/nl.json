@@ -152,6 +152,9 @@
     "Address_kvk": "KvK nummer",
     "Copyright_message": "© Sander's CodeHouse {date} Alle rechten voorbehouden."
   },
+  "LocaleSwitcher": {
+    "label": "Taal wijzigen"
+  },
   "GenericTestimonialsSection": {
     "title": "Referenties"
   },
@@ -217,8 +220,8 @@
     "dashboard_status_pending": "In afwachting",
     "freelance_tests": "{count} tests geslaagd",
     "freelance_pr_title": "Boekingsflow met live beschikbaarheid",
-    "freelance_pr_merged": "Samengevoegd",
-    "freelance_pr_reviews": "Goedgekeurd door {count} reviewers",
+    "freelance_pr_merged": "Merged",
+    "freelance_pr_reviews": "{count} approvals",
     "freelance_board_label": "Sprint {number}",
     "freelance_board_todo": "Te doen",
     "freelance_board_doing": "Bezig",

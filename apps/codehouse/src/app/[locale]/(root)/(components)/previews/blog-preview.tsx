@@ -27,10 +27,10 @@ export function BlogPreview() {
           </span>
         </div>
 
-        <div className="grid grid-cols-[1.1fr_1fr] items-center gap-5">
+        <div className="grid items-center gap-4 sm:grid-cols-[1.1fr_1fr] sm:gap-5">
           <div className="ch-art-clay aspect-[2/1] rounded-lg" />
           <div className="grid gap-2">
-            <span className="text-[10px] font-semibold tracking-[0.18em] text-(--accent) uppercase">
+            <span className="text-[10px] font-semibold tracking-[0.18em] text-(--accent-ink) uppercase">
               {t('blog_featured')}
             </span>
             <span className="font-serif text-xl leading-snug">{t('blog_post_1_title')}</span>
@@ -40,7 +40,7 @@ export function BlogPreview() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
           {posts.map(post => (
             <div key={post.title} className="grid grid-cols-[3.5rem_1fr] items-center gap-3">
               <div className={`${post.art} aspect-square rounded-md`} />

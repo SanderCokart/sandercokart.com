@@ -15,31 +15,65 @@
  * - Previews: the chart line draws and the sprint bars fill as they scroll in.
  * - Reduced motion: nothing moves; the index still takes the color of the chapter in view.
  */
+/*
+ * Chapter accents (L 0.7) are fills: tints, dots, bars, the CTA tile. Text takes `--accent-ink`, the same hue at
+ * L 0.5 on light, where the fill would sit near 2:1 against white. Dark keeps the fill for both.
+ */
+.ch-chapter,
+.ch-index-link {
+  --accent-ink: oklch(from var(--accent) 0.5 c h);
+}
+
+.dark .ch-chapter,
+.dark .ch-index-link {
+  --accent-ink: var(--accent);
+}
+
+/* The chapter in view also grows a little; it scales from the edge the index is aligned to, so it never shifts. */
 .ch-index-link {
   color: color-mix(in srgb, currentcolor 70%, transparent);
-  transition: color 0.3s ease-out;
+  transform-origin: center;
+  transition:
+    color 0.3s ease-out,
+    scale 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.ch-index-link[aria-current] {
+  scale: 1.08;
+}
+
+@media (width >= 64rem) {
+  .ch-index-link {
+    transform-origin: left center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ch-index-link {
+    transition: color 0.3s ease-out;
+  }
 }
 
 .ch-index-number {
-  color: var(--accent);
+  color: var(--accent-ink);
 }
 
 .ch-index-link:hover,
 .ch-index-link[aria-current] {
-  color: var(--accent);
+  color: var(--accent-ink);
 }
 
 .ch-chapter {
   background: linear-gradient(
-    color-mix(in srgb, var(--accent-prev) 14%, transparent),
-    color-mix(in srgb, var(--accent) 14%, transparent) 12rem,
-    color-mix(in srgb, var(--accent) 14%, transparent)
+    color-mix(in srgb, var(--accent-prev) var(--tint), transparent),
+    color-mix(in srgb, var(--accent) var(--tint), transparent) 12rem,
+    color-mix(in srgb, var(--accent) var(--tint), transparent)
   );
 }
 
 @media (width < 64rem) {
   .ch-chapter-head {
-    background: color-mix(in srgb, var(--accent) 14%, var(--background));
+    background: color-mix(in srgb, var(--accent) var(--tint), var(--background));
     box-shadow: 0 1px 0 color-mix(in srgb, var(--accent) 35%, transparent);
   }
 }
@@ -48,10 +82,25 @@
   .ch-chapter {
     background: radial-gradient(
       closest-side,
-      color-mix(in srgb, var(--accent) 14%, transparent),
+      color-mix(in srgb, var(--accent) var(--tint), transparent),
       color-mix(in srgb, var(--accent) 6%, transparent) 60%,
       transparent
     );
+  }
+}
+
+/*
+ * Short desktop screens (iPad landscape, 1280×800 laptops): a chapter fills exactly one screen, so the spacing tightens
+ * instead of the chapter growing past it.
+ */
+@media (width >= 64rem) and (height < 56rem) {
+  .ch-chapter {
+    gap: 1.25rem;
+    padding-block: 1rem;
+  }
+
+  .ch-chapter-body {
+    gap: 1rem;
   }
 }
 

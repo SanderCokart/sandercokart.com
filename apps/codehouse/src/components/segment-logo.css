@@ -67,7 +67,7 @@
 }
 
 .sc-logo-glow > svg {
-  filter: drop-shadow(0 14px 16px color-mix(in srgb, #5d0ec0 26%, transparent)) drop-shadow(0 3px 4px rgb(0 0 0 / 0.12));
+  filter: drop-shadow(0 14px 16px color-mix(in srgb, #5d0ec0 16%, transparent)) drop-shadow(0 3px 4px rgb(0 0 0 / 0.08));
 }
 
 .sc-logo-glow::before {

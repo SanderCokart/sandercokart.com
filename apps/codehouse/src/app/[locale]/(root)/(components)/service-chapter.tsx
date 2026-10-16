@@ -14,7 +14,7 @@ type ServiceChapterProps = {
   index: number;
   /** Accent of the chapter above; this one's field starts in that color so the page never shows a seam. */
   previousAccent?: string;
-  /** Desktop-only illustration of what this service produces. */
+  /** Illustration of what this service produces, between the selling points and the call to action. */
   preview?: ReactNode;
 };
 
@@ -24,8 +24,9 @@ function item(index: number): CSSProperties {
 
 /**
  * One offering as a chapter of the colour field. On phones its number and title stick under the site header while
- * you read it; on desktop the pinned index does that and the chapter fills a screen: copy on top, a preview of the
- * kind of thing this service builds underneath. Every row is a `.ch-chapter-item` so it can enter on its own.
+ * you read it; on desktop the pinned index does that and the chapter fills a screen. At every width a preview of the
+ * kind of thing this service builds sits between the selling points and the call to action; it is not selectable.
+ * Every row is a `.ch-chapter-item` so it can enter on its own.
  */
 export function ServiceChapter({ offering, index, previousAccent, preview }: ServiceChapterProps) {
   const t = useTranslations('ServiceOfferingsSection');
@@ -36,7 +37,7 @@ export function ServiceChapter({ offering, index, previousAccent, preview }: Ser
       id={`service-${offering.id}`}
       aria-labelledby={titleId}
       tabIndex={-1}
-      className="ch-chapter relative scroll-mt-11 outline-none sm:scroll-mt-16 lg:grid lg:min-h-[calc(100dvh-(--spacing(16)))] lg:content-center lg:gap-8 lg:py-10"
+      className="ch-chapter relative scroll-mt-11 outline-none sm:scroll-mt-16 md:grid md:min-h-[calc(100dvh-(--spacing(16))-(--spacing(14)))] md:grid-rows-[auto_1fr] lg:min-h-[calc(100dvh-(--spacing(16)))] lg:grid-rows-none lg:content-center lg:gap-8 lg:py-10"
       style={
         {
           '--accent': offering.accent,
@@ -47,7 +48,7 @@ export function ServiceChapter({ offering, index, previousAccent, preview }: Ser
       <div className="ch-chapter-head sticky top-11 z-10 flex items-baseline gap-4 px-6 py-4 sm:top-16 lg:static lg:py-0">
         <span
           aria-hidden
-          className="ch-chapter-item font-digital text-4xl leading-none text-(--accent)"
+          className="ch-chapter-item font-digital text-4xl leading-none text-(--accent-ink)"
           style={item(0)}>
           {String(index + 1).padStart(2, '0')}
         </span>
@@ -55,7 +56,7 @@ export function ServiceChapter({ offering, index, previousAccent, preview }: Ser
           {t(offering.title)}
         </h2>
       </div>
-      <div className="grid gap-6 px-6 pt-2 pb-16 lg:pt-0 lg:pb-0">
+      <div className="ch-chapter-body grid gap-6 px-6 pt-2 pb-16 md:content-center md:py-10 lg:pt-0 lg:pb-0">
         <p className="ch-chapter-item max-w-prose text-xl leading-relaxed" style={item(2)}>
           {t(offering.description)}
         </p>
@@ -64,7 +65,12 @@ export function ServiceChapter({ offering, index, previousAccent, preview }: Ser
           style={item(3)}
           points={offering.features.map(feature => t(feature))}
         />
-        <div className="ch-chapter-item" style={item(4)}>
+        {preview ? (
+          <div className="ch-chapter-item ch-chapter-preview select-none" style={item(4)}>
+            {preview}
+          </div>
+        ) : null}
+        <div className="ch-chapter-item" style={item(5)}>
           <ServiceCta
             href={serviceHrefs[offering.id]}
             aria-describedby={titleId}
@@ -73,11 +79,6 @@ export function ServiceChapter({ offering, index, previousAccent, preview }: Ser
           />
         </div>
       </div>
-      {preview ? (
-        <div className="ch-chapter-item ch-chapter-preview hidden px-6 lg:block" style={item(5)}>
-          {preview}
-        </div>
-      ) : null}
     </li>
   );
 }

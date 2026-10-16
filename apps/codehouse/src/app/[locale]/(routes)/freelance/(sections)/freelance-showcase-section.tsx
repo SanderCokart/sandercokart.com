@@ -60,7 +60,7 @@ export const FreelanceShowcaseSection: FC<ComponentProps<'section'>> = ({ classN
         whileInView="show"
         viewport={{ once: true, margin: '-10%' }}>
         <MotionDiv variants={sectionReveal} className="mx-auto max-w-2xl space-y-4 text-center">
-          <p className="text-accent text-sm font-semibold tracking-[0.18em] uppercase">{t('eyebrow')}</p>
+          <p className="text-accent-ink text-sm font-semibold tracking-[0.18em] uppercase">{t('eyebrow')}</p>
           <h2 className="text-3xl font-bold uppercase sm:text-5xl">{t('title')}</h2>
           <p className="text-muted-foreground text-balance">{t.rich('description', richText)}</p>
         </MotionDiv>
@@ -71,7 +71,7 @@ export const FreelanceShowcaseSection: FC<ComponentProps<'section'>> = ({ classN
               <h3 className="text-2xl font-bold md:text-3xl">{t('project_title')}</h3>
               <p className="text-muted-foreground mt-1 text-sm">{t('project_subtitle')}</p>
             </div>
-            <p className="text-accent font-mono text-xs tracking-wider uppercase">{t('project_badge')}</p>
+            <p className="text-accent-ink font-mono text-xs tracking-wider uppercase">{t('project_badge')}</p>
           </div>
           <p className="text-muted-foreground max-w-3xl text-balance">{t.rich('project_description', richText)}</p>
         </MotionDiv>
@@ -90,8 +90,10 @@ export const FreelanceShowcaseSection: FC<ComponentProps<'section'>> = ({ classN
                   className="aspect-video w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
-                <figcaption className="from-background/95 absolute inset-x-0 bottom-0 bg-linear-to-t to-transparent px-4 pt-12 pb-4">
-                  <p className="text-accent mb-1 font-mono text-[10px] tracking-wider uppercase">{t(item.roleKey)}</p>
+                <figcaption className="from-background via-background/90 dark:from-background/95 dark:via-background/40 absolute inset-x-0 bottom-0 bg-linear-to-t via-60% to-transparent px-4 pt-12 pb-4">
+                  <p className="text-accent-ink mb-1 font-mono text-[10px] tracking-wider uppercase">
+                    {t(item.roleKey)}
+                  </p>
                   <p className="text-sm font-semibold">{t(item.captionKey)}</p>
                 </figcaption>
               </figure>

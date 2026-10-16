@@ -1,3 +1,4 @@
+import { GitMergeIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 import { PreviewWindow } from './preview-window';
@@ -73,7 +74,7 @@ const code: Token[][] = [
 
 const tokenClass: Record<Token[0], string> = {
   kw: 'text-[#7c2df0] dark:text-[#b48cff]',
-  fn: 'text-(--accent)',
+  fn: 'text-(--accent-ink)',
   ty: 'text-amber-600 dark:text-amber-300',
   tx: 'text-foreground/85',
   pu: 'text-muted-foreground',
@@ -93,9 +94,9 @@ export function FreelancePreview() {
   const t = useTranslations('ServicePreviews');
 
   return (
-    <div aria-hidden className="relative pr-24 pb-12">
-      <PreviewWindow address="booking-flow.tsx">
-        <pre className="overflow-hidden px-4 py-3 font-mono text-xs leading-[1.75]">
+    <div aria-hidden className="pointer-events-none relative grid grid-cols-2 gap-3 sm:block sm:pr-24 sm:pb-12">
+      <PreviewWindow address="booking-flow.tsx" className="col-span-2">
+        <pre className="overflow-hidden px-4 py-3 font-mono text-[11px] leading-[1.75] sm:text-xs">
           {code.map((tokens, line) => (
             <span key={line} className="grid grid-cols-[1.75rem_1fr]">
               <span className="text-muted-foreground/50 select-none">{line + 1}</span>
@@ -110,12 +111,12 @@ export function FreelancePreview() {
           ))}
         </pre>
         <div className="border-border/60 bg-muted/40 flex items-center gap-2 border-t px-4 py-2 font-mono text-[11px]">
-          <span className="text-(--accent)">✓</span>
+          <span className="text-(--accent-ink)">✓</span>
           <span className="text-muted-foreground">{t('freelance_tests', { count: 48 })}</span>
         </div>
       </PreviewWindow>
 
-      <div className="bg-card/95 absolute top-6 right-0 w-44 rounded-lg border border-(--accent)/25 p-3 shadow-lg">
+      <div className="bg-card/95 rounded-lg border border-(--accent)/25 p-3 shadow-lg sm:absolute sm:top-6 sm:right-0 sm:w-44">
         <span className="text-muted-foreground block text-[10px] tracking-wider uppercase">
           {t('freelance_board_label', { number: 14 })}
         </span>
@@ -135,25 +136,26 @@ export function FreelancePreview() {
         </div>
       </div>
 
-      <div className="bg-card/95 absolute right-0 bottom-0 w-64 rounded-lg border border-[#7c2df0]/30 p-3 shadow-lg">
-        <div className="flex items-center gap-2 text-[11px]">
-          <span className="rounded bg-[#7c2df0] px-1.5 py-0.5 font-semibold text-white">
+      <div className="bg-card/95 flex flex-col gap-2 rounded-lg border border-[#7c2df0]/30 p-3 shadow-lg sm:absolute sm:right-0 sm:bottom-0 sm:w-64">
+        <div className="flex items-center justify-between gap-2 text-[11px]">
+          <span className="flex items-center gap-1 rounded bg-[#7c2df0] px-1.5 py-0.5 font-semibold text-white">
+            <GitMergeIcon aria-hidden className="size-3" />
             {t('freelance_pr_merged')}
           </span>
           <span className="text-muted-foreground font-mono">#214</span>
         </div>
-        <span className="mt-1.5 block text-xs leading-snug font-medium">{t('freelance_pr_title')}</span>
-        <div className="mt-2 flex items-center gap-2">
+        <span className="text-xs leading-snug font-medium">{t('freelance_pr_title')}</span>
+        <div className="mt-auto flex items-center gap-2 pt-1">
           <span className="flex -space-x-1.5">
             {['SC', 'JV', 'AK'].map(initials => (
               <span
                 key={initials}
-                className="border-card bg-muted grid size-5 place-items-center rounded-full border-2 text-[8px] font-semibold">
+                className="border-card bg-muted grid size-6 place-items-center rounded-full border-2 text-[9px] font-semibold">
                 {initials}
               </span>
             ))}
           </span>
-          <span className="text-muted-foreground text-[10px]">{t('freelance_pr_reviews', { count: 2 })}</span>
+          <span className="text-muted-foreground text-[11px]">{t('freelance_pr_reviews', { count: 2 })}</span>
         </div>
       </div>
     </div>

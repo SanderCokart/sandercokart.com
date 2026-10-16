@@ -16,7 +16,7 @@ import { serviceOfferings } from './service-offerings';
 
 import './service-offerings-section.css';
 
-/** What each service looks like once built, shown beside its copy on desktop. */
+/** What each service looks like once built, shown between its selling points and its call to action. */
 const previews: Record<ServiceId, ReactNode> = {
   'consumer': <BlogPreview />,
   'commercial': <DashboardPreview />,
@@ -40,23 +40,25 @@ export function ServiceOfferingsSection() {
 
   return (
     <section aria-labelledby="services-title" id="services" className="ch-field">
-      <div className="mx-auto grid w-full max-w-7xl lg:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] lg:gap-12 lg:px-8">
+      <div className="3xl:max-w-[120rem] 3xl:gap-20 mx-auto grid w-full max-w-7xl lg:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] lg:gap-12 lg:px-8 2xl:max-w-[96rem] 2xl:gap-16">
         <header
           className={cn(
-            'ch-intro flex flex-col items-center justify-center gap-5 px-6 py-8 text-center',
+            'ch-intro 3xl:gap-8 flex flex-col items-center justify-center gap-5 px-6 py-8 text-center 2xl:gap-6',
             // Below lg the intro owns the visible fold: viewport minus the site header and the fixed bottom nav.
             'min-h-[calc(100dvh-(--spacing(11))-(--spacing(14)))] sm:min-h-[calc(100dvh-(--spacing(16))-(--spacing(14)))]',
             'lg:sticky lg:top-16 lg:h-[calc(100dvh-(--spacing(16)))] lg:min-h-0 lg:items-start lg:px-0 lg:py-0 lg:text-left',
           )}>
           <span className="sc-logo-glow">
-            <SegmentLogo label="Sander's CodeHouse" className="h-auto w-36 sm:w-40" />
+            <SegmentLogo label="Sander's CodeHouse" className="3xl:w-80 h-auto w-36 sm:w-40 2xl:w-60" />
           </span>
           <p
-            className="font-digital type-on type-on-caret text-primary dark:text-accent text-xl"
+            className="font-digital type-on type-on-caret text-primary dark:text-accent 3xl:text-4xl text-xl 2xl:text-3xl"
             style={{ '--chars': 13, '--type-delay': '0.55s' } as CSSProperties}>
             Let&apos;s code...
           </p>
-          <h1 id="services-title" className="ch-intro-title -mt-2 text-5xl font-bold lg:text-7xl">
+          <h1
+            id="services-title"
+            className="ch-intro-title 3xl:text-[7rem] -mt-2 text-5xl font-bold lg:text-7xl 2xl:text-8xl">
             {t('title')}
           </h1>
           <ChapterIndex
@@ -67,10 +69,12 @@ export function ServiceOfferingsSection() {
               title: t(offering.title),
             }))}
           />
-          <p className="text-muted-foreground hidden text-sm lg:block">
+          <p className="text-muted-foreground 3xl:text-2xl hidden text-sm lg:block 2xl:text-lg">
             {t.rich('keyboard_hint', {
               key: chunks => (
-                <kbd className="border-border bg-muted/60 rounded border px-1.5 font-mono text-xs">{chunks}</kbd>
+                <kbd className="border-foreground/25 bg-card dark:border-border dark:bg-muted/60 3xl:text-lg rounded border px-1.5 font-mono text-xs 2xl:text-sm">
+                  {chunks}
+                </kbd>
               ),
             })}
           </p>

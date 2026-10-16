@@ -19,7 +19,7 @@ export function ConsumersHeroSection() {
         <MotionDiv variants={heroItem}>
           <h2 className="mx-auto max-w-6xl text-center text-3xl font-bold text-balance uppercase sm:text-5xl">
             {t.rich('title', {
-              highlight: chunks => <span className="text-accent">{chunks}</span>,
+              highlight: chunks => <span className="text-accent-ink">{chunks}</span>,
             })}
           </h2>
         </MotionDiv>

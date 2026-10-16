@@ -52,7 +52,7 @@ export const CommercialHeroSection: FC<ComponentProps<'section'>> = ({ className
           <MotionDiv variants={heroItem}>
             <h1 className="mx-auto max-w-4xl text-3xl font-bold text-balance uppercase sm:text-5xl">
               {t.rich('title', {
-                highlight: chunks => <span className="text-accent">{chunks}</span>,
+                highlight: chunks => <span className="text-accent-ink">{chunks}</span>,
               })}
             </h1>
           </MotionDiv>

@@ -152,6 +152,9 @@
     "Address_kvk": "KvK number",
     "Copyright_message": "© Sander's CodeHouse {date} All rights reserved."
   },
+  "LocaleSwitcher": {
+    "label": "Change language"
+  },
   "GenericTestimonialsSection": {
     "title": "Testimonials"
   },
@@ -218,7 +221,7 @@
     "freelance_tests": "{count} tests passed",
     "freelance_pr_title": "Add booking flow with live availability",
     "freelance_pr_merged": "Merged",
-    "freelance_pr_reviews": "Approved by {count} reviewers",
+    "freelance_pr_reviews": "{count} approvals",
     "freelance_board_label": "Sprint {number}",
     "freelance_board_todo": "To do",
     "freelance_board_doing": "In progress",

@@ -4,22 +4,39 @@
   --color-react: var(--react);
   --color-laravel: var(--laravel);
   --color-vue: var(--vue);
+  --color-accent-ink: var(--accent-ink);
 }
 
 :root {
+  /* Light surfaces: a faint cool off-white so the white cards and previews sit above the page. */
+  --background: oklch(0.985 0.003 265);
+  --muted-foreground: oklch(0.49 0 0);
+
   --primary: var(--color-violet-800);
   --primary-foreground: var(--color-white);
-  --accent: var(--color-emerald-400);
+  /*
+   * The accent is split in two. `--accent` is the fill (borders, bars, dividers, and text on the violet header and
+   * footer); `--accent-ink` is for text and icons on light surfaces, where the fill sits under 3:1 against white.
+   */
+  --accent: var(--color-emerald-500);
   --accent-foreground: var(--color-black);
+  --accent-ink: var(--color-emerald-700);
+  /* How strong the chapter tints are. Lower on light, where a mint wash reads as haze. */
+  --tint: 9%;
 
   --react: oklch(0.824 0.117 219.524);
   --laravel: oklch(0.638 0.242 29.164);
   --vue: oklch(0.699 0.132 160.322);
 }
 
+/* Restates default.css's dark values: `:root` above has the same specificity and comes later, so it would win. */
 .dark {
+  --background: oklch(0.145 0 0);
+  --muted-foreground: oklch(0.708 0 0);
   --primary: var(--color-violet-950);
   --primary-foreground: var(--color-white);
   --accent: var(--color-emerald-400);
   --accent-foreground: var(--color-black);
+  --accent-ink: var(--color-emerald-400);
+  --tint: 14%;
 }

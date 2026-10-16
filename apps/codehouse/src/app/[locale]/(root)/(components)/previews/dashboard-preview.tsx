@@ -61,16 +61,18 @@ export function DashboardPreview() {
         <div className="grid grid-cols-3 gap-2">
           {kpis.map(kpi => (
             <div key={kpi.label} className="bg-background/60 border-border/50 rounded-lg border p-2.5">
-              <span className="text-muted-foreground block text-[10px] tracking-wider uppercase">{kpi.label}</span>
-              <span className="mt-0.5 flex items-baseline gap-2">
+              <span className="text-muted-foreground block truncate text-[10px] tracking-wider uppercase">
+                {kpi.label}
+              </span>
+              <span className="mt-0.5 flex flex-wrap items-baseline gap-x-2">
                 <span className="text-lg font-semibold tabular-nums">{kpi.value}</span>
-                <span className="text-[10px] font-medium text-(--accent)">{kpi.delta}</span>
+                <span className="text-[10px] font-medium text-(--accent-ink)">{kpi.delta}</span>
               </span>
             </div>
           ))}
         </div>
 
-        <div className="grid grid-cols-[1.5fr_1fr] gap-3">
+        <div className="grid gap-3 sm:grid-cols-[1.5fr_1fr]">
           <div className="bg-background/60 border-border/50 rounded-lg border p-3">
             <span className="text-muted-foreground block text-[10px] tracking-wider uppercase">
               {t('dashboard_chart_label')}
@@ -122,7 +124,7 @@ export function DashboardPreview() {
                     <span
                       className={cn(
                         'rounded px-1 font-medium',
-                        row.confirmed ? 'bg-(--accent)/15 text-(--accent)' : 'bg-muted text-muted-foreground',
+                        row.confirmed ? 'bg-(--accent)/15 text-(--accent-ink)' : 'bg-muted text-muted-foreground',
                       )}>
                       {t(row.confirmed ? 'dashboard_status_confirmed' : 'dashboard_status_pending')}
                     </span>

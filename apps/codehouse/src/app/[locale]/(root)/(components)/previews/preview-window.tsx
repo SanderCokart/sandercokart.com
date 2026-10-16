@@ -16,7 +16,8 @@ export function PreviewWindow({ address, className, children, ...props }: Previe
     <div
       aria-hidden
       className={cn(
-        'bg-card/85 overflow-hidden rounded-xl border border-(--accent)/25 shadow-[0_24px_60px_-30px_var(--accent)] backdrop-blur-sm',
+        'bg-card/85 border-border shadow-[0_18px_40px_-22px_rgb(0_0_0/0.2)] dark:border-(--accent)/25 dark:shadow-[0_24px_60px_-30px_var(--accent)]',
+        'pointer-events-none overflow-hidden rounded-xl backdrop-blur-sm',
         className,
       )}
       {...props}>

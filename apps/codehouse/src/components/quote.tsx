@@ -10,7 +10,7 @@ export function Quote({ children, author }: QuoteProps) {
     <figure className="pointer-events-none my-12 px-4 lg:pointer-events-auto">
       <div className="m-4 md:m-0">
         <blockquote className="rounded-3xl transition-colors">
-          <p className="before:text-accent after:text-accent relative before:absolute before:left-2 before:top-2 before:grid before:h-8 before:place-items-start before:font-serif before:text-7xl before:content-['\201C'] after:absolute after:bottom-2 after:right-2 after:grid after:h-8 after:place-items-end after:font-serif after:text-7xl after:content-['\201D'] md:before:left-0 md:before:top-0 md:before:h-14 before:md:text-9xl md:after:bottom-0 md:after:right-0 md:after:h-14 after:md:text-9xl">
+          <p className="before:text-accent-ink after:text-accent-ink relative before:absolute before:top-2 before:left-2 before:grid before:h-8 before:place-items-start before:font-serif before:text-7xl before:content-['\201C'] after:absolute after:right-2 after:bottom-2 after:grid after:h-8 after:place-items-end after:font-serif after:text-7xl after:content-['\201D'] md:before:top-0 md:before:left-0 md:before:h-14 before:md:text-9xl md:after:right-0 md:after:bottom-0 md:after:h-14 after:md:text-9xl">
             <span className="block p-8 text-center text-2xl font-bold italic md:p-12 md:text-left md:text-3xl">
               {children}
             </span>
