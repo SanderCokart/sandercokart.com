@@ -16,17 +16,12 @@ import { hasPlayedIntro } from '@/lib/intro';
 
 type NavigationProps = {
   links: readonly LinkType[];
-  /**
-   * How desktop shows the links: `labels` types each name in; `adaptive` shows icon and name while they fit beside
-   * the named logo and drops to icons with tooltips when they do not.
-   */
-  variant?: 'labels' | 'adaptive';
 };
 
-export function Navigation({ links, variant = 'labels' }: NavigationProps) {
+export function Navigation({ links }: NavigationProps) {
   return (
     <>
-      {variant === 'adaptive' ? <DesktopAdaptiveNavigation links={links} /> : <DesktopNavigation links={links} />}
+      <DesktopNavigation links={links} />
       <MobileNavigation links={links} />
     </>
   );
@@ -70,42 +65,6 @@ function NavLink({ href, className, children }: { href: string; className?: stri
   );
 }
 
-function DesktopNavigation({ links }: NavigationProps) {
-  const t = useTranslations('common');
-
-  return (
-    <nav aria-label="Primary" className={cn('relative z-50 mx-auto hidden w-full max-w-4xl lg:block')}>
-      <div className="flex items-center gap-6 py-2 md:gap-8">
-        <div className="flex flex-1 place-items-center items-center justify-center gap-8">
-          {links.map((link, index) => {
-            const label = t(link.t);
-
-            return (
-              <NavLink
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  'group',
-                  'font-digital flex items-center justify-center gap-2 rounded-md px-2 py-1',
-                  'text-primary-foreground hover:text-accent',
-                  'text-xs md:text-2xl',
-                )}>
-                {/* Typed in after the named logo, one link after another (`.type-on`, ui themes/default.css). */}
-                <span
-                  className="type-on inline-block origin-center transition-transform duration-150 group-hover:scale-105"
-                  style={{ '--chars': label.length, '--type-delay': `${0.5 + index * 0.15}s` } as CSSProperties}>
-                  {label}
-                </span>
-              </NavLink>
-            );
-          })}
-        </div>
-        <BackToTopButton className="rounded-md p-2 text-xl md:text-2xl" />
-      </div>
-    </nav>
-  );
-}
-
 /** Names only from the xl breakpoint (1280px); below it the row is icons with tooltips. */
 const LABELS_FROM = '(min-width: 80rem)';
 /** Seconds per typed character, as in the named logo's slogan (`.type-on`). */
@@ -130,7 +89,7 @@ function typedSteps(characters: number) {
  *   Collapsing is instant. A header remounted after the page-load entrance (locale switch) shows names directly.
  * Every link is named by aria-label either way, so the label spans are hidden from assistive tech.
  */
-function DesktopAdaptiveNavigation({ links }: NavigationProps) {
+function DesktopNavigation({ links }: NavigationProps) {
   const t = useTranslations('common');
   const reduceMotion = useReducedMotion();
   const areaRef = useRef<HTMLDivElement>(null);

@@ -39,14 +39,14 @@ export const FreelanceHeroSection: FC<ComponentProps<'section'>> = ({ className,
             </p>
           </MotionDiv>
 
-          <MotionDiv variants={heroItem} className="flex flex-col items-center gap-3 sm:flex-row">
-            <Button size="lg" className="min-w-48" nativeButton={false} render={<a href="#ask-for-a-quote" />}>
+          <MotionDiv variants={heroItem} className="flex flex-wrap items-center justify-center gap-3">
+            <Button size="lg" nativeButton={false} render={<a href="#ask-for-a-quote" />}>
               {t('cta_primary')}
             </Button>
             <Button
               variant="outline"
               size="lg"
-              className="min-w-48"
+
               nativeButton={false}
               render={<a href="#showcase" />}>
               {t('cta_secondary')}

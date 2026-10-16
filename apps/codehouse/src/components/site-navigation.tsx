@@ -9,5 +9,5 @@ import { links, serviceLinks } from '@/lib/nav-links';
 export function SiteNavigation() {
   const pathname = usePathname();
 
-  return pathname === '/' ? <Navigation links={serviceLinks} variant="adaptive" /> : <Navigation links={links} />;
+  return <Navigation links={pathname === '/' ? serviceLinks : links} />;
 }
