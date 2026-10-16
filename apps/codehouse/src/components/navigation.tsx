@@ -2,7 +2,17 @@
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@repo/ui/components/shadcn/tooltip';
 import { cn } from '@repo/ui/lib/utils';
-import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
+import {
+  AnimatePresence,
+  motion,
+  stagger,
+  useAnimate,
+  usePresence,
+  usePresenceData,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from 'motion/react';
 import { useTranslations } from 'next-intl';
 import { FaArrowUp } from 'react-icons/fa6';
 
@@ -18,10 +28,19 @@ type NavigationProps = {
   links: readonly LinkType[];
 };
 
+/**
+ * Desktop remounts per link set, so a page change that swaps the links plays their entrance. The old set leaves
+ * first (`mode="wait"`), but only when the new set's entrance will play: `custom` tells the leaving set (read with
+ * usePresenceData), so going back in history swaps the links directly. The mobile bar just swaps.
+ */
 export function Navigation({ links }: NavigationProps) {
+  const linkSet = linkSetOf(links);
+
   return (
     <>
-      <DesktopNavigation links={links} />
+      <AnimatePresence mode="wait" initial={false} custom={!playedLinkSets.has(linkSet)}>
+        <DesktopNavigation key={linkSet} links={links} />
+      </AnimatePresence>
       <MobileNavigation links={links} />
     </>
   );
@@ -85,6 +104,18 @@ const RETYPE_START = 0.1;
  */
 const playedLinkSets = new Set<string>();
 
+function linkSetOf(links: readonly LinkType[]) {
+  return links.map(link => link.href).join(' ');
+}
+
+/**
+ * The exit runs the entrance backwards, but quicker: names un-type into their icons, last link first, then the icons
+ * drop out.
+ */
+const EXIT_TYPE_STEP = 0.01;
+const EXIT_STAGGER = 0.05;
+const EXIT_ICON_DURATION = 0.12;
+
 /** Snap a 0→1 progress to whole characters, so a growing width reveals the name one letter at a time. */
 function typedSteps(characters: number) {
   return (progress: number) => Math.min(1, Math.ceil(progress * characters) / characters);
@@ -101,7 +132,7 @@ function typedSteps(characters: number) {
  *   Collapsing is instant.
  * - A page change that swaps in links not shown before (home ↔ a service page; SiteNavigation remounts this per link
  *   set) plays the same entrance for them. Links already shown in this page load (back in history, locale switch)
- *   appear directly.
+ *   appear directly. The set it replaces leaves with the entrance reversed (see Navigation).
  * Every link is named by aria-label either way, so the label spans are hidden from assistive tech.
  */
 function DesktopNavigation({ links }: NavigationProps) {
@@ -110,7 +141,10 @@ function DesktopNavigation({ links }: NavigationProps) {
   const areaRef = useRef<HTMLDivElement>(null);
   const measureRef = useRef<HTMLDivElement>(null);
   const [labelled, setLabelled] = useState(false);
-  const linkSet = links.map(link => link.href).join(' ');
+  const linkSet = linkSetOf(links);
+  const [isPresent, safeToRemove] = usePresence();
+  const exitPlays = usePresenceData() === true;
+  const [scope, animate] = useAnimate<HTMLElement>();
   // Decided on the first render so the icons start hidden; always false on the server and the first hydration.
   const [swapped] = useState(() => hasPlayedIntro() && !playedLinkSets.has(linkSet));
   const [reveal, setReveal] = useState({ typed: true, start: TYPE_START });
@@ -118,6 +152,35 @@ function DesktopNavigation({ links }: NavigationProps) {
   useEffect(() => {
     playedLinkSets.add(linkSet);
   }, [linkSet]);
+
+  useEffect(() => {
+    if (isPresent) return;
+    if (!exitPlays || reduceMotion) {
+      safeToRemove();
+      return;
+    }
+
+    const labels = Array.from(scope.current.querySelectorAll<HTMLElement>('[data-nav-label]'));
+    const icons = Array.from(scope.current.querySelectorAll<HTMLElement>('[data-nav-icon]'));
+    void Promise.all(
+      labels.map((label, index) => {
+        const characters = label.textContent?.length || 1;
+        return animate(
+          label,
+          { width: 0, marginLeft: 0 },
+          {
+            duration: characters * EXIT_TYPE_STEP,
+            delay: (labels.length - 1 - index) * EXIT_STAGGER,
+            ease: typedSteps(characters),
+          },
+        );
+      }),
+    )
+      .then(() =>
+        animate(icons, { opacity: 0, y: 6 }, { duration: EXIT_ICON_DURATION, delay: stagger(0.04, { from: 'last' }) }),
+      )
+      .then(safeToRemove);
+  }, [isPresent, exitPlays, reduceMotion, safeToRemove, animate, scope]);
 
   useEffect(() => {
     const area = areaRef.current;
@@ -162,6 +225,7 @@ function DesktopNavigation({ links }: NavigationProps) {
 
   return (
     <nav
+      ref={scope}
       aria-label="Primary"
       data-nav-swapped={swapped || undefined}
       className="relative z-50 hidden min-w-0 flex-1 lg:flex">
@@ -186,9 +250,12 @@ function DesktopNavigation({ links }: NavigationProps) {
                     style={
                       { '--pop-delay': `${(swapped ? SWAP_POP_START : POP_START) + index * 0.08}s` } as CSSProperties
                     }>
-                    <span aria-hidden>{link.icon}</span>
+                    <span aria-hidden data-nav-icon>
+                      {link.icon}
+                    </span>
                     <motion.span
                       aria-hidden
+                      data-nav-label
                       className="font-digital overflow-hidden text-xl whitespace-nowrap"
                       initial={false}
                       animate={labelled ? { width: 'auto', marginLeft: 8 } : { width: 0, marginLeft: 0 }}
