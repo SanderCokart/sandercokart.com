@@ -22,13 +22,17 @@ export const test = base.extend<{ blockMedia: void }>({
 /**
  * Full-page captures do not scroll, so `whileInView` sections and lazy images below the fold would never trigger.
  * Step through the page with instant scrolling (bypasses `scroll-behavior: smooth`); the 100ms per step gives Motion
- * time to register its in-view observers after hydration. Then return to the top so `useScroll` values are 0.
+ * time to register its in-view observers after hydration. Two passes, because hydration can finish mid-pass and an
+ * observer registered after its section was scrolled past never fires. Then return to the top so `useScroll` values
+ * are 0.
  */
 async function stabilize(page: Page): Promise<void> {
   await page.evaluate(async () => {
-    for (let y = 0; y < document.documentElement.scrollHeight; y += window.innerHeight / 2) {
-      window.scrollTo({ top: y, behavior: 'instant' });
-      await new Promise(resolve => setTimeout(resolve, 100));
+    for (let pass = 0; pass < 2; pass++) {
+      for (let y = 0; y < document.documentElement.scrollHeight; y += window.innerHeight / 2) {
+        window.scrollTo({ top: y, behavior: 'instant' });
+        await new Promise(resolve => setTimeout(resolve, 100));
+      }
     }
     window.scrollTo({ top: 0, behavior: 'instant' });
     await Promise.all([document.fonts.ready, ...Array.from(document.images, img => img.decode().catch(() => {}))]);

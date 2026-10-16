@@ -3,7 +3,6 @@
 import { useGlossaryRichText } from '@repo/toolbox/glossary/use-glossary-rich-text';
 import { Button } from '@repo/ui/components/shadcn/button';
 import { cn } from '@repo/ui/lib/utils';
-import { ArrowDownIcon, ArrowRightIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 import type { ComponentProps, FC } from 'react';
@@ -43,7 +42,6 @@ export const FreelanceHeroSection: FC<ComponentProps<'section'>> = ({ className,
           <MotionDiv variants={heroItem} className="flex flex-col items-center gap-3 sm:flex-row">
             <Button size="lg" className="min-w-48" nativeButton={false} render={<a href="#ask-for-a-quote" />}>
               {t('cta_primary')}
-              <ArrowRightIcon data-icon="inline-end" />
             </Button>
             <Button
               variant="outline"
@@ -52,7 +50,6 @@ export const FreelanceHeroSection: FC<ComponentProps<'section'>> = ({ className,
               nativeButton={false}
               render={<a href="#showcase" />}>
               {t('cta_secondary')}
-              <ArrowDownIcon data-icon="inline-end" />
             </Button>
           </MotionDiv>
         </MotionDiv>
