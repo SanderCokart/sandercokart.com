@@ -5,7 +5,6 @@ import { cn } from '@repo/ui/lib/utils';
 import {
   AnimatePresence,
   motion,
-  stagger,
   useAnimate,
   usePresence,
   usePresenceData,
@@ -110,7 +109,7 @@ function linkSetOf(links: readonly LinkType[]) {
 
 /**
  * The exit runs the entrance backwards, but quicker: names un-type into their icons, last link first, then the icons
- * drop out.
+ * drop out together.
  */
 const EXIT_TYPE_STEP = 0.01;
 const EXIT_STAGGER = 0.05;
@@ -176,9 +175,7 @@ function DesktopNavigation({ links }: NavigationProps) {
         );
       }),
     )
-      .then(() =>
-        animate(icons, { opacity: 0, y: 6 }, { duration: EXIT_ICON_DURATION, delay: stagger(0.04, { from: 'last' }) }),
-      )
+      .then(() => animate(icons, { opacity: 0, y: 6 }, { duration: EXIT_ICON_DURATION }))
       .then(safeToRemove);
   }, [isPresent, exitPlays, reduceMotion, safeToRemove, animate, scope]);
 
