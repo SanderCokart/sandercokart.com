@@ -69,9 +69,18 @@ function NavLink({ href, className, children }: { href: string; className?: stri
 const LABELS_FROM = '(min-width: 80rem)';
 /** Seconds per typed character, as in the named logo's slogan (`.type-on`). */
 const TYPE_STEP = 0.045;
-/** When the first name starts typing: on the page-load entrance (after the icons pop in), and on a later reveal. */
+/**
+ * When the icons pop in and the first name starts typing: on the page-load entrance (after the named logo), when a
+ * page change swaps the links (straight away), and on a later reveal from resizing.
+ */
+const POP_START = 0.5;
+const SWAP_POP_START = 0.1;
 const TYPE_START = 0.7;
+const SWAP_TYPE_START = 0.3;
 const RETYPE_START = 0.1;
+
+/** The link set on screen, so a remount can tell a page change that swapped the links from a locale switch. */
+let shownLinkSet: string | null = null;
 
 /** Snap a 0→1 progress to whole characters, so a growing width reveals the name one letter at a time. */
 function typedSteps(characters: number) {
@@ -86,7 +95,9 @@ function typedSteps(characters: number) {
  * - Every time the names appear — on load, and again whenever the window grows back past 1280px after they had
  *   collapsed — they type themselves in like the slogan, one after another. Each name's width grows with its
  *   typing (Motion `width: auto`, stepped per character), so the icons after it move along instead of jumping.
- *   Collapsing is instant. A header remounted after the page-load entrance (locale switch) shows names directly.
+ *   Collapsing is instant.
+ * - A page change that swaps the links (home ↔ a service page; SiteNavigation remounts this per link set) plays the
+ *   same entrance for the new links. A remount with the same links (locale switch) shows them directly.
  * Every link is named by aria-label either way, so the label spans are hidden from assistive tech.
  */
 function DesktopNavigation({ links }: NavigationProps) {
@@ -95,7 +106,14 @@ function DesktopNavigation({ links }: NavigationProps) {
   const areaRef = useRef<HTMLDivElement>(null);
   const measureRef = useRef<HTMLDivElement>(null);
   const [labelled, setLabelled] = useState(false);
+  const linkSet = links.map(link => link.href).join(' ');
+  // Decided on the first render so the icons start hidden; always false on the server and the first hydration.
+  const [swapped] = useState(() => hasPlayedIntro() && shownLinkSet !== null && shownLinkSet !== linkSet);
   const [reveal, setReveal] = useState({ typed: true, start: TYPE_START });
+
+  useEffect(() => {
+    shownLinkSet = linkSet;
+  }, [linkSet]);
 
   useEffect(() => {
     const area = areaRef.current;
@@ -104,14 +122,15 @@ function DesktopNavigation({ links }: NavigationProps) {
 
     const query = window.matchMedia(LABELS_FROM);
     let shown = false;
-    let first = !hasPlayedIntro();
+    let first = !hasPlayedIntro() || swapped;
     let pageLoad = true;
 
     const update = () => {
       const fits = query.matches && measure.offsetWidth <= area.clientWidth;
       if (fits && !shown) {
         // A fresh reveal: type in, unless this is a remounted header whose entrance already played.
-        setReveal({ typed: first || !pageLoad, start: pageLoad ? TYPE_START : RETYPE_START });
+        const entranceStart = swapped ? SWAP_TYPE_START : TYPE_START;
+        setReveal({ typed: first || !pageLoad, start: pageLoad ? entranceStart : RETYPE_START });
         pageLoad = false;
       }
       if (!fits && shown) first = false;
@@ -132,13 +151,16 @@ function DesktopNavigation({ links }: NavigationProps) {
       query.removeEventListener('change', update);
       window.clearTimeout(settle);
     };
-  }, []);
+  }, [swapped]);
 
   const items = links.map(link => ({ ...link, label: t(link.t) }));
   let typedBefore = 0;
 
   return (
-    <nav aria-label="Primary" className="relative z-50 hidden min-w-0 flex-1 lg:flex">
+    <nav
+      aria-label="Primary"
+      data-nav-swapped={swapped || undefined}
+      className="relative z-50 hidden min-w-0 flex-1 lg:flex">
       <div ref={areaRef} className="flex min-w-0 flex-1 items-center justify-center">
         <TooltipProvider delay={150}>
           <div className="flex items-center gap-1 py-2">
@@ -157,7 +179,9 @@ function DesktopNavigation({ links }: NavigationProps) {
                       'text-primary-foreground hover:text-accent hover:bg-white/10',
                       'focus-visible:ring-accent focus-visible:ring-2 focus-visible:outline-none',
                     )}
-                    style={{ '--pop-delay': `${0.5 + index * 0.08}s` } as CSSProperties}>
+                    style={
+                      { '--pop-delay': `${(swapped ? SWAP_POP_START : POP_START) + index * 0.08}s` } as CSSProperties
+                    }>
                     <span aria-hidden>{link.icon}</span>
                     <motion.span
                       aria-hidden
