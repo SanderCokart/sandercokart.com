@@ -10,6 +10,7 @@ import type { ComponentProps, FC } from 'react';
 
 import { SegmentLogo } from '@/components/segment-logo';
 
+import { heroItem, heroStagger } from '@/lib/hero-reveal';
 import { MotionDiv } from '@/lib/motion';
 
 export const FreelanceHeroSection: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
@@ -22,23 +23,24 @@ export const FreelanceHeroSection: FC<ComponentProps<'section'>> = ({ className,
       id="hero"
       {...props}>
       <article className="container flex max-w-5xl flex-col items-center gap-8">
-        <MotionDiv
-          className="flex flex-col items-center gap-6"
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, ease: 'easeOut' }}>
+        <MotionDiv className="flex flex-col items-center gap-6" variants={heroStagger} initial="hidden" animate="show">
           <span className="sc-logo-glow">
             <SegmentLogo label="Sander's CodeHouse" className="h-auto w-36 sm:w-40" />
           </span>
 
-          <h1 className="mx-auto max-w-4xl text-center text-3xl font-bold text-balance uppercase sm:text-5xl">
-            {t.rich('title', richText)}
-          </h1>
+          <MotionDiv variants={heroItem}>
+            <h1 className="mx-auto max-w-4xl text-center text-3xl font-bold text-balance uppercase sm:text-5xl">
+              {t.rich('title', richText)}
+            </h1>
+          </MotionDiv>
 
-          <p className="text-muted-foreground mx-auto max-w-2xl text-center text-lg text-balance">
-            {t.rich('description', richText)}
-          </p>
+          <MotionDiv variants={heroItem}>
+            <p className="text-muted-foreground mx-auto max-w-2xl text-center text-lg text-balance">
+              {t.rich('description', richText)}
+            </p>
+          </MotionDiv>
 
-          <div className="flex flex-col items-center gap-3 sm:flex-row">
+          <MotionDiv variants={heroItem} className="flex flex-col items-center gap-3 sm:flex-row">
             <Button size="lg" className="min-w-48" nativeButton={false} render={<a href="#ask-for-a-quote" />}>
               {t('cta_primary')}
               <ArrowRightIcon data-icon="inline-end" />
@@ -52,7 +54,7 @@ export const FreelanceHeroSection: FC<ComponentProps<'section'>> = ({ className,
               {t('cta_secondary')}
               <ArrowDownIcon data-icon="inline-end" />
             </Button>
-          </div>
+          </MotionDiv>
         </MotionDiv>
       </article>
     </section>

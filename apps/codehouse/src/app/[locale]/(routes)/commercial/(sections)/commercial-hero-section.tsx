@@ -8,32 +8,16 @@ import type { ComponentProps, FC } from 'react';
 
 import { SegmentLogo } from '@/components/segment-logo';
 
+import { heroItem, heroStagger } from '@/lib/hero-reveal';
 import { MotionDiv } from '@/lib/motion';
 
 import { MockBarChart, MockSidebar, MockStat, MockTableRow, MockWindow } from './components/mock-ui';
-
-const heroContainer = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.12, delayChildren: 0.15 },
-  },
-};
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 16 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.45, ease: 'easeOut' as const },
-  },
-};
 
 const dashboardContainer = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.08, delayChildren: 0.3 },
+    transition: { staggerChildren: 0.08, delayChildren: 0.75 },
   },
 };
 
@@ -56,25 +40,35 @@ export const CommercialHeroSection: FC<ComponentProps<'section'>> = ({ className
       className={cn('mt-16', 'dark:drop-shadow-[0_0px_10px_hsl(var(--primary))]', className)}
       id="hero"
       {...props}>
-      <MotionDiv className="container flex max-w-7xl flex-col gap-10 pb-4" variants={heroContainer} animate="show">
-        <MotionDiv variants={fadeUp} className="flex flex-col items-center gap-6 text-center">
+      <div className="container flex max-w-7xl flex-col gap-10 pb-4">
+        <MotionDiv
+          variants={heroStagger}
+          initial="hidden"
+          animate="show"
+          className="flex flex-col items-center gap-6 text-center">
           <span className="sc-logo-glow">
             <SegmentLogo label="Sander's CodeHouse" className="h-auto w-36 sm:w-40" />
           </span>
-          <h1 className="mx-auto max-w-4xl text-3xl font-bold text-balance uppercase sm:text-5xl">
-            {t.rich('title', {
-              highlight: chunks => <span className="text-accent">{chunks}</span>,
-            })}
-          </h1>
-          <p className="text-muted-foreground mx-auto max-w-2xl text-lg text-balance sm:text-xl">{t('description')}</p>
-          <div className="flex flex-wrap items-center justify-center gap-3">
+          <MotionDiv variants={heroItem}>
+            <h1 className="mx-auto max-w-4xl text-3xl font-bold text-balance uppercase sm:text-5xl">
+              {t.rich('title', {
+                highlight: chunks => <span className="text-accent">{chunks}</span>,
+              })}
+            </h1>
+          </MotionDiv>
+          <MotionDiv variants={heroItem}>
+            <p className="text-muted-foreground mx-auto max-w-2xl text-lg text-balance sm:text-xl">
+              {t('description')}
+            </p>
+          </MotionDiv>
+          <MotionDiv variants={heroItem} className="flex flex-wrap items-center justify-center gap-3">
             <Button size="lg" render={<a href="#ask-for-a-quote" />} nativeButton={false}>
               {t('cta_primary')}
             </Button>
             <Button size="lg" variant="outline" render={<a href="#examples" />} nativeButton={false}>
               {t('cta_secondary')}
             </Button>
-          </div>
+          </MotionDiv>
         </MotionDiv>
 
         <MotionDiv
@@ -127,7 +121,7 @@ export const CommercialHeroSection: FC<ComponentProps<'section'>> = ({ className
             </div>
           </MockWindow>
         </MotionDiv>
-      </MotionDiv>
+      </div>
     </section>
   );
 };
