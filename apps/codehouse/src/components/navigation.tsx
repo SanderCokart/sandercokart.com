@@ -29,16 +29,16 @@ type NavigationProps = {
 };
 
 /**
- * Desktop remounts per link set, so a page change that swaps the links plays their entrance. The old set leaves
- * first (`mode="wait"`), but only when the new set's entrance will play: `custom` tells the leaving set (read with
- * usePresenceData), so going back in history swaps the links directly. The mobile bar just swaps.
+ * Desktop remounts per link set, so every page change that swaps the links (forward or back in history) plays the
+ * old set's exit and then the new set's entrance (`mode="wait"`). `custom` tells the leaving set whether the links
+ * really changed (read with usePresenceData). The mobile bar just swaps.
  */
 export function Navigation({ links }: NavigationProps) {
   const linkSet = linkSetOf(links);
 
   return (
     <>
-      <AnimatePresence mode="wait" initial={false} custom={!playedLinkSets.has(linkSet)}>
+      <AnimatePresence mode="wait" initial={false} custom={linkSet !== shownLinkSet}>
         <DesktopNavigation key={linkSet} links={links} />
       </AnimatePresence>
       <MobileNavigation links={links} />
@@ -99,10 +99,10 @@ const SWAP_TYPE_START = 0.3;
 const RETYPE_START = 0.1;
 
 /**
- * Link sets whose entrance already played in this document, like Motion's `once` per set: each plays at most once per
- * page load, so going back in history (or a locale switch) never replays it. Module state, gone on a real page load.
+ * The link set on screen. A remount with the same set (a locale switch remounts the whole header) shows the links
+ * directly; a different set plays the entrance. Module state, reset by a real page load.
  */
-const playedLinkSets = new Set<string>();
+let shownLinkSet: string | null = null;
 
 function linkSetOf(links: readonly LinkType[]) {
   return links.map(link => link.href).join(' ');
@@ -130,9 +130,9 @@ function typedSteps(characters: number) {
  *   collapsed — they type themselves in like the slogan, one after another. Each name's width grows with its
  *   typing (Motion `width: auto`, stepped per character), so the icons after it move along instead of jumping.
  *   Collapsing is instant.
- * - A page change that swaps in links not shown before (home ↔ a service page; SiteNavigation remounts this per link
- *   set) plays the same entrance for them. Links already shown in this page load (back in history, locale switch)
- *   appear directly. The set it replaces leaves with the entrance reversed (see Navigation).
+ * - Every page change that swaps the links (home ↔ a service page, forward or back) plays the same entrance for the
+ *   new set, after the old set leaves with the entrance reversed (see Navigation). A locale switch, which remounts
+ *   the header with the same links, shows them directly.
  * Every link is named by aria-label either way, so the label spans are hidden from assistive tech.
  */
 function DesktopNavigation({ links }: NavigationProps) {
@@ -146,11 +146,11 @@ function DesktopNavigation({ links }: NavigationProps) {
   const exitPlays = usePresenceData() === true;
   const [scope, animate] = useAnimate<HTMLElement>();
   // Decided on the first render so the icons start hidden; always false on the server and the first hydration.
-  const [swapped] = useState(() => hasPlayedIntro() && !playedLinkSets.has(linkSet));
+  const [swapped] = useState(() => hasPlayedIntro() && shownLinkSet !== null && shownLinkSet !== linkSet);
   const [reveal, setReveal] = useState({ typed: true, start: TYPE_START });
 
   useEffect(() => {
-    playedLinkSets.add(linkSet);
+    shownLinkSet = linkSet;
   }, [linkSet]);
 
   useEffect(() => {
