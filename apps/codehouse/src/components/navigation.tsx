@@ -114,6 +114,8 @@ function linkSetOf(links: readonly LinkType[]) {
 const EXIT_TYPE_STEP = 0.01;
 const EXIT_STAGGER = 0.05;
 const EXIT_ICON_DURATION = 0.12;
+/** Pause with only the icons left before they fade out. */
+const EXIT_ICON_DELAY = 0.15;
 
 /** Snap a 0→1 progress to whole characters, so a growing width reveals the name one letter at a time. */
 function typedSteps(characters: number) {
@@ -175,7 +177,7 @@ function DesktopNavigation({ links }: NavigationProps) {
         );
       }),
     )
-      .then(() => animate(icons, { opacity: 0, y: 6 }, { duration: EXIT_ICON_DURATION }))
+      .then(() => animate(icons, { opacity: 0, y: 6 }, { duration: EXIT_ICON_DURATION, delay: EXIT_ICON_DELAY }))
       .then(safeToRemove);
   }, [isPresent, exitPlays, reduceMotion, safeToRemove, animate, scope]);
 
