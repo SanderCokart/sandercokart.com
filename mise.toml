@@ -4,6 +4,9 @@ min_version = "2024.11.1"
 
 [tools]
 php = "8.5"
+# Checksums + SLSA still run. GitHub attestations currently fail TSA timestamp
+# verification on OpenBao releases (false negative), which blocks the install.
+openbao = { version = "latest", github_attestations = false }
 
 [settings]
 idiomatic_version_file_enable_tools = ["node", "pnpm"]

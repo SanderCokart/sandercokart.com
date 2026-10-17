@@ -17,5 +17,6 @@ Subject prefix. Lookup: `git log --grep='^MAILSC'`
 | CHREPLAY | refactor | Codehouse header entrance replays on a locale switch instead of being suppressed |
 | CHRAIL | feat | Codehouse home selling points: six per service in a columned rail at every width |
 | APIENV | fix | Production API env aligned with Dokploy; credentials as runtime env |
+| BAO | chore | OpenBao CLI via mise; secrets and Dokploy vault agent skills |
 
 Mint 2–8 A–Z, unique, mnemonic. Add a row when first used. Reuse the ID on every commit in that workstream.

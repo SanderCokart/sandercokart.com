@@ -48,7 +48,7 @@ Mail templates: `@repo/mail`. HTML is rendered by `apps/mail-renderer`.
 
 Do not merge the two trees; `.agents/skills` is upstream CLI content and would be overwritten on update.
 
-- `.cursor/skills/*` — docs, translations, pest-testing, env-nextjs, git-commit, npm, quick-start, …
+- `.cursor/skills/*` — docs, translations, pest-testing, env-nextjs, git-commit, npm, quick-start, secrets, dokploy, …
 - `.agents/skills/*` — turborepo, shadcn, date-fns
 
 Glossary, themes, PPR, and Tailwind: [`.cursor/skills/docs/SKILL.md`](.cursor/skills/docs/SKILL.md).
