@@ -48,9 +48,7 @@ export function ServiceOfferingsSection() {
             'min-h-[calc(100dvh-(--spacing(11))-(--spacing(14)))] sm:min-h-[calc(100dvh-(--spacing(16))-(--spacing(14)))]',
             'lg:sticky lg:top-16 lg:h-[calc(100dvh-(--spacing(16)))] lg:min-h-0 lg:items-start lg:px-0 lg:py-0 lg:text-left',
           )}>
-          <span className="sc-logo-glow">
-            <SegmentLogo label="Sander's CodeHouse" className="3xl:w-80 h-auto w-36 sm:w-40 2xl:w-60" />
-          </span>
+          <SegmentLogo glow label="Sander's CodeHouse" className="3xl:w-80 h-auto w-36 sm:w-40 2xl:w-60" />
           <p
             className="font-digital type-on type-on-caret text-primary dark:text-accent 3xl:text-4xl text-xl 2xl:text-3xl"
             style={{ '--chars': 13, '--type-delay': '0.55s' } as CSSProperties}>

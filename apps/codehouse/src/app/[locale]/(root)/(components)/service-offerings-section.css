@@ -2,7 +2,7 @@
  * Home services: chapters of one continuous surface that play in with the intro or as they are reached.
  *
  * Paint (never animated):
- * - Intro: the mark carries its own halo (`.sc-logo-glow`, segment-logo.css).
+ * - Intro: the mark carries its own halo (`SegmentLogo glow`, segment-logo.module.css).
  * - Phones: translucent full-width tints; each chapter starts in the accent of the one above (`--accent-prev`) and
  *   settles into its own, so the field has no seams. The sticky chapter bar is the chapter's own tint.
  * - Desktop: a feathered glow per chapter (closest-side radial, transparent at every edge, so no borders).

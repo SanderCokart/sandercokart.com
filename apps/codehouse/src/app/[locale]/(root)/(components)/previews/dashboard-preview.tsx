@@ -54,7 +54,7 @@ export function DashboardPreview() {
           </span>
           <span className="flex -space-x-1.5">
             <span className="border-card size-6 rounded-full border-2 bg-(--accent)/60" />
-            <span className="border-card size-6 rounded-full border-2 bg-[#7c2df0]/60" />
+            <span className="border-card bg-brand-violet-bright/60 size-6 rounded-full border-2" />
           </span>
         </div>
 

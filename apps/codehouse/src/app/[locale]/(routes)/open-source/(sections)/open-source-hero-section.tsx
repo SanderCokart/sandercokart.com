@@ -21,9 +21,7 @@ export const OpenSourceHeroSection: FC<ComponentProps<'section'>> = ({ className
       {...props}>
       <article className="container flex max-w-5xl flex-col items-center gap-8">
         <MotionDiv className="flex flex-col items-center gap-6" variants={heroStagger} initial="hidden" animate="show">
-          <span className="sc-logo-glow">
-            <SegmentLogo label="Sander's CodeHouse" className="h-auto w-36 sm:w-40" />
-          </span>
+          <SegmentLogo glow label="Sander's CodeHouse" className="h-auto w-36 sm:w-40" />
 
           <MotionDiv variants={heroItem}>
             <h1 className="mx-auto max-w-4xl text-center text-3xl font-bold text-balance uppercase sm:text-5xl">

@@ -73,7 +73,7 @@ const code: Token[][] = [
 ];
 
 const tokenClass: Record<Token[0], string> = {
-  kw: 'text-[#7c2df0] dark:text-[#b48cff]',
+  kw: 'text-brand-violet-bright dark:text-[#b48cff]',
   fn: 'text-(--accent-ink)',
   ty: 'text-amber-600 dark:text-amber-300',
   tx: 'text-foreground/85',
@@ -136,9 +136,9 @@ export function FreelancePreview() {
         </div>
       </div>
 
-      <div className="bg-card/95 flex flex-col gap-2 rounded-lg border border-[#7c2df0]/30 p-3 shadow-lg sm:absolute sm:right-0 sm:bottom-0 sm:w-64">
+      <div className="bg-card/95 border-brand-violet-bright/30 flex flex-col gap-2 rounded-lg border p-3 shadow-lg sm:absolute sm:right-0 sm:bottom-0 sm:w-64">
         <div className="flex items-center justify-between gap-2 text-[11px]">
-          <span className="flex items-center gap-1 rounded bg-[#7c2df0] px-1.5 py-0.5 font-semibold text-white">
+          <span className="bg-brand-violet-bright flex items-center gap-1 rounded px-1.5 py-0.5 font-semibold text-white">
             <GitMergeIcon aria-hidden className="size-3" />
             {t('freelance_pr_merged')}
           </span>

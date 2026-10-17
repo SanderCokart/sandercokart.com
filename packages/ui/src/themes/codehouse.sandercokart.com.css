@@ -1,5 +1,15 @@
 @import './default.css';
 
+/*
+ * The SC mark's colours: `brand-violet` and `brand-emerald` are its two halves, `brand-violet-bright` the lifted violet
+ * for gradients and highlights. `static` so CSS Modules can read them as variables even where no utility uses them.
+ */
+@theme static {
+  --color-brand-violet: #5d0ec0;
+  --color-brand-violet-bright: #7c2df0;
+  --color-brand-emerald: #00d492;
+}
+
 @theme inline {
   --color-react: var(--react);
   --color-laravel: var(--laravel);
