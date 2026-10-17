@@ -186,7 +186,7 @@
     "marketing_features_i18n": "Meertaligheid",
     "marketing_features_mobile": "Perfect op alle apparaten, van mobiel tot breedbeeld",
     "marketing_features_performance": "Bliksemsnelle website prestaties",
-    "marketing_features_seo": "Vanaf dag één vindbaar in Google",
+    "marketing_features_seo": "SEO-klaar vanaf de lancering, met metadata & sitemaps",
     "marketing_title": "Persoonlijke Websites",
     "opensource_title": "Open source",
     "opensource_description": "Publieke tools die ik in de openbaarheid bouw - browserextensies, CLI's en MCP-servers die je kunt downloaden, forken en hergebruiken.",
@@ -195,7 +195,7 @@
     "opensource_features_versions": "Kies een release of de laatste van main",
     "opensource_features_licenses": "Permissieve licenties waar mogelijk",
     "opensource_features_public": "Gebouwd en onderhouden in het openbaar",
-    "opensource_features_changelog": "Een changelog bij elke release",
+    "opensource_features_fork": "Vrij te gebruiken, forken en aanpassen",
     "title": "Diensten",
     "keyboard_hint": "Druk op <key>1</key>–<key>4</key> om naar een dienst te springen"
   },

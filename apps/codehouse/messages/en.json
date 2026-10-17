@@ -186,7 +186,7 @@
     "marketing_features_i18n": "Internationalization",
     "marketing_features_mobile": "Perfect on all devices, from mobile to ultrawide",
     "marketing_features_performance": "Blazing speed",
-    "marketing_features_seo": "Found on Google from day one",
+    "marketing_features_seo": "SEO-ready from launch, with metadata & sitemaps",
     "marketing_title": "Personal Websites",
     "opensource_title": "Open Source",
     "opensource_description": "Public tools I build in the open - browser extensions, CLIs, and MCP servers you can download, fork, and reuse.",
@@ -195,7 +195,7 @@
     "opensource_features_versions": "Pick a release or the latest from main",
     "opensource_features_licenses": "Permissive licenses where possible",
     "opensource_features_public": "Built and maintained in public",
-    "opensource_features_changelog": "A changelog for every release",
+    "opensource_features_fork": "Free to use, fork, and adapt",
     "title": "Services",
     "keyboard_hint": "Press <key>1</key>–<key>4</key> to jump to a service"
   },

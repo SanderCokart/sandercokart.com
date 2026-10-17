@@ -66,7 +66,7 @@ export const serviceOfferings = [
       'opensource_features_versions',
       'opensource_features_licenses',
       'opensource_features_public',
-      'opensource_features_changelog',
+      'opensource_features_fork',
     ],
   },
 ] as const satisfies readonly ServiceOffering[];
