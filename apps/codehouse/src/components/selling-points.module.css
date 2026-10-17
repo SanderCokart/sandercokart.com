@@ -1,38 +1,14 @@
-/**
- * Selling-point labels. Brand violet (the logo's #5d0ec0 family) on light, a lifted violet on dark where the
- * theme's own --primary (violet-950) would disappear. Square-ish corners keep them from reading as generic pills.
- */
-.selling-point {
-  --point-ink: var(--primary);
-  --point-fill: color-mix(in srgb, #5d0ec0 8%, transparent);
-  --point-edge: color-mix(in srgb, #5d0ec0 26%, transparent);
-
-  display: inline-flex;
-  align-items: center;
-  padding: 0.35rem 0.7rem;
-  border: 1px solid var(--point-edge);
-  border-radius: 0.4rem;
-  background: var(--point-fill);
-  color: var(--point-ink);
-  font-size: var(--text-sm);
-  font-weight: 500;
-  line-height: 1.3;
-}
-
-.dark .selling-point {
-  --point-ink: oklch(0.86 0.09 293);
-  --point-fill: color-mix(in srgb, #7c2df0 16%, transparent);
-  --point-edge: color-mix(in srgb, #9b5cf6 38%, transparent);
-}
-
 /*
  * Phones: labels that wrap one per line read as a stack of boxes, so the list becomes a rail instead. The points
  * hang off a thin line as plain text, each with a short tick in the chapter accent where it meets the line, like the
  * chapter index. The line itself is a dim foreground (white on dark, black on light) drawn only between ticks, so it
  * starts at the first tick and ends at the last instead of running past them.
+ *
+ * The label look above 40rem is Tailwind classes in selling-points.tsx. These rules replace it on phones: module CSS
+ * is not in a cascade layer, so it wins over the utilities without `!important`.
  */
 @media (width < 40rem) {
-  .selling-points {
+  .points {
     --rail-gap: 0.7rem;
     --rail-width: 2px;
     --tick-top: 0.1em;
@@ -42,7 +18,7 @@
     gap: var(--rail-gap);
   }
 
-  .selling-point {
+  .point {
     position: relative;
     display: block;
     padding: 0 0 0 calc(1rem + var(--rail-width));
@@ -55,7 +31,7 @@
   }
 
   /* Tick: this point's piece of the rail, in exactly the color of the chapter number. */
-  .selling-point::before {
+  .point::before {
     content: '';
     position: absolute;
     top: var(--tick-top);
@@ -67,7 +43,7 @@
   }
 
   /* Rail: from the bottom of this tick to the top of the next one. The last point has nothing below it. */
-  .selling-point:not(:last-child)::after {
+  .point:not(:last-child)::after {
     content: '';
     position: absolute;
     top: calc(var(--tick-top) + var(--tick-height));
