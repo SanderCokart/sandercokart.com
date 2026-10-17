@@ -42,6 +42,11 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-header: var(--header);
+  --color-header-foreground: var(--header-foreground);
+  --color-header-accent: var(--header-accent);
+  --color-header-controls: var(--header-controls);
+  --color-header-name-hover: var(--header-name-hover);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -92,6 +97,20 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  /*
+   * The header bar (and the mobile nav bar): the primary colour unless a theme gives it its own. `--header-controls`
+   * colours the language and theme buttons, `--header-name-hover` the site name on hover; `--header-shadow` is the
+   * bar's box-shadow and `--header-bar-shadow` the mobile nav bar's. `--header-border` is a hairline for those shadows,
+   * so it takes no space.
+   */
+  --header: var(--primary);
+  --header-foreground: var(--primary-foreground);
+  --header-accent: var(--accent);
+  --header-border: transparent;
+  --header-controls: var(--header-foreground);
+  --header-name-hover: var(--header-accent);
+  --header-shadow: none;
+  --header-bar-shadow: none;
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
     'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';

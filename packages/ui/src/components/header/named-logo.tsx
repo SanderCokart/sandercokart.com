@@ -33,7 +33,7 @@ export function NamedLogo({ name, slogan, href = '/', logo, Component = 'a' }: N
           <span className="relative block size-full drop-shadow-[0_1px_2px_rgb(0_0_0/0.45)]">{logo}</span>
         </span>
         <h1
-          className="type-on group-hover:text-accent group-focus:text-accent text-base leading-none! whitespace-nowrap transition-colors sm:text-3xl"
+          className="type-on group-hover:text-header-name-hover group-focus:text-header-name-hover text-base leading-none! whitespace-nowrap transition-colors sm:text-3xl"
           style={typed(name, NAME_DELAY)}>
           {name}
         </h1>

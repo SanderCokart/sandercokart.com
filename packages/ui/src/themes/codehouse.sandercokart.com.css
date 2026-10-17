@@ -15,6 +15,7 @@
   --color-laravel: var(--laravel);
   --color-vue: var(--vue);
   --color-accent-ink: var(--accent-ink);
+  --color-header-link-hover: var(--header-link-hover);
 }
 
 :root {
@@ -25,12 +26,28 @@
   --primary: var(--color-violet-800);
   --primary-foreground: var(--color-white);
   /*
-   * The accent is split in two. `--accent` is the fill (borders, bars, dividers, and text on the violet header and
-   * footer); `--accent-ink` is for text and icons on light surfaces, where the fill sits under 3:1 against white.
+   * The accent is split in two. `--accent` is the fill (borders, bars, dividers, and text on the violet footer);
+   * `--accent-ink` is for text and icons on light surfaces, where the fill sits under 3:1 against white.
    */
   --accent: var(--color-emerald-500);
   --accent-foreground: var(--color-black);
   --accent-ink: var(--color-emerald-700);
+  /*
+   * Light mode's header is a white bar: a violet bar would swallow the mark's violet half, and the mark keeps its
+   * colours everywhere. Name, slogan and links are black; the language and theme buttons keep the mark's violet, and
+   * so does the name on hover. A hovered link gets a faint green chip. A violet-tinted shadow lifts the bar off the page.
+   */
+  --header: var(--card);
+  --header-foreground: var(--foreground);
+  --header-accent: var(--accent-ink);
+  --header-border: var(--border);
+  --header-controls: var(--color-brand-violet);
+  --header-name-hover: var(--color-brand-violet);
+  --header-link-hover: color-mix(in srgb, var(--accent-ink) 10%, transparent);
+  --header-shadow:
+    0 1px 0 var(--header-border), 0 2px 4px rgb(0 0 0 / 0.06), 0 8px 24px -6px rgb(0 0 0 / 0.14),
+    0 18px 40px -16px color-mix(in srgb, var(--color-brand-violet) 30%, transparent);
+  --header-bar-shadow: 0 -1px 0 var(--header-border);
   /* How strong the chapter tints are. Lower on light, where a mint wash reads as haze. */
   --tint: 9%;
 
@@ -48,5 +65,14 @@
   --accent: var(--color-emerald-400);
   --accent-foreground: var(--color-black);
   --accent-ink: var(--color-emerald-400);
+  --header: var(--primary);
+  --header-foreground: var(--primary-foreground);
+  --header-accent: var(--accent);
+  --header-border: transparent;
+  --header-controls: var(--primary-foreground);
+  --header-name-hover: var(--header-accent);
+  --header-link-hover: color-mix(in srgb, var(--accent) 18%, transparent);
+  --header-shadow: none;
+  --header-bar-shadow: none;
   --tint: 14%;
 }

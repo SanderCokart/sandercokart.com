@@ -33,7 +33,7 @@ export function LocaleSwitcher() {
       <DropdownMenuTrigger
         aria-label={t('label')}
         title={t('label')}
-        className="hover:text-accent focus-visible:text-accent data-popup-open:text-accent grid place-items-center transition-colors">
+        className="hover:text-header-accent focus-visible:text-header-accent data-popup-open:text-header-accent grid place-items-center transition-colors">
         <LanguagesIcon aria-hidden className="size-7 sm:size-8" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" sideOffset={8} className="w-auto min-w-44">

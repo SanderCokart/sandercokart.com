@@ -68,7 +68,7 @@ function BackToTopButton({ className }: { className?: string }) {
       onClick={scrollToTop}
       style={{ opacity, pointerEvents, y }}
       whileHover={{ scale: 1.05 }}
-      className={cn('text-primary-foreground hover:text-accent', className)}>
+      className={cn('text-header-foreground hover:text-header-accent', className)}>
       <FaArrowUp aria-hidden />
     </motion.button>
   );
@@ -238,8 +238,8 @@ function DesktopNavigation({ links }: NavigationProps) {
                       'flex h-11 items-center rounded-lg px-2.5 text-2xl transition-colors',
                       // Pops in like the named logo's mark. The delay is inline: `delay-*` would also delay the hover color.
                       'fade-in zoom-in-85 animation-duration-500 ease-snap fill-mode-both motion-safe:animate-in',
-                      'text-primary-foreground hover:text-accent hover:bg-white/10',
-                      'focus-visible:ring-accent focus-visible:ring-2 focus-visible:outline-none',
+                      'text-header-foreground hover:bg-header-link-hover',
+                      'focus-visible:ring-header-accent focus-visible:ring-2 focus-visible:outline-none',
                     )}
                     style={{ animationDelay: `${(swapped ? SWAP_POP_START : POP_START) + index * 0.08}s` }}>
                     <span aria-hidden data-nav-icon>
@@ -295,7 +295,7 @@ function MobileNavigation({ links }: NavigationProps) {
     <nav
       aria-label="Primary"
       className={cn(
-        'bg-primary text-primary-foreground fixed inset-x-0 bottom-0 z-40 flex h-14 w-full items-center text-2xl lg:hidden',
+        'bg-header text-header-foreground fixed inset-x-0 bottom-0 z-40 flex h-14 w-full items-center text-2xl shadow-(--header-bar-shadow) lg:hidden',
       )}>
       <div className="flex flex-1 items-center justify-evenly">
         {links.map(link => (
@@ -303,7 +303,7 @@ function MobileNavigation({ links }: NavigationProps) {
             key={link.href}
             href={link.href}
             className={cn(
-              'font-digital hover:text-accent flex flex-col items-center gap-1 leading-none transition-colors',
+              'font-digital hover:text-header-accent flex flex-col items-center gap-1 leading-none transition-colors',
             )}>
             {link.icon}
             <span className="text-xs">{t(link.t)}</span>
