@@ -12,5 +12,6 @@ Subject prefix. Lookup: `git log --grep='^MAILSC'`
 | GITID | docs | This index + grouped commit-message skill |
 | CHMOB | feat | Codehouse home mobile intro: animation-safe band redesigns |
 | CHLIGHT | feat | Codehouse light mode: split accent fill/ink, softer surfaces; home chapter follow-ups |
+| DOCKER | fix | Docker images for the Next.js apps (mise toolchain, standalone runner) |
 
 Mint 2–8 A–Z, unique, mnemonic. Add a row when first used. Reuse the ID on every commit in that workstream.
