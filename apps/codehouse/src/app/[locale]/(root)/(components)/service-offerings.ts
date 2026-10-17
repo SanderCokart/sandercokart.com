@@ -52,7 +52,7 @@ export const serviceOfferings = [
       'freelance_features_agile',
       'freelance_features_team',
       'freelance_features_onboarding',
-      'freelance_features_mentoring',
+      'freelance_features_consultancy',
     ],
   },
   {
