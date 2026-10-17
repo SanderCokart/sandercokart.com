@@ -3,15 +3,12 @@
  * where it meets the line, like the chapter index. The line itself is a dim foreground (white on dark, black on
  * light) drawn only between ticks, so it starts at the first tick and ends at the last instead of running past them.
  *
- * Columns: the list's own width decides, not the viewport's (`.frame` is the size container). Points in a row share
- * its height, so a point that wraps further than its neighbours leaves them a gap; three columns of two only start
- * once a column is wide enough (about 16rem) that every point fits on one or two lines, and the list stays one rail
- * below that. In columns the points fill top to bottom and each column is a rail of its own.
+ * Columns: one rail up to 1280px, two columns of three above that, three columns of two from 1920px. Points in a
+ * row share its height, so a point that wraps further than its neighbours leaves them a gap; at these widths the
+ * columns are wide enough that no point wraps past two lines. There is no Tailwind breakpoint at 1920px (2xl is
+ * 1536px, this app's 3xl 2400px), hence plain media queries. In columns the points fill top to bottom and each
+ * column is a rail of its own.
  */
-.frame {
-  container-type: inline-size;
-}
-
 .points {
   --rail-gap: 0.7rem;
   --rail-width: 2px;
@@ -58,11 +55,29 @@
   content: none;
 }
 
-@container (width >= 52rem) {
+@media (width > 80rem) {
   .points {
-    grid-template-rows: repeat(2, auto);
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+    grid-template-rows: repeat(var(--rows), auto);
     grid-auto-flow: column;
+  }
+}
+
+@media (80rem < width < 120rem) {
+  .points {
+    --columns: 2;
+    --rows: 3;
+  }
+
+  .point:nth-child(3n)::after {
+    content: none;
+  }
+}
+
+@media (width >= 120rem) {
+  .points {
+    --columns: 3;
+    --rows: 2;
   }
 
   .point:nth-child(2n)::after {
