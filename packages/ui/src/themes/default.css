@@ -180,7 +180,8 @@
   }
 }
 
-@theme {
+/* `static`: CSS Modules read `var(--ease-snap)`, so it must be emitted even where no class uses `ease-snap`. */
+@theme static {
   /* Quick start, soft landing: the easing shared by the header and Codehouse entrances (`ease-snap`). */
   --ease-snap: cubic-bezier(0.2, 0.8, 0.2, 1);
 }

@@ -1,7 +1,7 @@
 import type { Variants } from 'motion/react';
 
 /**
- * Hero entrance shared by the service pages: the SC mark powers on by itself (segment-logo.css), then the title,
+ * Hero entrance shared by the service pages: the SC mark powers on by itself (segment-logo.module.css), then the title,
  * description and calls to action rise in one after another. Put `heroStagger` with `initial="hidden"` and
  * `animate="show"` on the wrapper and `heroItem` on each part.
  */

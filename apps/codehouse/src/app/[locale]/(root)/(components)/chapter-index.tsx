@@ -103,7 +103,7 @@ export function ChapterIndex({ entries, labelledBy }: ChapterIndexProps) {
               className={cn(
                 'flex items-baseline gap-3 rounded-md px-2 py-1',
                 // The chapter in view takes its accent and grows a little, from the edge the index is aligned to.
-                'ease-snap origin-center text-current/70 transition-[color,scale] duration-300 motion-reduce:transition-colors lg:origin-left',
+                'ease-snap origin-center text-current/70 transition-[color,scale] duration-300 motion-reduce:transition-colors motion-reduce:ease-out lg:origin-left',
                 'hover:text-(--accent-ink) aria-[current=true]:scale-108 aria-[current=true]:text-(--accent-ink)',
                 '[--accent-ink:oklch(from_var(--accent)_0.5_c_h)] dark:[--accent-ink:var(--accent)]',
               )}

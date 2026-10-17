@@ -27,11 +27,10 @@ export function NamedLogo({ name, slogan, href = '/', logo, Component = 'a' }: N
     <Component href={href} className="group shrink-0">
       <div className="font-digital! grid grid-cols-[auto_auto] items-stretch gap-x-2 sm:gap-x-3">
         {/* Phones: the mark matches the 32px theme toggle and overhangs the two text rows by 2px each side.
-            From sm it is square to the text block, with 4px padding. */}
-        <span className="relative row-span-2 -my-0.5 size-8 sm:my-0 sm:aspect-square sm:h-full sm:min-h-0 sm:w-auto sm:p-1">
-          <span className="ease-snap fill-mode-both zoom-in-85 fade-in animation-duration-500 motion-safe:animate-in relative block size-full drop-shadow-[0_1px_2px_rgb(0_0_0/0.45)]">
-            {logo}
-          </span>
+            From sm it is square to the text block, with 4px padding. The entrance sits on this outer span because
+            tw-animate-css animates `filter`, which would override the inner span's drop shadow until it finished. */}
+        <span className="ease-snap fill-mode-both zoom-in-85 fade-in animation-duration-500 motion-safe:animate-in relative row-span-2 -my-0.5 size-8 sm:my-0 sm:aspect-square sm:h-full sm:min-h-0 sm:w-auto sm:p-1">
+          <span className="relative block size-full drop-shadow-[0_1px_2px_rgb(0_0_0/0.45)]">{logo}</span>
         </span>
         <h1
           className="type-on group-hover:text-accent group-focus:text-accent text-base leading-none! whitespace-nowrap transition-colors sm:text-3xl"

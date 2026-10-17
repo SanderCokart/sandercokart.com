@@ -97,9 +97,8 @@ const SWAP_TYPE_START = 0.3;
 const RETYPE_START = 0.1;
 
 /**
- * The link set on screen, so a remount can tell a page change that swaps the links (quicker swap timings) from a
- * fresh header with the same links (a locale switch, which replays the full entrance). Module state, reset by a real
- * page load.
+ * The link set on screen, so a remount can tell a page change that swaps the links (quicker swap timings) from the
+ * first mount (full entrance). Module state, reset by a real page load; a locale switch is one.
  */
 let shownLinkSet: string | null = null;
 
@@ -132,8 +131,8 @@ function typedSteps(characters: number) {
  *   typing (Motion `width: auto`, stepped per character), so the icons after it move along instead of jumping.
  *   Collapsing is instant.
  * - Every page change that swaps the links (home ↔ a service page, forward or back) plays the same entrance for the
- *   new set, after the old set leaves with the entrance reversed (see Navigation). A locale switch remounts the
- *   header and replays the full entrance, like the rest of the header.
+ *   new set, after the old set leaves with the entrance reversed (see Navigation). A locale switch is a full page
+ *   load, so it plays the full entrance like the rest of the header.
  * Every link is named by aria-label either way, so the label spans are hidden from assistive tech.
  */
 function DesktopNavigation({ links }: NavigationProps) {

@@ -46,7 +46,7 @@ Reach for these in order; stop at the first that fits.
 1. **Tailwind utilities**, including arbitrary values and properties (`[--accent-ink:oklch(from_var(--accent)_0.5_c_h)]`) and custom variants declared in the app's `globals.css` (e.g. codehouse `short:` for `height < 56rem`).
 2. **tw-animate-css** (already imported by `@repo/ui` themes) for entrances: `fade-in slide-in-from-bottom-4 animation-duration-500 ease-snap fill-mode-both motion-safe:animate-in`.
    - Use `animation-duration-*`, not `duration-*`, and `motion-safe:` on `animate-in` only.
-   - Its `delay-*`, like Tailwind's `duration-*` and `ease-*`, also sets the matching `transition-*` property. On an element that has hover transitions, set the delay inline (`style={{ animationDelay }}`) so hover does not lag.
+   - `delay-*`, `duration-*` and `ease-*` are also Tailwind core utilities with the same names, and those set the matching `transition-*` property. So `delay-500` delays hover transitions as well as the entrance. On an element that has hover transitions, set the delay inline (`style={{ animationDelay }}`). `ease-*` there also changes the hover easing; that is usually fine.
 3. **`@utility` in a theme** for an effect several components share (`type-on`, `type-on-caret` in `packages/ui/src/themes/default.css`).
 4. **A CSS Module** next to the component (`segment-logo.module.css`) when selectors have to work together and a class list would hide that:
    - pseudo-elements, or a parent's `:hover` / `:focus-visible` driving children (`service-cta.module.css`);

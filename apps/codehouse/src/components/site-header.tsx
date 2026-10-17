@@ -10,7 +10,7 @@ import { Link } from '@/i18n/navigation';
 /**
  * The one header for every Codehouse page. It lives in the `[locale]` layout so it stays mounted across page
  * navigations and its entrance (mark power-on, typed name and slogan) plays on load, not on every page change. A
- * locale switch remounts it, so the entrance plays again in the new language. SiteNavigation picks the links for the
+ * locale switch is a full page load, so the entrance plays again in the new language. SiteNavigation picks the links for the
  * current page.
  */
 export function SiteHeader() {
