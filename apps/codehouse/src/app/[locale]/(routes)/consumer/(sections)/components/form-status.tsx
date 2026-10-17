@@ -120,7 +120,7 @@ export function FormStatus<T extends FieldValues>({ form, lastResponse }: Props<
       case 'submitted':
         return (
           <motion.span key="submitted" {...animation}>
-            <LucideCheckCircle2 className="text-accent size-10" />
+            <LucideCheckCircle2 className="text-accent-ink size-10" />
           </motion.span>
         );
       case 'ratelimit':

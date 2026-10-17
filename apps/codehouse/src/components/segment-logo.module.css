@@ -1,0 +1,96 @@
+/*
+ * SC mark power-on: frame halves glide in from their own side and meet in the middle, then each letter's segments
+ * light up in reading order with a short seven-segment flicker. Unlit segments start as faint ghosts, like a real
+ * display, so the mark's silhouette is there from the first frame. `--logo-delay` on any ancestor shifts it all.
+ */
+.frameLeft,
+.frameRight {
+  transform-box: fill-box;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .frameLeft {
+    animation: from-left 0.7s var(--ease-snap) var(--logo-delay, 0s) both;
+  }
+
+  .frameRight {
+    animation: from-right 0.7s var(--ease-snap) var(--logo-delay, 0s) both;
+  }
+
+  .segment {
+    animation: power-on 0.45s linear both;
+    animation-delay: calc(var(--logo-delay, 0s) + 0.4s + var(--segment, 0) * 0.07s);
+  }
+}
+
+@keyframes from-left {
+  from {
+    opacity: 0;
+    translate: -18% 0;
+  }
+}
+
+@keyframes from-right {
+  from {
+    opacity: 0;
+    translate: 18% 0;
+  }
+}
+
+@keyframes power-on {
+  0% {
+    opacity: 0.08;
+  }
+
+  35% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/*
+ * Halo for a standalone mark (`glow`). Dark mode lights it from just behind its own halves (violet left, emerald
+ * right), sized to the mark so the light reads as coming off the logo rather than off a distant wall. Light mode has
+ * no glow to show against, so the mark gets a soft violet drop shadow instead.
+ */
+.glow > svg {
+  filter: drop-shadow(0 14px 16px color-mix(in srgb, var(--color-brand-violet) 16%, transparent))
+    drop-shadow(0 3px 4px rgb(0 0 0 / 0.08));
+}
+
+.glow::before {
+  content: '';
+  position: absolute;
+  inset: -55% -65%;
+  z-index: -1;
+  display: none;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      closest-side at 40% 50%,
+      color-mix(in srgb, var(--color-brand-violet-bright) 32%, transparent),
+      color-mix(in srgb, var(--color-brand-violet-bright) 12%, transparent) 55%,
+      transparent
+    ),
+    radial-gradient(
+      closest-side at 60% 50%,
+      color-mix(in srgb, var(--color-brand-emerald) 24%, transparent),
+      color-mix(in srgb, var(--color-brand-emerald) 9%, transparent) 55%,
+      transparent
+    );
+}
+
+:global(.dark) .glow > svg {
+  filter: none;
+}
+
+:global(.dark) .glow::before {
+  display: block;
+}

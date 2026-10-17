@@ -1,0 +1,54 @@
+/*
+ * Service call to action. Body: the service accent as a soft diagonal gradient (a touch lighter at the top left)
+ * with an inner top highlight and dark ink, since white sits near 2.5:1 on the L 0.7 accents. Hover: a sheen crosses
+ * the body and the glow deepens. Reduced motion keeps the shadow change only.
+ *
+ * Kept here rather than in utilities because hover and focus on the link drive the sheen pseudo-element. Layout and
+ * type are Tailwind classes in service-cta.tsx.
+ */
+.cta {
+  --cta-accent: var(--color-brand-emerald);
+
+  background: linear-gradient(135deg, oklch(from var(--cta-accent) calc(l + 0.08) c h), var(--cta-accent));
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.35),
+    0 10px 24px -14px color-mix(in srgb, var(--cta-accent) 80%, transparent);
+  transition:
+    box-shadow 0.35s ease-out,
+    translate 0.35s var(--ease-snap);
+}
+
+.cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg, transparent 35%, rgb(255 255 255 / 0.35) 50%, transparent 65%);
+  translate: -110% 0;
+}
+
+.cta:hover,
+.cta:focus-visible {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.4),
+    0 14px 32px -12px color-mix(in srgb, var(--cta-accent) 70%, transparent);
+}
+
+.cta:focus-visible {
+  outline: 2px solid var(--cta-accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cta:hover {
+    translate: 0 -1px;
+  }
+
+  .cta::before {
+    transition: translate 0.7s ease-out;
+  }
+
+  .cta:hover::before {
+    translate: 110% 0;
+  }
+}
