@@ -1,6 +1,7 @@
 'use client';
 
 import { YouTubeEmbed } from '@next/third-parties/google';
+import { usePreference } from '@repo/runtime-env/preference';
 import { cn } from '@repo/ui/lib/utils';
 
 import * as React from 'react';
@@ -10,8 +11,7 @@ import Link from 'next/link';
 import type { ArticleModel } from '@/types/model-types';
 
 import placeholder from '@/app/placeholder.webp';
-
-import { useBlogView } from './blog-view-switch';
+import { blogView } from '@/preferences/blog-view';
 
 export type BlogCardProps = {
   article: ArticleModel;
@@ -77,7 +77,7 @@ export const VideoCard: React.FC<BlogCardProps & React.ComponentProps<'div'>> = 
   className,
   ...props
 }) => {
-  const { view } = useBlogView();
+  const { value: view } = usePreference(blogView);
 
   return (
     <div

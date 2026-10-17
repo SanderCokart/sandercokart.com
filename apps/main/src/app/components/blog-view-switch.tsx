@@ -1,23 +1,27 @@
 'use client';
 
+import { usePreference } from '@repo/runtime-env/preference';
 import { ToggleGroup, ToggleGroupItem } from '@repo/ui/components/shadcn/toggle-group';
 import { NewspaperIcon, VideoIcon } from 'lucide-react';
 
-import { createContext, useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import type { FC, ReactNode } from 'react';
+import type { FC } from 'react';
+import type { BlogView } from '@/preferences/blog-view';
 
-export type BlogView = 'video' | 'blog';
+import { blogView } from '@/preferences/blog-view';
+
+export type { BlogView };
 
 export const BlogViewSwitch: FC = () => {
-  const { view, setView } = useBlogView();
+  const { value: view, setValue: setView } = usePreference(blogView);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const handleViewChange = (value: string[]) => {
+  const handleViewChange = (value: string[]): void => {
     if (value.length > 0 && value[0] !== view) {
       setView(value[0] as BlogView);
     }
@@ -54,39 +58,4 @@ export const BlogViewSwitch: FC = () => {
       </ToggleGroupItem>
     </ToggleGroup>
   );
-};
-
-type BlogViewContextType = {
-  view: BlogView;
-  setView: (view: BlogView) => void;
-};
-
-const BlogViewContext = createContext<BlogViewContextType | null>(null);
-
-const BLOG_VIEW_COOKIE = 'blog-view-preference';
-export const BlogViewProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const [view, setView] = useState<BlogView>('blog');
-
-  const handleViewChange = (newView: BlogView) => {
-    setView(newView);
-    localStorage.setItem(BLOG_VIEW_COOKIE, newView);
-    document.documentElement.setAttribute('data-blog-view', newView);
-  };
-
-  useEffect(() => {
-    const preference = localStorage.getItem(BLOG_VIEW_COOKIE) || 'blog';
-    if (preference === 'video') {
-      setView('video');
-    }
-    // Ensure the data attribute is set correctly on mount just in case
-    document.documentElement.setAttribute('data-blog-view', preference);
-  }, []);
-
-  return <BlogViewContext.Provider value={{ view, setView: handleViewChange }}>{children}</BlogViewContext.Provider>;
-};
-
-export const useBlogView = () => {
-  const context = useContext(BlogViewContext);
-  if (!context) throw new Error('useBlogView must be used within a BlogViewProvider');
-  return context;
 };

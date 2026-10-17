@@ -1,11 +1,11 @@
 import './globals.css';
 
 import { EnvScript } from '@repo/runtime-env/env-script';
+import { PreferenceScripts } from '@repo/runtime-env/preference';
 import { cn } from '@repo/ui/lib/utils';
 import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
 
-import { Suspense } from 'react';
 import localFont from 'next/font/local';
 import Script from 'next/script';
 
@@ -13,6 +13,7 @@ import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 
 import { env } from '@/env';
+import { preferences } from '@/preferences';
 import { GlobalProviders } from '@/providers/server.global-providers';
 
 import { Header } from './components/header';
@@ -80,20 +81,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html suppressHydrationWarning className="scroll-smooth" lang="en">
       <head>
-        <script
-          async
-          crossOrigin="anonymous"
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
-        />
-        <Script id="blog-view-preference" strategy="beforeInteractive">{`
-          try {
-            var view = localStorage.getItem('blog-view-preference') || 'blog';
-            document.documentElement.setAttribute('data-blog-view', view);
-          } catch (e) {}
-        `}</Script>
-        <Suspense fallback={null}>
-          <EnvScript />
-        </Suspense>
+        <PreferenceScripts {...preferences} />
+        <EnvScript />
         {shouldLoadTweakCn ? (
           <Script async crossOrigin="anonymous" src="https://tweakcn.com/live-preview.min.js" />
         ) : null}
@@ -111,6 +100,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           {children}
           {/*<Footer />*/}
         </GlobalProviders>
+        <Script
+          async
+          crossOrigin="anonymous"
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );

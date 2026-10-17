@@ -52,5 +52,5 @@ export const OpenSourceFaqSection: FC<ComponentProps<'section'>> = ({ className,
 };
 
 const highlightRichText = {
-  highlight: (chunks: ReactNode) => <span className="text-accent font-medium">{chunks}</span>,
+  highlight: (chunks: ReactNode) => <span className="text-accent-ink font-medium">{chunks}</span>,
 };

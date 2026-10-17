@@ -1,9 +1,9 @@
 import { cacheLife, cacheTag } from 'next/cache';
 
-import type { OpenSourceProject } from '@/src/lib/open-source-projects';
+import type { OpenSourceProject } from '@/lib/open-source-projects';
 
-import { env } from '@/src/env';
-import { githubArchiveUrl, openSourceProjects } from '@/src/lib/open-source-projects';
+import { env } from '@/env';
+import { githubArchiveUrl, openSourceProjects } from '@/lib/open-source-projects';
 
 type GithubRepository = {
   stargazers_count: number;
@@ -140,4 +140,24 @@ export async function getOpenSourceProjectsWithVersions(): Promise<OpenSourcePro
       return { ...project, stargazersCount, versions };
     }),
   );
+}
+
+export type PopularOpenSourceProject = OpenSourceProject & {
+  stargazersCount: number | null;
+};
+
+/** Most starred projects first (unknown counts keep their listed order, last), at most `limit`. */
+export async function getPopularOpenSourceProjects(limit = 4): Promise<PopularOpenSourceProject[]> {
+  'use cache';
+  cacheLife('hours');
+  cacheTag('open-source-github-stars');
+
+  const projects = await Promise.all(
+    openSourceProjects.map(async project => ({
+      ...project,
+      stargazersCount: await fetchGithubStargazersCount(project),
+    })),
+  );
+
+  return projects.sort((a, b) => (b.stargazersCount ?? -1) - (a.stargazersCount ?? -1)).slice(0, limit);
 }

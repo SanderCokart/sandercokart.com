@@ -1,46 +1,64 @@
 ---
 name: conventional-commits
-description: Guidelines for writing git commit messages using the Conventional Commits specification. Use when creating commits, writing commit messages, or reviewing commit history.
+description: Guidelines for writing git commit messages using grouped conventional subjects (GROUPID | type(scope): …). Use when creating commits, writing commit messages, amending history, or looking up a feature/bug via its group ID.
 ---
 
 # Guidelines for git commits
 
-## Commit message format
+Every commit belongs to a **group ID** — a short token that ties the workstream together (feature, bug, issue). Same ID on every commit in that workstream. Index: [`.cursor/docs/git-group-ids.md`](../../docs/git-group-ids.md).
 
-First line contains vital information about the commit.
-Seperate sections with " | ".
-`Example: ! | #123 | FEAT | Add new feature`
+Lookup: `git log --grep='^MAILSC'`
 
-Start with a ! if the commit is a breaking change.
-
-Followed by an issue number if it exists in the current branch name.
-`Example: #123`
-
-Use tags for the type of commit.
-Must be capitalized.
-Available tags:
-
-- FEAT: New feature
-- FIX: Bug fix
-- DOCS: Documentation
-- FORMAT: Formatting like prettier or eslint
-- REFACTOR: Code refactoring including but not limited to renaming variables, functions, files or moving them around or simplifying code.
-- PERF: Performance improvements
-- TEST: Tests including but not limited to unit tests, integration tests, e2e tests, performance tests, security tests, etc.
-- DOCKER: Docker related changes including but not limited to building docker images, running docker containers, etc.
-- CI: CI/CD including but not limited to setting up CI/CD pipelines, running CI/CD pipelines, etc.
-- CHORE: Chores including but not limited to updating dependencies, updating documentation, updating readme, etc.
-- REVERT: Reverts a previous commit
-
-Followed by an empty line and then a more detailed description of the commit.
-The details should be very literal and direct using bullet points.
-
-Example:
+## Subject
 
 ```
-! | #123 | FEAT | Add new feature
-
-- Add new feature
-- Add new test
-- Add new documentation
+GROUPID | type(scope): description.
 ```
+
+Optional prefixes, still separated by ` | `:
+
+- `! | ` first if the commit is breaking
+- `#123 | ` after the group ID when the branch carries an issue number
+
+Examples:
+
+```
+MAILSC | feat(mail): queue contact mail through a React Email HTTP renderer sidecar.
+NLOGO | fix(ui): keep the named logo square and padded in the header.
+! | RTENV | feat(runtime-env): inject public env via a blocking head script.
+DXAI | #14 | chore(repo): align lint-staged and @/* aliases.
+```
+
+Rules:
+
+- **GROUPID**: 2–8 uppercase A–Z. Reuse an existing ID from the index if this continues that workstream. Otherwise mint one, add a row to the index in the same change (or the first commit that uses it).
+- **type**: lowercase. One of: `feat`, `fix`, `docs`, `format`, `refactor`, `perf`, `test`, `docker`, `ci`, `chore`, `revert`.
+- **scope**: workspace or area (`mail`, `mail-renderer`, `runtime-env`, `ui`, `main`, `repo`, `git`).
+- **description**: starts lowercase, ends with a period. Why, not a file list.
+
+## Body
+
+Empty line after the subject. List paths under the sections that apply. Each line is `- path: reason.`
+
+```
+MAILSC | fix(mail-renderer): stop mise shims resolving php during Docker builds.
+
+Files edited:
+- apps/mail-renderer/Dockerfile: set MISE_DISABLE_TOOLS=php so prune/build ignore php@8.5 from root mise.toml.
+```
+
+Sections: `Files edited:`, `Files added:`, `Files removed:`, `Files moved:`. Omit empty ones. Group mechanical churn (import rewrites, snapshot PNGs) on one line when the reason is the same.
+
+## Types
+
+- `feat`: new feature
+- `fix`: bug fix
+- `docs`: documentation
+- `format`: prettier / eslint-only formatting
+- `refactor`: rename, move, simplify — no behavior change
+- `perf`: performance
+- `test`: unit / integration / e2e / visual
+- `docker`: images, compose, container runtime
+- `ci`: pipelines
+- `chore`: deps, tooling, repo map
+- `revert`: reverts a previous commit

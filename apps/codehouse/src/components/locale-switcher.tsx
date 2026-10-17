@@ -1,38 +1,68 @@
 'use client';
 
-import { cn } from '@repo/ui/lib/utils';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@repo/ui/components/shadcn/dropdown-menu';
 import { GB as GBFlag, NL as NLFlag } from 'country-flag-icons/react/3x2';
-import { useLocale } from 'next-intl';
+import { CheckIcon, LanguagesIcon } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
 
-import { Link, usePathname } from '@/src/i18n/navigation';
+import { Link, usePathname } from '@/i18n/navigation';
 
+/** Each language is named in itself, so a visitor can find theirs whatever the page is currently in. */
+const locales = [
+  { locale: 'en', name: 'English', Flag: GBFlag },
+  { locale: 'nl', name: 'Nederlands', Flag: NLFlag },
+] as const;
+
+/**
+ * Language menu: a single icon in the header that opens the languages with their flags. Items are real links with
+ * `hrefLang`, so the alternate-language URLs stay crawlable.
+ */
 export function LocaleSwitcher() {
   // next-intl's usePathname already includes a leading `/` and omits the locale prefix.
   const pathname = usePathname();
   const activeLocale = useLocale();
+  const t = useTranslations('LocaleSwitcher');
 
   return (
-    <div
-      className={cn(
-        'pointer-events-none flex min-w-[94px] justify-center gap-2 [&_svg]:pointer-events-auto [&:hover_svg]:opacity-50 [&:hover_svg:hover]:opacity-100',
-      )}>
-      <Link replace href={pathname} hrefLang="en" locale="en" rel="alternate" scroll={false}>
-        <GBFlag
-          className={cn('h-5 cursor-pointer transition-opacity sm:h-7', {
-            'opacity-50': activeLocale !== 'en',
-            'cursor-not-allowed': activeLocale === 'en',
-          })}
-        />
-      </Link>
-      <div className="h-5 border-r-2 border-white opacity-100! sm:h-7" />
-      <Link replace href={pathname} hrefLang="nl" locale="nl" rel="alternate" scroll={false}>
-        <NLFlag
-          className={cn('h-5 cursor-pointer transition-opacity sm:h-7', {
-            'opacity-50': activeLocale !== 'nl',
-            'cursor-not-allowed': activeLocale === 'nl',
-          })}
-        />
-      </Link>
-    </div>
+    <DropdownMenu>
+      <DropdownMenuTrigger
+        aria-label={t('label')}
+        title={t('label')}
+        className="hover:text-header-accent focus-visible:text-header-accent data-popup-open:text-header-accent grid place-items-center transition-colors">
+        <LanguagesIcon aria-hidden className="size-7 sm:size-8" />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" sideOffset={8} className="w-auto min-w-44">
+        {locales.map(({ locale, name, Flag }) => {
+          const active = locale === activeLocale;
+
+          return (
+            <DropdownMenuItem
+              key={locale}
+              className="gap-2.5 py-1.5 pr-2"
+              render={
+                <Link
+                  replace
+                  href={pathname}
+                  hrefLang={locale}
+                  lang={locale}
+                  locale={locale}
+                  rel="alternate"
+                  scroll={false}
+                  aria-current={active ? 'true' : undefined}
+                />
+              }>
+              <Flag aria-hidden className="h-4 w-6 rounded-[2px]" />
+              <span className="grow">{name}</span>
+              {active ? <CheckIcon aria-hidden /> : null}
+            </DropdownMenuItem>
+          );
+        })}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

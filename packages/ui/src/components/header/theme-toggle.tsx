@@ -1,8 +1,8 @@
 'use client';
 
+import { useTheme } from '@wrksz/themes/client';
 import { MoonIcon, SunIcon } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
-import { useTheme } from '@wrksz/themes/client';
 
 import { useEffect, useState } from 'react';
 
@@ -54,7 +54,7 @@ export function ThemeToggle() {
       <button
         type="button"
         onClick={toggleTheme}
-        className="focus-visible:text-accent hover:text-accent transition-colors"
+        className="focus-visible:text-header-accent hover:text-header-accent transition-colors"
         suppressHydrationWarning
         role="switch"
         aria-label="Dark mode"

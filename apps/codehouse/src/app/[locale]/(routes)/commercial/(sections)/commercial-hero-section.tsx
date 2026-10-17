@@ -4,38 +4,20 @@ import { Button } from '@repo/ui/components/shadcn/button';
 import { cn } from '@repo/ui/lib/utils';
 import { useTranslations } from 'next-intl';
 
-import Image from 'next/image';
-
 import type { ComponentProps, FC } from 'react';
 
-import LogoINV from '@/public/static/images/logo/Logo-INV.png';
-import Logo from '@/public/static/images/logo/Logo.png';
-import { MotionDiv } from '@/src/lib/motion';
+import { SegmentLogo } from '@/components/segment-logo';
+
+import { heroItem, heroStagger } from '@/lib/hero-reveal';
+import { MotionDiv } from '@/lib/motion';
 
 import { MockBarChart, MockSidebar, MockStat, MockTableRow, MockWindow } from './components/mock-ui';
-
-const heroContainer = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.12, delayChildren: 0.15 },
-  },
-};
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 16 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.45, ease: 'easeOut' as const },
-  },
-};
 
 const dashboardContainer = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.08, delayChildren: 0.3 },
+    transition: { staggerChildren: 0.08, delayChildren: 0.75 },
   },
 };
 
@@ -58,37 +40,33 @@ export const CommercialHeroSection: FC<ComponentProps<'section'>> = ({ className
       className={cn('mt-16', 'dark:drop-shadow-[0_0px_10px_hsl(var(--primary))]', className)}
       id="hero"
       {...props}>
-      <MotionDiv
-        className="container flex max-w-7xl flex-col gap-10 pb-4"
-        variants={heroContainer}
-        animate="show">
-        <MotionDiv variants={fadeUp} className="flex flex-col items-center gap-6 text-center">
-          <Image
-            priority
-            alt="Sander's CodeHouse"
-            className="mx-auto block max-w-44 sm:max-w-32 dark:hidden"
-            src={LogoINV}
-          />
-          <Image
-            priority
-            alt="Sander's CodeHouse"
-            className="mx-auto hidden max-w-44 sm:max-w-32 dark:block"
-            src={Logo}
-          />
-          <h1 className="mx-auto max-w-4xl text-balance text-3xl font-bold uppercase sm:text-5xl">
-            {t.rich('title', {
-              highlight: chunks => <span className="text-accent">{chunks}</span>,
-            })}
-          </h1>
-          <p className="text-muted-foreground mx-auto max-w-2xl text-balance text-lg sm:text-xl">{t('description')}</p>
-          <div className="flex flex-wrap items-center justify-center gap-3">
+      <div className="container flex max-w-7xl flex-col gap-10 pb-4">
+        <MotionDiv
+          variants={heroStagger}
+          initial="hidden"
+          animate="show"
+          className="flex flex-col items-center gap-6 text-center">
+          <SegmentLogo glow label="Sander's CodeHouse" className="h-auto w-36 sm:w-40" />
+          <MotionDiv variants={heroItem}>
+            <h1 className="mx-auto max-w-4xl text-3xl font-bold text-balance uppercase sm:text-5xl">
+              {t.rich('title', {
+                highlight: chunks => <span className="text-accent-ink">{chunks}</span>,
+              })}
+            </h1>
+          </MotionDiv>
+          <MotionDiv variants={heroItem}>
+            <p className="text-muted-foreground mx-auto max-w-2xl text-lg text-balance sm:text-xl">
+              {t('description')}
+            </p>
+          </MotionDiv>
+          <MotionDiv variants={heroItem} className="flex flex-wrap items-center justify-center gap-3">
             <Button size="lg" render={<a href="#ask-for-a-quote" />} nativeButton={false}>
               {t('cta_primary')}
             </Button>
             <Button size="lg" variant="outline" render={<a href="#examples" />} nativeButton={false}>
               {t('cta_secondary')}
             </Button>
-          </div>
+          </MotionDiv>
         </MotionDiv>
 
         <MotionDiv
@@ -99,8 +77,8 @@ export const CommercialHeroSection: FC<ComponentProps<'section'>> = ({ className
           aria-hidden>
           <div
             className={cn(
-              'pointer-events-none absolute -inset-x-8 -bottom-8 -top-4 z-0',
-              'bg-linear-to-b from-transparent via-transparent to-background',
+              'pointer-events-none absolute -inset-x-8 -top-4 -bottom-8 z-0',
+              'to-background bg-linear-to-b from-transparent via-transparent',
             )}
           />
           <MockWindow title={t('mock_window_title')} className="relative z-10">
@@ -128,7 +106,10 @@ export const CommercialHeroSection: FC<ComponentProps<'section'>> = ({ className
                     <p className="text-muted-foreground border-border/40 border-b px-3 py-2 text-[10px] tracking-wider uppercase">
                       {t('mock_activity_label')}
                     </p>
-                    <MockTableRow cells={[t('mock_row_1_name'), t('mock_row_1_status'), t('mock_row_1_time')]} highlight />
+                    <MockTableRow
+                      cells={[t('mock_row_1_name'), t('mock_row_1_status'), t('mock_row_1_time')]}
+                      highlight
+                    />
                     <MockTableRow cells={[t('mock_row_2_name'), t('mock_row_2_status'), t('mock_row_2_time')]} />
                     <MockTableRow cells={[t('mock_row_3_name'), t('mock_row_3_status'), t('mock_row_3_time')]} />
                     <MockTableRow cells={[t('mock_row_4_name'), t('mock_row_4_status'), t('mock_row_4_time')]} />
@@ -138,7 +119,7 @@ export const CommercialHeroSection: FC<ComponentProps<'section'>> = ({ className
             </div>
           </MockWindow>
         </MotionDiv>
-      </MotionDiv>
+      </div>
     </section>
   );
 };

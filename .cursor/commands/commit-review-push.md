@@ -9,8 +9,9 @@ Run `git status` and `git diff` to see all changes.
 
 ## Step 2: Plan commits
 
-Split changes into logical commits (one per intent). Order: refactor first, then features/fixes, then docs/chore. Use the project’s commit format for each message (see reference below).
+Split changes into logical commits (one per intent). Order: refactor first, then features/fixes, then docs/chore. Use the grouped commit format for each message (see reference below).
 
+- Reuse a group ID from [`.cursor/docs/git-group-ids.md`](../docs/git-group-ids.md) if this continues that workstream; otherwise mint 2–8 A–Z and add a row.
 - Group by intent; prefer smaller, focused commits when changes are unrelated.
 - If everything is one logical change, use one commit.
 
@@ -23,8 +24,8 @@ Output a **nicely formatted summary** so the user can review the commits before 
 
 Example format:
 
-- **FEAT | Add back-to-top button** - `back-to-top-button.tsx`
-- **REFACTOR | Simplify article page layout** - `page.tsx`
+- **RTENV | feat(runtime-env): inject public env via a blocking head script.** - `env-script.tsx`
+- **NLOGO | fix(ui): keep the named logo square in the header.** - `named-logo.tsx`
 
 Keep this short and scannable. No code block in this step.
 
@@ -39,13 +40,13 @@ Keep this short and scannable. No code block in this step.
 Example shape (replace with real paths and messages):
 
 ```bash
-git add path/to/file1 path/to/file2 && git commit -m "FEAT | Add thing" && \
-git add path/to/file3 && git commit -m "REFACTOR | Simplify other" && \
+git add path/to/file1 path/to/file2 && git commit -m "RTENV | feat(runtime-env): add thing." && \
+git add path/to/file3 && git commit -m "RTENV | docs(runtime-env): document the other." && \
 git push
 ```
 
 - One `git add` per commit, only the paths for that commit.
-- Use the project’s commit format (e.g. `#123 | FEAT | Add thing` if there’s an issue; add `! ` prefix for breaking changes). For multi-line bodies, use `-m "TAG | Summary" -m "- Bullet one" -m "- Bullet two"` or a single `-m` with the full message.
+- Use the grouped commit format (see reference). For multi-line bodies, use a HEREDOC `-m "$(cat <<'EOF' … EOF)"` or `-m "subject" -m "body"`.
 - Quote messages so they paste safely; escape internal double quotes or use single-quoted `-m 'message'`.
 - Include `git push` in the block.
 
@@ -64,17 +65,26 @@ Immediately after the code block, ask exactly:
 
 ## Commit message format (reference)
 
-First line: optional `! ` (breaking change), optional `#<issue> | ` (from branch), then `TAG | Short description`. Separate sections with ` | `.
+Full rules: [`.cursor/skills/git-commit/SKILL.md`](../skills/git-commit/SKILL.md). Group IDs: [`.cursor/docs/git-group-ids.md`](../docs/git-group-ids.md).
 
-**Tags (capitalized):** FEAT, FIX, DOCS, FORMAT, REFACTOR, PERF, TEST, DOCKER, CI, CHORE, REVERT.
+```
+GROUPID | type(scope): description.
+```
 
-**Optional body:** Empty line, then bullet points with a literal, direct description.
+Optional `! | ` first if breaking; optional `#123 | ` after the group ID. Reuse an existing group ID or mint 2–8 A–Z and add a row to the index.
+
+**Types (lowercase):** feat, fix, docs, format, refactor, perf, test, docker, ci, chore, revert.
+
+**Body:** `Files edited:` / `Files added:` / `Files removed:` / `Files moved:` with `- path: reason.`
 
 Example:
 
 ```
-! | #123 | FEAT | Add new feature
+MAILSC | feat(mail): queue contact mail through a React Email HTTP renderer sidecar.
 
-- Add new feature
-- Add new test
+Files edited:
+- apps/api/app/Mail/ContactFormMail.php: queue and render via MailRenderer instead of Blade.
+
+Files added:
+- apps/mail-renderer/src/server.ts: POST /render that calls @repo/mail renderTemplate.
 ```

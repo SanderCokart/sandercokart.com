@@ -1,156 +1,97 @@
-'use client';
-
-import { Button } from '@repo/ui/components/shadcn/button';
-import { Card, CardContent, CardHeader } from '@repo/ui/components/shadcn/card';
 import { cn } from '@repo/ui/lib/utils';
-import { motion } from 'motion/react';
 import { useTranslations } from 'next-intl';
-import { FaCode, FaDatabase, FaGithub, FaGlobe } from 'react-icons/fa';
 
-import { Link } from '@/src/i18n/navigation';
-import { serviceHrefs } from '@/src/lib/nav-links';
+import type { CSSProperties, ReactNode } from 'react';
+import type { ServiceId } from '@/lib/nav-links';
 
+import { SegmentLogo } from '@/components/segment-logo';
+
+import { ChapterIndex } from './chapter-index';
+import { BlogPreview } from './previews/blog-preview';
+import { DashboardPreview } from './previews/dashboard-preview';
+import { FreelancePreview } from './previews/freelance-preview';
+import { RepositoriesPreview } from './previews/repositories-preview';
+import { ServiceChapter } from './service-chapter';
+import { serviceOfferings } from './service-offerings';
+
+/** What each service looks like once built, shown between its selling points and its call to action. */
+const previews: Record<ServiceId, ReactNode> = {
+  'consumer': <BlogPreview />,
+  'commercial': <DashboardPreview />,
+  'freelance': <FreelancePreview />,
+  'open-source': <RepositoriesPreview />,
+};
+
+/**
+ * The home services as chapters of one continuous surface: backgrounds stay put, content plays in with the intro or
+ * as it is reached.
+ *
+ * - Phones: the intro (logo, slogan, title, chapter index) fills the visible fold, then chapters with sticky
+ *   numbered titles.
+ * - lg+: split view. The intro and index stay pinned on the left and the index takes the color of the chapter in
+ *   view; each chapter fills a screen with its copy and a preview of what that service builds.
+ *
+ * Animation is CSS only (tw-animate-css classes, chapters.module.css, segment-logo.module.css); the server HTML is the
+ * final layout.
+ */
 export function ServiceOfferingsSection() {
   const t = useTranslations('ServiceOfferingsSection');
 
-  const services = [
-    {
-      icon: <FaGlobe className="h-16 w-16" />,
-      title: t('marketing_title'),
-      description: t('marketing_description'),
-      features: [
-        t('marketing_features_design'),
-        t('marketing_features_i18n'),
-        t('marketing_features_performance'),
-        t('marketing_features_mobile'),
-        t('marketing_features_cms'),
-      ],
-      color: 'from-green-500/10 to-green-500/20',
-      iconColor: 'text-green-500',
-      link: serviceHrefs.consumer,
-    },
-    {
-      icon: <FaDatabase className="h-16 w-16" />,
-      title: t('custom_title'),
-      description: t('custom_description'),
-      features: [
-        t('custom_features_webapps'),
-        t('custom_features_database'),
-        t('custom_features_api'),
-        t('custom_features_cloud'),
-        t('custom_features_security'),
-      ],
-      color: 'from-blue-500/10 to-blue-500/20',
-      iconColor: 'text-blue-500',
-      link: serviceHrefs.commercial,
-    },
-    {
-      icon: <FaCode className="h-16 w-16" />,
-      title: t('freelance_title'),
-      description: t('freelance_description'),
-      features: [
-        t('freelance_features_react'),
-        t('freelance_features_fullstack'),
-        t('freelance_features_agile'),
-        t('freelance_features_team'),
-        t('freelance_features_onboarding'),
-      ],
-      color: 'from-purple-500/10 to-purple-500/20',
-      iconColor: 'text-purple-500',
-      link: serviceHrefs.freelance,
-    },
-    {
-      icon: <FaGithub className="h-16 w-16" />,
-      title: t('opensource_title'),
-      description: t('opensource_description'),
-      features: [
-        t('opensource_features_tools'),
-        t('opensource_features_download'),
-        t('opensource_features_versions'),
-        t('opensource_features_licenses'),
-        t('opensource_features_public'),
-      ],
-      color: 'from-orange-500/10 to-orange-500/20',
-      iconColor: 'text-orange-500',
-      link: serviceHrefs['open-source'],
-    },
-  ];
-
-  /**
-   * Breakpoints:
-   * - sm: Targets small screens (typically phones) and adjusts the container width and grid gap.
-   * - xl: Four columns so the four offerings sit in a single row on desktop.
-   */
-
   return (
-    <section
-      className={cn(
-        'sm:mt-8 sm:mb-16 xl:mt-0',
-        'min-h-[calc(100dvh-(--spacing(11)))] sm:min-h-[calc(100dvh-(--spacing(16)))]',
-        'grid place-items-center',
-      )}
-      id="services">
-      <article className="container px-0 sm:max-w-(--breakpoint-sm) sm:px-4 xl:max-w-[120rem]">
-        <motion.h1
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
-          viewport={{ once: true }}
+    <section aria-labelledby="services-title" id="services">
+      <div className="3xl:max-w-[120rem] 3xl:gap-20 mx-auto grid w-full max-w-7xl lg:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] lg:gap-12 lg:px-8 2xl:max-w-[96rem] 2xl:gap-16">
+        <header
           className={cn(
-            'text-center text-5xl font-bold sm:mb-8',
-            'max-sm:bg-card max-sm:mb-0 max-sm:bg-linear-to-b max-sm:from-green-500/10 max-sm:to-green-500/10 max-sm:py-8',
+            '3xl:gap-8 flex flex-col items-center justify-center gap-5 px-6 py-8 text-center 2xl:gap-6',
+            // Below lg the intro owns the visible fold: viewport minus the site header and the fixed bottom nav.
+            'min-h-[calc(100dvh-(--spacing(11))-(--spacing(14)))] sm:min-h-[calc(100dvh-(--spacing(16))-(--spacing(14)))]',
+            'lg:sticky lg:top-16 lg:h-[calc(100dvh-(--spacing(16)))] lg:min-h-0 lg:items-start lg:px-0 lg:py-0 lg:text-left',
           )}>
-          {t('title')}
-        </motion.h1>
-        <div className="grid gap-0 sm:gap-8 xl:grid-cols-4">
-          {services.map((service, index) => (
-            <motion.div
-              key={service.title}
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: 'easeOut', delay: 0.5 + index * 0.2 }}
-              viewport={{ once: true }}
-              className="group relative overflow-hidden">
-              <Card
-                className={cn(
-                  'grid grid-rows-[auto_auto_auto_auto_auto]',
-                  'h-full bg-linear-to-b',
-                  service.color,
-                  'rounded-none transition-colors duration-500 ease-in-out sm:rounded-lg',
-                  'has-[a:hover]:from-primary/10 has-[a:hover]:to-primary/20 dark:has-[a:hover]:from-accent/10 dark:has-[a:hover]:to-accent/20',
-                )}>
-                <CardHeader className="grid grid-rows-subgrid">
-                  <div className={`flex items-center justify-center ${service.iconColor}`}>{service.icon}</div>
-                  <h2 className="mt-4 text-center text-3xl font-bold">{service.title}</h2>
-                </CardHeader>
-                <CardContent className="row-span-2 grid grid-rows-subgrid">
-                  <p className="mt-2 text-center text-lg">{service.description}</p>
-                  <ul className="space-y-2">
-                    {service.features.map(feature => (
-                      <li key={feature} className="flex items-center gap-2">
-                        <span className="dark:text-accent text-primary">•</span>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-                <div className="flex items-center justify-center p-4">
-                  <Button
-                    variant="ghost"
-                    size="lg"
-                    className={cn(
-                      'text-lg font-semibold duration-500',
-                      'hover:bg-primary/30 hover:text-inherit',
-                      'dark:hover:bg-accent/60 dark:hover:text-accent-foreground',
-                    )}>
-                    <Link href={service.link}>{t('callToAction')}</Link>
-                  </Button>
-                </div>
-              </Card>
-            </motion.div>
+          <SegmentLogo glow label="Sander's CodeHouse" className="3xl:w-80 h-auto w-36 sm:w-40 2xl:w-60" />
+          <p
+            className="font-digital type-on type-on-caret text-primary dark:text-accent 3xl:text-4xl text-xl 2xl:text-3xl"
+            style={{ '--chars': 13, '--type-delay': '0.55s' } as CSSProperties}>
+            Let&apos;s code...
+          </p>
+          <h1
+            id="services-title"
+            className={cn(
+              '3xl:text-[7rem] -mt-2 text-5xl font-bold lg:text-7xl 2xl:text-8xl',
+              // Resolves under the typed slogan: out of a blur and up into place.
+              'fade-in blur-in-[6px] slide-in-from-bottom-2 animation-duration-600 ease-snap fill-mode-both motion-safe:animate-in delay-950',
+            )}>
+            {t('title')}
+          </h1>
+          <ChapterIndex
+            labelledBy="services-title"
+            entries={serviceOfferings.map(offering => ({
+              target: `service-${offering.id}`,
+              accent: offering.accent,
+              title: t(offering.title),
+            }))}
+          />
+          <p className="text-muted-foreground 3xl:text-2xl hidden text-sm lg:block 2xl:text-lg">
+            {t.rich('keyboard_hint', {
+              key: chunks => (
+                <kbd className="border-foreground/25 bg-card dark:border-border dark:bg-muted/60 3xl:text-lg rounded border px-1.5 font-mono text-xs 2xl:text-sm">
+                  {chunks}
+                </kbd>
+              ),
+            })}
+          </p>
+        </header>
+        <ol role="list">
+          {serviceOfferings.map((offering, index) => (
+            <ServiceChapter
+              key={offering.id}
+              offering={offering}
+              index={index}
+              previousAccent={serviceOfferings[index - 1]?.accent}
+              preview={previews[offering.id]}
+            />
           ))}
-        </div>
-      </article>
+        </ol>
+      </div>
     </section>
   );
 }

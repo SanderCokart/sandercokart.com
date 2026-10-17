@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 
 import type { ComponentProps, FC } from 'react';
 
-import { MotionDiv } from '@/src/lib/motion';
+import { MotionDiv } from '@/lib/motion';
 
 const steps = [
   { key: 'focused', icon: PuzzleIcon },

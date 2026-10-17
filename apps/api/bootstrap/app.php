@@ -14,9 +14,6 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->statefulApi();
-        $middleware->preventRequestForgery(except: [
-            'resend/*',
-        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

@@ -11,9 +11,11 @@ import localFont from 'next/font/local';
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 
-import { env } from '@/src/env';
-import { routing } from '@/src/i18n/routing';
-import { GlobalProviders } from '@/src/providers/server.global-providers';
+import { SiteHeader } from '@/components/site-header';
+
+import { env } from '@/env';
+import { routing } from '@/i18n/routing';
+import { GlobalProviders } from '@/providers/server.global-providers';
 
 import { Footer } from './(components)/footer';
 
@@ -97,12 +99,11 @@ function RootLayoutFallback({ children }: { children: ReactNode }) {
       data-scroll-behavior="smooth"
       lang={routing.defaultLocale}>
       <head>
-        <Suspense fallback={null}>
-          <EnvScript />
-        </Suspense>
+        <EnvScript />
       </head>
       <body className={bodyClassName}>
         <GlobalProviders>
+          <SiteHeader />
           {children}
           <Footer />
         </GlobalProviders>
@@ -117,12 +118,11 @@ async function LocalizedRootLayout({ children }: RootLayoutParams) {
   return (
     <html suppressHydrationWarning className="relative scroll-smooth" data-scroll-behavior="smooth" lang={locale}>
       <head>
-        <Suspense fallback={null}>
-          <EnvScript />
-        </Suspense>
+        <EnvScript />
       </head>
       <body className={bodyClassName}>
         <GlobalProviders>
+          <SiteHeader />
           {children}
           <Footer />
         </GlobalProviders>

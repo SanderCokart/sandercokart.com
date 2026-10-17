@@ -1,21 +1,17 @@
 import { getRuntimeEnv } from './get-runtime-env';
+import { isPublicRuntimeEnvKey } from './public-env-keys';
 
 /**
- * Get public env vars at runtime (for client injection).
- * Filters environment variables that start with NEXT_PUBLIC_
- * 
+ * Public env vars for client injection: NEXT_PUBLIC_* plus NODE_ENV.
+ *
  * @internal
- * @returns Object containing only NEXT_PUBLIC_* environment variables
  */
 export function getPublicEnv(): Record<string, string | undefined> {
   const runtimeEnv = getRuntimeEnv();
   return Object.keys(runtimeEnv)
-    .filter((key) => /^NEXT_PUBLIC_/i.test(key))
-    .reduce<Record<string, string | undefined>>(
-      (env, key) => ({
-        ...env,
-        [key]: runtimeEnv[key],
-      }),
-      {},
-    );
+    .filter(isPublicRuntimeEnvKey)
+    .reduce<Record<string, string | undefined>>((env, key) => {
+      env[key] = runtimeEnv[key];
+      return env;
+    }, {});
 }

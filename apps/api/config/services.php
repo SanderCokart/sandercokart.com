@@ -24,8 +24,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
-    'resend' => [
-        'key' => env('RESEND_KEY'),
+    'mail_renderer' => [
+        'url' => env('MAIL_RENDERER_URL', 'http://mail-renderer:4010'),
     ],
 
     'slack' => [

@@ -45,3 +45,22 @@ COPY --chown=www-data:www-data ./apps/api/ /var/www/html
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-ansi
 
 USER www-data
+
+############################################
+# Queue worker (CLI variation, no nginx)
+############################################
+FROM serversideup/php:8.5-cli-alpine AS queue
+
+USER root
+RUN install-php-extensions redis
+
+WORKDIR /var/www/html
+COPY --from=production --chown=www-data:www-data /var/www/html /var/www/html
+
+USER www-data
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=20s --retries=3 \
+    CMD pgrep -f "queue:work" || exit 1
+
+CMD ["php", "/var/www/html/artisan", "queue:work", "--tries=3"]
+

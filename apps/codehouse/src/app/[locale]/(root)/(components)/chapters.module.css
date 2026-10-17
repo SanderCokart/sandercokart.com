@@ -1,0 +1,75 @@
+/*
+ * Home service chapters: one continuous surface whose backgrounds never move, with content that plays in.
+ *
+ * Paint:
+ * - Phones: translucent full-width tints; each chapter starts in the accent of the one above (`--accent-prev`) and
+ *   settles into its own, so the field has no seams. The sticky chapter bar is the chapter's own tint.
+ * - Desktop: a feathered glow per chapter (closest-side radial, transparent at every edge, so no borders).
+ *
+ * Motion (`.item`, every row of a chapter): two entrances on separate properties that compose. A load cascade on
+ * opacity/transform plays for chapters on screen with the intro (`--column` per chapter, `--item` per row); a
+ * scroll-tied reveal on filter/translate plays for chapters reached later. One `animation` list, so it lives here
+ * rather than in tw-animate-css classes. Nothing moves under reduced motion.
+ *
+ * Layout, the accent ink and the short-screen spacing are Tailwind classes in service-chapter.tsx.
+ */
+.chapter {
+  background: linear-gradient(
+    color-mix(in srgb, var(--accent-prev) var(--tint), transparent),
+    color-mix(in srgb, var(--accent) var(--tint), transparent) 12rem,
+    color-mix(in srgb, var(--accent) var(--tint), transparent)
+  );
+}
+
+@media (width >= 64rem) {
+  .chapter {
+    background: radial-gradient(
+      closest-side,
+      color-mix(in srgb, var(--accent) var(--tint), transparent),
+      color-mix(in srgb, var(--accent) 6%, transparent) 60%,
+      transparent
+    );
+  }
+}
+
+@media (width < 64rem) {
+  .head {
+    background: color-mix(in srgb, var(--accent) var(--tint), var(--background));
+    box-shadow: 0 1px 0 color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .item {
+    animation: rise 0.5s var(--ease-snap) both;
+    animation-delay: calc(1.3s + var(--column, 0) * 0.15s + var(--item, 0) * 0.08s);
+  }
+
+  @supports (animation-timeline: view()) {
+    .item {
+      animation:
+        rise 0.5s var(--ease-snap) both,
+        scroll-in ease-out both;
+      animation-delay: calc(1.3s + var(--column, 0) * 0.15s + var(--item, 0) * 0.08s), 0s;
+      animation-duration: 0.5s, auto;
+      animation-timeline: auto, view();
+      animation-range:
+        normal,
+        entry 0% cover 30%;
+    }
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+}
+
+@keyframes scroll-in {
+  from {
+    filter: opacity(0);
+    translate: 0 1.25rem;
+  }
+}

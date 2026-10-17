@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 
-import { env } from '@/src/env';
-import { locales } from '@/src/i18n/config';
+import { env } from '@/env';
+import { locales } from '@/i18n/config';
 
 const routePaths = ['', '/consumer', '/freelance', '/commercial', '/open-source'] as const;
 

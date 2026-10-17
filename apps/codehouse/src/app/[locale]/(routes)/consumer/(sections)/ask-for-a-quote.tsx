@@ -16,7 +16,7 @@ import { useState } from 'react';
 
 import type { ComponentProps, FC } from 'react';
 
-import { env } from '@/src/env';
+import { env } from '@/env';
 
 import { FormStatus } from './components/form-status';
 

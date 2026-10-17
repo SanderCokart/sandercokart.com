@@ -1,7 +1,6 @@
-import { Line } from '@/src/components/line';
+import { Line } from '@/components/line';
 
 import { AskForAQuote } from '../consumer/(sections)/ask-for-a-quote';
-
 import { FreelanceFaqSection } from './(sections)/freelance-faq-section';
 import { FreelanceHeroSection } from './(sections)/freelance-hero-section';
 import { FreelanceShowcaseSection } from './(sections)/freelance-showcase-section';

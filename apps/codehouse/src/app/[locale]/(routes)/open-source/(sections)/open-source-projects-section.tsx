@@ -8,19 +8,12 @@ import { useFormatter, useTranslations } from 'next-intl';
 import { FaGithub } from 'react-icons/fa';
 
 import type { ComponentProps, FC } from 'react';
-import type { OpenSourceProjectWithVersions } from '@/src/lib/github-source-versions';
+import type { OpenSourceProjectWithVersions } from '@/lib/github-source-versions';
 
-import { GithubSourceDownload } from '@/src/components/github-source-download';
-import { MotionDiv } from '@/src/lib/motion';
-import { githubChangelogUrl, githubReleasesUrl, githubRepoUrl } from '@/src/lib/open-source-projects';
+import { GithubSourceDownload } from '@/components/github-source-download';
 
-const sectionStagger = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.12, delayChildren: 0.08 },
-  },
-};
+import { MotionDiv } from '@/lib/motion';
+import { githubChangelogUrl, githubReleasesUrl, githubRepoUrl } from '@/lib/open-source-projects';
 
 const sectionReveal = {
   hidden: { opacity: 0, y: 24 },
@@ -41,29 +34,34 @@ export const OpenSourceProjectsSection: FC<OpenSourceProjectsSectionProps> = ({ 
 
   return (
     <section className={cn('container max-w-(--breakpoint-lg) scroll-mt-16 py-4', className)} id="projects" {...props}>
-      <MotionDiv
-        className="flex flex-col gap-10"
-        variants={sectionStagger}
-        animate="show"
-        whileInView="show"
-        viewport={{ once: true, amount: 0 }}>
-        <MotionDiv variants={sectionReveal} className="mx-auto flex max-w-2xl flex-col gap-4 text-center">
-          <p className="text-accent text-sm font-semibold tracking-[0.18em] uppercase">{t('eyebrow')}</p>
+      <div className="flex flex-col gap-10">
+        <MotionDiv
+          variants={sectionReveal}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '-40px' }}
+          className="mx-auto flex max-w-2xl flex-col gap-4 text-center">
+          <p className="text-accent-ink text-sm font-semibold tracking-[0.18em] uppercase">{t('eyebrow')}</p>
           <h2 className="text-3xl font-bold uppercase sm:text-5xl">{t('title')}</h2>
           <p className="text-muted-foreground text-balance">{t('description')}</p>
         </MotionDiv>
 
         <div className="flex flex-col gap-8">
-          {projects.map((project, index) => {
+          {projects.map(project => {
             const features = t.raw(`projects_${project.id}_features`) as string[];
             const changelogUrl = githubChangelogUrl(project);
 
             return (
-              <MotionDiv key={project.id} variants={sectionReveal} transition={{ delay: index * 0.08 }}>
+              <MotionDiv
+                key={project.id}
+                variants={sectionReveal}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: '-40px' }}>
                 <Card>
                   {/*
                   Optional project screenshot.
-                  Drop a file at public/static/images/open-source/{project.id}.png
+                  Colocate an imported file at (sections)/images/{project.id}.png
                   then import it and render as the first child of this Card:
 
                   <Image
@@ -74,7 +72,7 @@ export const OpenSourceProjectsSection: FC<OpenSourceProjectsSectionProps> = ({ 
                   />
                 */}
                   <CardHeader>
-                    <p className="text-accent font-mono text-xs tracking-wider uppercase">
+                    <p className="text-accent-ink font-mono text-xs tracking-wider uppercase">
                       {t(`projects_${project.id}_intro`)}
                     </p>
                     <CardTitle className="text-2xl font-bold">{t(`projects_${project.id}_title`)}</CardTitle>
@@ -132,7 +130,7 @@ export const OpenSourceProjectsSection: FC<OpenSourceProjectsSectionProps> = ({ 
                         className="text-muted-foreground inline-flex items-center gap-1.5 text-sm"
                         aria-label={t('stars_label')}
                         title={t('stars_label')}>
-                        <StarIcon className="text-accent size-4" aria-hidden />
+                        <StarIcon className="text-accent-ink size-4" aria-hidden />
                         {format.number(project.stargazersCount)}
                       </span>
                     ) : null}
@@ -142,7 +140,7 @@ export const OpenSourceProjectsSection: FC<OpenSourceProjectsSectionProps> = ({ 
             );
           })}
         </div>
-      </MotionDiv>
+      </div>
     </section>
   );
 };

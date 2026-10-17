@@ -1,4 +1,4 @@
-import { Line } from '@/src/components/line';
+import { Line } from '@/components/line';
 
 import { AskForAQuote } from './(sections)/ask-for-a-quote';
 import { ConsumersHeroSection } from './(sections)/consumers-hero-section';
