@@ -17,7 +17,7 @@ import { FaArrowUp } from 'react-icons/fa6';
 
 import { useEffect, useRef, useState } from 'react';
 
-import type { CSSProperties, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import type { LinkType } from '@/lib/nav-links';
 
 import { Link } from '@/i18n/navigation';
@@ -85,7 +85,7 @@ function NavLink({ href, className, children }: { href: string; className?: stri
 
 /** Names only from the xl breakpoint (1280px); below it the row is icons with tooltips. */
 const LABELS_FROM = '(min-width: 80rem)';
-/** Seconds per typed character, as in the named logo's slogan (`.type-on`). */
+/** Seconds per typed character, as in the named logo's slogan (the `type-on` utility). */
 const TYPE_STEP = 0.045;
 /**
  * When the icons pop in and the first name starts typing: on the page-load entrance (after the named logo), when a
@@ -242,13 +242,13 @@ function DesktopNavigation({ links }: NavigationProps) {
                   <TooltipTrigger
                     render={<Link href={link.href} aria-label={link.label} />}
                     className={cn(
-                      'pop-in flex h-11 items-center rounded-lg px-2.5 text-2xl transition-colors',
+                      'flex h-11 items-center rounded-lg px-2.5 text-2xl transition-colors',
+                      // Pops in like the named logo's mark. The delay is inline: `delay-*` would also delay the hover color.
+                      'fade-in zoom-in-85 animation-duration-500 ease-snap fill-mode-both motion-safe:animate-in',
                       'text-primary-foreground hover:text-accent hover:bg-white/10',
                       'focus-visible:ring-accent focus-visible:ring-2 focus-visible:outline-none',
                     )}
-                    style={
-                      { '--pop-delay': `${(swapped ? SWAP_POP_START : POP_START) + index * 0.08}s` } as CSSProperties
-                    }>
+                    style={{ animationDelay: `${(swapped ? SWAP_POP_START : POP_START) + index * 0.08}s` }}>
                     <span aria-hidden data-nav-icon>
                       {link.icon}
                     </span>

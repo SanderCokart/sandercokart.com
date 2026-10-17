@@ -8,7 +8,7 @@ interface NamedLogoProps {
   Component?: ElementType;
 }
 
-/** Seconds per typed character; keep in sync with `.type-on` in themes/default.css. */
+/** Seconds per typed character; keep in sync with the `type-on` utility in themes/default.css. */
 const TYPE_STEP = 0.045;
 const NAME_DELAY = 0.3;
 
@@ -18,7 +18,7 @@ function typed(text: string, delay: number): CSSProperties {
 
 /**
  * Header lockup: mark, site name and slogan. On load the mark fades up (an inline SegmentLogo also powers on),
- * then the name types itself out and the slogan follows with a cursor (`.type-on`, themes/default.css).
+ * then the name types itself out and the slogan follows with a cursor (the `type-on` utilities in themes/default.css).
  */
 export function NamedLogo({ name, slogan, href = '/', logo, Component = 'a' }: NamedLogoProps) {
   const sloganDelay = NAME_DELAY + name.length * TYPE_STEP + 0.1;
@@ -29,7 +29,7 @@ export function NamedLogo({ name, slogan, href = '/', logo, Component = 'a' }: N
         {/* Phones: the mark matches the 32px theme toggle and overhangs the two text rows by 2px each side.
             From sm it is square to the text block, with 4px padding. */}
         <span className="relative row-span-2 -my-0.5 size-8 sm:my-0 sm:aspect-square sm:h-full sm:min-h-0 sm:w-auto sm:p-1">
-          <span className="named-logo-mark relative block size-full drop-shadow-[0_1px_2px_rgb(0_0_0/0.45)]">
+          <span className="ease-snap fill-mode-both zoom-in-85 fade-in animation-duration-500 motion-safe:animate-in relative block size-full drop-shadow-[0_1px_2px_rgb(0_0_0/0.45)]">
             {logo}
           </span>
         </span>

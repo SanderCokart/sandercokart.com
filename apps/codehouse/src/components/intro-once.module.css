@@ -1,0 +1,13 @@
+/*
+ * Once the entrance has played, the site header renders its final frame: no replay and no lingering cursor, e.g.
+ * after a locale switch remounts it. Header links swapped in by a page change (`data-nav-swapped`) are left out so
+ * they pop in again.
+ */
+.played :global([data-site-header] :not([data-nav-swapped] *)),
+.played :global([data-site-header] :not([data-nav-swapped] *))::after {
+  animation: none !important;
+}
+
+.played :global([data-site-header] .type-on-caret)::after {
+  content: none;
+}

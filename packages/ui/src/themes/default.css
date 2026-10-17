@@ -180,25 +180,29 @@
   }
 }
 
+@theme {
+  /* Quick start, soft landing: the easing shared by the header and Codehouse entrances (`ease-snap`). */
+  --ease-snap: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
 /*
  * Type-on: text reveals left to right one step per character, like it is being typed. Set `--chars` to the text
- * length and `--type-delay` to when it should start. Add `.type-on-caret` for a blinking cursor that types along and
- * then switches off. Static under reduced motion.
- *
- * Named-logo mark: the header mark fades up into place; an inline SegmentLogo inside it also powers on.
+ * length and `--type-delay` to when it should start. Add `type-on-caret` for a blinking cursor that types along and
+ * then switches off. Static under reduced motion. Simple fades, rises and pop-ins use tw-animate-css instead
+ * (`motion-safe:animate-in fade-in zoom-in-85 …`).
  */
-@media (prefers-reduced-motion: no-preference) {
-  .type-on {
+@utility type-on {
+  @media (prefers-reduced-motion: no-preference) {
     animation: type-on calc(var(--chars, 12) * 0.045s) steps(var(--chars, 12), end) var(--type-delay, 0s) both;
   }
+}
 
-  .type-on-caret::after {
-    content: '_';
-    animation: type-on-caret 0.5s steps(1, end) calc(var(--type-delay, 0s) + var(--chars, 12) * 0.045s) 5 both;
-  }
-
-  .named-logo-mark {
-    animation: named-logo-mark 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+@utility type-on-caret {
+  @media (prefers-reduced-motion: no-preference) {
+    &::after {
+      content: '_';
+      animation: type-on-caret 0.5s steps(1, end) calc(var(--type-delay, 0s) + var(--chars, 12) * 0.045s) 5 both;
+    }
   }
 }
 
@@ -220,12 +224,5 @@
   50%,
   100% {
     opacity: 0;
-  }
-}
-
-@keyframes named-logo-mark {
-  from {
-    opacity: 0;
-    transform: scale(0.85);
   }
 }
