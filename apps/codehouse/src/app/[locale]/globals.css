@@ -5,6 +5,9 @@
   --breakpoint-3xl: 150rem;
 }
 
+/* Short screens (iPad landscape, 1280×800 laptops), where a screen-filling section has to tighten up. */
+@custom-variant short (@media (height < 56rem));
+
 /*
  * The topography pattern, one file per theme with its colour baked in: only the active theme's file is downloaded.
  * Keep it a body background. A mask (one file, recoloured in CSS) needs a page-tall layer that makes scrolling lag.

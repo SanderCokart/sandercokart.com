@@ -1,6 +1,8 @@
+import { cn } from '@repo/ui/lib/utils';
+
 import type { ComponentProps, CSSProperties } from 'react';
 
-import './segment-logo.css';
+import styles from './segment-logo.module.css';
 
 /** Geometry copied from `images/sc-logo.svg`; the right frame half is the left one mirrored. */
 const frameHalf = [
@@ -27,42 +29,49 @@ function segment(index: number): CSSProperties {
   return { '--segment': index } as CSSProperties;
 }
 
+type SegmentLogoProps = ComponentProps<'svg'> & {
+  /** Accessible name; leave it out where adjacent text already names the mark (the header). */
+  label?: string;
+  /** Halo for a standalone mark (home intro, service heroes): a glow on dark, a soft drop shadow on light. */
+  glow?: boolean;
+};
+
 /**
  * The SC mark as inline SVG so it paints with the HTML (the PNG arrived after any entrance had already run) and
  * its parts can move: the frame halves close in from both sides, then the seven-segment letters power on.
- * Timing lives in segment-logo.css; `--logo-delay` on any ancestor shifts the whole sequence.
- *
- * Pass `label` when the mark stands alone; leave it out where adjacent text already names it (the header).
+ * Timing lives in segment-logo.module.css; `--logo-delay` on any ancestor shifts the whole sequence.
  */
-export function SegmentLogo({ className, label, ...props }: ComponentProps<'svg'> & { label?: string }) {
-  return (
+export function SegmentLogo({ className, label, glow, ...props }: SegmentLogoProps) {
+  const mark = (
     <svg
       {...(label ? { 'role': 'img', 'aria-label': label } : { 'aria-hidden': true })}
       viewBox="193 68 639 654"
       className={className}
       {...props}>
-      <g className="sc-logo-frame-left" fill="#5d0ec0">
+      <g className={cn(styles.frameLeft, 'fill-brand-violet')}>
         {frameHalf.map(points => (
           <polygon key={points} points={points} />
         ))}
       </g>
-      <g className="sc-logo-frame-right">
-        <g fill="#00d492" transform="translate(1025 0) scale(-1 1)">
+      <g className={styles.frameRight}>
+        <g className="fill-brand-emerald" transform="translate(1025 0) scale(-1 1)">
           {frameHalf.map(points => (
             <polygon key={points} points={points} />
           ))}
         </g>
       </g>
-      <g fill="#5d0ec0">
+      <g className="fill-brand-violet">
         {letterS.map((points, index) => (
-          <polygon key={points} points={points} className="sc-logo-segment" style={segment(index)} />
+          <polygon key={points} points={points} className={styles.segment} style={segment(index)} />
         ))}
       </g>
-      <g fill="#00d492">
+      <g className="fill-brand-emerald">
         {letterC.map((points, index) => (
-          <polygon key={points} points={points} className="sc-logo-segment" style={segment(index + 1)} />
+          <polygon key={points} points={points} className={styles.segment} style={segment(index + 1)} />
         ))}
       </g>
     </svg>
   );
+
+  return glow ? <span className={cn(styles.glow, 'relative isolate inline-grid')}>{mark}</span> : mark;
 }

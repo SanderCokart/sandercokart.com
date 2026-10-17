@@ -46,9 +46,7 @@ export const CommercialHeroSection: FC<ComponentProps<'section'>> = ({ className
           initial="hidden"
           animate="show"
           className="flex flex-col items-center gap-6 text-center">
-          <span className="sc-logo-glow">
-            <SegmentLogo label="Sander's CodeHouse" className="h-auto w-36 sm:w-40" />
-          </span>
+          <SegmentLogo glow label="Sander's CodeHouse" className="h-auto w-36 sm:w-40" />
           <MotionDiv variants={heroItem}>
             <h1 className="mx-auto max-w-4xl text-3xl font-bold text-balance uppercase sm:text-5xl">
               {t.rich('title', {

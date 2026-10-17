@@ -1,5 +1,7 @@
 'use client';
 
+import { cn } from '@repo/ui/lib/utils';
+
 import { useEffect, useState } from 'react';
 
 import type { CSSProperties } from 'react';
@@ -89,14 +91,24 @@ export function ChapterIndex({ entries, labelledBy }: ChapterIndexProps) {
     <nav aria-labelledby={labelledBy}>
       <ol className="font-digital 3xl:gap-3 3xl:text-3xl grid gap-1 text-lg 2xl:gap-2 2xl:text-2xl">
         {entries.map((entry, index) => (
-          <li key={entry.target} className="ch-index-item" style={{ '--item': index } as CSSProperties}>
+          <li
+            key={entry.target}
+            // Rises in line by line after the home title.
+            className="fade-in slide-in-from-bottom-4 animation-duration-500 ease-snap fill-mode-both motion-safe:animate-in"
+            style={{ animationDelay: `${1.15 + index * 0.07}s` }}>
             <a
               href={`#${entry.target}`}
               aria-current={entry.target === current || undefined}
               aria-keyshortcuts={String(index + 1)}
-              className="ch-index-link flex items-baseline gap-3 rounded-md px-2 py-1"
+              className={cn(
+                'flex items-baseline gap-3 rounded-md px-2 py-1',
+                // The chapter in view takes its accent and grows a little, from the edge the index is aligned to.
+                'ease-snap origin-center text-current/70 transition-[color,scale] duration-300 motion-reduce:transition-colors motion-reduce:ease-out lg:origin-left',
+                'hover:text-(--accent-ink) aria-[current=true]:scale-108 aria-[current=true]:text-(--accent-ink)',
+                '[--accent-ink:oklch(from_var(--accent)_0.5_c_h)] dark:[--accent-ink:var(--accent)]',
+              )}
               style={{ '--accent': entry.accent } as CSSProperties}>
-              <span className="ch-index-number">{String(index + 1).padStart(2, '0')}</span>
+              <span className="text-(--accent-ink)">{String(index + 1).padStart(2, '0')}</span>
               {entry.title}
             </a>
           </li>

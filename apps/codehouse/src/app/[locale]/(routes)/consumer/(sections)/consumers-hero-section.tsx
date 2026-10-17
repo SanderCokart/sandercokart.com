@@ -12,9 +12,7 @@ export function ConsumersHeroSection() {
   return (
     <section className={cn('dark:drop-shadow-[0_0px_10px_hsl(var(--primary))]', 'mt-16')} id="hero">
       <MotionDiv variants={heroStagger} initial="hidden" animate="show" className="flex flex-col items-center gap-8">
-        <span className="sc-logo-glow">
-          <SegmentLogo label="Sander's CodeHouse" className="h-auto w-36 sm:w-40" />
-        </span>
+        <SegmentLogo glow label="Sander's CodeHouse" className="h-auto w-36 sm:w-40" />
 
         <MotionDiv variants={heroItem}>
           <h2 className="mx-auto max-w-6xl text-center text-3xl font-bold text-balance uppercase sm:text-5xl">

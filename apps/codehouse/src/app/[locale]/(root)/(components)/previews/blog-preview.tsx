@@ -1,10 +1,12 @@
+import { cn } from '@repo/ui/lib/utils';
 import { useFormatter, useTranslations } from 'next-intl';
 
 import { PreviewWindow } from './preview-window';
+import styles from './previews.module.css';
 
 const posts = [
-  { title: 'blog_post_2_title', date: '2026-02-21', minutes: 4, art: 'ch-art-dusk' },
-  { title: 'blog_post_3_title', date: '2026-01-30', minutes: 7, art: 'ch-art-moss' },
+  { title: 'blog_post_2_title', date: '2026-02-21', minutes: 4, art: styles.artDusk },
+  { title: 'blog_post_3_title', date: '2026-01-30', minutes: 7, art: styles.artMoss },
 ] as const;
 
 /** Personal websites: a small studio blog with a featured post and two more posts. */
@@ -28,7 +30,7 @@ export function BlogPreview() {
         </div>
 
         <div className="grid items-center gap-4 sm:grid-cols-[1.1fr_1fr] sm:gap-5">
-          <div className="ch-art-clay aspect-[2/1] rounded-lg" />
+          <div className={cn(styles.artClay, 'aspect-[2/1] rounded-lg')} />
           <div className="grid gap-2">
             <span className="text-[10px] font-semibold tracking-[0.18em] text-(--accent-ink) uppercase">
               {t('blog_featured')}
@@ -43,7 +45,7 @@ export function BlogPreview() {
         <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
           {posts.map(post => (
             <div key={post.title} className="grid grid-cols-[3.5rem_1fr] items-center gap-3">
-              <div className={`${post.art} aspect-square rounded-md`} />
+              <div className={cn(post.art, 'aspect-square rounded-md')} />
               <div className="grid gap-1">
                 <span className="font-serif text-sm leading-snug">{t(post.title)}</span>
                 <span className="text-muted-foreground text-[11px]">

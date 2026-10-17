@@ -2,6 +2,7 @@ import { cn } from '@repo/ui/lib/utils';
 import { useTranslations } from 'next-intl';
 
 import { PreviewWindow } from './preview-window';
+import styles from './previews.module.css';
 
 const weeklyBookings = [32, 41, 38, 52, 48, 61, 58, 70, 66, 79, 74, 88];
 
@@ -54,7 +55,7 @@ export function DashboardPreview() {
           </span>
           <span className="flex -space-x-1.5">
             <span className="border-card size-6 rounded-full border-2 bg-(--accent)/60" />
-            <span className="border-card size-6 rounded-full border-2 bg-[#7c2df0]/60" />
+            <span className="border-card bg-brand-violet-bright/60 size-6 rounded-full border-2" />
           </span>
         </div>
 
@@ -95,7 +96,7 @@ export function DashboardPreview() {
                   strokeDasharray="2 4"
                 />
               ))}
-              <path d={area} fill="url(#dashboard-preview-fill)" className="ch-chart-area" />
+              <path d={area} fill="url(#dashboard-preview-fill)" className={styles.chartReveal} />
               <path
                 d={line}
                 fill="none"
@@ -104,9 +105,9 @@ export function DashboardPreview() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 pathLength={1}
-                className="ch-chart-line"
+                className={styles.chartLine}
               />
-              <circle cx={last.x} cy={last.y} r="4" fill="var(--accent)" className="ch-chart-dot" />
+              <circle cx={last.x} cy={last.y} r="4" fill="var(--accent)" className={styles.chartReveal} />
             </svg>
           </div>
 

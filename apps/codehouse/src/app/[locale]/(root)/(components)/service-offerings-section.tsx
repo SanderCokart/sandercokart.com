@@ -14,8 +14,6 @@ import { RepositoriesPreview } from './previews/repositories-preview';
 import { ServiceChapter } from './service-chapter';
 import { serviceOfferings } from './service-offerings';
 
-import './service-offerings-section.css';
-
 /** What each service looks like once built, shown between its selling points and its call to action. */
 const previews: Record<ServiceId, ReactNode> = {
   'consumer': <BlogPreview />,
@@ -33,7 +31,8 @@ const previews: Record<ServiceId, ReactNode> = {
  * - lg+: split view. The intro and index stay pinned on the left and the index takes the color of the chapter in
  *   view; each chapter fills a screen with its copy and a preview of what that service builds.
  *
- * Animation is CSS only (service-offerings-section.css, segment-logo.css); the server HTML is the final layout.
+ * Animation is CSS only (tw-animate-css classes, chapters.module.css, segment-logo.module.css); the server HTML is the
+ * final layout.
  */
 export function ServiceOfferingsSection() {
   const t = useTranslations('ServiceOfferingsSection');
@@ -43,14 +42,12 @@ export function ServiceOfferingsSection() {
       <div className="3xl:max-w-[120rem] 3xl:gap-20 mx-auto grid w-full max-w-7xl lg:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] lg:gap-12 lg:px-8 2xl:max-w-[96rem] 2xl:gap-16">
         <header
           className={cn(
-            'ch-intro 3xl:gap-8 flex flex-col items-center justify-center gap-5 px-6 py-8 text-center 2xl:gap-6',
+            '3xl:gap-8 flex flex-col items-center justify-center gap-5 px-6 py-8 text-center 2xl:gap-6',
             // Below lg the intro owns the visible fold: viewport minus the site header and the fixed bottom nav.
             'min-h-[calc(100dvh-(--spacing(11))-(--spacing(14)))] sm:min-h-[calc(100dvh-(--spacing(16))-(--spacing(14)))]',
             'lg:sticky lg:top-16 lg:h-[calc(100dvh-(--spacing(16)))] lg:min-h-0 lg:items-start lg:px-0 lg:py-0 lg:text-left',
           )}>
-          <span className="sc-logo-glow">
-            <SegmentLogo label="Sander's CodeHouse" className="3xl:w-80 h-auto w-36 sm:w-40 2xl:w-60" />
-          </span>
+          <SegmentLogo glow label="Sander's CodeHouse" className="3xl:w-80 h-auto w-36 sm:w-40 2xl:w-60" />
           <p
             className="font-digital type-on type-on-caret text-primary dark:text-accent 3xl:text-4xl text-xl 2xl:text-3xl"
             style={{ '--chars': 13, '--type-delay': '0.55s' } as CSSProperties}>
@@ -58,7 +55,11 @@ export function ServiceOfferingsSection() {
           </p>
           <h1
             id="services-title"
-            className="ch-intro-title 3xl:text-[7rem] -mt-2 text-5xl font-bold lg:text-7xl 2xl:text-8xl">
+            className={cn(
+              '3xl:text-[7rem] -mt-2 text-5xl font-bold lg:text-7xl 2xl:text-8xl',
+              // Resolves under the typed slogan: out of a blur and up into place.
+              'fade-in blur-in-[6px] slide-in-from-bottom-2 animation-duration-600 ease-snap fill-mode-both motion-safe:animate-in delay-950',
+            )}>
             {t('title')}
           </h1>
           <ChapterIndex
