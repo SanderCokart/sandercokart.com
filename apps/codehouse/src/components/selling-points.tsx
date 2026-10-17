@@ -46,7 +46,7 @@ function PointColumns({ points, perColumn, className }: PointColumnsProps) {
             <li
               key={point}
               className={cn(
-                'text-foreground relative pl-[calc(1rem+2px)] text-base leading-[1.4] text-balance',
+                'text-foreground relative pl-[calc(1rem+2px)] text-base leading-[1.4] text-balance min-[160rem]:text-wrap',
                 // Tick: this point's piece of the rail, in exactly the color of the chapter number.
                 'before:absolute before:top-[0.1em] before:left-0 before:h-[1.2em] before:w-0.5 before:rounded-[1px] before:bg-(--accent-ink)',
                 // Rail: from the bottom of this tick to the top of the next one, across the gap.
