@@ -24,6 +24,7 @@ export const serviceOfferings = [
       'marketing_features_performance',
       'marketing_features_mobile',
       'marketing_features_cms',
+      'marketing_features_seo',
     ],
   },
   {
@@ -37,6 +38,7 @@ export const serviceOfferings = [
       'custom_features_api',
       'custom_features_cloud',
       'custom_features_security',
+      'custom_features_integrations',
     ],
   },
   {
@@ -50,6 +52,7 @@ export const serviceOfferings = [
       'freelance_features_agile',
       'freelance_features_team',
       'freelance_features_onboarding',
+      'freelance_features_mentoring',
     ],
   },
   {
@@ -63,6 +66,7 @@ export const serviceOfferings = [
       'opensource_features_versions',
       'opensource_features_licenses',
       'opensource_features_public',
+      'opensource_features_changelog',
     ],
   },
 ] as const satisfies readonly ServiceOffering[];

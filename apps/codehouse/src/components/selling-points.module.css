@@ -1,55 +1,82 @@
 /*
- * Phones: labels that wrap one per line read as a stack of boxes, so the list becomes a rail instead. The points
- * hang off a thin line as plain text, each with a short tick in the chapter accent where it meets the line, like the
- * chapter index. The line itself is a dim foreground (white on dark, black on light) drawn only between ticks, so it
- * starts at the first tick and ends at the last instead of running past them.
+ * Selling points as a rail: plain text hanging off a thin line, each point with a short tick in the chapter accent
+ * where it meets the line, like the chapter index. The line itself is a dim foreground (white on dark, black on
+ * light) drawn only between ticks, so it starts at the first tick and ends at the last instead of running past them.
  *
- * The label look above 40rem is Tailwind classes in selling-points.tsx. These rules replace it on phones: module CSS
- * is not in a cascade layer, so it wins over the utilities without `!important`.
+ * Columns: from 40rem the six points fill columns top to bottom (`--rows` per column), and each column is a rail of
+ * its own: two columns of three, then three columns of two from lg. Grid rows share one height, so a point's piece of
+ * the line always reaches the tick below it, even when a neighbour in the same row wraps to more lines.
  */
-@media (width < 40rem) {
+.points {
+  --rail-gap: 0.7rem;
+  --rail-width: 2px;
+  --tick-top: 0.1em;
+  --tick-height: 1.2em;
+
+  display: grid;
+  gap: var(--rail-gap) 2rem;
+}
+
+.point {
+  position: relative;
+  padding: 0 0 0 calc(1rem + var(--rail-width));
+  color: var(--foreground);
+  font-size: var(--text-base);
+  line-height: 1.4;
+}
+
+/* Tick: this point's piece of the rail, in exactly the color of the chapter number. */
+.point::before {
+  content: '';
+  position: absolute;
+  top: var(--tick-top);
+  left: 0;
+  width: var(--rail-width);
+  height: var(--tick-height);
+  border-radius: 1px;
+  background: var(--accent-ink);
+}
+
+/* Rail: from the bottom of this tick to the top of the next one in its column. */
+.point::after {
+  content: '';
+  position: absolute;
+  top: calc(var(--tick-top) + var(--tick-height));
+  bottom: calc(-1 * var(--rail-gap) - var(--tick-top));
+  left: 0;
+  width: var(--rail-width);
+  background: color-mix(in srgb, var(--foreground) 18%, transparent);
+}
+
+/* The last point of each column has nothing below it. */
+.point:last-child::after {
+  content: none;
+}
+
+@media (width >= 40rem) {
   .points {
-    --rail-gap: 0.7rem;
-    --rail-width: 2px;
-    --tick-top: 0.1em;
-    --tick-height: 1.2em;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+    grid-template-rows: repeat(var(--rows), auto);
+  }
+}
 
-    flex-direction: column;
-    gap: var(--rail-gap);
+@media (40rem <= width < 64rem) {
+  .points {
+    --rows: 3;
   }
 
-  .point {
-    position: relative;
-    display: block;
-    padding: 0 0 0 calc(1rem + var(--rail-width));
-    border: 0;
-    border-radius: 0;
-    background: none;
-    color: var(--foreground);
-    font-size: var(--text-base);
-    line-height: 1.4;
+  .point:nth-child(3n)::after {
+    content: none;
+  }
+}
+
+@media (width >= 64rem) {
+  .points {
+    --rows: 2;
   }
 
-  /* Tick: this point's piece of the rail, in exactly the color of the chapter number. */
-  .point::before {
-    content: '';
-    position: absolute;
-    top: var(--tick-top);
-    left: 0;
-    width: var(--rail-width);
-    height: var(--tick-height);
-    border-radius: 1px;
-    background: var(--accent-ink);
-  }
-
-  /* Rail: from the bottom of this tick to the top of the next one. The last point has nothing below it. */
-  .point:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    top: calc(var(--tick-top) + var(--tick-height));
-    bottom: calc(-1 * var(--rail-gap) - var(--tick-top));
-    left: 0;
-    width: var(--rail-width);
-    background: color-mix(in srgb, var(--foreground) 18%, transparent);
+  .point:nth-child(2n)::after {
+    content: none;
   }
 }
