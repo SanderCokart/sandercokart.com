@@ -31,7 +31,7 @@ export async function RepositoriesPreview() {
               href={githubRepoUrl(project)}
               target="_blank"
               rel="noopener noreferrer"
-              className="ch-repo bg-card/85 grid h-full gap-2 rounded-xl border border-(--accent)/25 p-4 transition-colors hover:border-(--accent)/60">
+              className="bg-card/85 grid h-full gap-2 rounded-xl border border-(--accent)/25 p-4 transition-colors hover:border-(--accent)/60">
               <span className="flex items-center justify-between gap-2">
                 <FaGithub aria-hidden className="size-5" />
                 <span

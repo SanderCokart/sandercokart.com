@@ -1,7 +1,9 @@
+import { cn } from '@repo/ui/lib/utils';
 import { GitMergeIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 import { PreviewWindow } from './preview-window';
+import styles from './previews.module.css';
 
 type Token = [kind: 'kw' | 'fn' | 'ty' | 'tx' | 'pu', text: string];
 
@@ -127,7 +129,7 @@ export function FreelancePreview() {
               <span className="text-muted-foreground tabular-nums">{column.count}</span>
               <span className="bg-muted col-span-2 h-1 overflow-hidden rounded-full">
                 <span
-                  className="ch-board-fill block h-full rounded-full bg-(--accent)"
+                  className={cn(styles.boardFill, 'block h-full rounded-full bg-(--accent)')}
                   style={{ width: `${column.fill * 100}%` }}
                 />
               </span>

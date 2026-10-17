@@ -1,0 +1,67 @@
+/* Abstract "photography" for the blog preview. */
+.artClay {
+  background:
+    radial-gradient(circle at 32% 38%, #f6d3b3 0 18%, transparent 19%),
+    radial-gradient(circle at 64% 62%, color-mix(in srgb, var(--accent) 70%, #1f3b33) 0 26%, transparent 27%),
+    linear-gradient(140deg, #d98f5f, #6e3f33);
+}
+
+.artDusk {
+  background: linear-gradient(160deg, var(--color-brand-violet-bright), #f59e0b);
+}
+
+.artMoss {
+  background:
+    radial-gradient(circle at 70% 30%, #e7f5c8 0 16%, transparent 17%), linear-gradient(160deg, #0f766e, #84cc16);
+}
+
+/*
+ * Scroll-tied details: the dashboard chart line draws and its area and end dot fade in, and the sprint bars fill, as
+ * they come into view. Tailwind has no animation-timeline utilities, and the timeline has to follow the `animation`
+ * shorthand, so these stay here. Without scroll timelines or with reduced motion they are simply drawn.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .chartLine {
+      stroke-dasharray: 1;
+      animation: draw linear both;
+      animation-timeline: view();
+      animation-range: entry 40% cover 55%;
+    }
+
+    .chartReveal {
+      animation: fade linear both;
+      animation-timeline: view();
+      animation-range: cover 40% cover 55%;
+    }
+
+    .boardFill {
+      transform-origin: left;
+      animation: fill ease-out both;
+      animation-timeline: view();
+      animation-range: entry 50% cover 45%;
+    }
+  }
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fill {
+  from {
+    transform: scaleX(0);
+  }
+}
