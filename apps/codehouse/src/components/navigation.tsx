@@ -21,7 +21,6 @@ import type { ReactNode } from 'react';
 import type { LinkType } from '@/lib/nav-links';
 
 import { Link } from '@/i18n/navigation';
-import { hasPlayedIntro } from '@/lib/intro';
 
 type NavigationProps = {
   links: readonly LinkType[];
@@ -98,8 +97,9 @@ const SWAP_TYPE_START = 0.3;
 const RETYPE_START = 0.1;
 
 /**
- * The link set on screen. A remount with the same set (a locale switch remounts the whole header) shows the links
- * directly; a different set plays the entrance. Module state, reset by a real page load.
+ * The link set on screen, so a remount can tell a page change that swaps the links (quicker swap timings) from a
+ * fresh header with the same links (a locale switch, which replays the full entrance). Module state, reset by a real
+ * page load.
  */
 let shownLinkSet: string | null = null;
 
@@ -132,8 +132,8 @@ function typedSteps(characters: number) {
  *   typing (Motion `width: auto`, stepped per character), so the icons after it move along instead of jumping.
  *   Collapsing is instant.
  * - Every page change that swaps the links (home ↔ a service page, forward or back) plays the same entrance for the
- *   new set, after the old set leaves with the entrance reversed (see Navigation). A locale switch, which remounts
- *   the header with the same links, shows them directly.
+ *   new set, after the old set leaves with the entrance reversed (see Navigation). A locale switch remounts the
+ *   header and replays the full entrance, like the rest of the header.
  * Every link is named by aria-label either way, so the label spans are hidden from assistive tech.
  */
 function DesktopNavigation({ links }: NavigationProps) {
@@ -147,8 +147,8 @@ function DesktopNavigation({ links }: NavigationProps) {
   const exitPlays = usePresenceData() === true;
   const [scope, animate] = useAnimate<HTMLElement>();
   // Decided on the first render so the icons start hidden; always false on the server and the first hydration.
-  const [swapped] = useState(() => hasPlayedIntro() && shownLinkSet !== null && shownLinkSet !== linkSet);
-  const [reveal, setReveal] = useState({ typed: true, start: TYPE_START });
+  const [swapped] = useState(() => shownLinkSet !== null && shownLinkSet !== linkSet);
+  const [typeStart, setTypeStart] = useState(TYPE_START);
 
   useEffect(() => {
     shownLinkSet = linkSet;
@@ -188,18 +188,16 @@ function DesktopNavigation({ links }: NavigationProps) {
 
     const query = window.matchMedia(LABELS_FROM);
     let shown = false;
-    let first = !hasPlayedIntro() || swapped;
     let pageLoad = true;
 
     const update = () => {
       const fits = query.matches && measure.offsetWidth <= area.clientWidth;
       if (fits && !shown) {
-        // A fresh reveal: type in, unless this is a remounted header whose entrance already played.
+        // A fresh reveal types in: with the entrance on mount, straight away after a resize.
         const entranceStart = swapped ? SWAP_TYPE_START : TYPE_START;
-        setReveal({ typed: first || !pageLoad, start: pageLoad ? entranceStart : RETYPE_START });
+        setTypeStart(pageLoad ? entranceStart : RETYPE_START);
         pageLoad = false;
       }
-      if (!fits && shown) first = false;
       shown = fits;
       setLabelled(fits);
     };
@@ -223,18 +221,14 @@ function DesktopNavigation({ links }: NavigationProps) {
   let typedBefore = 0;
 
   return (
-    <nav
-      ref={scope}
-      aria-label="Primary"
-      data-nav-swapped={swapped || undefined}
-      className="relative z-50 hidden min-w-0 flex-1 lg:flex">
+    <nav ref={scope} aria-label="Primary" className="relative z-50 hidden min-w-0 flex-1 lg:flex">
       <div ref={areaRef} className="flex min-w-0 flex-1 items-center justify-center">
         <TooltipProvider delay={150}>
           <div className="flex items-center gap-1 py-2">
             {items.map((link, index) => {
               const characters = link.label.length;
-              const typing = labelled && reveal.typed && !reduceMotion;
-              const delay = reveal.start + typedBefore * TYPE_STEP;
+              const typing = labelled && !reduceMotion;
+              const delay = typeStart + typedBefore * TYPE_STEP;
               typedBefore += characters;
 
               return (
