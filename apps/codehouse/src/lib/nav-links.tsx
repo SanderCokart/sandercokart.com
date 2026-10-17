@@ -1,8 +1,7 @@
-import { FaCode, FaDatabase, FaGithub, FaGlobe } from 'react-icons/fa';
-import { FaEnvelope, FaCircleQuestion } from 'react-icons/fa6';
+import { FaHouseUser, FaLaptopCode, FaOsi, FaStore } from 'react-icons/fa';
+import { FaCircleQuestion, FaEnvelope } from 'react-icons/fa6';
 
 import type { ReactNode } from 'react';
-
 import type { Messages } from 'next-intl';
 
 type NavigationTranslationKey = Extract<keyof Messages['common'], `navigation_${string}`>;
@@ -29,31 +28,31 @@ export const links = [
 export type ServiceId = 'consumer' | 'commercial' | 'freelance' | 'open-source';
 
 export const serviceHrefs = {
-  consumer: '/consumer',
-  commercial: '/commercial',
-  freelance: '/freelance',
+  'consumer': '/consumer',
+  'commercial': '/commercial',
+  'freelance': '/freelance',
   'open-source': '/open-source',
 } as const satisfies Record<ServiceId, string>;
 
 export const serviceLinks = [
   {
     href: serviceHrefs.consumer,
-    icon: <FaGlobe />,
+    icon: <FaHouseUser />,
     t: 'navigation_consumer',
   },
   {
     href: serviceHrefs.commercial,
-    icon: <FaDatabase />,
+    icon: <FaStore />,
     t: 'navigation_commercial',
   },
   {
     href: serviceHrefs.freelance,
-    icon: <FaCode />,
+    icon: <FaLaptopCode />,
     t: 'navigation_freelance',
   },
   {
     href: serviceHrefs['open-source'],
-    icon: <FaGithub />,
+    icon: <FaOsi />,
     t: 'navigation_open-source',
   },
 ] as const satisfies readonly LinkType[];

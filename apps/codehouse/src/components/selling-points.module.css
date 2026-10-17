@@ -1,0 +1,55 @@
+/*
+ * Phones: labels that wrap one per line read as a stack of boxes, so the list becomes a rail instead. The points
+ * hang off a thin line as plain text, each with a short tick in the chapter accent where it meets the line, like the
+ * chapter index. The line itself is a dim foreground (white on dark, black on light) drawn only between ticks, so it
+ * starts at the first tick and ends at the last instead of running past them.
+ *
+ * The label look above 40rem is Tailwind classes in selling-points.tsx. These rules replace it on phones: module CSS
+ * is not in a cascade layer, so it wins over the utilities without `!important`.
+ */
+@media (width < 40rem) {
+  .points {
+    --rail-gap: 0.7rem;
+    --rail-width: 2px;
+    --tick-top: 0.1em;
+    --tick-height: 1.2em;
+
+    flex-direction: column;
+    gap: var(--rail-gap);
+  }
+
+  .point {
+    position: relative;
+    display: block;
+    padding: 0 0 0 calc(1rem + var(--rail-width));
+    border: 0;
+    border-radius: 0;
+    background: none;
+    color: var(--foreground);
+    font-size: var(--text-base);
+    line-height: 1.4;
+  }
+
+  /* Tick: this point's piece of the rail, in exactly the color of the chapter number. */
+  .point::before {
+    content: '';
+    position: absolute;
+    top: var(--tick-top);
+    left: 0;
+    width: var(--rail-width);
+    height: var(--tick-height);
+    border-radius: 1px;
+    background: var(--accent-ink);
+  }
+
+  /* Rail: from the bottom of this tick to the top of the next one. The last point has nothing below it. */
+  .point:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: calc(var(--tick-top) + var(--tick-height));
+    bottom: calc(-1 * var(--rail-gap) - var(--tick-top));
+    left: 0;
+    width: var(--rail-width);
+    background: color-mix(in srgb, var(--foreground) 18%, transparent);
+  }
+}

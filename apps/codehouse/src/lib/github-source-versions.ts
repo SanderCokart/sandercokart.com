@@ -141,3 +141,23 @@ export async function getOpenSourceProjectsWithVersions(): Promise<OpenSourcePro
     }),
   );
 }
+
+export type PopularOpenSourceProject = OpenSourceProject & {
+  stargazersCount: number | null;
+};
+
+/** Most starred projects first (unknown counts keep their listed order, last), at most `limit`. */
+export async function getPopularOpenSourceProjects(limit = 4): Promise<PopularOpenSourceProject[]> {
+  'use cache';
+  cacheLife('hours');
+  cacheTag('open-source-github-stars');
+
+  const projects = await Promise.all(
+    openSourceProjects.map(async project => ({
+      ...project,
+      stargazersCount: await fetchGithubStargazersCount(project),
+    })),
+  );
+
+  return projects.sort((a, b) => (b.stargazersCount ?? -1) - (a.stargazersCount ?? -1)).slice(0, limit);
+}

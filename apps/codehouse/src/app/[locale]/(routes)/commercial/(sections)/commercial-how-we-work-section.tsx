@@ -35,7 +35,7 @@ export const CommercialHowWeWorkSection: FC<ComponentProps<'section'>> = ({ clas
               variants={phaseVariants}
               transition={{ duration: 0.4, delay: index * 0.12, ease: 'easeOut' }}>
               <div className="flex items-baseline gap-3">
-                <span className="text-accent font-mono text-4xl font-bold tabular-nums">
+                <span className="text-accent-ink font-mono text-4xl font-bold tabular-nums">
                   {String(index + 1).padStart(2, '0')}
                 </span>
                 <h3 className="text-xl font-semibold uppercase">{t(`phases_${phase}_title`)}</h3>

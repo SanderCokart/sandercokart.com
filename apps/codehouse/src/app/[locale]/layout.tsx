@@ -11,6 +11,8 @@ import localFont from 'next/font/local';
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 
+import { SiteHeader } from '@/components/site-header';
+
 import { env } from '@/env';
 import { routing } from '@/i18n/routing';
 import { GlobalProviders } from '@/providers/server.global-providers';
@@ -101,6 +103,7 @@ function RootLayoutFallback({ children }: { children: ReactNode }) {
       </head>
       <body className={bodyClassName}>
         <GlobalProviders>
+          <SiteHeader />
           {children}
           <Footer />
         </GlobalProviders>
@@ -119,6 +122,7 @@ async function LocalizedRootLayout({ children }: RootLayoutParams) {
       </head>
       <body className={bodyClassName}>
         <GlobalProviders>
+          <SiteHeader />
           {children}
           <Footer />
         </GlobalProviders>
