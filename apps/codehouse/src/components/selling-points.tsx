@@ -4,23 +4,25 @@ import type { ComponentProps } from 'react';
 
 import styles from './selling-points.module.css';
 
-type SellingPointsProps = ComponentProps<'ul'> & {
+type SellingPointsProps = ComponentProps<'div'> & {
   points: readonly string[];
 };
 
 /**
  * A service's selling points as a rail of plain lines, each with a tick in the chapter accent, like the chapter index.
- * One rail on phones; from 40rem the points fill columns top to bottom, each column its own rail (two, then three
- * from lg). Paint and columns: selling-points.module.css.
+ * One rail, or three columns of two once the list itself is wide enough that no point wraps past two lines. The
+ * wrapper is the size container the columns query. Paint and columns: selling-points.module.css.
  */
 export function SellingPoints({ points, className, ...props }: SellingPointsProps) {
   return (
-    <ul role="list" className={cn(styles.points, className)} {...props}>
-      {points.map(point => (
-        <li key={point} className={styles.point}>
-          {point}
-        </li>
-      ))}
-    </ul>
+    <div className={cn(styles.frame, className)} {...props}>
+      <ul role="list" className={styles.points}>
+        {points.map(point => (
+          <li key={point} className={styles.point}>
+            {point}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

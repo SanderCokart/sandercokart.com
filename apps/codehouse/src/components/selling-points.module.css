@@ -3,10 +3,15 @@
  * where it meets the line, like the chapter index. The line itself is a dim foreground (white on dark, black on
  * light) drawn only between ticks, so it starts at the first tick and ends at the last instead of running past them.
  *
- * Columns: from 40rem the six points fill columns top to bottom (`--rows` per column), and each column is a rail of
- * its own: two columns of three, then three columns of two from lg. Grid rows share one height, so a point's piece of
- * the line always reaches the tick below it, even when a neighbour in the same row wraps to more lines.
+ * Columns: the list's own width decides, not the viewport's (`.frame` is the size container). Points in a row share
+ * its height, so a point that wraps further than its neighbours leaves them a gap; three columns of two only start
+ * once a column is wide enough (about 16rem) that every point fits on one or two lines, and the list stays one rail
+ * below that. In columns the points fill top to bottom and each column is a rail of its own.
  */
+.frame {
+  container-type: inline-size;
+}
+
 .points {
   --rail-gap: 0.7rem;
   --rail-width: 2px;
@@ -53,27 +58,11 @@
   content: none;
 }
 
-@media (width >= 40rem) {
+@container (width >= 52rem) {
   .points {
-    grid-auto-columns: minmax(0, 1fr);
+    grid-template-rows: repeat(2, auto);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-auto-flow: column;
-    grid-template-rows: repeat(var(--rows), auto);
-  }
-}
-
-@media (40rem <= width < 64rem) {
-  .points {
-    --rows: 3;
-  }
-
-  .point:nth-child(3n)::after {
-    content: none;
-  }
-}
-
-@media (width >= 64rem) {
-  .points {
-    --rows: 2;
   }
 
   .point:nth-child(2n)::after {
