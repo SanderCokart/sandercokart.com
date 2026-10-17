@@ -15,5 +15,6 @@ Subject prefix. Lookup: `git log --grep='^MAILSC'`
 | DOCKER | fix | Docker images for the Next.js apps (mise toolchain, standalone runner) |
 | CHCSS | refactor | Codehouse animation CSS: Tailwind and tw-animate-css first, CSS Modules for coordinated effects |
 | CHREPLAY | refactor | Codehouse header entrance replays on a locale switch instead of being suppressed |
+| CHRAIL | feat | Codehouse home selling points: six per service in a columned rail at every width |
 
 Mint 2–8 A–Z, unique, mnemonic. Add a row when first used. Reuse the ID on every commit in that workstream.
