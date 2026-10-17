@@ -186,12 +186,6 @@
  * then switches off. Static under reduced motion.
  *
  * Named-logo mark: the header mark fades up into place; an inline SegmentLogo inside it also powers on.
- *
- * Pop-in: the same fade-up for any element, starting at `--pop-delay` (header icon links).
- *
- * A site header mounted after its entrance already played (an ancestor with `data-intro-played`, e.g. after a locale
- * switch remounted it) renders its final frame: no replay and no lingering cursor. The one exception is header links
- * swapped in by a page change, which pop in again (`data-nav-swapped`).
  */
 @media (prefers-reduced-motion: no-preference) {
   .type-on {
@@ -205,26 +199,6 @@
 
   .named-logo-mark {
     animation: named-logo-mark 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  }
-
-  .pop-in {
-    animation: named-logo-mark 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) var(--pop-delay, 0s) both;
-  }
-}
-
-[data-intro-played] [data-site-header] *,
-[data-intro-played] [data-site-header] *::after {
-  animation: none !important;
-}
-
-[data-intro-played] [data-site-header] .type-on-caret::after {
-  content: none;
-}
-
-/* Header links swapped in by a page change (`data-nav-swapped`, codehouse navigation) pop in again. */
-@media (prefers-reduced-motion: no-preference) {
-  [data-intro-played] [data-site-header] [data-nav-swapped] .pop-in {
-    animation: named-logo-mark 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) var(--pop-delay, 0s) both !important;
   }
 }
 

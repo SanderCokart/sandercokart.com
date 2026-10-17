@@ -23,7 +23,7 @@ export function ServiceCta({ label, accent, className, style, ...props }: Servic
       className={cn('service-cta', className)}
       style={{ ...(accent ? { '--cta-accent': accent } : {}), ...style } as CSSProperties}
       {...props}>
-      <span className="service-cta-label">{label}</span>
+      <span>{label}</span>
       <span aria-hidden className="service-cta-tile">
         <ArrowRightIcon className="service-cta-arrow" />
         <ArrowRightIcon className="service-cta-arrow" />

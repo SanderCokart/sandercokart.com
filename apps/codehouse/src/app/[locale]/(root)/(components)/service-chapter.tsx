@@ -15,7 +15,7 @@ type ServiceChapterProps = {
   /** Accent of the chapter above; this one's field starts in that color so the page never shows a seam. */
   previousAccent?: string;
   /** Illustration of what this service produces, between the selling points and the call to action. */
-  preview?: ReactNode;
+  preview: ReactNode;
 };
 
 function item(index: number): CSSProperties {
@@ -23,7 +23,7 @@ function item(index: number): CSSProperties {
 }
 
 /**
- * One offering as a chapter of the colour field. On phones its number and title stick under the site header while
+ * One offering as a chapter of the home services. On phones its number and title stick under the site header while
  * you read it; on desktop the pinned index does that and the chapter fills a screen. At every width a preview of the
  * kind of thing this service builds sits between the selling points and the call to action; it is not selectable.
  * Every row is a `.ch-chapter-item` so it can enter on its own.
@@ -65,11 +65,9 @@ export function ServiceChapter({ offering, index, previousAccent, preview }: Ser
           style={item(3)}
           points={offering.features.map(feature => t(feature))}
         />
-        {preview ? (
-          <div className="ch-chapter-item ch-chapter-preview select-none" style={item(4)}>
-            {preview}
-          </div>
-        ) : null}
+        <div className="ch-chapter-item select-none" style={item(4)}>
+          {preview}
+        </div>
         <div className="ch-chapter-item" style={item(5)}>
           <ServiceCta
             href={serviceHrefs[offering.id]}

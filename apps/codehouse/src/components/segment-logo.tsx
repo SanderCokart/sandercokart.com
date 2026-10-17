@@ -1,5 +1,3 @@
-import { cn } from '@repo/ui/lib/utils';
-
 import type { ComponentProps, CSSProperties } from 'react';
 
 import './segment-logo.css';
@@ -41,7 +39,7 @@ export function SegmentLogo({ className, label, ...props }: ComponentProps<'svg'
     <svg
       {...(label ? { 'role': 'img', 'aria-label': label } : { 'aria-hidden': true })}
       viewBox="193 68 639 654"
-      className={cn('sc-logo', className)}
+      className={className}
       {...props}>
       <g className="sc-logo-frame-left" fill="#5d0ec0">
         {frameHalf.map(points => (

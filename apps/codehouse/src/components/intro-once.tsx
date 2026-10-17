@@ -11,7 +11,7 @@ const INTRO_DURATION = 3500;
 
 /**
  * Lets the site header's entrance run once per page load. Once it has finished the wrapper gets
- * `data-intro-played`, which shows the header's final frame (ui themes/default.css): links swapped in by a page
+ * `data-intro-played`, which shows the header's final frame (site-header.css): links swapped in by a page
  * change then appear directly, and a header remounted by a locale switch starts on its final frame. The wrapper
  * has no box of its own.
  */

@@ -43,12 +43,7 @@ export const FreelanceHeroSection: FC<ComponentProps<'section'>> = ({ className,
             <Button size="lg" nativeButton={false} render={<a href="#ask-for-a-quote" />}>
               {t('cta_primary')}
             </Button>
-            <Button
-              variant="outline"
-              size="lg"
-
-              nativeButton={false}
-              render={<a href="#showcase" />}>
+            <Button variant="outline" size="lg" nativeButton={false} render={<a href="#showcase" />}>
               {t('cta_secondary')}
             </Button>
           </MotionDiv>

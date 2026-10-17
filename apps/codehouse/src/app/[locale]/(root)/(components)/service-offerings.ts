@@ -1,14 +1,10 @@
-import { FaHouseUser, FaLaptopCode, FaOsi, FaStore } from 'react-icons/fa';
-
 import type { ServiceId } from '@/lib/nav-links';
 import type { Messages } from 'next-intl';
-import type { IconType } from 'react-icons';
 
 type CopyKey = keyof Messages['ServiceOfferingsSection'];
 
 export type ServiceOffering = {
   id: ServiceId;
-  icon: IconType;
   /** Chapter accent. One family: equal lightness and chroma, only the hue changes (emerald and violet echo the logo). */
   accent: string;
   title: CopyKey;
@@ -19,7 +15,6 @@ export type ServiceOffering = {
 export const serviceOfferings = [
   {
     id: 'consumer',
-    icon: FaHouseUser,
     accent: 'oklch(0.7 0.15 165)',
     title: 'marketing_title',
     description: 'marketing_description',
@@ -33,7 +28,6 @@ export const serviceOfferings = [
   },
   {
     id: 'commercial',
-    icon: FaStore,
     accent: 'oklch(0.7 0.15 245)',
     title: 'custom_title',
     description: 'custom_description',
@@ -47,7 +41,6 @@ export const serviceOfferings = [
   },
   {
     id: 'freelance',
-    icon: FaLaptopCode,
     accent: 'oklch(0.7 0.15 300)',
     title: 'freelance_title',
     description: 'freelance_description',
@@ -61,7 +54,6 @@ export const serviceOfferings = [
   },
   {
     id: 'open-source',
-    icon: FaOsi,
     accent: 'oklch(0.7 0.15 55)',
     title: 'opensource_title',
     description: 'opensource_description',

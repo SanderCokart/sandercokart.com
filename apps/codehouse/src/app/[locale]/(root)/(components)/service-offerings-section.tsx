@@ -25,8 +25,8 @@ const previews: Record<ServiceId, ReactNode> = {
 };
 
 /**
- * Blend of "cohesive" and "colour field": chapters of one continuous surface, entering the way the cohesive bands
- * do (backgrounds stay put, content plays in with the intro or as it is reached).
+ * The home services as chapters of one continuous surface: backgrounds stay put, content plays in with the intro or
+ * as it is reached.
  *
  * - Phones: the intro (logo, slogan, title, chapter index) fills the visible fold, then chapters with sticky
  *   numbered titles.
@@ -39,7 +39,7 @@ export function ServiceOfferingsSection() {
   const t = useTranslations('ServiceOfferingsSection');
 
   return (
-    <section aria-labelledby="services-title" id="services" className="ch-field">
+    <section aria-labelledby="services-title" id="services">
       <div className="3xl:max-w-[120rem] 3xl:gap-20 mx-auto grid w-full max-w-7xl lg:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] lg:gap-12 lg:px-8 2xl:max-w-[96rem] 2xl:gap-16">
         <header
           className={cn(
@@ -79,7 +79,7 @@ export function ServiceOfferingsSection() {
             })}
           </p>
         </header>
-        <ol role="list" className="ch-chapters">
+        <ol role="list">
           {serviceOfferings.map((offering, index) => (
             <ServiceChapter
               key={offering.id}

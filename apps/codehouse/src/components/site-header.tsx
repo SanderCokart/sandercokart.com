@@ -8,6 +8,8 @@ import { SiteNavigation } from '@/components/site-navigation';
 
 import { Link } from '@/i18n/navigation';
 
+import './site-header.css';
+
 /**
  * The one header for every Codehouse page. It lives in the `[locale]` layout so it stays mounted across page
  * navigations and its entrance (mark power-on, typed name and slogan) plays once per page load; IntroOnce covers
