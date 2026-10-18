@@ -12,7 +12,8 @@
       "command": "npx",
       "args": ["dotenvx", "run", "-f", ".env", "--", "npx", "-y", "@dokploy/mcp"],
       "env": {
-        "DOKPLOY_TOOL_PRESET": "minimal"
+        "DOKPLOY_TOOL_PRESET": "all",
+        "DOKPLOY_REDACT_ENV": "false"
       }
     }
   }
