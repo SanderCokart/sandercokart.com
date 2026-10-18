@@ -36,7 +36,7 @@ pnpm --filter @repo/ui lint
 
 i18n lives in `apps/codehouse/messages` + `next-intl`, not a shared package. See [`.cursor/skills/translations/SKILL.md`](.cursor/skills/translations/SKILL.md).
 
-Mail templates: `@repo/mail`. HTML is rendered by `apps/mail-renderer`.
+Mail templates: `@repo/mail`. Codehouse renders them with `renderTemplate` (react-email) and sends via SMTP. `apps/mail-renderer` remains for the hibernated Laravel API.
 
 ## Imports and images
 

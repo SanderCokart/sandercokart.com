@@ -19,7 +19,7 @@ const nextConfig: NextConfig = {
   // @see https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
   allowedDevOrigins: ['10.*.*.*', '192.168.*.*', '172.*.*.*'],
   output: env.NEXT_OUTPUT,
-  serverExternalPackages: ['import-in-the-middle', 'require-in-the-middle'],
+  serverExternalPackages: ['import-in-the-middle', 'require-in-the-middle', 'nodemailer', 'redis'],
   transpilePackages: ['@repo/runtime-env', '@repo/ui', '@t3-oss/env-core', '@t3-oss/env-nextjs'],
   experimental: {
     agentUpgrade: 'latest',

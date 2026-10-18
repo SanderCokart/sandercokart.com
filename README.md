@@ -301,7 +301,7 @@ i18n lives in **codehouse only** (`apps/codehouse/messages` + `next-intl`). Ther
 - Zod validation copy lives under a top-level `zod` key in those files
 - Key naming, locale sync, and navigation imports: [`.cursor/skills/translations/SKILL.md`](.cursor/skills/translations/SKILL.md)
 
-Mail HTML is produced by `@repo/mail` templates and rendered by `apps/mail-renderer`.
+Mail HTML is produced by `@repo/mail` templates. Codehouse renders them in `/api/contact` and delivers via SMTP. `apps/mail-renderer` is the sidecar for the hibernated Laravel API.
 
 ## 🛠️ Development Tools
 

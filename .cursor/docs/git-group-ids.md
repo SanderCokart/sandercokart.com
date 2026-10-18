@@ -19,5 +19,6 @@ Subject prefix. Lookup: `git log --grep='^MAILSC'`
 | APIENV | fix | Production API env aligned with Dokploy; credentials as runtime env |
 | BAO | chore | OpenBao CLI via mise; secrets and Dokploy vault agent skills |
 | HEALTH | feat | `/health` route handlers for main and codehouse, excluded from the codehouse proxy |
+| CHMAIL | feat | Codehouse sends quote mail over SMTP with Redis rate limits; Laravel API hibernated |
 
 Mint 2–8 A–Z, unique, mnemonic. Add a row when first used. Reuse the ID on every commit in that workstream.

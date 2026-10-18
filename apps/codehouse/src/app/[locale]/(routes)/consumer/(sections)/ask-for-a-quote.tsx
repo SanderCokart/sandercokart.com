@@ -16,8 +16,6 @@ import { useState } from 'react';
 
 import type { ComponentProps, FC } from 'react';
 
-import { env } from '@/env';
-
 import { FormStatus } from './components/form-status';
 
 const formId = 'ask-for-a-quote-form';
@@ -99,11 +97,10 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
       specifications: specifications?.length ? specifications : null,
     };
 
-    const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/v1/contact`, {
+    const response = await fetch('/api/contact', {
       method: 'POST',
       body: JSON.stringify(payload),
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      credentials: 'include',
     });
 
     setLastResponse(response);

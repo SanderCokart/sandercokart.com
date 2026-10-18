@@ -128,8 +128,8 @@ Inventory (OpenBao staging path `sandercokart/codehouse/staging` unless noted):
 | Field | Source of truth | Staging consumers | Also stored |
 | --- | --- | --- | --- |
 | `DB_PASSWORD` | Dokploy MariaDB (`db-primary` / `primary-db`) | `api`, `api-queue` | `.envx.local` / `.envx.docker` (dev only) |
-| `REDIS_PASSWORD` | Dokploy Redis (`cache`) | `api`, `api-queue` | `.envx.local` / `.envx.docker` |
-| `MAIL_PASSWORD` | Stalwart mailbox password | `api`, `api-queue` | `.envx.local` / `.envx.docker` |
+| `REDIS_PASSWORD` | Dokploy Redis (`cache`) | `codehouse`, `api`, `api-queue` | `.envx.local` / `.envx.docker` |
+| `MAIL_PASSWORD` | Stalwart mailbox password | `codehouse` | `.envx.local` / `.envx.docker` (API copies, unused while hibernated) |
 | `APP_KEY` | Laravel app key | `api`, `api-queue` | `.envx.local` / `.envx.docker` / `.envx.production` |
 | `SENTRY_AUTH_TOKEN` | Sentry org auth token | Codehouse **project** env → Next `buildSecrets` | `.envx.local` / `.envx.production` (codehouse + main) |
 | `TURBO_TOKEN` | Vercel token for team `sander-cokart` | Same project env / `buildSecrets` | same `.envx*` files |
@@ -159,7 +159,7 @@ Then [dokploy](../../dokploy/SKILL.md): **deploy** every consumer. `reload` is n
 1. Generate `NEW`.
 2. Dokploy `redis-changePassword` on that environment’s `cache`.
 3. `kv patch` `REDIS_PASSWORD` (and production Dokploy env if plaintext).
-4. Deploy `api` and `api-queue`. Sessions in Redis are dropped; users sign in again.
+4. Deploy `codehouse` (rate limiting) and hibernated `api` / `api-queue` if those apps are running. Sessions in Redis are dropped.
 
 ### `MAIL_PASSWORD`
 
@@ -167,7 +167,7 @@ Staging SMTP user is `sander@sandercokart.com`; production has used `info@sander
 
 1. Stalwart admin: `reset_password` for that mailbox (omit `password` to let it generate).
 2. `kv patch` `MAIL_PASSWORD`.
-3. Deploy `api` and `api-queue`.
+3. Deploy production `codehouse` (and hibernated `api` / `api-queue` only if those apps are running).
 4. Send a test contact mail. Update dotenvx copies only if local SMTP uses the same mailbox.
 
 ### `APP_KEY`
