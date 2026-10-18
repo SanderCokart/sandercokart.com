@@ -542,7 +542,7 @@
     "title": "Software die ik <highlight>in het openbaar</highlight> uitbreng",
     "description": "Een selectie publieke projecten: een Zen Browser-extensie, een Cloudreve MCP-server, een shell-wachtwoordgenerator en een Rust-CLI om .env-bestanden te versleutelen. Download de bron, kies een versie en gebruik wat helpt.",
     "cta_primary": "Bekijk projecten",
-    "cta_secondary": "Vraag over een project"
+    "cta_secondary": "Lees de FAQ"
   },
   "OpenSourceProjects": {
     "eyebrow": "Publieke repositories",

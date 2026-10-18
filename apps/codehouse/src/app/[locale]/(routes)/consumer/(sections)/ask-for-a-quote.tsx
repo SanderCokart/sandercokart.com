@@ -21,6 +21,8 @@ import { FormStatus } from './components/form-status';
 const formId = 'ask-for-a-quote-form';
 const sectionId = 'ask-for-a-quote';
 
+export type QuoteArea = 'personal' | 'commercial' | 'freelance';
+
 function isEmailContact(value: string): boolean {
   return value.includes('@');
 }
@@ -30,7 +32,11 @@ function isValidPhoneContact(value: string): boolean {
   return digits.length >= 7 && digits.length <= 15;
 }
 
-export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
+type AskForAQuoteProps = ComponentProps<'section'> & {
+  area: QuoteArea;
+};
+
+export const AskForAQuote: FC<AskForAQuoteProps> = ({ area, className, ...props }) => {
   const t = useTranslations('AskForAQuote');
   const tZod = useTranslations('zod');
   const tForm = useTranslations('form');
@@ -89,6 +95,7 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
     const specifications = formData.specifications?.map(spec => spec.value.trim()).filter(spec => spec.length > 0);
 
     const payload = {
+      area,
       email: contactIsEmail ? contact : null,
       phone: contactIsEmail ? null : contact,
       message: formData.message,

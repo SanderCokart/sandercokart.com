@@ -14,7 +14,7 @@ export default function Page() {
         <ConsumersWhyChooseSection className="container max-w-(--breakpoint-lg)" />
         <Line />
         <ConsumersTestimonialsSection className="container max-w-(--breakpoint-lg)" />
-        <AskForAQuote className="container max-w-(--breakpoint-lg)" />
+        <AskForAQuote area="personal" className="container max-w-(--breakpoint-lg)" />
       </div>
     </main>
   );

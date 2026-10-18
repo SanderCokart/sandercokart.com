@@ -6,6 +6,7 @@ const optionalContactString = z.string().max(255).nullable().optional();
 
 export const contactPayloadSchema = z
   .object({
+    area: z.enum(['personal', 'commercial', 'freelance']),
     email: z.email().max(255).nullable().optional(),
     phone: optionalContactString,
     message: z.string().min(1).max(10000),
@@ -44,6 +45,7 @@ export function fieldErrorsFromZod(error: z.ZodError): Record<string, string[]> 
 
 export function toContactEmailProps(payload: ContactPayload): ContactFormEmailProps {
   return {
+    area: payload.area,
     message: payload.message,
     ...(payload.name ? { name: payload.name } : {}),
     ...(payload.email ? { email: payload.email } : {}),

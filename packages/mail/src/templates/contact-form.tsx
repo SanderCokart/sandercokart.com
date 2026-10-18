@@ -1,18 +1,7 @@
-import {
-  Body,
-  Button,
-  Container,
-  Head,
-  Heading,
-  Hr,
-  Html,
-  Preview,
-  Section,
-  Tailwind,
-  Text,
-} from 'react-email';
+import { Body, Button, Container, Head, Heading, Hr, Html, Preview, Section, Tailwind, Text } from 'react-email';
 
 export interface ContactFormEmailProps {
+  area: 'personal' | 'commercial' | 'freelance';
   name?: string;
   email?: string;
   phone?: string;
@@ -21,7 +10,15 @@ export interface ContactFormEmailProps {
   specifications?: string[];
 }
 
-export const ContactFormEmail = ({ name, email, phone, website, message, specifications }: ContactFormEmailProps) => {
+export const ContactFormEmail = ({
+  area,
+  name,
+  email,
+  phone,
+  website,
+  message,
+  specifications,
+}: ContactFormEmailProps) => {
   const replyTo = name ?? email ?? phone;
   const actionHref = email
     ? `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=Re: Contact Form Submission&body=Hi ${name ?? ''},%0D%0A%0D%0AThank you for your inquiry...`
@@ -52,20 +49,22 @@ export const ContactFormEmail = ({ name, email, phone, website, message, specifi
             </Section>
 
             <Section className="mt-4 px-4">
-              <pre className="border-primary m-0 whitespace-pre-wrap rounded-lg border-solid p-2 font-mono text-sm leading-relaxed">
-                {JSON.stringify({ name, email, phone, website, message, specifications }, null, 2)}
+              <pre className="border-primary m-0 rounded-lg border-solid p-2 font-mono text-sm leading-relaxed whitespace-pre-wrap">
+                {JSON.stringify({ area, name, email, phone, website, message, specifications }, null, 2)}
               </pre>
             </Section>
 
             <Section className="mt-4 px-4">
-              <pre className="border-primary m-0 whitespace-pre-wrap rounded-lg border-solid p-2 font-sans text-sm leading-relaxed">
+              <pre className="border-primary m-0 rounded-lg border-solid p-2 font-sans text-sm leading-relaxed whitespace-pre-wrap">
                 {message}
               </pre>
             </Section>
 
             {actionHref ? (
               <Section className="my-4 text-center">
-                <Button href={actionHref} className="bg-primary rounded-lg px-8 py-4 text-base font-bold text-white no-underline">
+                <Button
+                  href={actionHref}
+                  className="bg-primary rounded-lg px-8 py-4 text-base font-bold text-white no-underline">
                   {actionLabel}
                 </Button>
               </Section>
@@ -88,6 +87,7 @@ export const ContactFormEmail = ({ name, email, phone, website, message, specifi
 export default ContactFormEmail;
 
 ContactFormEmail.PreviewProps = {
+  area: 'personal',
   name: 'John Doe',
   email: 'john.doe@example.com',
   phone: '555-123-4567',

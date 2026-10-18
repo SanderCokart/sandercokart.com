@@ -29,7 +29,7 @@ export default function Page() {
         <CommercialTrustSection className="container max-w-(--breakpoint-lg)" />
         <Line />
         <CommercialFaqSection className="container max-w-(--breakpoint-lg)" />
-        <AskForAQuote className="container max-w-(--breakpoint-lg)" />
+        <AskForAQuote area="commercial" className="container max-w-(--breakpoint-lg)" />
       </div>
     </main>
   );

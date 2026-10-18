@@ -13,6 +13,7 @@ describe('ContactFormMail', function () {
         ]);
 
         $data = [
+            'area' => 'personal',
             'name' => 'John Doe',
             'email' => 'john@example.com',
             'message' => 'Hello, I would like a quote.',
@@ -27,6 +28,7 @@ describe('ContactFormMail', function () {
                 && $request['template'] === 'contact-form'
                 && $request['props']['email'] === $data['email']
                 && $request['props']['name'] === $data['name']
+                && $request['props']['area'] === $data['area']
                 && $request['props']['message'] === $data['message'];
         });
     });

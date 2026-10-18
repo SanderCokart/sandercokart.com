@@ -20,7 +20,7 @@ export default function Page() {
         <FreelanceTechIndexSection className="container max-w-(--breakpoint-lg)" />
         <Line />
         <FreelanceFaqSection className="container max-w-(--breakpoint-lg)" />
-        <AskForAQuote className="container max-w-(--breakpoint-lg)" />
+        <AskForAQuote area="freelance" className="container max-w-(--breakpoint-lg)" />
       </div>
     </main>
   );
