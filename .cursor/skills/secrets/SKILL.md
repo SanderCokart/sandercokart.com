@@ -3,7 +3,9 @@ name: secrets
 description: >-
   Manages OpenBao KV v2 secrets with the bao CLI (put, patch, get, list, delete).
   Use when adding, editing, reading, or deleting vault secrets, OpenBao paths,
-  or KV fields. Dokploy env injection lives in the dokploy skill.
+  or KV fields; adding a userpass user without root; creating ACL policies;
+  or when a secret leaked and you need to rotate, revoke a root token, or
+  follow the incident runbook. Dokploy env injection lives in the dokploy skill.
 ---
 
 # OpenBao secrets
@@ -113,11 +115,75 @@ Permanently destroy versions, or wipe the path:
 
 Dokploy deploys that reference a missing path or field fail closed. Rotate by patching, then **redeploy** the Dokploy service (dokploy skill).
 
+## Add a user (no root)
+
+`userpass` is already enabled. Sign in as `sander` (admin policy), **not** with the root token.
+
+Never attach policy `root`. Do not attach `admin` unless they should operate the cluster (policies, auth methods, generate-root). `sander` is the only admin userpass account on purpose. Usernames are lowercased (`Alex` = `alex`).
+
+1. Write an ACL that covers only the KV prefix they need. KV v2 uses `secret/data/…` for values and `secret/metadata/…` for list/delete. List on each parent so the UI can browse.
+
+```bash
+.cursor/skills/secrets/scripts/bao.sh policy write codehouse-kv - <<'HCL'
+path "secret/data/sandercokart/codehouse/*" {
+  capabilities = ["create", "read", "update", "patch", "delete"]
+}
+path "secret/metadata/sandercokart/codehouse/*" {
+  capabilities = ["list", "read", "delete"]
+}
+path "secret/metadata/sandercokart/codehouse" {
+  capabilities = ["list"]
+}
+path "secret/metadata/sandercokart" {
+  capabilities = ["list"]
+}
+path "secret/metadata" {
+  capabilities = ["list"]
+}
+HCL
+```
+
+Read-only: drop `create`, `update`, `patch`, `delete` and keep `read` / `list`.
+
+2. Create the user with **that policy only**. `default` is attached automatically. Generate the password in the shell; put it in the password manager; do not paste it into chat.
+
+```bash
+PASSWORD=$(openssl rand -base64 24)
+.cursor/skills/secrets/scripts/bao.sh write auth/userpass/users/"$USERNAME" \
+  password="$PASSWORD" \
+  token_policies=codehouse-kv \
+  token_ttl=24h \
+  token_max_ttl=72h
+```
+
+They sign in at [https://secrets.sandercokart.com/ui/](https://secrets.sandercokart.com/ui/) with **Method: Username**, or:
+
+```bash
+.cursor/skills/secrets/scripts/bao.sh login -method=userpass username="$USERNAME"
+```
+
+Change policy later (omitting `password` keeps the current one). Delete the user to revoke login; outstanding tokens last until TTL unless you revoke them.
+
+```bash
+.cursor/skills/secrets/scripts/bao.sh list auth/userpass/users
+.cursor/skills/secrets/scripts/bao.sh write auth/userpass/users/"$USERNAME" token_policies=codehouse-kv
+.cursor/skills/secrets/scripts/bao.sh delete auth/userpass/users/"$USERNAME"
+.cursor/skills/secrets/scripts/bao.sh token revoke -mode=path auth/userpass
+```
+
+Dokploy keeps using the orphan `dokploy-read` token, not a userpass user.
+
+## Leak / rotate
+
+If a secret, token, unseal key, or env value leaked, follow [rotation](references/rotation.md). Do not paste values into chat.
+
 ## Handoff
 
 | Need | Where |
 | --- | --- |
 | Put / patch / get / list / delete KV | This skill |
+| Add userpass user / ACL policy (not root) | This skill |
+| Leak, revoke, rotate (root, tokens, APP_KEY, DB, mail, …) | [rotation](references/rotation.md) |
 | Dokploy provider, `${{vault.…}}` env, deploy | [dokploy](../dokploy/SKILL.md) once, then stop |
 
-Docs: [OpenBao HTTP API](https://openbao.org/api-docs), [KV v2](https://openbao.org/docs/secrets/kv/kv-v2/).
+Docs: [OpenBao HTTP API](https://openbao.org/api-docs), [KV v2](https://openbao.org/docs/secrets/kv/kv-v2/), [userpass](https://openbao.org/docs/auth/userpass/), [policies](https://openbao.org/docs/concepts/policies/).
