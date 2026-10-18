@@ -1,5 +1,5 @@
 export function GET(): Response {
-  return Response.json({ ok: true });
+  return Response.json({ ok: true, service: 'main' });
 }
 
 export function HEAD(): Response {
