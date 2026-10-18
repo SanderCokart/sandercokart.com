@@ -48,6 +48,7 @@ COPY --from=pruner /app/out/pnpm-lock.yaml /app/out/full/ ./
 # Map build secrets to environment and run build (mapping is in apps/main/scripts/docker-build.sh)
 RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN,required=false \
 	--mount=type=secret,id=TURBO_TOKEN,required=false \
+	--mount=type=secret,id=TURBO_TEAM,required=false \
 	sh ./apps/main/scripts/docker-build.sh
 
 # Production image: standalone Next output only; no mise/pnpm needed here.
