@@ -27,7 +27,7 @@ Dokploy does not store secret values. Settings → **Secrets** → Add Provider 
 
 | Field | Value |
 | --- | --- |
-| Name | identifier used in env, e.g. `openbao` (letters, numbers, dashes, underscores) |
+| Name | identifier used in env: `secrets` (letters, numbers, dashes, underscores) |
 | Vault URL | `https://secrets.sandercokart.com` |
 | Token | a **read/list** token from OpenBao (not root). Token minting is CLI — see secrets skill once if you must create one |
 | KV Mount | `secret` |
@@ -43,8 +43,8 @@ Vault refs resolve **before** `${{project.X}}` and `${{environment.X}}`. They wo
 
 ```bash
 # KV v2: path inside mount `secret`, then field name
-DB_PASSWORD=${{vault.openbao.sandercokart/myapp:DB_PASSWORD}}
-API_KEY=${{vault.openbao.sandercokart/myapp:API_KEY}}
+DB_PASSWORD=${{vault.secrets.sandercokart/myapp:DB_PASSWORD}}
+API_KEY=${{vault.secrets.sandercokart/myapp:API_KEY}}
 ```
 
 Shape: `${{vault.<provider-name>.<path>:<field>}}`
@@ -60,7 +60,7 @@ Save via MCP as a dotenv **string** (`compose-saveEnvironment.env` or `applicati
 Compose example:
 
 ```
-DB_PASSWORD=${{vault.openbao.sandercokart/myapp:DB_PASSWORD}}
+DB_PASSWORD=${{vault.secrets.sandercokart/myapp:DB_PASSWORD}}
 ```
 
 Do not put raw secret values in Dokploy env when a vault ref exists.
@@ -71,5 +71,6 @@ Do not put raw secret values in Dokploy env when a vault ref exists.
 | --- | --- |
 | Dokploy env, provider, `${{vault.…}}`, deploy | This skill |
 | OpenBao `kv put` / `patch` / `get` / `delete` | [secrets](../secrets/SKILL.md) once, then stop |
+| Secret leak / rotation runbook | [secrets rotation](../secrets/references/rotation.md) |
 
 Docs: [Secrets providers](https://docs.dokploy.com/docs/core/secrets-providers), [Vault / OpenBao](https://docs.dokploy.com/docs/core/secrets-providers/hashicorp).
