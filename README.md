@@ -241,8 +241,8 @@ Open `http://<YOUR_WINDOWS_IP>:3000` (main), `:3001` (codehouse), or `:8080` (AP
 The Laravel API uses [serversideup/php](https://serversideup.net/open-source/docker-php/) images for optimized PHP-FPM and Nginx configuration:
 
 ```dockerfile
-# Base image with PHP 8.3, FPM, and Nginx on Alpine
-FROM serversideup/php:8.3-fpm-nginx-alpine AS base
+# PHP 8.5.12 (CVE-2026-109618 / CVE-2026-109619) via serversideup/php v5.0.2
+FROM serversideup/php:8.5-fpm-nginx-alpine-v5.0.2 AS base
 ```
 
 Key features of our Docker setup:
