@@ -1,7 +1,7 @@
 ############################################
 # Base Image
 ############################################
-FROM serversideup/php:8.5-fpm-nginx-alpine AS base
+FROM serversideup/php:8.5-fpm-nginx-alpine-v5.0.2 AS base
 
 # Install PHP extensions
 USER root
@@ -49,7 +49,7 @@ USER www-data
 ############################################
 # Queue worker (CLI variation, no nginx)
 ############################################
-FROM serversideup/php:8.5-cli-alpine AS queue
+FROM serversideup/php:8.5-cli-alpine-v5.0.2 AS queue
 
 USER root
 RUN install-php-extensions redis

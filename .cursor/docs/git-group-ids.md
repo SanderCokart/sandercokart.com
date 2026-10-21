@@ -17,5 +17,6 @@ Subject prefix. Lookup: `git log --grep='^MAILSC'`
 | CHREPLAY | refactor | Codehouse header entrance replays on a locale switch instead of being suppressed |
 | CHRAIL | feat | Codehouse home selling points: six per service in a columned rail at every width |
 | APIENV | fix | Production API env aligned with Dokploy; credentials as runtime env |
+| PHPCVE | docker | Pin serversideup/php v5.0.2 for PHP 8.5.12 CVE-2026-109618 / CVE-2026-109619 |
 
 Mint 2–8 A–Z, unique, mnemonic. Add a row when first used. Reuse the ID on every commit in that workstream.
