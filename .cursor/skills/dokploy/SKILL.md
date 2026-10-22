@@ -28,6 +28,7 @@ Rules:
 
 - Deploy one app at a time — the host has 8 GB and parallel builds get OOM-killed.
 - Deploying is outward-facing: confirm with the user first, and never deploy production from `development`.
+- Slow build or cache misses: see [turbo-cache](../turbo-cache/SKILL.md).
 - Do not `sleep`-poll; `deploy --wait` blocks until done and prints only the errors on failure.
 
 ## MCP and SSH

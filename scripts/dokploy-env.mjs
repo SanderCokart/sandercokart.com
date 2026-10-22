@@ -172,13 +172,52 @@ function quote(value) {
   return `"${value.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`;
 }
 
+// Group keys by shared name prefix: keys with the same first segment form a
+// group named after the longest prefix they all share (NEXT_PUBLIC_API_URL +
+// NEXT_PUBLIC_ENV → NEXT_PUBLIC_). Keys without a partner land in "Other".
+function groupKeys(keys) {
+  const byFirst = new Map();
+  for (const key of [...keys].sort()) {
+    const first = key.split("_")[0];
+    byFirst.set(first, [...(byFirst.get(first) ?? []), key]);
+  }
+
+  const groups = [];
+  const other = [];
+  for (const members of byFirst.values()) {
+    if (members.length < 2) {
+      other.push(...members);
+      continue;
+    }
+    const segments = members.map((key) => key.split("_"));
+    let shared = 0;
+    while (
+      segments.every((parts) => parts.length > shared + 1) &&
+      segments.every((parts) => parts[shared] === segments[0][shared])
+    ) {
+      shared += 1;
+    }
+    groups.push({ name: `${segments[0].slice(0, shared).join("_")}_`, keys: members });
+  }
+  if (other.length) {
+    groups.push({ name: "Other", keys: other });
+  }
+  return groups;
+}
+
 function serializeDotenv(map, publicKeyLine) {
   const lines = [];
   if (publicKeyLine) {
     lines.push(publicKeyLine, "");
   }
-  for (const [key, value] of map) {
-    lines.push(`${key}=${quote(value)}`);
+  for (const [index, group] of groupKeys(map.keys()).entries()) {
+    if (index > 0) {
+      lines.push("");
+    }
+    lines.push(`# ${group.name}`);
+    for (const key of group.keys) {
+      lines.push(`${key}=${quote(map.get(key))}`);
+    }
   }
   return `${lines.join("\n")}\n`;
 }

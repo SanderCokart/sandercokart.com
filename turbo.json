@@ -6,12 +6,11 @@
       "dependsOn": ["^build"],
       "env": [
         "NODE_ENV",
+        "NEXT_OUTPUT",
         "NEXT_PUBLIC_*",
         "VITE_*",
         "DOTENV_PRIVATE_KEY_PRODUCTION",
         "SENTRY_AUTH_TOKEN",
-        "TURBO_TEAM",
-        "TURBO_TOKEN",
         "APP_ENV",
         "APP_URL",
         "SITE_URL",

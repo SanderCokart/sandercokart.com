@@ -51,7 +51,7 @@ Mail templates: `@repo/mail`. Codehouse renders them with `renderTemplate` (reac
 
 Do not merge the two trees; `.agents/skills` is upstream CLI content and would be overwritten on update.
 
-- `.cursor/skills/*` — docs, translations, pest-testing, env-nextjs, git-commit, quick-start, secrets, dokploy, …
+- `.cursor/skills/*` — docs, translations, pest-testing, env-nextjs, git-commit, quick-start, secrets, dokploy, turbo-cache, …
 - `.agents/skills/*` — turborepo, shadcn, date-fns
 
 Glossary, themes, PPR, and Tailwind: [`.cursor/skills/docs/SKILL.md`](.cursor/skills/docs/SKILL.md).

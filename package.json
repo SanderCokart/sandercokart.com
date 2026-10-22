@@ -21,7 +21,11 @@
     "prepare": "husky",
     "clean": "turbo clean && echo 'Deleting root node_modules...' && rm -rf node_modules .next .turbo dist",
     "env:staging:check": "node ./scripts/dokploy-env.mjs check staging",
-    "env:staging:pull": "node ./scripts/dokploy-env.mjs pull staging"
+    "env:staging:pull": "node ./scripts/dokploy-env.mjs pull staging",
+    "env:production:check": "node ./scripts/dokploy-env.mjs check production",
+    "env:production:pull": "node ./scripts/dokploy-env.mjs pull production",
+    "prebuild:staging": "node ./scripts/turbo-prebuild.mjs staging",
+    "prebuild:production": "node ./scripts/turbo-prebuild.mjs production"
   },
   "husky": {
     "hooks": {
