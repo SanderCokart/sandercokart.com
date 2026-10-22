@@ -24,8 +24,8 @@ Output a **nicely formatted summary** so the user can review the commits before 
 
 Example format:
 
-- **runtime-env | feat(runtime-env): inject public env via a blocking head script.** - `env-script.tsx`
-- **named-logo | fix(ui): keep the named logo square in the header.** - `named-logo.tsx`
+- **runtime-env | feat(packages/runtime-env): inject public env via a blocking head script.** - `env-script.tsx`
+- **named-logo | fix(packages/ui): keep the named logo square in the header.** - `named-logo.tsx`
 
 Keep this short and scannable. No code block in this step.
 
@@ -40,8 +40,8 @@ Keep this short and scannable. No code block in this step.
 Example shape (replace with real paths and messages):
 
 ```bash
-git add path/to/file1 path/to/file2 && git commit -m "runtime-env | feat(runtime-env): add thing." && \
-git add path/to/file3 && git commit -m "runtime-env | docs(runtime-env): document the other." && \
+git add path/to/file1 path/to/file2 && git commit -m "runtime-env | feat(packages/runtime-env): add thing." && \
+git add path/to/file3 && git commit -m "runtime-env | docs(packages/runtime-env): document the other." && \
 git push
 ```
 
@@ -65,4 +65,4 @@ Immediately after the code block, ask exactly:
 
 ## Commit message format (reference)
 
-`<topic> | type(scope): description.` — full rules in [`.cursor/skills/git-commit/SKILL.md`](../skills/git-commit/SKILL.md). The `commit-msg` hook validates it.
+`<topic> | type(folder): description.` (folder = `apps/codehouse`, `packages/ui`, … or `repo`) — full rules in [`.cursor/skills/git-commit/SKILL.md`](../skills/git-commit/SKILL.md). The `commit-msg` hook validates it.
