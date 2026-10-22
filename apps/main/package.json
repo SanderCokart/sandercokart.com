@@ -15,8 +15,12 @@
     "clean": "rm -rf node_modules .next .turbo dist",
     "env:use:local": "dotenvx decrypt -f .envx.local --stdout > .env",
     "env:use:prod": "dotenvx decrypt -f .envx.production --stdout > .env",
+    "env:use:staging": "dotenvx decrypt -f .envx.staging --stdout > .env",
     "env:encrypt:local": "dotenvx encrypt -f .envx.local",
-    "env:encrypt:prod": "dotenvx encrypt -f .envx.production"
+    "env:encrypt:prod": "dotenvx encrypt -f .envx.production",
+    "env:encrypt:staging": "dotenvx encrypt -f .envx.staging",
+    "env:staging:check": "node ../../scripts/dokploy-env.mjs check staging --app main",
+    "env:staging:pull": "node ../../scripts/dokploy-env.mjs pull staging --app main"
   },
   "dependencies": {
     "@next/third-parties": "16.4.0",

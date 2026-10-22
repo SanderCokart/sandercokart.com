@@ -19,7 +19,7 @@
         "MAIL_*",
         "REDIS_*"
       ],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "inputs": ["$TURBO_DEFAULT$", "!*.env*", "!**/*.env*"],
       "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**", "dist/**"]
     },
     "lint": {

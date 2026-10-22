@@ -14,8 +14,12 @@
     "i18n:check:nl": "i18n-check --source nl --locales messages",
     "env:use:local": "dotenvx decrypt -f .envx.local --stdout > .env",
     "env:use:prod": "dotenvx decrypt -f .envx.production --stdout > .env",
+    "env:use:staging": "dotenvx decrypt -f .envx.staging --stdout > .env",
     "env:encrypt:local": "dotenvx encrypt -f .envx.local",
-    "env:encrypt:prod": "dotenvx encrypt -f .envx.production"
+    "env:encrypt:prod": "dotenvx encrypt -f .envx.production",
+    "env:encrypt:staging": "dotenvx encrypt -f .envx.staging",
+    "env:staging:check": "node ../../scripts/dokploy-env.mjs check staging --app codehouse",
+    "env:staging:pull": "node ../../scripts/dokploy-env.mjs pull staging --app codehouse"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",

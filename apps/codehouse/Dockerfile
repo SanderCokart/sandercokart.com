@@ -37,8 +37,9 @@ WORKDIR /app
 COPY --from=pruner /app/out/json/ .
 COPY --from=pruner /app/out/pnpm-lock.yaml .
 
+RUN pnpm config set store-dir /pnpm/store
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm fetch --frozen-lockfile
-RUN pnpm install --offline
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --offline
 
 # Required for docker
 ENV NEXT_OUTPUT=standalone

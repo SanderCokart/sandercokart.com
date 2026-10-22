@@ -19,7 +19,9 @@
     "test:visual:install": "pnpm --filter @repo/playwright-visual exec playwright install chromium",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky",
-    "clean": "turbo clean && echo 'Deleting root node_modules...' && rm -rf node_modules .next .turbo dist"
+    "clean": "turbo clean && echo 'Deleting root node_modules...' && rm -rf node_modules .next .turbo dist",
+    "env:staging:check": "node ./scripts/dokploy-env.mjs check staging",
+    "env:staging:pull": "node ./scripts/dokploy-env.mjs pull staging"
   },
   "husky": {
     "hooks": {
