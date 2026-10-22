@@ -38,7 +38,13 @@ const PUBLIC_KEY_RE = /^DOTENV_PUBLIC_KEY_[A-Z0-9_]+$/;
 const VAULT_RE = /^vault\.([A-Za-z0-9_-]+)\.(.+):([^:]+)$/;
 const REF_RE = /\$\{\{([^}]+)\}\}/g;
 
-const state = { debug: false };
+const state = { debug: false, vaultError: null, dropBaoToken: false };
+
+const useColor = process.stderr.isTTY && !process.env.NO_COLOR;
+
+function warn(message) {
+  console.error(useColor ? `\x1b[33m${message}\x1b[0m` : message);
+}
 
 function debugLog(...args) {
   if (!state.debug) {
@@ -205,18 +211,25 @@ function groupKeys(keys) {
   return groups;
 }
 
-function serializeDotenv(map, publicKeyLine) {
+// `missing` keys (vault refs that could not be resolved) are written as
+// comments in their group so the gap is visible in the file itself.
+function serializeDotenv(map, publicKeyLine, missing = [], environment = "staging") {
   const lines = [];
   if (publicKeyLine) {
     lines.push(publicKeyLine, "");
   }
-  for (const [index, group] of groupKeys(map.keys()).entries()) {
+  const skipped = new Set(missing);
+  for (const [index, group] of groupKeys([...map.keys(), ...skipped]).entries()) {
     if (index > 0) {
       lines.push("");
     }
     lines.push(`# ${group.name}`);
     for (const key of group.keys) {
-      lines.push(`${key}=${quote(map.get(key))}`);
+      lines.push(
+        skipped.has(key)
+          ? `# ${key}= # MISSING, please log in with bao and run env:${environment}:pull again`
+          : `${key}=${quote(map.get(key))}`,
+      );
     }
   }
   return `${lines.join("\n")}\n`;
@@ -313,6 +326,23 @@ function interpolateMap(map, scopes, vaultCache, sources) {
   return { resolved, unresolvedVault };
 }
 
+const VAULT_TOKEN_FILE = path.join(homedir(), ".vault-token");
+
+function baoKvGet(kvPath, field, withoutEnvToken = state.dropBaoToken) {
+  const env = {
+    ...process.env,
+    BAO_ADDR: process.env.BAO_ADDR ?? "https://secrets.sandercokart.com",
+  };
+  if (withoutEnvToken) {
+    delete env.BAO_TOKEN;
+  }
+  return spawnSync(
+    "mise",
+    ["exec", "openbao@latest", "--", "bao", "kv", "get", "-mount=secret", `-field=${field}`, kvPath],
+    { encoding: "utf8", env },
+  );
+}
+
 function resolveVault(ref, cache, unresolved) {
   const match = VAULT_RE.exec(ref);
   if (!match) {
@@ -327,32 +357,24 @@ function resolveVault(ref, cache, unresolved) {
   }
 
   debugLog(`vault ${cacheKey}: bao kv get`);
-  const result = spawnSync(
-    "mise",
-    [
-      "exec",
-      "openbao@latest",
-      "--",
-      "bao",
-      "kv",
-      "get",
-      "-mount=secret",
-      `-field=${field}`,
-      kvPath,
-    ],
-    {
-      encoding: "utf8",
-      env: {
-        ...process.env,
-        BAO_ADDR: process.env.BAO_ADDR ?? "https://secrets.sandercokart.com",
-      },
-    },
-  );
+  let result = baoKvGet(kvPath, field);
+  // A stale BAO_TOKEN (e.g. exported in ~/.bashrc) overrides the token that
+  // `bao login` stores in ~/.vault-token. Retry once without it.
+  if (result.status !== 0 && process.env.BAO_TOKEN && !state.dropBaoToken && existsSync(VAULT_TOKEN_FILE)) {
+    debugLog(`vault ${cacheKey}: retry without BAO_TOKEN (using ~/.vault-token)`);
+    const retry = baoKvGet(kvPath, field, true);
+    if (retry.status === 0) {
+      state.dropBaoToken = true;
+      warn("warning: BAO_TOKEN is invalid; used the `bao login` token from ~/.vault-token instead. Unset or update BAO_TOKEN (check ~/.bashrc).");
+      result = retry;
+    }
+  }
 
   if (result.status !== 0) {
     cache.set(cacheKey, undefined);
     unresolved.add(`\${{${ref}}}`);
     const err = (result.stderr || result.stdout || "").trim().split("\n")[0];
+    state.vaultError = state.vaultError ?? err;
     debugLog(`vault ${cacheKey}: fail exit=${result.status}${err ? ` ${err}` : ""}`);
     return undefined;
   }
@@ -609,8 +631,11 @@ async function main() {
     const diff = diffMaps(local, remote);
 
     if (unresolvedVault.length > 0) {
-      console.error(
-        `${relPath}: skipped vault keys (log in to OpenBao to resolve): ${unresolvedVault.join(", ")}`,
+      const hint = process.env.BAO_TOKEN
+        ? "BAO_TOKEN is set and overrides your login token; unset or update it (check ~/.bashrc), then re-run."
+        : "Log in and re-run: .cursor/skills/secrets/scripts/bao.sh login -method=userpass";
+      warn(
+        `warning: ${relPath}: skipped vault keys ${unresolvedVault.join(", ")}.${state.vaultError ? ` bao: ${state.vaultError}.` : ""} ${hint}`,
       );
     }
 
@@ -628,7 +653,7 @@ async function main() {
       continue;
     }
 
-    writeFileSync(filePath, serializeDotenv(remote, null));
+    writeFileSync(filePath, serializeDotenv(remote, null, unresolvedVault, environment));
     encryptFile(filePath, environment, publicKeyLine);
     publicKeyLine = readPublicKeyLine(filePath) ?? publicKeyLine;
     console.log(`updated ${relPath}`);
