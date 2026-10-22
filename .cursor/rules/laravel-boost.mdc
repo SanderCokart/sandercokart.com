@@ -1,5 +1,7 @@
 ---
-alwaysApply: true
+description: Laravel Boost guidelines for the hibernated Laravel API in apps/api.
+globs: apps/api/**
+alwaysApply: false
 ---
 
 <laravel-boost-guidelines>

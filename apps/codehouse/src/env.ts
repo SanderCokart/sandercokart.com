@@ -1,4 +1,3 @@
-;
 /**
  * This is used to validate environment variables.
  * You can use the `env` object to access the environment variables.
@@ -8,10 +7,6 @@
 import { getRuntimeEnv } from '@repo/runtime-env';
 import { createEnv } from '@t3-oss/env-nextjs';
 import { z } from 'zod';
-
-
-
-
 
 const server = {
   /** CI Mode */
@@ -61,9 +56,24 @@ const server = {
    * Unauthenticated requests still work for public repositories.
    */
   GITHUB_TOKEN: z.string().min(1).optional(),
+  /**
+   * SMTP host for contact-form delivery (Mailpit locally, Stalwart in production).
+   */
+  MAIL_HOST: z.string().min(1).default('127.0.0.1'),
+  MAIL_PORT: z.coerce.number().int().positive().default(1025),
+  MAIL_USERNAME: z.string().min(1).optional(),
+  MAIL_PASSWORD: z.string().min(1).optional(),
+  MAIL_ENCRYPTION: z.enum(['none', 'tls', 'ssl']).default('none'),
+  MAIL_FROM_ADDRESS: z.string().min(3).includes('@').default('noreply@localhost'),
+  MAIL_FROM_NAME: z.string().min(1).default("Sander's CodeHouse"),
+  MAIL_TO_ADDRESS: z.string().min(3).includes('@').default('dev@localhost'),
+  MAIL_TO_NAME: z.string().min(1).default('Developer'),
+  REDIS_HOST: z.string().min(1).default('127.0.0.1'),
+  REDIS_PORT: z.coerce.number().int().positive().default(6379),
+  REDIS_PASSWORD: z.string().min(1).optional(),
 };
 const client = {
-  /** The API URL */
+  /** Unused while Codehouse sends mail itself. Kept so existing Dokploy env still validates. */
   NEXT_PUBLIC_API_URL: z.url().optional(),
   /** The app environment */
   NEXT_PUBLIC_ENV: z.enum(['development', 'production', 'staging']).default('development'),
@@ -98,6 +108,18 @@ export const env = createEnv({
     TURBO_TOKEN: process.env.TURBO_TOKEN,
     SITE_URL: process.env.SITE_URL,
     GITHUB_TOKEN: process.env.GITHUB_TOKEN,
+    MAIL_HOST: process.env.MAIL_HOST,
+    MAIL_PORT: process.env.MAIL_PORT,
+    MAIL_USERNAME: process.env.MAIL_USERNAME,
+    MAIL_PASSWORD: process.env.MAIL_PASSWORD,
+    MAIL_ENCRYPTION: process.env.MAIL_ENCRYPTION,
+    MAIL_FROM_ADDRESS: process.env.MAIL_FROM_ADDRESS,
+    MAIL_FROM_NAME: process.env.MAIL_FROM_NAME,
+    MAIL_TO_ADDRESS: process.env.MAIL_TO_ADDRESS,
+    MAIL_TO_NAME: process.env.MAIL_TO_NAME,
+    REDIS_HOST: process.env.REDIS_HOST,
+    REDIS_PORT: process.env.REDIS_PORT,
+    REDIS_PASSWORD: process.env.REDIS_PASSWORD,
     // Client variables (use getRuntimeEnv() to read from window.__ENV on client or process.env on server)
     NEXT_PUBLIC_API_URL: getRuntimeEnv().NEXT_PUBLIC_API_URL,
     NEXT_PUBLIC_ENV: getRuntimeEnv().NEXT_PUBLIC_ENV,

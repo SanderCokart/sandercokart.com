@@ -16,12 +16,12 @@ import { useState } from 'react';
 
 import type { ComponentProps, FC } from 'react';
 
-import { env } from '@/env';
-
 import { FormStatus } from './components/form-status';
 
 const formId = 'ask-for-a-quote-form';
 const sectionId = 'ask-for-a-quote';
+
+export type QuoteArea = 'personal' | 'commercial' | 'freelance';
 
 function isEmailContact(value: string): boolean {
   return value.includes('@');
@@ -32,7 +32,11 @@ function isValidPhoneContact(value: string): boolean {
   return digits.length >= 7 && digits.length <= 15;
 }
 
-export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...props }) => {
+type AskForAQuoteProps = ComponentProps<'section'> & {
+  area: QuoteArea;
+};
+
+export const AskForAQuote: FC<AskForAQuoteProps> = ({ area, className, ...props }) => {
   const t = useTranslations('AskForAQuote');
   const tZod = useTranslations('zod');
   const tForm = useTranslations('form');
@@ -91,6 +95,7 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
     const specifications = formData.specifications?.map(spec => spec.value.trim()).filter(spec => spec.length > 0);
 
     const payload = {
+      area,
       email: contactIsEmail ? contact : null,
       phone: contactIsEmail ? null : contact,
       message: formData.message,
@@ -99,11 +104,10 @@ export const AskForAQuote: FC<ComponentProps<'section'>> = ({ className, ...prop
       specifications: specifications?.length ? specifications : null,
     };
 
-    const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/v1/contact`, {
+    const response = await fetch('/api/contact', {
       method: 'POST',
       body: JSON.stringify(payload),
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      credentials: 'include',
     });
 
     setLastResponse(response);

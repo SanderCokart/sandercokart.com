@@ -14,6 +14,7 @@ describe('ContactController', function () {
 
     it('queues contact form email with valid data', function () {
         $data = [
+            'area' => 'personal',
             'name' => 'John Doe',
             'email' => 'john@example.com',
             'phone' => '+31 6 12345678',
@@ -36,6 +37,7 @@ describe('ContactController', function () {
 
     it('queues contact form email with only required fields', function () {
         $data = [
+            'area' => 'commercial',
             'email' => 'jane@example.com',
             'message' => 'Just a short note about my project.',
         ];
@@ -52,6 +54,7 @@ describe('ContactController', function () {
 
     it('queues contact form email with phone as preferred contact', function () {
         $data = [
+            'area' => 'freelance',
             'phone' => '+31 6 12345678',
             'message' => 'Please call me about a new website.',
         ];
@@ -85,6 +88,7 @@ describe('ContactController', function () {
 
     it('validates existing website URL when provided', function () {
         $data = [
+            'area' => 'personal',
             'email' => 'john@example.com',
             'message' => 'Hello!',
             'website' => 'invalid-url',
@@ -98,6 +102,7 @@ describe('ContactController', function () {
 
     it('returns 429 with rate limit headers after two submissions in the same hour', function () {
         $data = [
+            'area' => 'commercial',
             'email' => 'jane@example.com',
             'message' => 'Project inquiry.',
         ];
@@ -121,6 +126,7 @@ describe('ContactController', function () {
 
     it('queues contact form with optional specifications', function () {
         $data = [
+            'area' => 'freelance',
             'email' => 'john@example.com',
             'message' => 'Hello!',
             'specifications' => [

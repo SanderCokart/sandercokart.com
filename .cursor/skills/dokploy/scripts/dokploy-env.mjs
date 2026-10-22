@@ -1,0 +1,1 @@
+../../../../scripts/dokploy-env.mjs

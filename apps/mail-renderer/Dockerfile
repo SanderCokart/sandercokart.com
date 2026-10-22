@@ -21,7 +21,8 @@ WORKDIR /app
 
 COPY . .
 
-RUN pnpm dlx turbo prune mail-renderer --docker
+# Same turbo version as the root package.json, so prune and build hash like local builds.
+RUN pnpm dlx "turbo@$(node -p 'require("./package.json").devDependencies.turbo')" prune mail-renderer --docker
 
 FROM base AS builder
 WORKDIR /app

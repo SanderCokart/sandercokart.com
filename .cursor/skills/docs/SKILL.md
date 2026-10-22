@@ -12,12 +12,13 @@ Repo-internal docs for agents and developers - not user-facing product documenta
 | Topic    | File                       | Summary                                                                |
 | -------- | -------------------------- | ---------------------------------------------------------------------- |
 | Glossary | [glossary.md](glossary.md) | Inline glossary terms in `next-intl` rich text via `@repo/toolbox`     |
-| Themes   | [themes.md](themes.md)     | Dark/light mode via `@wrksz/themes` (replaces abandoned `next-themes`) |
-| PPR      | [ppr.md](ppr.md)           | Partial Prerendering + `next-intl` in `apps/codehouse` (`cacheComponents`) |
+| Themes   | [themes.md](themes.md)     | Dark/light mode via `@wrksz/themes`; history in [themes-background.md](themes-background.md) |
+| PPR      | [ppr.md](ppr.md)           | Partial Prerendering + `next-intl` in `apps/codehouse`; background in [ppr-background.md](ppr-background.md) |
 | Tailwind | [tailwind.md](tailwind.md) | v4.3+ package alignment, important suffix, preferred class forms |
+| Secrets  | [rotation.md](../secrets/references/rotation.md) | Leak response: revoke OpenBao tokens, rotate each secret type |
 
 ## Conventions
 
-- Topic docs live alongside this index in `.cursor/skills/docs/`.
+- Topic docs live alongside this index in `.cursor/skills/docs/`. Keep rules at the top of a topic doc; move history and comparisons into `<topic>-background.md`.
 - Add a new row to the index when introducing a new internal doc.
 - For general i18n rules (key naming, locale sync), see the [translations skill](../translations/SKILL.md).

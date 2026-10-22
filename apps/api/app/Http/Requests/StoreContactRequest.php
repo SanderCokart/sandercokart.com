@@ -17,6 +17,7 @@ class StoreContactRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'area' => ['required', 'string', 'in:personal,commercial,freelance'],
             'email' => ['required_without:phone', 'nullable', 'string', 'email', 'max:255'],
             'phone' => ['required_without:email', 'nullable', 'string', 'max:255'],
             'message' => ['required', 'string', 'min:1', 'max:10000'],

@@ -11,7 +11,7 @@ This block is written and re-added by `turbo` before repository-scoped commands 
 
 # Repo map
 
-pnpm workspaces + Turborepo. Filter by the `name` in each workspace `package.json`.
+pnpm workspaces + Turborepo. **pnpm only**, never npm/yarn, run from the repo root. Filter by the `name` in each workspace `package.json`.
 
 ## Apps
 
@@ -26,6 +26,9 @@ pnpm workspaces + Turborepo. Filter by the `name` in each workspace `package.jso
 pnpm --filter main dev
 pnpm --filter codehouse lint
 pnpm --filter @repo/ui lint
+pnpm --filter codehouse exec tsc --noEmit
+pnpm add <pkg> --filter <workspace>        # -D for dev; @repo/* deps use workspace:*
+pnpm add -D -w <pkg>                       # root only, rare
 ```
 
 ## Packages
@@ -36,7 +39,7 @@ pnpm --filter @repo/ui lint
 
 i18n lives in `apps/codehouse/messages` + `next-intl`, not a shared package. See [`.cursor/skills/translations/SKILL.md`](.cursor/skills/translations/SKILL.md).
 
-Mail templates: `@repo/mail`. HTML is rendered by `apps/mail-renderer`.
+Mail templates: `@repo/mail`. Codehouse renders them with `renderTemplate` (react-email) and sends via SMTP. `apps/mail-renderer` remains for the hibernated Laravel API.
 
 ## Imports and images
 
@@ -48,8 +51,19 @@ Mail templates: `@repo/mail`. HTML is rendered by `apps/mail-renderer`.
 
 Do not merge the two trees; `.agents/skills` is upstream CLI content and would be overwritten on update.
 
-- `.cursor/skills/*` — docs, translations, pest-testing, env-nextjs, git-commit, npm, quick-start, …
+- `.cursor/skills/*` — docs, translations, pest-testing, env-nextjs, git-commit, quick-start, secrets, dokploy, turbo-cache, …
 - `.agents/skills/*` — turborepo, shadcn, date-fns
 
 Glossary, themes, PPR, and Tailwind: [`.cursor/skills/docs/SKILL.md`](.cursor/skills/docs/SKILL.md).
 
+
+## Token budget
+
+- Translations: use the [translations](.cursor/skills/translations/SKILL.md) skill's `i18n.mjs` instead of reading `messages/*.json`.
+- Dokploy: use the [dokploy](.cursor/skills/dokploy/SKILL.md) skill's `dokploy.mjs` before any MCP call or SSH.
+- Do not read `README.md`; this file is the repo map. Read a skill only when the task needs it, once per session.
+- Do not re-read a file you just edited, and run `git status` once before committing, not after every step.
+- Verify narrowly: `pnpm --filter <app> lint` / `exec tsc --noEmit`, one visual spec. Full `pnpm build` only when asked or before a release.
+- Trim command output (`2>&1 | tail -60`, `grep -iE 'error|warn'`). Never dump full build or deploy logs.
+- Prefer DOM text or Playwright over browser screenshots.
+- Wait on a long command with one blocking call, not `sleep` polling loops.

@@ -7,7 +7,6 @@ import { Line } from '@/components/line';
 import { env } from '@/env';
 import { getOpenSourceProjectsWithVersions } from '@/lib/github-source-versions';
 
-import { AskForAQuote } from '../consumer/(sections)/ask-for-a-quote';
 import { OpenSourceFaqSection } from './(sections)/open-source-faq-section';
 import { OpenSourceHeroSection } from './(sections)/open-source-hero-section';
 import { OpenSourceProjectsSection } from './(sections)/open-source-projects-section';
@@ -56,7 +55,6 @@ export default async function Page() {
         <OpenSourceProjectsSection projects={projects} />
         <Line />
         <OpenSourceFaqSection className="container max-w-(--breakpoint-lg)" />
-        <AskForAQuote className="container max-w-(--breakpoint-lg)" />
       </div>
     </main>
   );

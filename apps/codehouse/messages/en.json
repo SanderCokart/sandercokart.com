@@ -542,7 +542,7 @@
     "title": "Software I ship <highlight>in the open</highlight>",
     "description": "A selection of public projects: a Zen Browser extension, a Cloudreve MCP server, a shell password generator, and a Rust CLI for encrypting .env files. Download the source, pick a version, and use what helps.",
     "cta_primary": "Browse projects",
-    "cta_secondary": "Ask about a project"
+    "cta_secondary": "Read the FAQ"
   },
   "OpenSourceProjects": {
     "eyebrow": "Public repositories",

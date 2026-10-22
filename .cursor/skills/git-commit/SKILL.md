@@ -1,64 +1,32 @@
 ---
 name: conventional-commits
-description: Guidelines for writing git commit messages using grouped conventional subjects (GROUPID | type(scope): …). Use when creating commits, writing commit messages, amending history, or looking up a feature/bug via its group ID.
+description: Commit message format for this repo (topic | type(folder): description.). Use when creating commits, writing commit messages, amending history, or finding all commits of a workstream.
 ---
 
-# Guidelines for git commits
-
-Every commit belongs to a **group ID** — a short token that ties the workstream together (feature, bug, issue). Same ID on every commit in that workstream. Index: [`.cursor/docs/git-group-ids.md`](../../docs/git-group-ids.md).
-
-Lookup: `git log --grep='^MAILSC'`
-
-## Subject
+# Git commits
 
 ```
-GROUPID | type(scope): description.
+<topic> | type(folder): description.
 ```
 
-Optional prefixes, still separated by ` | `:
-
-- `! | ` first if the commit is breaking
-- `#123 | ` after the group ID when the branch carries an issue number
-
-Examples:
-
-```
-MAILSC | feat(mail): queue contact mail through a React Email HTTP renderer sidecar.
-NLOGO | fix(ui): keep the named logo square and padded in the header.
-! | RTENV | feat(runtime-env): inject public env via a blocking head script.
-DXAI | #14 | chore(repo): align lint-staged and @/* aliases.
-```
-
-Rules:
-
-- **GROUPID**: 2–8 uppercase A–Z. Reuse an existing ID from the index if this continues that workstream. Otherwise mint one, add a row to the index in the same change (or the first commit that uses it).
-- **type**: lowercase. One of: `feat`, `fix`, `docs`, `format`, `refactor`, `perf`, `test`, `docker`, `ci`, `chore`, `revert`.
-- **scope**: workspace or area (`mail`, `mail-renderer`, `runtime-env`, `ui`, `main`, `repo`, `git`).
+- **topic**: lowercase kebab naming the workstream (`open-source`, `php-cve`, `staging-cache`). Every commit of that workstream uses the same topic, so it lines up in `git log --oneline --graph` even after a fast-forward. On a topic branch the `prepare-commit-msg` hook adds it from the branch name (`feat/codehouse-light-mode` → `codehouse-light-mode`); on `development` / `main` write it yourself. Reuse a topic from `git log --format=%s -30` when continuing a workstream.
+- **type**: `feat`, `fix`, `docs`, `format` (prettier/eslint only), `refactor` (no behavior change), `perf`, `test`, `docker`, `ci`, `chore`, `revert`.
+- **folder** (required): the folder the change lives in, as a repo path — `apps/codehouse`, `packages/ui`, `.cursor`, `scripts`. Comma-separate when a commit spans two (`apps/codehouse,packages/ui`); use `repo` for root files or changes across many folders. The hook checks that each folder exists and suggests one from the staged files.
 - **description**: starts lowercase, ends with a period. Why, not a file list.
+- Optional: `#123 | ` after the topic for an issue; `!` before the colon for a breaking change (`feat(packages/ui)!: …`).
+
+The `commit-msg` hook ([`scripts/commit-msg.mjs`](../../../scripts/commit-msg.mjs)) rejects a bad subject and lists recent topics — no need to re-read this skill to check a message. Older commits use uppercase group IDs (`MAILSC | …`) and short scopes (`fix(ui)`); history is not rewritten, see [`.cursor/docs/git-group-ids.md`](../../docs/git-group-ids.md). Find a workstream: `git log --oneline --grep='^open-source |'`.
 
 ## Body
 
-Empty line after the subject. List paths under the sections that apply. Each line is `- path: reason.`
+Blank line, then only the sections that apply, each line `- path: reason.`: `Files edited:`, `Files added:`, `Files removed:`, `Files moved:`. Put mechanical churn (import rewrites, snapshot PNGs) on one line.
 
 ```
-MAILSC | fix(mail-renderer): stop mise shims resolving php during Docker builds.
+open-source | feat(apps/codehouse): list public repos with a split download button.
+
+Files added:
+- apps/codehouse/src/app/[locale]/(routes)/open-source/page.tsx: route with hero, projects and FAQ.
 
 Files edited:
-- apps/mail-renderer/Dockerfile: set MISE_DISABLE_TOOLS=php so prune/build ignore php@8.5 from root mise.toml.
+- apps/codehouse/messages/en.json, nl.json: OpenSource* namespaces.
 ```
-
-Sections: `Files edited:`, `Files added:`, `Files removed:`, `Files moved:`. Omit empty ones. Group mechanical churn (import rewrites, snapshot PNGs) on one line when the reason is the same.
-
-## Types
-
-- `feat`: new feature
-- `fix`: bug fix
-- `docs`: documentation
-- `format`: prettier / eslint-only formatting
-- `refactor`: rename, move, simplify — no behavior change
-- `perf`: performance
-- `test`: unit / integration / e2e / visual
-- `docker`: images, compose, container runtime
-- `ci`: pipelines
-- `chore`: deps, tooling, repo map
-- `revert`: reverts a previous commit

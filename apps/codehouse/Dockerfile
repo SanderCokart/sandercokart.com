@@ -29,7 +29,8 @@ WORKDIR /app
 
 COPY . .
 
-RUN pnpm dlx turbo prune codehouse --docker
+# Same turbo version as the root package.json, so prune and build hash like local builds.
+RUN pnpm dlx "turbo@$(node -p 'require("./package.json").devDependencies.turbo')" prune codehouse --docker
 
 FROM base AS builder
 WORKDIR /app
@@ -37,8 +38,9 @@ WORKDIR /app
 COPY --from=pruner /app/out/json/ .
 COPY --from=pruner /app/out/pnpm-lock.yaml .
 
+RUN pnpm config set store-dir /pnpm/store
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm fetch --frozen-lockfile
-RUN pnpm install --offline
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --offline
 
 # Required for docker
 ENV NEXT_OUTPUT=standalone
@@ -48,6 +50,7 @@ COPY --from=pruner /app/out/pnpm-lock.yaml /app/out/full/ ./
 # Map build secrets to environment and run build (mapping is in apps/codehouse/scripts/docker-build.sh)
 RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN,required=false \
 	--mount=type=secret,id=TURBO_TOKEN,required=false \
+	--mount=type=secret,id=TURBO_TEAM,required=false \
 	sh ./apps/codehouse/scripts/docker-build.sh
 
 # Production image: standalone Next output only; no mise/pnpm needed here.

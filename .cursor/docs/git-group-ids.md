@@ -1,6 +1,6 @@
-# Git group IDs
+# Git group IDs (legacy)
 
-Subject prefix. Lookup: `git log --grep='^MAILSC'`
+Uppercase subject prefixes used before lowercase topics replaced them (see the git-commit skill). Kept for lookup only — don't add rows. Lookup: `git log --grep='^MAILSC'`
 
 | ID | Kind | What |
 | --- | --- | --- |
@@ -17,6 +17,9 @@ Subject prefix. Lookup: `git log --grep='^MAILSC'`
 | CHREPLAY | refactor | Codehouse header entrance replays on a locale switch instead of being suppressed |
 | CHRAIL | feat | Codehouse home selling points: six per service in a columned rail at every width |
 | APIENV | fix | Production API env aligned with Dokploy; credentials as runtime env |
+| BAO | chore | OpenBao CLI via mise; secrets and Dokploy vault agent skills |
+| HEALTH | feat | `/health` route handlers for main and codehouse, excluded from the codehouse proxy |
+| CHMAIL | feat | Codehouse sends quote mail over SMTP with Redis rate limits; Laravel API hibernated |
 | PHPCVE | docker | Pin serversideup/php v5.0.2 for PHP 8.5.12 CVE-2026-109618 / CVE-2026-109619 |
 
-Mint 2–8 A–Z, unique, mnemonic. Add a row when first used. Reuse the ID on every commit in that workstream.
+Legacy: new commits use lowercase topics instead (see the git-commit skill).
