@@ -131,7 +131,7 @@ export const OpenSourceProjectsSection: FC<OpenSourceProjectsSectionProps> = ({ 
                         aria-label={t('stars_label')}
                         title={t('stars_label')}>
                         <StarIcon className="text-accent-ink size-4" aria-hidden />
-                        {format.number(project.stargazersCount)}
+                        <span data-visual-mask="github-star-count">{format.number(project.stargazersCount)}</span>
                       </span>
                     ) : null}
                   </CardFooter>
