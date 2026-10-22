@@ -63,6 +63,10 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 USER nextjs
 
+# Next standalone binds to $HOSTNAME, which Docker sets to the container ID.
+# Listen on all interfaces so the Swarm health check on 127.0.0.1 can connect.
+ENV HOSTNAME=0.0.0.0
+
 COPY --from=builder --chown=nextjs:nodejs /app/apps/main/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/apps/main/.next/static ./apps/main/.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/apps/main/public ./apps/main/public
