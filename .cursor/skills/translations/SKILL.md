@@ -1,95 +1,35 @@
 ---
 name: translations
-description: "Guidelines for managing translations in the monorepo, including file structure, key naming, Zod error handling, and synchronization across locales."
+description: "Codehouse translations with next-intl: reading and editing messages via script, key naming, locale sync, Zod messages, and i18n navigation imports."
 ---
 
-# Translation Management Guidelines
+# Translations (`apps/codehouse`)
 
-This skill outlines the recommended practices for managing translations across the monorepo, ensuring consistency, maintainability, and proper integration with `next-intl` and Zod validation.
+Messages: `apps/codehouse/messages/{en,nl}.json`. Locales: `src/i18n/config.ts` (the root `i18n.config.ts` is unused).
 
-## 1. Translation File Structure
+## Use the script, not the files
 
-Each application in `@apps` must maintain its translations in a `messages` folder at its root.
+The message files are ~45 KB each. Do not read them whole or page through them. Use [`scripts/i18n.mjs`](scripts/i18n.mjs) from the repo root (`node .cursor/skills/translations/scripts/i18n.mjs …`):
 
--   **Main translations:** `messages/{locale}.json` (This file will now also contain Zod validation translations under a top-level `zod` key).
+- `keys` — namespaces with key counts
+- `get <Namespace[.key]>` — en + nl side by side
+- `find <text>` — locate a key by key name or copy
+- `set <Namespace.key> --en "…" --nl "…"` — write both locales at once
+- `rm <path>` / `missing` — remove a key, or check the locales are in sync
 
-**Example:**
--   `apps/codehouse/messages/en.json`
--   `apps/codehouse/messages/nl.json`
+## Keys
 
-## 2. Translation Key Pattern
+- First level: component name in `PascalCase` (`FreelanceHero`, `Footer`), or a shared namespace (`common`, `form`, `formMessages`, `zod`).
+- Second level: descriptive names; nest deeper with `_` (`section_items_item_1_label`). Never use the copy itself as a key.
+- Every key exists in **all** locales. Add, change and remove in both (`set` / `rm` do this). Use `TODO: <key>` only when a translation is truly unknown.
 
-Translations are organized in a two-level structure:
+## Using messages
 
--   **First Level:** Component name in `PascalCase` (e.g., `BespokeHeroSection`), or `zod` for shared Zod errors.
--   **Second Level (Nested):** Descriptive names (e.g., `title`, `description`). For deeper nesting, use `_` as a separator (e.g., `SubComponentName_key`).
+- Client/shared components: `const t = useTranslations('Namespace')`, then `t('key')`.
+- Server components and metadata: `await getTranslations('Namespace')` from `next-intl/server`.
+- Zod: build the schema inside the component and pass messages from the `zod` namespace, e.g. `tZod('errors.required', { name: tForm('contact') })` (see `consumer/(sections)/ask-for-a-quote.tsx`). There is no global error map.
+- Types come from `global.d.ts` (`AppConfig.Messages = typeof en`), so a missing `en` key is a type error.
 
-**Do not use actual translation text as a key.**
+## Navigation
 
-**Example JSON Structure (including Zod errors):**
-
-```json
-{
-  "ComponentName": {
-    "title": "This is the title.",
-    "section_subtitle": "A subtitle here.",
-    "section_items_item_1_label": "Item 1 label."
-  },
-  "Footer": {
-    "Address_kvk": "KvK number",
-    "Copyright_message": "© Sander's CodeHouse {date} All rights reserved."
-  },
-  "zod": {
-    "errors": {
-      "string_min": "Must be at least {min} characters long",
-      "string_max": "Must be at most {max} characters long",
-      "string_email": "Invalid email address",
-      "string_required": "This field is required",
-      "number_min": "Must be at least {min}",
-      "number_max": "Must be at most {max}",
-      "invalid_type": "Invalid type for field"
-    }
-  }
-}
-```
-
-## 3. Zod Error Translations
-
-Zod error messages are handled via a custom error map and are stored directly within the main `messages/{locale}.json` files under a top-level `zod` key.
-
--   **Error Map:** Implement a custom error map (e.g., in a utility file like `apps/codehouse/utils/zod-error-map.ts`) that uses `next-intl` to retrieve localized messages from the `zod` namespace. This function should handle `ZodIssueCode` cases and retrieve corresponding messages (e.g., `t('zod.errors.string_min')`).
--   **Direct Messages (Optional):** For highly specific error messages tied to a particular component, you can embed them directly in the Zod schema using `message: t('your_key')` from that component's specific namespace.
-
-## 4. Synchronization Rules
-
--   **Adding:** Add translation keys to ALL locale files (e.g., `en.json` and `nl.json`), including new Zod error keys. Use "TODO: [key]" as a placeholder if the translation is not yet available.
--   **Modifying:** Update the key in ALL locale files, maintaining consistent formatting and meaning.
--   **Removing:** Remove the key from ALL locale files.
-
-## 5. Navigation Functions
-
-When using navigation functions (`Link`, `redirect`, `usePathname`, `useRouter`, `getPathname`, or `permanentRedirect`), always use the custom implementation from your app's i18n navigation module instead of importing directly from `next-intl/navigation`.
-
-These custom functions are lightweight wrappers around Next.js' navigation APIs that properly consider the routing configuration.
-
-**Import Pattern:**
-```typescript
-// ❌ Don't import from next-intl/navigation
-import { Link } from 'next-intl/navigation';
-
-// ✅ Import from your app's i18n navigation
-import { Link } from '@/i18n/navigation';
-```
-
-**Location:** These functions are typically defined in `apps/{app-name}/src/i18n/navigation.ts`.
-
-## 6. Usage and Best Practices
-
--   **`useTranslations` Hook:** Use `useTranslations` from `next-intl` in components, providing the component name as the namespace (e.g., `useTranslations('ComponentName')`) or `zod` for Zod errors.
--   **Reference:** Access translations using dot notation (e.g., `t('ComponentName.title')` or `t('zod.errors.string_min')`).
--   **TypeScript:** Use TypeScript for type safety by defining message types in `global.d.ts` with the `IntlMessages` interface.
--   **Configuration:**
-    -   Define supported locales in `i18n.config.ts`.
-    -   Use `getRequestConfig` for loading messages, ensuring both main and Zod messages are loaded (e.g., in a `request.ts` file within your app's i18n configuration).
-
-By adhering to these guidelines, you will ensure a consistent, maintainable, and internationalized application experience.
+Import `Link`, `redirect`, `usePathname`, `useRouter`, `getPathname` from `@/i18n/navigation`, never from `next-intl/navigation` or `next/link` — the wrappers apply the locale routing.

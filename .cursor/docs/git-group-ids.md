@@ -1,6 +1,6 @@
-# Git group IDs
+# Git group IDs (legacy)
 
-Subject prefix. Lookup: `git log --grep='^MAILSC'`
+Uppercase subject prefixes used before lowercase topics replaced them (see the git-commit skill). Kept for lookup only — don't add rows. Lookup: `git log --grep='^MAILSC'`
 
 | ID | Kind | What |
 | --- | --- | --- |

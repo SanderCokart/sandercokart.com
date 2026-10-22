@@ -10,6 +10,12 @@
  * Requires DOKPLOY_URL and DOKPLOY_API_KEY. Optional: BAO_ADDR + bao login
  * to resolve ${{vault.…}} refs; otherwise those keys are skipped.
  * --debug logs steps to stderr; never prints secret values.
+ *
+ * Symlinked as .cursor/skills/dokploy/scripts/dokploy-env.mjs so the dokploy
+ * skill ships it. On Windows (outside WSL), git checks symlinks out as plain
+ * text files unless `git config core.symlinks true` is set (needs Developer
+ * Mode or admin). If the skill's copy is a one-line path instead of code, tell
+ * the developer to enable core.symlinks and re-checkout, or run this file directly.
  */
 import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";

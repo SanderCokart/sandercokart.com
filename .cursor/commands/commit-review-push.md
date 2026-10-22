@@ -11,7 +11,7 @@ Run `git status` and `git diff` to see all changes.
 
 Split changes into logical commits (one per intent). Order: refactor first, then features/fixes, then docs/chore. Use the grouped commit format for each message (see reference below).
 
-- Reuse a group ID from [`.cursor/docs/git-group-ids.md`](../docs/git-group-ids.md) if this continues that workstream; otherwise mint 2–8 A–Z and add a row.
+- Give every commit of one workstream the same lowercase kebab topic (reuse one from `git log --format=%s -30` when continuing).
 - Group by intent; prefer smaller, focused commits when changes are unrelated.
 - If everything is one logical change, use one commit.
 
@@ -24,8 +24,8 @@ Output a **nicely formatted summary** so the user can review the commits before 
 
 Example format:
 
-- **RTENV | feat(runtime-env): inject public env via a blocking head script.** - `env-script.tsx`
-- **NLOGO | fix(ui): keep the named logo square in the header.** - `named-logo.tsx`
+- **runtime-env | feat(runtime-env): inject public env via a blocking head script.** - `env-script.tsx`
+- **named-logo | fix(ui): keep the named logo square in the header.** - `named-logo.tsx`
 
 Keep this short and scannable. No code block in this step.
 
@@ -40,8 +40,8 @@ Keep this short and scannable. No code block in this step.
 Example shape (replace with real paths and messages):
 
 ```bash
-git add path/to/file1 path/to/file2 && git commit -m "RTENV | feat(runtime-env): add thing." && \
-git add path/to/file3 && git commit -m "RTENV | docs(runtime-env): document the other." && \
+git add path/to/file1 path/to/file2 && git commit -m "runtime-env | feat(runtime-env): add thing." && \
+git add path/to/file3 && git commit -m "runtime-env | docs(runtime-env): document the other." && \
 git push
 ```
 
@@ -65,26 +65,4 @@ Immediately after the code block, ask exactly:
 
 ## Commit message format (reference)
 
-Full rules: [`.cursor/skills/git-commit/SKILL.md`](../skills/git-commit/SKILL.md). Group IDs: [`.cursor/docs/git-group-ids.md`](../docs/git-group-ids.md).
-
-```
-GROUPID | type(scope): description.
-```
-
-Optional `! | ` first if breaking; optional `#123 | ` after the group ID. Reuse an existing group ID or mint 2–8 A–Z and add a row to the index.
-
-**Types (lowercase):** feat, fix, docs, format, refactor, perf, test, docker, ci, chore, revert.
-
-**Body:** `Files edited:` / `Files added:` / `Files removed:` / `Files moved:` with `- path: reason.`
-
-Example:
-
-```
-MAILSC | feat(mail): queue contact mail through a React Email HTTP renderer sidecar.
-
-Files edited:
-- apps/api/app/Mail/ContactFormMail.php: queue and render via MailRenderer instead of Blade.
-
-Files added:
-- apps/mail-renderer/src/server.ts: POST /render that calls @repo/mail renderTemplate.
-```
+`<topic> | type(scope): description.` — full rules in [`.cursor/skills/git-commit/SKILL.md`](../skills/git-commit/SKILL.md). The `commit-msg` hook validates it.

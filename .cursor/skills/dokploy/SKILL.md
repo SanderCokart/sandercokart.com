@@ -1,76 +1,57 @@
 ---
 name: dokploy
 description: >-
-  Operates Dokploy for this monorepo (compose, applications, domains, env).
-  Use when deploying on Dokploy, editing service environment variables, or
-  wiring OpenBao into `${{vault.}}` references. Does not cover OpenBao KV CLI
-  — that is the secrets skill.
+  Operates Dokploy for this monorepo: deploy status, deploy logs, deploys,
+  service env and `${{vault.}}` references. Use when deploying, debugging a
+  failed build, or syncing env files. OpenBao KV CLI is the secrets skill.
 ---
 
 # Dokploy
 
-This skill owns Dokploy: services, domains, env files, and **consuming** vault references at deploy time.
+Run the scripts in [`scripts/`](scripts/) from the repo root. They need `DOKPLOY_URL` and `DOKPLOY_API_KEY` (exported in `~/.bashrc`) and resolve app IDs themselves.
 
-To create, edit, read, or delete values **inside** OpenBao, read [secrets](../secrets/SKILL.md) **once**, then stop. Do not follow that skill's handoff back here.
+## Scripts first
 
-## How to operate
-
-Prefer the `user-dokploy-mcp` tools over SSH. Discover a tool's schema before calling it. Vault CLI also runs locally against HTTPS (see secrets skill), not over SSH.
-
-Typical tools: `project-search`, `environment-one`, `compose-one`, `compose-saveEnvironment`, `compose-deploy`, `application-saveEnvironment`, `domain-byComposeId`.
-
-OpenBao for this server is the compose stack `openbao` in project **storage** / **production**, URL `https://secrets.sandercokart.com`. Isolated deployment is on — Dokploy must use that **HTTPS hostname**, not `http://openbao:8200`.
-
-## Secrets provider (one-time)
-
-Dokploy does not store secret values. Settings → **Secrets** → Add Provider → **HashiCorp Vault / OpenBao**:
-
-| Field | Value |
+| Task | Command |
 | --- | --- |
-| Name | identifier used in env: `secrets` (letters, numbers, dashes, underscores) |
-| Vault URL | `https://secrets.sandercokart.com` |
-| Token | a **read/list** token from OpenBao (not root). Token minting is CLI — see secrets skill once if you must create one |
-| KV Mount | `secret` |
-| Namespace | empty |
+| Status of every app + last deploy | `node .cursor/skills/dokploy/scripts/dokploy.mjs status [production\|staging]` |
+| Why did a deploy fail | `node .cursor/skills/dokploy/scripts/dokploy.mjs logs <app> [env] --errors` |
+| Last lines of a deploy log | `node .cursor/skills/dokploy/scripts/dokploy.mjs logs <app> [env] --tail 80` |
+| Deploy and wait for the result | `node .cursor/skills/dokploy/scripts/dokploy.mjs deploy <app> [env] --wait` |
+| Compare / pull env into `.envx.<env>` | `pnpm env:staging:check` / `pnpm env:staging:pull` ([`scripts/dokploy-env.mjs`](scripts/dokploy-env.mjs), symlink to the root `scripts/` copy) |
 
-Test connection, then assign projects/environments. A provider with no assignments is usable nowhere.
+`scripts/dokploy-env.mjs` here is a symlink. On native Windows without `git config core.symlinks true` it checks out as a one-line text path — if so, tell the developer to enable `core.symlinks` (Developer Mode or admin) and re-checkout, and run the root `scripts/dokploy-env.mjs` meanwhile.
 
-Do not paste tokens into this skill, the repo, or chat summaries.
+`<app>`: `main`, `codehouse`, `api`, `api-queue`, `mail-renderer`. `env` defaults to `production`.
 
-## Env syntax
+Rules:
 
-Vault refs resolve **before** `${{project.X}}` and `${{environment.X}}`. They work on service env, project/environment shared vars, build args, and build secrets.
+- Deploy one app at a time — the host has 8 GB and parallel builds get OOM-killed.
+- Deploying is outward-facing: confirm with the user first, and never deploy production from `development`.
+- Do not `sleep`-poll; `deploy --wait` blocks until done and prints only the errors on failure.
 
-```bash
-# KV v2: path inside mount `secret`, then field name
-DB_PASSWORD=${{vault.secrets.sandercokart/myapp:DB_PASSWORD}}
-API_KEY=${{vault.secrets.sandercokart/myapp:API_KEY}}
-```
+## MCP and SSH
 
-Shape: `${{vault.<provider-name>.<path>:<field>}}`
+Use `user-dokploy-mcp` only for what the scripts don't cover: saving env (`application-saveEnvironment` / `compose-saveEnvironment`, dotenv **string**), domains, compose services. Fetch a tool's schema once per session. Don't call `application-one` for status — its payload is large; use `status`.
 
-- `<provider-name>` — Name from Settings → Secrets (not the hostname)
-- `<path>` — KV path with no `secret/` prefix (`sandercokart/myapp`)
-- `<field>` — key inside that secret's map
+SSH to the VPS is a last resort (host-level issues, mail server). OpenBao CLI runs locally over HTTPS, not over SSH.
 
-Type `${{` in the Dokploy env editor for autocomplete.
+## Vault references
 
-Save via MCP as a dotenv **string** (`compose-saveEnvironment.env` or `application-saveEnvironment.env`). After rotation in OpenBao, **redeploy** — running containers keep old env until then. A missing path/field fails the deploy instead of injecting empty.
+Shape: `${{vault.<provider>.<path>:<field>}}`, e.g. `DB_PASSWORD=${{vault.secrets.sandercokart/myapp:DB_PASSWORD}}`.
 
-Compose example:
+- `<provider>` is the name in Settings → Secrets (`secrets`), not the hostname. `<path>` has no `secret/` prefix.
+- Vault refs resolve before `${{project.X}}` / `${{environment.X}}` and work in env, shared vars, build args and build secrets.
+- A missing path or field fails the deploy. After rotating a value, redeploy — running containers keep old env.
+- Never put a raw secret in Dokploy env when a vault ref exists; never paste tokens into the repo or chat.
 
-```
-DB_PASSWORD=${{vault.secrets.sandercokart/myapp:DB_PASSWORD}}
-```
+Provider (one-time, already set up): HashiCorp Vault / OpenBao, URL `https://secrets.sandercokart.com` (not `http://openbao:8200` — isolated deployment is on), KV mount `secret`, read/list token, then assign it to projects/environments.
 
-Do not put raw secret values in Dokploy env when a vault ref exists.
-
-## Handoff (no recursion)
+## Handoff
 
 | Need | Where |
 | --- | --- |
-| Dokploy env, provider, `${{vault.…}}`, deploy | This skill |
-| OpenBao `kv put` / `patch` / `get` / `delete` | [secrets](../secrets/SKILL.md) once, then stop |
+| OpenBao `kv put` / `patch` / `get` / `delete`, minting tokens | [secrets](../secrets/SKILL.md) once, then stop |
 | Secret leak / rotation runbook | [secrets rotation](../secrets/references/rotation.md) |
 
 Docs: [Secrets providers](https://docs.dokploy.com/docs/core/secrets-providers), [Vault / OpenBao](https://docs.dokploy.com/docs/core/secrets-providers/hashicorp).
