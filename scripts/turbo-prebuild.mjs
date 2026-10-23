@@ -12,6 +12,8 @@
  * the build are the build secrets (SENTRY_AUTH_TOKEN, TURBO_TOKEN, TURBO_TEAM)
  * and the Dockerfile's NEXT_OUTPUT=standalone. Every other variable is left
  * out here too, because Turbo hashes the env and any extra value is a miss.
+ * SENTRY_AUTH_TOKEN is passThroughEnv (not hashed), so a staging build on
+ * development has the same hash as the production build of the same tree.
  *
  * Secret values come from apps/<app>/.envx.<env> (decrypt needs
  * DOTENV_PRIVATE_KEY_<ENV> or .env.keys). Refresh them with

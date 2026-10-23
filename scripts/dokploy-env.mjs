@@ -213,7 +213,8 @@ function groupKeys(keys) {
 
 // `missing` keys (vault refs that could not be resolved) are written as
 // comments in their group so the gap is visible in the file itself.
-function serializeDotenv(map, publicKeyLine, missing = [], environment = "staging") {
+// `kept` maps keys to existing `KEY=encrypted:…` lines written back verbatim.
+function serializeDotenv(map, publicKeyLine, missing = [], environment = "staging", kept = new Map()) {
   const lines = [];
   if (publicKeyLine) {
     lines.push(publicKeyLine, "");
@@ -228,7 +229,7 @@ function serializeDotenv(map, publicKeyLine, missing = [], environment = "stagin
       lines.push(
         skipped.has(key)
           ? `# ${key}= # MISSING, please log in with bao and run env:${environment}:pull again`
-          : `${key}=${quote(map.get(key))}`,
+          : kept.get(key) ?? `${key}=${quote(map.get(key))}`,
       );
     }
   }
@@ -426,6 +427,36 @@ function decryptLocal(filePath, environment) {
       `Could not decrypt ${path.relative(ROOT, filePath)}. Set ${keyName} or provide ${path.relative(ROOT, KEYS_FILE)}.\n${error.message}`,
     );
   }
+}
+
+// ECIES encryption is randomized, so re-encrypting an unchanged value yields new
+// ciphertext. Pull writes these raw lines back for keys whose value is the same.
+function readEncryptedLines(filePath) {
+  const lines = new Map();
+  if (!existsSync(filePath)) {
+    return lines;
+  }
+  for (const rawLine of readFileSync(filePath, "utf8").split(/\r?\n/)) {
+    const line = rawLine.trim();
+    const eq = line.indexOf("=");
+    if (!line || line.startsWith("#") || eq === -1) {
+      continue;
+    }
+    const key = line.slice(0, eq).trim();
+    if (!PUBLIC_KEY_RE.test(key)) {
+      lines.set(key, line);
+    }
+  }
+  return lines;
+}
+
+function readMissingKeys(filePath) {
+  if (!existsSync(filePath)) {
+    return [];
+  }
+  return [...readFileSync(filePath, "utf8").matchAll(/^# ([A-Za-z0-9_]+)= # MISSING/gm)].map(
+    (match) => match[1],
+  );
 }
 
 function readPublicKeyLine(filePath) {
@@ -628,14 +659,24 @@ async function main() {
     debugLog(
       `local ${local ? `${local.size} keys` : "none"} remote ${remote.size} keys`,
     );
+    // An unreachable vault keeps the last pulled value instead of dropping it.
+    const kept = unresolvedVault.filter((key) => local?.has(key));
+    const missing = unresolvedVault.filter((key) => !local?.has(key));
+    for (const key of kept) {
+      remote.set(key, local.get(key));
+    }
     const diff = diffMaps(local, remote);
 
     if (unresolvedVault.length > 0) {
       const hint = process.env.BAO_TOKEN
         ? "BAO_TOKEN is set and overrides your login token; unset or update it (check ~/.bashrc), then re-run."
         : "Log in and re-run: .cursor/skills/secrets/scripts/bao.sh login -method=userpass";
+      const parts = [
+        kept.length ? `kept last pulled value of vault keys ${kept.join(", ")}` : null,
+        missing.length ? `skipped vault keys ${missing.join(", ")}` : null,
+      ].filter(Boolean);
       warn(
-        `warning: ${relPath}: skipped vault keys ${unresolvedVault.join(", ")}.${state.vaultError ? ` bao: ${state.vaultError}.` : ""} ${hint}`,
+        `warning: ${relPath}: ${parts.join("; ")}.${state.vaultError ? ` bao: ${state.vaultError}.` : ""} ${hint}`,
       );
     }
 
@@ -653,7 +694,23 @@ async function main() {
       continue;
     }
 
-    writeFileSync(filePath, serializeDotenv(remote, null, unresolvedVault, environment));
+    const changed = new Set([...diff.added, ...diff.changed]);
+    const previouslyMissing = readMissingKeys(filePath);
+    if (
+      local &&
+      changed.size === 0 &&
+      diff.removed.length === 0 &&
+      missing.length === previouslyMissing.length &&
+      missing.every((key) => previouslyMissing.includes(key))
+    ) {
+      console.log(`unchanged ${relPath}`);
+      continue;
+    }
+
+    const encryptedLines = new Map(
+      [...readEncryptedLines(filePath)].filter(([key]) => remote.has(key) && !changed.has(key)),
+    );
+    writeFileSync(filePath, serializeDotenv(remote, null, missing, environment, encryptedLines));
     encryptFile(filePath, environment, publicKeyLine);
     publicKeyLine = readPublicKeyLine(filePath) ?? publicKeyLine;
     console.log(`updated ${relPath}`);
