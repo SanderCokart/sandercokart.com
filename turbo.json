@@ -10,7 +10,6 @@
         "NEXT_PUBLIC_*",
         "VITE_*",
         "DOTENV_PRIVATE_KEY_PRODUCTION",
-        "SENTRY_AUTH_TOKEN",
         "APP_ENV",
         "APP_URL",
         "SITE_URL",
@@ -18,6 +17,7 @@
         "MAIL_*",
         "REDIS_*"
       ],
+      "passThroughEnv": ["SENTRY_AUTH_TOKEN"],
       "inputs": ["$TURBO_DEFAULT$", "!*.env*", "!**/*.env*"],
       "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**", "dist/**"]
     },
