@@ -5,7 +5,7 @@ export const openSourceProjects = [
     id: 'zen-tab-search',
     hasReleases: true,
     owner: GITHUB_OWNER,
-    repo: 'Zen-Tab-Search-Anytime-and-Anywhere',
+    repo: 'Zen-Deck',
     defaultBranch: 'main',
     changelogPath: null,
   },
