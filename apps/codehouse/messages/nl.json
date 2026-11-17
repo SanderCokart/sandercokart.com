@@ -556,7 +556,7 @@
     "download_branch": "Laatste ({branch})",
     "download_prerelease": "Pre-release",
     "projects_zen-tab-search_intro": "Zen Browser-extensie · TypeScript",
-    "projects_zen-tab-search_title": "Zen Tab Search",
+    "projects_zen-tab-search_title": "Zen Deck",
     "projects_zen-tab-search_description": "Zoek fuzzy in tabs, spaces en custom labels in Zen Browser. Zet tab-timers, label GitHub- en GitLab-issues automatisch en wissel zonder het toetsenbord te verlaten. Verspreid als GitHub-release-zip omdat Zen's privileged API's niet op AMO mogen.",
     "projects_cloudreve-mcp_intro": "MCP-server · TypeScript",
     "projects_cloudreve-mcp_title": "Cloudreve MCP",
